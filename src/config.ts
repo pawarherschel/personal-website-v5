@@ -3,12 +3,12 @@ import type {
   NavBarConfig,
   ProfileConfig,
   SiteConfig,
-} from './types/config';
-import { LinkPreset } from './types/config';
+} from './types/config'
+import { LinkPreset } from './types/config'
 
 export const siteConfig: SiteConfig = {
   title: 'Sakura Kat Systems',
-  subtitle: "Herschel Pravin Pawar's Personal Site",
+  subtitle: 'Herschel Pravin Pawar\'s Personal Site',
   lang: 'en',         // 'en', 'zh_CN', 'zh_TW', 'ja', 'ko'
   themeColor: {
     hue: 330,         // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
@@ -48,10 +48,10 @@ export const navBarConfig: NavBarConfig = {
       external: true,
     },
   ],
-};
+}
 
 export const profileConfig: ProfileConfig = {
-  avatar: 'https://r2.sakurakat.systems/profile-picture.png',
+  avatar: 'https://r2.sakurakat.systems/profile-picture.png',  // Relative to the /src directory. Relative to the /public directory if it starts with '/'
   name: 'Herschel Pravin Pawar',
   bio: 'Enthusiastic learner, curious about everything. Looking forward to work on projects that make a difference.',
   links: [
@@ -59,11 +59,6 @@ export const profileConfig: ProfileConfig = {
       name: 'Email',
       icon: 'fa6-solid:envelope',
       url: 'mailto:pawarherschel@sakurakat.systems',
-    },
-    {
-      name: 'Phone',
-      icon: 'fa6-solid:phone',
-      url: 'tel:+918310783472',
     },
     {
       name: 'LinkedIn',
@@ -81,7 +76,7 @@ export const profileConfig: ProfileConfig = {
       url: 'https://orcid.org/0009-0003-3218-801X',
     },
   ],
-};
+}
 
 export const licenseConfig: LicenseConfig = {
   enable: true,

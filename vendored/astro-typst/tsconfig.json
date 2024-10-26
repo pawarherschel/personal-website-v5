@@ -1,0 +1,12 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": ["src/**/*.ts", "globals.d.ts"],
+  "compilerOptions": {
+    "lib": ["ES2024"],
+    "allowImportingTsExtensions": false,
+    "noEmit": false,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+  },
+}

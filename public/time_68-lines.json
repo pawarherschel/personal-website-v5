@@ -1,0 +1,68 @@
+{
+   "time": {
+      "duration_since": {
+         "instant": {
+            "sample_count": 100,
+            "iter_count": 409600,
+            "time": {
+               "fastest": "3.943 ns",
+               "slowest": "12.29 ns",
+               "median": "4.016 ns",
+               "mean": "5.152 ns"
+            }
+         },
+         "system_time": {
+            "sample_count": 100,
+            "iter_count": 204800,
+            "time": {
+               "fastest": "5.286 ns",
+               "slowest": "17.15 ns",
+               "median": "5.335 ns",
+               "mean": "5.755 ns"
+            }
+         },
+         "tsc (x86)": {
+            "sample_count": 100,
+            "iter_count": 819200,
+            "time": {
+               "fastest": "0.098 ns",
+               "slowest": "3.418 ns",
+               "median": "0.147 ns",
+               "mean": "0.201 ns"
+            }
+         }
+      },
+      "now": {
+         "instant": {
+            "sample_count": 100,
+            "iter_count": 51200,
+            "time": {
+               "fastest": "26.86 ns",
+               "slowest": "270.2 ns",
+               "median": "27.06 ns",
+               "mean": "30.87 ns"
+            }
+         },
+         "system_time": {
+            "sample_count": 100,
+            "iter_count": 51200,
+            "time": {
+               "fastest": "21.98 ns",
+               "slowest": "61.63 ns",
+               "median": "23.15 ns",
+               "mean": "24.09 ns"
+            }
+         },
+         "tsc (x86)": {
+            "sample_count": 100,
+            "iter_count": 204800,
+            "time": {
+               "fastest": "7.727 ns",
+               "slowest": "36.63 ns",
+               "median": "7.776 ns",
+               "mean": "8.39 ns"
+            }
+         }
+      }
+   }
+}

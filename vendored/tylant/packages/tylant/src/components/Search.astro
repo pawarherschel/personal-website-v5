@@ -1,0 +1,241 @@
+---
+const translateEn = {
+  searchLabel: "Search:&nbsp;",
+  search: "Search",
+  keywords: "Keywords...",
+  sortBy: "Sort by",
+  date: "Date",
+  dateAsc: "Date Asc",
+  modifiedDate: "Modified Date",
+  modifiedDateAsc: "Modified Date Asc",
+  title: "Title",
+  tags: "Tags",
+
+  searchByKeywords: "Search by keywords",
+  sortByDate: "Sort by date in descending order",
+  sortByDateAsc: "Sort by date in ascending order",
+  sortByModifiedDate: "Sort by modified date in descending order",
+  sortByModifiedDateAsc: "Sort by modified date in ascending order",
+  sortByTitle: "Sort by title",
+  sortByTags: "Sort by tags",
+} as const;
+
+const translates: Record<string, Record<keyof typeof translateEn, string>> = {
+  zh: {
+    searchLabel: "搜索：",
+    search: "搜索",
+    keywords: "关键词...",
+    sortBy: "排序方式",
+    date: "日期",
+    dateAsc: "日期升序",
+    modifiedDate: "修改日期",
+    modifiedDateAsc: "修改日期升序",
+    title: "标题",
+    tags: "标签",
+
+    searchByKeywords: "按关键词搜索",
+    sortByDate: "按日期降序排序",
+    sortByDateAsc: "按日期升序排序",
+    sortByModifiedDate: "按修改日期降序排序",
+    sortByModifiedDateAsc: "按修改日期升序排序",
+    sortByTitle: "按标题排序",
+    sortByTags: "按标签排序",
+  },
+  en: translateEn,
+};
+const locale = Astro.currentLocale || "en";
+const t = (key: keyof typeof translateEn) => {
+  return translates[locale][key] || translates.en[key];
+};
+---
+
+<style>
+  .search {
+    margin-top: 3em;
+    display: none;
+  }
+  .search.enabled {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .search-box {
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--main-color);
+    border-radius: 4px;
+    color: var(--main-color);
+    padding: 0.3em 0.3em;
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-right: 0.3em;
+  }
+</style>
+
+<div aria-label={t("search")} role="search">
+  <div class="search enabled">
+    <div set:html={t("searchLabel")} />
+    <input
+      id="search-text"
+      type="text"
+      placeholder={t("keywords")}
+      class="search-box"
+      title={t("searchByKeywords")}
+      role="searchbox"
+    />
+    <select id="search-sort" class="search-box" title={t("sortBy")}>
+      <option value="date" title={t("sortByDate")}>{t("date")}</option>
+      <option value="date-asc" title={t("sortByDateAsc")}>{t("dateAsc")}</option
+      >
+      <option value="modified-date" title={t("sortByModifiedDate")}
+        >{t("modifiedDate")}</option
+      >
+      <option value="modified-date-asc" title={t("sortByModifiedDateAsc")}
+        >{t("modifiedDateAsc")}</option
+      >
+      <option value="title" title={t("sortByTitle")}>{t("title")}</option>
+      <option value="tag" title={t("sortByTags")}>{t("tags")}</option>
+    </select>
+  </div>
+  <script>
+    import type { CollectionEntry } from "astro:content";
+    type BlogMeta = CollectionEntry<"blog">["data"];
+
+    const searchText = document.querySelector<HTMLInputElement>("#search-text");
+    const searchSort =
+      document.querySelector<HTMLSelectElement>("#search-sort");
+
+    interface SearchItem {
+      element: HTMLLIElement;
+      id: string | null;
+      data: BlogMeta;
+    }
+    let _searchItems: SearchItem[] = undefined!;
+    let searchItems = () => {
+      if (_searchItems === undefined) {
+        _searchItems = Array.from(
+          document.querySelectorAll<HTMLLIElement>(".posts > li")
+        ).map((li) => {
+          const articleId = li.dataset.articleId;
+          const articleMeta = JSON.parse(li.dataset.articleMeta || "{}");
+          if (articleMeta?.date) {
+            articleMeta.date = new Date(articleMeta.date);
+          }
+          if (articleMeta?.modifiedDate) {
+            articleMeta.modifiedDate = new Date(articleMeta.modifiedDate);
+          }
+          return {
+            id: articleId!,
+            data: articleMeta,
+            element: li,
+          };
+        });
+      }
+      return _searchItems;
+    };
+
+    function runSearch(posts: SearchItem[], search?: string, sort?: string) {
+      if (!search) search = undefined;
+      if (!sort) sort = "date";
+      // update the params
+      const params = new URLSearchParams(window.location.search);
+      if (search) {
+        params.set("search", search);
+        const usingSearch = search.toLowerCase();
+        posts = posts.filter((post) => {
+          const { title, description, tags } = post.data;
+          const text = `${title} ${description} ${tags?.join(" ") || ""}`;
+          return text.toLowerCase().includes(usingSearch);
+        });
+      } else {
+        params.delete("search");
+      }
+
+      posts = posts.sort(
+        (() => {
+          switch (sort) {
+            case "date":
+              return (a: SearchItem, b: SearchItem) =>
+                b.data.date.valueOf() - a.data.date.valueOf();
+            case "date-asc":
+              return (a: SearchItem, b: SearchItem) =>
+                a.data.date.valueOf() - b.data.date.valueOf();
+            case "modified-date":
+              return (a: SearchItem, b: SearchItem) =>
+                (b.data.modifiedDate?.valueOf() || 0) -
+                (a.data.modifiedDate?.valueOf() || 0);
+            case "modified-date-asc":
+              return (a: SearchItem, b: SearchItem) =>
+                (a.data.modifiedDate?.valueOf() || 0) -
+                (b.data.modifiedDate?.valueOf() || 0);
+            case "title":
+              return (a: SearchItem, b: SearchItem) =>
+                a.data.title.localeCompare(b.data.title);
+            case "tag":
+              return (a: SearchItem, b: SearchItem) => {
+                const aTags = a.data.tags || [];
+                const bTags = b.data.tags || [];
+                if (aTags.length !== bTags.length) {
+                  return aTags.length - bTags.length;
+                }
+                for (let i = 0; i < aTags.length; i++) {
+                  const aTag = aTags[i];
+                  const bTag = bTags[i];
+                  if (aTag !== bTag) {
+                    return aTag.localeCompare(bTag);
+                  }
+                }
+                return 0;
+              };
+            default:
+              throw new Error(`Unknown sort type: ${sort}`);
+          }
+        })()
+      );
+      if (sort !== "date") {
+        params.set("sort", sort);
+      } else {
+        params.delete("sort");
+      }
+
+      const parent = document.querySelector<HTMLUListElement>(".posts");
+      const existingKeys = parent?.children
+        ? Array.from(parent.children).map(
+            (li) => (li as HTMLLIElement).dataset.articleId
+          )
+        : [];
+
+      if (existingKeys.toString() !== posts.map((post) => post.id).toString()) {
+        parent?.replaceChildren(...posts.map((post) => post.element));
+      }
+
+      parent?.classList.remove("loading");
+
+      let state = window.location.pathname;
+      let paramsStr = params.toString();
+      if (paramsStr) {
+        state += "?" + paramsStr;
+      }
+      window.history.pushState({}, "", state);
+    }
+
+    searchText?.addEventListener("input", () => {
+      runSearch(searchItems(), searchText.value, searchSort?.value);
+    });
+
+    searchSort?.addEventListener("change", () => {
+      runSearch(searchItems(), searchText?.value, searchSort.value);
+    });
+
+    // get params
+    const params = new URLSearchParams(window.location.search);
+    const search = params.get("search") || undefined;
+    const sort = params.get("sort") || undefined;
+    if (searchText && search) {
+      searchText.value = search;
+    }
+    if (searchSort && sort) {
+      searchSort.value = sort;
+    }
+    runSearch(searchItems(), search, sort);
+  </script>
+</div>

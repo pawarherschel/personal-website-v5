@@ -1,0 +1,362 @@
+{
+   "atomic": {
+      "basic": {
+         "load": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "0.84 ns",
+                  "slowest": "2.684 ns",
+                  "median": "0.84 ns",
+                  "mean": "0.916 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 917504,
+               "time": {
+                  "fastest": "0.84 ns",
+                  "slowest": "2.525 ns",
+                  "median": "1.298 ns",
+                  "mean": "1.309 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "0.84 ns",
+                  "slowest": "2.049 ns",
+                  "median": "0.853 ns",
+                  "mean": "1.034 ns"
+               }
+            }
+         },
+         "store": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "1.072 ns",
+                  "slowest": "1.084 ns",
+                  "median": "1.072 ns",
+                  "mean": "1.072 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 229376,
+               "time": {
+                  "fastest": "1.048 ns",
+                  "slowest": "39.72 ns",
+                  "median": "6.59 ns",
+                  "mean": "11.54 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "3.196 ns",
+                  "slowest": "9.251 ns",
+                  "median": "8.445 ns",
+                  "mean": "8.044 ns"
+               }
+            }
+         }
+      },
+      "compare_exchange": {
+         "fetch_div": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "3.367 ns",
+                  "slowest": "4.881 ns",
+                  "median": "3.392 ns",
+                  "mean": "3.456 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 28672,
+               "time": {
+                  "fastest": "3.245 ns",
+                  "slowest": "197.7 ns",
+                  "median": "10.27 ns",
+                  "mean": "41.99 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "51.29 ns",
+                  "slowest": "61.83 ns",
+                  "median": "59.49 ns",
+                  "mean": "58.89 ns"
+               }
+            }
+         },
+         "fetch_mod": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "3.514 ns",
+                  "slowest": "4.466 ns",
+                  "median": "3.538 ns",
+                  "mean": "3.583 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 28672,
+               "time": {
+                  "fastest": "3.636 ns",
+                  "slowest": "99.33 ns",
+                  "median": "18.67 ns",
+                  "mean": "32.8 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "49.33 ns",
+                  "slowest": "64.96 ns",
+                  "median": "61.83 ns",
+                  "mean": "61.19 ns"
+               }
+            }
+         },
+         "fetch_mul": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "2.439 ns",
+                  "slowest": "3.978 ns",
+                  "median": "2.464 ns",
+                  "mean": "2.473 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 28672,
+               "time": {
+                  "fastest": "2.464 ns",
+                  "slowest": "181.3 ns",
+                  "median": "50.9 ns",
+                  "mean": "58.8 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "32.15 ns",
+                  "slowest": "73.94 ns",
+                  "median": "69.26 ns",
+                  "mean": "66.66 ns"
+               }
+            }
+         }
+      },
+      "update": {
+         "fetch_add": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "1.402 ns",
+                  "slowest": "2 ns",
+                  "median": "1.426 ns",
+                  "mean": "1.524 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 28672,
+               "time": {
+                  "fastest": "1.292 ns",
+                  "slowest": "147.7 ns",
+                  "median": "2.073 ns",
+                  "mean": "35.57 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "1.292 ns",
+                  "slowest": "48.94 ns",
+                  "median": "37.81 ns",
+                  "mean": "33.37 ns"
+               }
+            }
+         },
+         "fetch_and": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "1.976 ns",
+                  "slowest": "2.598 ns",
+                  "median": "1.988 ns",
+                  "mean": "1.997 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 28672,
+               "time": {
+                  "fastest": "2.073 ns",
+                  "slowest": "439.9 ns",
+                  "median": "15.55 ns",
+                  "mean": "49.3 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "2.464 ns",
+                  "slowest": "241.5 ns",
+                  "median": "55.19 ns",
+                  "mean": "51.33 ns"
+               }
+            }
+         },
+         "fetch_nand": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "2.061 ns",
+                  "slowest": "2.818 ns",
+                  "median": "2.085 ns",
+                  "mean": "2.182 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 14336,
+               "time": {
+                  "fastest": "2.073 ns",
+                  "slowest": "248.1 ns",
+                  "median": "2.855 ns",
+                  "mean": "35.43 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "2.073 ns",
+                  "slowest": "96.99 ns",
+                  "median": "69.65 ns",
+                  "mean": "64.18 ns"
+               }
+            }
+         },
+         "fetch_or": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "1.939 ns",
+                  "slowest": "2.342 ns",
+                  "median": "1.951 ns",
+                  "mean": "1.962 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 28672,
+               "time": {
+                  "fastest": "2.073 ns",
+                  "slowest": "145.8 ns",
+                  "median": "13.01 ns",
+                  "mean": "43.61 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "12.23 ns",
+                  "slowest": "68.87 ns",
+                  "median": "64.96 ns",
+                  "mean": "61.4 ns"
+               }
+            }
+         },
+         "fetch_sub": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "1.451 ns",
+                  "slowest": "2.208 ns",
+                  "median": "1.475 ns",
+                  "mean": "1.534 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 14336,
+               "time": {
+                  "fastest": "1.292 ns",
+                  "slowest": "144.2 ns",
+                  "median": "3.245 ns",
+                  "mean": "50.12 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "6.761 ns",
+                  "slowest": "52.07 ns",
+                  "median": "41.72 ns",
+                  "mean": "39.65 ns"
+               }
+            }
+         },
+         "fetch_xor": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "1.927 ns",
+                  "slowest": "4.197 ns",
+                  "median": "1.951 ns",
+                  "mean": "2.132 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 28672,
+               "time": {
+                  "fastest": "2.073 ns",
+                  "slowest": "464.5 ns",
+                  "median": "81.37 ns",
+                  "mean": "87.69 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "6.761 ns",
+                  "slowest": "82.15 ns",
+                  "median": "61.64 ns",
+                  "mean": "59.9 ns"
+               }
+            }
+         }
+      }
+   }
+}

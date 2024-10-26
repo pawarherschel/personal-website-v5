@@ -1,0 +1,162 @@
+{
+   "panic": {
+      "caller_location": {
+         "sample_count": 100,
+         "iter_count": 6553600,
+         "time": {
+            "fastest": "0.001 ns",
+            "slowest": "0.224 ns",
+            "median": "0.001 ns",
+            "mean": "0.017 ns"
+         }
+      },
+      "catch_unwind": {
+         "panic": {
+            "sample_count": 100,
+            "iter_count": 100,
+            "time": {
+               "fastest": "2.899 µs",
+               "slowest": "100.4 µs",
+               "median": "2.999 µs",
+               "mean": "4.251 µs"
+            },
+            "max_alloc": {
+               "count": {
+                  "fastest": "2",
+                  "slowest": "2",
+                  "median": "2",
+                  "mean": "2"
+               },
+               "size": {
+                  "fastest": "38 B",
+                  "slowest": "38 B",
+                  "median": "38 B",
+                  "mean": "38 B"
+               }
+            },
+            "alloc": {
+               "count": {
+                  "fastest": "2",
+                  "slowest": "2",
+                  "median": "2",
+                  "mean": "2"
+               },
+               "size": {
+                  "fastest": "38 B",
+                  "slowest": "38 B",
+                  "median": "38 B",
+                  "mean": "38 B"
+               }
+            }
+         },
+         "success": {
+            "sample_count": 100,
+            "iter_count": 409600,
+            "time": {
+               "fastest": "2.171 ns",
+               "slowest": "47.11 ns",
+               "median": "2.195 ns",
+               "mean": "3.028 ns"
+            }
+         }
+      },
+      "hook": {
+         "set": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "3.123 ns",
+                  "slowest": "39.84 ns",
+                  "median": "3.514 ns",
+                  "mean": "4.615 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 14336,
+               "time": {
+                  "fastest": "3.636 ns",
+                  "slowest": "1.388 µs",
+                  "median": "779 ns",
+                  "mean": "687.7 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 3200,
+               "time": {
+                  "fastest": "2.855 ns",
+                  "slowest": "577.8 ns",
+                  "median": "240.3 ns",
+                  "mean": "250.2 ns"
+               }
+            }
+         },
+         "take": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "3.636 ns",
+                  "slowest": "5.784 ns",
+                  "median": "3.636 ns",
+                  "mean": "3.973 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 14336,
+               "time": {
+                  "fastest": "6.761 ns",
+                  "slowest": "1.321 µs",
+                  "median": "764.5 ns",
+                  "mean": "756.8 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 6400,
+               "time": {
+                  "fastest": "2.855 ns",
+                  "slowest": "421.6 ns",
+                  "median": "225.5 ns",
+                  "mean": "206.4 ns"
+               }
+            }
+         },
+         "take_and_drop": {
+            "t=1": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "4.515 ns",
+                  "slowest": "10.96 ns",
+                  "median": "4.612 ns",
+                  "mean": "5.678 ns"
+               }
+            },
+            "t=16": {
+               "sample_count": 112,
+               "iter_count": 1792,
+               "time": {
+                  "fastest": "5.98 ns",
+                  "slowest": "1.368 µs",
+                  "median": "12.23 ns",
+                  "mean": "90.07 ns"
+               }
+            },
+            "t=4": {
+               "sample_count": 100,
+               "iter_count": 6400,
+               "time": {
+                  "fastest": "5.98 ns",
+                  "slowest": "418.4 ns",
+                  "median": "288 ns",
+                  "mean": "247.7 ns"
+               }
+            }
+         }
+      }
+   }
+}

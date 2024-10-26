@@ -1,0 +1,1360 @@
+{
+   "hash": {
+      "hash": {
+         "Blake3": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "99.73 ns",
+                  "slowest": "24.89 µs",
+                  "median": "99.73 ns",
+                  "mean": "347.7 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 1600,
+               "time": {
+                  "fastest": "837.2 ns",
+                  "slowest": "1.055 µs",
+                  "median": "843.4 ns",
+                  "mean": "862.6 ns"
+               },
+               "bytes": {
+                  "fastest": "1.223 GB/s",
+                  "slowest": "969.7 MB/s",
+                  "median": "1.214 GB/s",
+                  "mean": "1.187 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "184.5 µs",
+                  "slowest": "426.1 µs",
+                  "median": "220.1 µs",
+                  "mean": "240.9 µs"
+               },
+               "bytes": {
+                  "fastest": "5.68 GB/s",
+                  "slowest": "2.46 GB/s",
+                  "median": "4.763 GB/s",
+                  "mean": "4.351 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "59.1 ns",
+                  "slowest": "68.87 ns",
+                  "median": "59.49 ns",
+                  "mean": "60.25 ns"
+               },
+               "bytes": {
+                  "fastest": "1.082 GB/s",
+                  "slowest": "929.2 MB/s",
+                  "median": "1.075 GB/s",
+                  "mean": "1.062 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "62.62 ns",
+                  "slowest": "64.96 ns",
+                  "median": "63.01 ns",
+                  "mean": "63.03 ns"
+               },
+               "bytes": {
+                  "fastest": "127.7 MB/s",
+                  "slowest": "123.1 MB/s",
+                  "median": "126.9 MB/s",
+                  "mean": "126.9 MB/s"
+               }
+            }
+         },
+         "Blake3Par": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "65.35 ns",
+                  "slowest": "120.8 ns",
+                  "median": "65.74 ns",
+                  "mean": "67.49 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 1600,
+               "time": {
+                  "fastest": "837.2 ns",
+                  "slowest": "1.718 µs",
+                  "median": "843.4 ns",
+                  "mean": "874.1 ns"
+               },
+               "bytes": {
+                  "fastest": "1.223 GB/s",
+                  "slowest": "595.8 MB/s",
+                  "median": "1.214 GB/s",
+                  "mean": "1.171 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "75.79 µs",
+                  "slowest": "797.5 µs",
+                  "median": "88.24 µs",
+                  "mean": "103 µs"
+               },
+               "bytes": {
+                  "fastest": "13.83 GB/s",
+                  "slowest": "1.314 GB/s",
+                  "median": "11.88 GB/s",
+                  "mean": "10.17 GB/s"
+               },
+               "max_alloc": {
+                  "count": {
+                     "fastest": "0",
+                     "slowest": "168",
+                     "median": "0",
+                     "mean": "1.69"
+                  },
+                  "size": {
+                     "fastest": "0 B",
+                     "slowest": "55.98 KB",
+                     "median": "0 B",
+                     "mean": "575 B"
+                  }
+               },
+               "alloc": {
+                  "count": {
+                     "fastest": "0",
+                     "slowest": "172",
+                     "median": "0",
+                     "mean": "1.73"
+                  },
+                  "size": {
+                     "fastest": "0 B",
+                     "slowest": "56.34 KB",
+                     "median": "0 B",
+                     "mean": "578.6 B"
+                  }
+               },
+               "dealloc": {
+                  "count": {
+                     "fastest": "0",
+                     "slowest": "6",
+                     "median": "0",
+                     "mean": "0.06"
+                  },
+                  "size": {
+                     "fastest": "0 B",
+                     "slowest": "1.126 KB",
+                     "median": "0 B",
+                     "mean": "11.26 B"
+                  }
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "66.91 ns",
+                  "slowest": "151.6 ns",
+                  "median": "82.93 ns",
+                  "mean": "80.54 ns"
+               },
+               "bytes": {
+                  "fastest": "956.4 MB/s",
+                  "slowest": "421.9 MB/s",
+                  "median": "771.7 MB/s",
+                  "mean": "794.5 MB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "66.13 ns",
+                  "slowest": "82.54 ns",
+                  "median": "66.52 ns",
+                  "mean": "67.52 ns"
+               },
+               "bytes": {
+                  "fastest": "120.9 MB/s",
+                  "slowest": "96.92 MB/s",
+                  "median": "120.2 MB/s",
+                  "mean": "118.4 MB/s"
+               }
+            }
+         },
+         "DefaultHasher": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "5.931 ns",
+                  "slowest": "34.44 ns",
+                  "median": "5.98 ns",
+                  "mean": "6.327 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 6400,
+               "time": {
+                  "fastest": "155.9 ns",
+                  "slowest": "746.6 ns",
+                  "median": "159.1 ns",
+                  "mean": "185.1 ns"
+               },
+               "bytes": {
+                  "fastest": "6.564 GB/s",
+                  "slowest": "1.371 GB/s",
+                  "median": "6.436 GB/s",
+                  "mean": "5.531 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "154 µs",
+                  "slowest": "315 µs",
+                  "median": "162.8 µs",
+                  "mean": "174.3 µs"
+               },
+               "bytes": {
+                  "fastest": "6.804 GB/s",
+                  "slowest": "3.327 GB/s",
+                  "median": "6.438 GB/s",
+                  "mean": "6.015 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 102400,
+               "time": {
+                  "fastest": "14.47 ns",
+                  "slowest": "23.65 ns",
+                  "median": "14.67 ns",
+                  "mean": "15.19 ns"
+               },
+               "bytes": {
+                  "fastest": "4.421 GB/s",
+                  "slowest": "2.705 GB/s",
+                  "median": "4.362 GB/s",
+                  "mean": "4.213 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "6.858 ns",
+                  "slowest": "19.65 ns",
+                  "median": "7.005 ns",
+                  "mean": "8.001 ns"
+               },
+               "bytes": {
+                  "fastest": "1.166 GB/s",
+                  "slowest": "407.1 MB/s",
+                  "median": "1.142 GB/s",
+                  "mean": "999.8 MB/s"
+               }
+            }
+         },
+         "FnvHasher": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 1638400,
+               "time": {
+                  "fastest": "0.267 ns",
+                  "slowest": "1.945 ns",
+                  "median": "0.416 ns",
+                  "mean": "0.537 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 1600,
+               "time": {
+                  "fastest": "899.7 ns",
+                  "slowest": "2.205 µs",
+                  "median": "905.9 ns",
+                  "mean": "971.2 ns"
+               },
+               "bytes": {
+                  "fastest": "1.138 GB/s",
+                  "slowest": "464.1 MB/s",
+                  "median": "1.13 GB/s",
+                  "mean": "1.054 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "932.1 µs",
+                  "slowest": "1.178 ms",
+                  "median": "964.9 µs",
+                  "mean": "988.5 µs"
+               },
+               "bytes": {
+                  "fastest": "1.124 GB/s",
+                  "slowest": "889.6 MB/s",
+                  "median": "1.086 GB/s",
+                  "mean": "1.06 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "41.52 ns",
+                  "slowest": "149.3 ns",
+                  "median": "42.3 ns",
+                  "mean": "53.78 ns"
+               },
+               "bytes": {
+                  "fastest": "1.541 GB/s",
+                  "slowest": "428.5 MB/s",
+                  "median": "1.512 GB/s",
+                  "mean": "1.189 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "2.635 ns",
+                  "slowest": "13.27 ns",
+                  "median": "2.781 ns",
+                  "mean": "3.197 ns"
+               },
+               "bytes": {
+                  "fastest": "3.036 GB/s",
+                  "slowest": "602.4 MB/s",
+                  "median": "2.876 GB/s",
+                  "mean": "2.502 GB/s"
+               }
+            }
+         },
+         "HighwayHasher": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 51200,
+               "time": {
+                  "fastest": "30 ns",
+                  "slowest": "698.3 ns",
+                  "median": "30.19 ns",
+                  "mean": "37.93 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 12800,
+               "time": {
+                  "fastest": "87.23 ns",
+                  "slowest": "513.7 ns",
+                  "median": "88.79 ns",
+                  "mean": "94.9 ns"
+               },
+               "bytes": {
+                  "fastest": "11.73 GB/s",
+                  "slowest": "1.993 GB/s",
+                  "median": "11.53 GB/s",
+                  "mean": "10.79 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "58.79 µs",
+                  "slowest": "164.6 µs",
+                  "median": "74.74 µs",
+                  "mean": "78.34 µs"
+               },
+               "bytes": {
+                  "fastest": "17.83 GB/s",
+                  "slowest": "6.366 GB/s",
+                  "median": "14.02 GB/s",
+                  "mean": "13.38 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 51200,
+               "time": {
+                  "fastest": "35.66 ns",
+                  "slowest": "80.39 ns",
+                  "median": "35.86 ns",
+                  "mean": "37.26 ns"
+               },
+               "bytes": {
+                  "fastest": "1.794 GB/s",
+                  "slowest": "796 MB/s",
+                  "median": "1.784 GB/s",
+                  "mean": "1.717 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "39.96 ns",
+                  "slowest": "124.7 ns",
+                  "median": "40.35 ns",
+                  "mean": "43.06 ns"
+               },
+               "bytes": {
+                  "fastest": "200.1 MB/s",
+                  "slowest": "64.13 MB/s",
+                  "median": "198.2 MB/s",
+                  "mean": "185.7 MB/s"
+               }
+            }
+         },
+         "MetroHash128": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "3.953 ns",
+                  "slowest": "49.46 ns",
+                  "median": "8.152 ns",
+                  "mean": "7.56 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 12800,
+               "time": {
+                  "fastest": "55.19 ns",
+                  "slowest": "255.9 ns",
+                  "median": "55.98 ns",
+                  "mean": "65.51 ns"
+               },
+               "bytes": {
+                  "fastest": "18.55 GB/s",
+                  "slowest": "4 GB/s",
+                  "median": "18.29 GB/s",
+                  "mean": "15.62 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "53.39 µs",
+                  "slowest": "142.5 µs",
+                  "median": "79.34 µs",
+                  "mean": "83.42 µs"
+               },
+               "bytes": {
+                  "fastest": "19.63 GB/s",
+                  "slowest": "7.353 GB/s",
+                  "median": "13.21 GB/s",
+                  "mean": "12.56 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "8.763 ns",
+                  "slowest": "39.32 ns",
+                  "median": "9.886 ns",
+                  "mean": "12.41 ns"
+               },
+               "bytes": {
+                  "fastest": "7.303 GB/s",
+                  "slowest": "1.627 GB/s",
+                  "median": "6.473 GB/s",
+                  "mean": "5.155 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 102400,
+               "time": {
+                  "fastest": "4.905 ns",
+                  "slowest": "20.62 ns",
+                  "median": "8.86 ns",
+                  "mean": "8.486 ns"
+               },
+               "bytes": {
+                  "fastest": "1.63 GB/s",
+                  "slowest": "387.8 MB/s",
+                  "median": "902.9 MB/s",
+                  "mean": "942.7 MB/s"
+               }
+            }
+         },
+         "MetroHash64": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "3.538 ns",
+                  "slowest": "16.57 ns",
+                  "median": "6.248 ns",
+                  "mean": "6.349 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 12800,
+               "time": {
+                  "fastest": "55.19 ns",
+                  "slowest": "122.3 ns",
+                  "median": "55.98 ns",
+                  "mean": "62.77 ns"
+               },
+               "bytes": {
+                  "fastest": "18.55 GB/s",
+                  "slowest": "8.366 GB/s",
+                  "median": "18.29 GB/s",
+                  "mean": "16.31 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "57.09 µs",
+                  "slowest": "430.6 µs",
+                  "median": "73.84 µs",
+                  "mean": "80.27 µs"
+               },
+               "bytes": {
+                  "fastest": "18.36 GB/s",
+                  "slowest": "2.434 GB/s",
+                  "median": "14.19 GB/s",
+                  "mean": "13.06 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "8.47 ns",
+                  "slowest": "65.59 ns",
+                  "median": "9.275 ns",
+                  "mean": "11.99 ns"
+               },
+               "bytes": {
+                  "fastest": "7.556 GB/s",
+                  "slowest": "975.6 MB/s",
+                  "median": "6.9 GB/s",
+                  "mean": "5.337 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "4.173 ns",
+                  "slowest": "17.94 ns",
+                  "median": "4.222 ns",
+                  "mean": "5.074 ns"
+               },
+               "bytes": {
+                  "fastest": "1.917 GB/s",
+                  "slowest": "445.8 MB/s",
+                  "median": "1.894 GB/s",
+                  "mean": "1.576 GB/s"
+               }
+            }
+         },
+         "SeaHasher": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "6.175 ns",
+                  "slowest": "11.25 ns",
+                  "median": "6.175 ns",
+                  "mean": "6.695 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 12800,
+               "time": {
+                  "fastest": "109.8 ns",
+                  "slowest": "419.2 ns",
+                  "median": "111.4 ns",
+                  "mean": "121.1 ns"
+               },
+               "bytes": {
+                  "fastest": "9.318 GB/s",
+                  "slowest": "2.442 GB/s",
+                  "median": "9.188 GB/s",
+                  "mean": "8.452 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "114 µs",
+                  "slowest": "367.7 µs",
+                  "median": "130.4 µs",
+                  "mean": "139.2 µs"
+               },
+               "bytes": {
+                  "fastest": "9.189 GB/s",
+                  "slowest": "2.85 GB/s",
+                  "median": "8.035 GB/s",
+                  "mean": "7.529 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 102400,
+               "time": {
+                  "fastest": "13.59 ns",
+                  "slowest": "185.3 ns",
+                  "median": "13.89 ns",
+                  "mean": "15.86 ns"
+               },
+               "bytes": {
+                  "fastest": "4.706 GB/s",
+                  "slowest": "345.2 MB/s",
+                  "median": "4.607 GB/s",
+                  "mean": "4.033 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "7.249 ns",
+                  "slowest": "25.9 ns",
+                  "median": "10.15 ns",
+                  "mean": "10.72 ns"
+               },
+               "bytes": {
+                  "fastest": "1.103 GB/s",
+                  "slowest": "308.8 MB/s",
+                  "median": "787.8 MB/s",
+                  "mean": "745.7 MB/s"
+               }
+            }
+         },
+         "Sha1": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "52.46 ns",
+                  "slowest": "116.5 ns",
+                  "median": "52.85 ns",
+                  "mean": "53.51 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 3200,
+               "time": {
+                  "fastest": "465.3 ns",
+                  "slowest": "499.7 ns",
+                  "median": "468.4 ns",
+                  "mean": "468.9 ns"
+               },
+               "bytes": {
+                  "fastest": "2.2 GB/s",
+                  "slowest": "2.049 GB/s",
+                  "median": "2.185 GB/s",
+                  "mean": "2.183 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "441.7 µs",
+                  "slowest": "787.3 µs",
+                  "median": "447.1 µs",
+                  "mean": "466.8 µs"
+               },
+               "bytes": {
+                  "fastest": "2.373 GB/s",
+                  "slowest": "1.331 GB/s",
+                  "median": "2.345 GB/s",
+                  "mean": "2.245 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "58.71 ns",
+                  "slowest": "541.5 ns",
+                  "median": "69.26 ns",
+                  "mean": "78.22 ns"
+               },
+               "bytes": {
+                  "fastest": "1.09 GB/s",
+                  "slowest": "118.1 MB/s",
+                  "median": "924 MB/s",
+                  "mean": "818.1 MB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "52.46 ns",
+                  "slowest": "164.5 ns",
+                  "median": "52.85 ns",
+                  "mean": "56.06 ns"
+               },
+               "bytes": {
+                  "fastest": "152.4 MB/s",
+                  "slowest": "48.61 MB/s",
+                  "median": "151.3 MB/s",
+                  "mean": "142.6 MB/s"
+               }
+            }
+         },
+         "Sha2_256": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 12800,
+               "time": {
+                  "fastest": "116.1 ns",
+                  "slowest": "306.7 ns",
+                  "median": "122.3 ns",
+                  "mean": "142.4 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 800,
+               "time": {
+                  "fastest": "1.637 µs",
+                  "slowest": "1.762 µs",
+                  "median": "1.674 µs",
+                  "mean": "1.676 µs"
+               },
+               "bytes": {
+                  "fastest": "625.4 MB/s",
+                  "slowest": "581 MB/s",
+                  "median": "611.4 MB/s",
+                  "mean": "610.9 MB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "1.435 ms",
+                  "slowest": "2.24 ms",
+                  "median": "1.585 ms",
+                  "mean": "1.617 ms"
+               },
+               "bytes": {
+                  "fastest": "730.2 MB/s",
+                  "slowest": "468 MB/s",
+                  "median": "661.1 MB/s",
+                  "mean": "648 MB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 6400,
+               "time": {
+                  "fastest": "213.7 ns",
+                  "slowest": "770 ns",
+                  "median": "243.4 ns",
+                  "mean": "265.3 ns"
+               },
+               "bytes": {
+                  "fastest": "299.3 MB/s",
+                  "slowest": "83.11 MB/s",
+                  "median": "262.8 MB/s",
+                  "mean": "241.2 MB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 12800,
+               "time": {
+                  "fastest": "116.1 ns",
+                  "slowest": "338.7 ns",
+                  "median": "116.9 ns",
+                  "mean": "136 ns"
+               },
+               "bytes": {
+                  "fastest": "68.88 MB/s",
+                  "slowest": "23.61 MB/s",
+                  "median": "68.42 MB/s",
+                  "mean": "58.79 MB/s"
+               }
+            }
+         },
+         "Sha2_512": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 3200,
+               "time": {
+                  "fastest": "318.4 ns",
+                  "slowest": "974.7 ns",
+                  "median": "321.6 ns",
+                  "mean": "387.8 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 800,
+               "time": {
+                  "fastest": "1.699 µs",
+                  "slowest": "5.599 µs",
+                  "median": "1.749 µs",
+                  "mean": "2.029 µs"
+               },
+               "bytes": {
+                  "fastest": "602.4 MB/s",
+                  "slowest": "182.8 MB/s",
+                  "median": "585.2 MB/s",
+                  "mean": "504.4 MB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "1.403 ms",
+                  "slowest": "2.258 ms",
+                  "median": "1.563 ms",
+                  "mean": "1.607 ms"
+               },
+               "bytes": {
+                  "fastest": "747.1 MB/s",
+                  "slowest": "464.2 MB/s",
+                  "median": "670.6 MB/s",
+                  "mean": "652.3 MB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 3200,
+               "time": {
+                  "fastest": "318.4 ns",
+                  "slowest": "1.446 µs",
+                  "median": "368.4 ns",
+                  "mean": "413.1 ns"
+               },
+               "bytes": {
+                  "fastest": "200.9 MB/s",
+                  "slowest": "44.24 MB/s",
+                  "median": "173.6 MB/s",
+                  "mean": "154.9 MB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 3200,
+               "time": {
+                  "fastest": "318.4 ns",
+                  "slowest": "6.146 µs",
+                  "median": "371.6 ns",
+                  "mean": "419.3 ns"
+               },
+               "bytes": {
+                  "fastest": "25.11 MB/s",
+                  "slowest": "1.301 MB/s",
+                  "median": "21.52 MB/s",
+                  "mean": "19.07 MB/s"
+               }
+            }
+         },
+         "Sha3_256": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 3200,
+               "time": {
+                  "fastest": "312.2 ns",
+                  "slowest": "3.865 µs",
+                  "median": "312.2 ns",
+                  "mean": "352.5 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 400,
+               "time": {
+                  "fastest": "2.249 µs",
+                  "slowest": "4.099 µs",
+                  "median": "2.274 µs",
+                  "mean": "2.415 µs"
+               },
+               "bytes": {
+                  "fastest": "455.1 MB/s",
+                  "slowest": "249.7 MB/s",
+                  "median": "450.1 MB/s",
+                  "mean": "423.8 MB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "2.144 ms",
+                  "slowest": "3.545 ms",
+                  "median": "2.413 ms",
+                  "mean": "2.469 ms"
+               },
+               "bytes": {
+                  "fastest": "489 MB/s",
+                  "slowest": "295.7 MB/s",
+                  "median": "434.4 MB/s",
+                  "mean": "424.6 MB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 3200,
+               "time": {
+                  "fastest": "309.1 ns",
+                  "slowest": "871.6 ns",
+                  "median": "312.2 ns",
+                  "mean": "337.5 ns"
+               },
+               "bytes": {
+                  "fastest": "207 MB/s",
+                  "slowest": "73.42 MB/s",
+                  "median": "204.9 MB/s",
+                  "mean": "189.6 MB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 6400,
+               "time": {
+                  "fastest": "312.2 ns",
+                  "slowest": "2.562 µs",
+                  "median": "315.3 ns",
+                  "mean": "362.1 ns"
+               },
+               "bytes": {
+                  "fastest": "25.62 MB/s",
+                  "slowest": "3.122 MB/s",
+                  "median": "25.36 MB/s",
+                  "mean": "22.08 MB/s"
+               }
+            }
+         },
+         "Sha3_512": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 3200,
+               "time": {
+                  "fastest": "309.1 ns",
+                  "slowest": "890.3 ns",
+                  "median": "312.2 ns",
+                  "mean": "377.6 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 400,
+               "time": {
+                  "fastest": "4.174 µs",
+                  "slowest": "8.074 µs",
+                  "median": "4.174 µs",
+                  "mean": "4.387 µs"
+               },
+               "bytes": {
+                  "fastest": "245.2 MB/s",
+                  "slowest": "126.8 MB/s",
+                  "median": "245.2 MB/s",
+                  "mean": "233.3 MB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "4.023 ms",
+                  "slowest": "10.05 ms",
+                  "median": "4.634 ms",
+                  "mean": "4.733 ms"
+               },
+               "bytes": {
+                  "fastest": "260.6 MB/s",
+                  "slowest": "104.2 MB/s",
+                  "median": "226.2 MB/s",
+                  "mean": "221.5 MB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 6400,
+               "time": {
+                  "fastest": "298.1 ns",
+                  "slowest": "837.2 ns",
+                  "median": "347.3 ns",
+                  "mean": "388.3 ns"
+               },
+               "bytes": {
+                  "fastest": "214.6 MB/s",
+                  "slowest": "76.44 MB/s",
+                  "median": "184.2 MB/s",
+                  "mean": "164.8 MB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 6400,
+               "time": {
+                  "fastest": "310.6 ns",
+                  "slowest": "1.162 µs",
+                  "median": "386.4 ns",
+                  "mean": "430.2 ns"
+               },
+               "bytes": {
+                  "fastest": "25.75 MB/s",
+                  "slowest": "6.883 MB/s",
+                  "median": "20.7 MB/s",
+                  "mean": "18.59 MB/s"
+               }
+            }
+         },
+         "WyHash": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "2.537 ns",
+                  "slowest": "6.736 ns",
+                  "median": "2.781 ns",
+                  "mean": "3.143 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "50.9 ns",
+                  "slowest": "103.2 ns",
+                  "median": "51.68 ns",
+                  "mean": "53.98 ns"
+               },
+               "bytes": {
+                  "fastest": "20.11 GB/s",
+                  "slowest": "9.918 GB/s",
+                  "median": "19.81 GB/s",
+                  "mean": "18.96 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "60.49 µs",
+                  "slowest": "240.9 µs",
+                  "median": "77.59 µs",
+                  "mean": "83.51 µs"
+               },
+               "bytes": {
+                  "fastest": "17.33 GB/s",
+                  "slowest": "4.35 GB/s",
+                  "median": "13.51 GB/s",
+                  "mean": "12.55 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "4.612 ns",
+                  "slowest": "22.87 ns",
+                  "median": "5.931 ns",
+                  "mean": "7.959 ns"
+               },
+               "bytes": {
+                  "fastest": "13.87 GB/s",
+                  "slowest": "2.797 GB/s",
+                  "median": "10.79 GB/s",
+                  "mean": "8.041 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "3.514 ns",
+                  "slowest": "10.39 ns",
+                  "median": "3.587 ns",
+                  "mean": "4.282 ns"
+               },
+               "bytes": {
+                  "fastest": "2.276 GB/s",
+                  "slowest": "769.3 MB/s",
+                  "median": "2.23 GB/s",
+                  "mean": "1.868 GB/s"
+               }
+            }
+         },
+         "XxHash32": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "4.393 ns",
+                  "slowest": "7.298 ns",
+                  "median": "4.417 ns",
+                  "mean": "4.464 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 12800,
+               "time": {
+                  "fastest": "120 ns",
+                  "slowest": "950.5 ns",
+                  "median": "120.8 ns",
+                  "mean": "142.1 ns"
+               },
+               "bytes": {
+                  "fastest": "8.53 GB/s",
+                  "slowest": "1.077 GB/s",
+                  "median": "8.475 GB/s",
+                  "mean": "7.201 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "124.6 µs",
+                  "slowest": "369.9 µs",
+                  "median": "135.1 µs",
+                  "mean": "145.9 µs"
+               },
+               "bytes": {
+                  "fastest": "8.408 GB/s",
+                  "slowest": "2.833 GB/s",
+                  "median": "7.758 GB/s",
+                  "mean": "7.185 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 51200,
+               "time": {
+                  "fastest": "12.03 ns",
+                  "slowest": "36.64 ns",
+                  "median": "12.23 ns",
+                  "mean": "15.66 ns"
+               },
+               "bytes": {
+                  "fastest": "5.318 GB/s",
+                  "slowest": "1.746 GB/s",
+                  "median": "5.233 GB/s",
+                  "mean": "4.084 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "7.054 ns",
+                  "slowest": "17.4 ns",
+                  "median": "7.615 ns",
+                  "mean": "9.288 ns"
+               },
+               "bytes": {
+                  "fastest": "1.134 GB/s",
+                  "slowest": "459.6 MB/s",
+                  "median": "1.05 GB/s",
+                  "mean": "861.3 MB/s"
+               }
+            }
+         },
+         "XxHash64": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "5.931 ns",
+                  "slowest": "5.98 ns",
+                  "median": "5.98 ns",
+                  "mean": "5.965 ns"
+               },
+               "bytes": {
+                  "fastest": "0 B/s",
+                  "slowest": "0 B/s",
+                  "median": "0 B/s",
+                  "mean": "0 B/s"
+               }
+            },
+            "1024": {
+               "sample_count": 100,
+               "iter_count": 25600,
+               "time": {
+                  "fastest": "65.74 ns",
+                  "slowest": "153.2 ns",
+                  "median": "69.26 ns",
+                  "mean": "78.75 ns"
+               },
+               "bytes": {
+                  "fastest": "15.57 GB/s",
+                  "slowest": "6.682 GB/s",
+                  "median": "14.78 GB/s",
+                  "mean": "13 GB/s"
+               }
+            },
+            "1048576": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "65.09 µs",
+                  "slowest": "215.5 µs",
+                  "median": "82.14 µs",
+                  "mean": "86.98 µs"
+               },
+               "bytes": {
+                  "fastest": "16.1 GB/s",
+                  "slowest": "4.863 GB/s",
+                  "median": "12.76 GB/s",
+                  "mean": "12.05 GB/s"
+               }
+            },
+            "64": {
+               "sample_count": 100,
+               "iter_count": 102400,
+               "time": {
+                  "fastest": "12.23 ns",
+                  "slowest": "22.58 ns",
+                  "median": "12.32 ns",
+                  "mean": "13.7 ns"
+               },
+               "bytes": {
+                  "fastest": "5.233 GB/s",
+                  "slowest": "2.834 GB/s",
+                  "median": "5.191 GB/s",
+                  "mean": "4.668 GB/s"
+               }
+            },
+            "8": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "8.177 ns",
+                  "slowest": "37.86 ns",
+                  "median": "9.935 ns",
+                  "mean": "11.54 ns"
+               },
+               "bytes": {
+                  "fastest": "978.3 MB/s",
+                  "slowest": "211.2 MB/s",
+                  "median": "805.2 MB/s",
+                  "mean": "693.2 MB/s"
+               }
+            }
+         }
+      }
+   }
+}

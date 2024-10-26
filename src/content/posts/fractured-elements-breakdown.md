@@ -4,9 +4,15 @@ published: 2024-08-18
 description: "The blog post delves into the technical aspects of creating the 2D platformer game 'Fractured Elements,' developed during a game jam at Coventry University's Summer School. It provides an overview of the game's concept, and discusses the challenges encountered during development, such as implementing the form-switching mechanic and boss AI."
 image: ''
 tags: ['Programming', 'Game Development', 'Unity', "CSharp", 'Level Design', 'breakdown', 'Collaborative']
-category: 'Programming'
+category: 'Abandoned'
 draft: false 
 ---
+
+:::caution
+
+i couldnt figure out what was wrong and after months of trying to figure out i have given up
+
+:::
 
 :::caution[TODO]
 
@@ -170,6 +176,61 @@ make a tree of whats affecting what
 like call graph or smt
 
 :::
+
+
+```mermaid
+flowchart TD
+ subgraph CurrentSprite["CurrentSprite"]
+        B2["update CurrentInternalController"]
+        B1["replace _currentSprite"]
+        CurrentSprite_set[["CurrentSprite.set"]]
+        B3[/"_currentSprite"/]
+        CurrentSprite_get[["CurrentSprite.get"]]
+  end
+ subgraph SpriteIndex["SpriteIndex"]
+        A2["set CurrentSprite to the appropriate value"]
+        A1["make sure input value is within limit"]
+        SpriteIndex_set[["SpriteIndex.set"]]
+        A3[/"_spriteIndex"/]
+        SpriteIndex_get[["SpriteIndex.get"]]
+  end
+ subgraph Once["Once"]
+        C1["initialize SpriteIndex to 0"]
+        Start[/"Start() : void"/]
+  end
+ subgraph EveryTick["EveryTick"]
+        D2{"is timer up?"}
+        D1["update timer"]
+        Update[/"Update() : void"/]
+  end
+ subgraph subGraph4["TimerJustCompleted"]
+        TimerJustCompleted[/"TimerJustCompleted() : void"/]
+        E1["update SpriteIndex"]
+        E2["reset timer"]
+  end
+    CurrentSprite_set --> B1
+    B1 --> B2 & _currentSprite("_currentSprite : GameObject")
+    CurrentSprite_get --> B3
+    B2 --> CurrentInternalController("CurrentInternalController : InternalPlayerController")
+    _currentSprite --> CurrentInternalController
+    _currentSprite --> B3
+    SpriteIndex_set --> A1
+    A1 --> A2
+    SpriteIndex_get --> A3
+    prefabs("prefabs : GameObject[]") --> A1 & A2
+    A2 --> CurrentSprite_set & _spriteIndex("_spriteIndex : int")
+    _spriteIndex --> A3
+    Start --> C1
+    C1 --> SpriteIndex_set
+    Update --> D1
+    D1 --> D2 & _changeTimer("_changeTimer : float")
+    _changeTimer --> D2
+    changeCooldown("changeCooldown : float") --> D2
+    D2 -- yes --> TimerJustCompleted
+    TimerJustCompleted --> E1 & E2
+    E1 --> SpriteIndex_set
+    E2 --> _changeTimer
+```
 
 This script also has a `changeCooldown` field.
 This is the time in seconds after which the prefab will be switched automatically.
@@ -384,7 +445,7 @@ why i did it
 
 :::
 
-> ![player scripts hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--player-scripts-hierarchy.svg)
+> ![player scripts hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--player-scripts-hierarchy.png)
 
 The player consists of three components,
 
@@ -394,7 +455,7 @@ The player consists of three components,
 
 :::note[Player Hierarchy]
 
-![player hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--player.svg)
+![player hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--player.png)
 
 :::caution[TODO]
 
@@ -409,7 +470,7 @@ check if converting the breakdown to have nodes like blender's geometry nodes lo
 
 ---
 
-> ![boss scripts hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--boss-scripts-hierarchy.svg)
+> ![boss scripts hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--boss-scripts-hierarchy.png)
 
 Similar to the player, the boss also consists of three components,
 
@@ -419,7 +480,7 @@ Similar to the player, the boss also consists of three components,
 
 :::note[Boss Hierarchy]
 
-![boss hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--boss.svg)
+![boss hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--boss.png)
 
 :::
 
@@ -587,7 +648,7 @@ Judge feedback is anonymous.
 
 I am decently happy with the architecture of the code
 
-> ![all scripts hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--all-scripts-hierarchy.svg)
+> ![all scripts hierarchy](https://r2.sakurakat.systems/fractured-elements-breakdown--all-scripts-hierarchy.png)
 
 I managed to not over scope much unlike the last game jam.
 

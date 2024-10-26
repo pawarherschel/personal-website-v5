@@ -1,0 +1,94 @@
+{
+   "main": {
+      "flip_flop_bytes": {
+         "sample_count": 100,
+         "iter_count": 100,
+         "time": {
+            "fastest": "3.919 ms",
+            "slowest": "8.29 ms",
+            "median": "6.082 ms",
+            "mean": "5.993 ms"
+         },
+         "bytes": {
+            "fastest": "7.144 KB/s",
+            "slowest": "3.377 KB/s",
+            "median": "4.603 KB/s",
+            "mean": "4.671 KB/s"
+         },
+         "cycles": {
+            "fastest": "1.275 KHz",
+            "slowest": "603 Hz",
+            "median": "821.9 Hz",
+            "mean": "834.1 Hz"
+         },
+         "items": {
+            "fastest": "7.144 Kitem/s",
+            "slowest": "3.377 Kitem/s",
+            "median": "4.603 Kitem/s",
+            "mean": "4.671 Kitem/s"
+         },
+         "max_alloc": {
+            "count": {
+               "fastest": "330",
+               "slowest": "330",
+               "median": "330",
+               "mean": "330"
+            },
+            "size": {
+               "fastest": "197.5 KB",
+               "slowest": "197.5 KB",
+               "median": "197.5 KB",
+               "mean": "197.5 KB"
+            }
+         },
+         "alloc": {
+            "count": {
+               "fastest": "24403",
+               "slowest": "24403",
+               "median": "24403",
+               "mean": "24403"
+            },
+            "size": {
+               "fastest": "294.4 KB",
+               "slowest": "294.3 KB",
+               "median": "294.3 KB",
+               "mean": "294.3 KB"
+            }
+         },
+         "dealloc": {
+            "count": {
+               "fastest": "24374",
+               "slowest": "24374",
+               "median": "24374",
+               "mean": "24374"
+            },
+            "size": {
+               "fastest": "947.5 KB",
+               "slowest": "947 KB",
+               "median": "946.9 KB",
+               "mean": "947 KB"
+            }
+         },
+         "grow": {
+            "count": {
+               "fastest": "21170",
+               "slowest": "21117",
+               "median": "21143",
+               "mean": "21138"
+            },
+            "size": {
+               "fastest": "836.5 KB",
+               "slowest": "836.1 KB",
+               "median": "836 KB",
+               "mean": "836.1 KB"
+            }
+         }
+      },
+      "not_pretty_print": null,
+      "pretty_print": null,
+      "random_bullshit_go": {
+         "false": null,
+         "true": null
+      }
+   }
+}

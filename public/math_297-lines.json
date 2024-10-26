@@ -1,0 +1,297 @@
+{
+   "math": {
+      "add": {
+         "sample_count": 100,
+         "iter_count": 409600,
+         "time": {
+            "fastest": "4.213 ns",
+            "slowest": "7.558 ns",
+            "median": "4.213 ns",
+            "mean": "4.277 ns"
+         }
+      },
+      "div": {
+         "sample_count": 100,
+         "iter_count": 819200,
+         "time": {
+            "fastest": "1.1 ns",
+            "slowest": "3.664 ns",
+            "median": "1.112 ns",
+            "mean": "1.25 ns"
+         }
+      },
+      "fibonacci": {
+         "iterative": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 1638400,
+               "time": {
+                  "fastest": "0.465 ns",
+                  "slowest": "1.076 ns",
+                  "median": "0.471 ns",
+                  "mean": "0.521 ns"
+               }
+            },
+            "10": {
+               "sample_count": 100,
+               "iter_count": 409600,
+               "time": {
+                  "fastest": "4.042 ns",
+                  "slowest": "4.066 ns",
+                  "median": "4.042 ns",
+                  "mean": "4.045 ns"
+               }
+            },
+            "20": {
+               "sample_count": 100,
+               "iter_count": 204800,
+               "time": {
+                  "fastest": "8.51 ns",
+                  "slowest": "12.27 ns",
+                  "median": "8.559 ns",
+                  "mean": "9.075 ns"
+               }
+            },
+            "30": {
+               "sample_count": 100,
+               "iter_count": 102400,
+               "time": {
+                  "fastest": "13.05 ns",
+                  "slowest": "20.96 ns",
+                  "median": "13.05 ns",
+                  "mean": "13.88 ns"
+               }
+            },
+            "40": {
+               "sample_count": 100,
+               "iter_count": 102400,
+               "time": {
+                  "fastest": "17.54 ns",
+                  "slowest": "27.3 ns",
+                  "median": "17.54 ns",
+                  "mean": "18.62 ns"
+               }
+            },
+            "5": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "1.784 ns",
+                  "slowest": "1.808 ns",
+                  "median": "1.784 ns",
+                  "mean": "1.79 ns"
+               }
+            }
+         },
+         "recursive": {
+            "0": {
+               "sample_count": 100,
+               "iter_count": 819200,
+               "time": {
+                  "fastest": "1.332 ns",
+                  "slowest": "2.479 ns",
+                  "median": "1.344 ns",
+                  "mean": "1.568 ns"
+               }
+            },
+            "10": {
+               "sample_count": 100,
+               "iter_count": 12800,
+               "time": {
+                  "fastest": "126.3 ns",
+                  "slowest": "495.8 ns",
+                  "median": "127.1 ns",
+                  "mean": "149.7 ns"
+               }
+            },
+            "20": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "15.99 µs",
+                  "slowest": "24.59 µs",
+                  "median": "15.99 µs",
+                  "mean": "16.22 µs"
+               }
+            },
+            "30": {
+               "sample_count": 100,
+               "iter_count": 100,
+               "time": {
+                  "fastest": "1.965 ms",
+                  "slowest": "2.947 ms",
+                  "median": "2.211 ms",
+                  "mean": "2.274 ms"
+               }
+            },
+            "40": {
+               "sample_count": 4,
+               "iter_count": 4,
+               "time": {
+                  "fastest": "276.4 ms",
+                  "slowest": "285.8 ms",
+                  "median": "280.4 ms",
+                  "mean": "280.8 ms"
+               }
+            },
+            "5": {
+               "sample_count": 100,
+               "iter_count": 102400,
+               "time": {
+                  "fastest": "10.9 ns",
+                  "slowest": "18.03 ns",
+                  "median": "11 ns",
+                  "mean": "12.67 ns"
+               }
+            }
+         },
+         "recursive_memoized": {
+            "BTreeMap<u64, u64>": {
+               "0": {
+                  "sample_count": 100,
+                  "iter_count": 409600,
+                  "time": {
+                     "fastest": "3.285 ns",
+                     "slowest": "13.8 ns",
+                     "median": "4.115 ns",
+                     "mean": "4.593 ns"
+                  }
+               },
+               "10": {
+                  "sample_count": 100,
+                  "iter_count": 12800,
+                  "time": {
+                     "fastest": "127.8 ns",
+                     "slowest": "452.8 ns",
+                     "median": "164.2 ns",
+                     "mean": "170.7 ns"
+                  }
+               },
+               "20": {
+                  "sample_count": 100,
+                  "iter_count": 3200,
+                  "time": {
+                     "fastest": "431 ns",
+                     "slowest": "815.3 ns",
+                     "median": "506 ns",
+                     "mean": "485.6 ns"
+                  }
+               },
+               "30": {
+                  "sample_count": 100,
+                  "iter_count": 1600,
+                  "time": {
+                     "fastest": "662.2 ns",
+                     "slowest": "1.299 µs",
+                     "median": "674.7 ns",
+                     "mean": "705.5 ns"
+                  }
+               },
+               "40": {
+                  "sample_count": 100,
+                  "iter_count": 1600,
+                  "time": {
+                     "fastest": "937.2 ns",
+                     "slowest": "1.818 µs",
+                     "median": "956 ns",
+                     "mean": "1.024 µs"
+                  }
+               },
+               "5": {
+                  "sample_count": 100,
+                  "iter_count": 6400,
+                  "time": {
+                     "fastest": "63.83 ns",
+                     "slowest": "474.7 ns",
+                     "median": "67.73 ns",
+                     "mean": "113.3 ns"
+                  }
+               }
+            },
+            "HashMap<u64, u64>": {
+               "0": {
+                  "sample_count": 100,
+                  "iter_count": 409600,
+                  "time": {
+                     "fastest": "3.822 ns",
+                     "slowest": "6.459 ns",
+                     "median": "3.847 ns",
+                     "mean": "4.421 ns"
+                  }
+               },
+               "10": {
+                  "sample_count": 100,
+                  "iter_count": 1600,
+                  "time": {
+                     "fastest": "524.7 ns",
+                     "slowest": "2.993 µs",
+                     "median": "746.6 ns",
+                     "mean": "754.3 ns"
+                  }
+               },
+               "20": {
+                  "sample_count": 100,
+                  "iter_count": 1600,
+                  "time": {
+                     "fastest": "1.181 µs",
+                     "slowest": "3.218 µs",
+                     "median": "1.706 µs",
+                     "mean": "1.786 µs"
+                  }
+               },
+               "30": {
+                  "sample_count": 100,
+                  "iter_count": 400,
+                  "time": {
+                     "fastest": "1.799 µs",
+                     "slowest": "9.224 µs",
+                     "median": "3.037 µs",
+                     "mean": "3.721 µs"
+                  }
+               },
+               "40": {
+                  "sample_count": 100,
+                  "iter_count": 400,
+                  "time": {
+                     "fastest": "2.024 µs",
+                     "slowest": "9.324 µs",
+                     "median": "3.349 µs",
+                     "mean": "3.544 µs"
+                  }
+               },
+               "5": {
+                  "sample_count": 100,
+                  "iter_count": 3200,
+                  "time": {
+                     "fastest": "240.3 ns",
+                     "slowest": "1.59 µs",
+                     "median": "249.7 ns",
+                     "mean": "303.8 ns"
+                  }
+               }
+            }
+         }
+      },
+      "mul": {
+         "sample_count": 100,
+         "iter_count": 409600,
+         "time": {
+            "fastest": "4.213 ns",
+            "slowest": "25.72 ns",
+            "median": "4.237 ns",
+            "mean": "4.832 ns"
+         }
+      },
+      "rem": {
+         "sample_count": 100,
+         "iter_count": 819200,
+         "time": {
+            "fastest": "1.1 ns",
+            "slowest": "3.224 ns",
+            "median": "1.112 ns",
+            "mean": "1.26 ns"
+         }
+      },
+      "sub": null
+   }
+}

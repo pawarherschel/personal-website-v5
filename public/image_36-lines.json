@@ -1,0 +1,36 @@
+{
+   "image": {
+      "copy_from": {
+         "sample_count": 100,
+         "iter_count": 100,
+         "time": {
+            "fastest": "1.347 ms",
+            "slowest": "2.135 ms",
+            "median": "1.622 ms",
+            "mean": "1.621 ms"
+         },
+         "bytes": {
+            "fastest": "12.45 GB/s",
+            "slowest": "7.856 GB/s",
+            "median": "10.33 GB/s",
+            "mean": "10.34 GB/s"
+         }
+      },
+      "memcpy": {
+         "sample_count": 100,
+         "iter_count": 100,
+         "time": {
+            "fastest": "797.4 µs",
+            "slowest": "1.768 ms",
+            "median": "959.1 µs",
+            "mean": "980.9 µs"
+         },
+         "bytes": {
+            "fastest": "21.03 GB/s",
+            "slowest": "9.488 GB/s",
+            "median": "17.49 GB/s",
+            "mean": "17.1 GB/s"
+         }
+      }
+   }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "astro-typst",
+  "type": "module",
+  "version": "0.9.2",
+  "packageManager": "pnpm@10.11.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OverflowCat/astro-typst.git"
+  },
+  "homepage": "https://github.com/OverflowCat/astro-typst",
+  "description": "Use Typst within Astro",
+  "keywords": [
+    "typst",
+    "astro",
+    "astro-integration",
+    "astro-component",
+    "withastro"
+  ],
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "author": {
+    "name": "OverflowCat",
+    "email": "overflowcat@gmail.com",
+    "url": "https://overflow.cat"
+  },
+  "license": "MIT",
+  "files": [
+    "src",
+    "global.d.ts",
+    "public"
+  ],
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "tsc && astro check && astro build",
+    "compile": "tsc",
+    "preview": "astro preview",
+    "pub": "pnpm compile && pnpm publish --no-git-checks",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@myriaddreamin/typst-ts-node-compiler": "0.6.0",
+    "@myriaddreamin/typst-ts-renderer": "0.6.0",
+    "@myriaddreamin/typst.ts": "0.6.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "astro-integration-kit": "^0.18.0",
+    "cheerio": "^1.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/node": "^22.15.28",
+    "astro": "5.7.10",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  },
+  "peerDependencies": {
+    "astro": ">= 3.0.0"
+  }
+}

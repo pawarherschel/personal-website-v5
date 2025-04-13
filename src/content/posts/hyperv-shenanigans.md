@@ -22,7 +22,7 @@ Then, quickly found out I can't just reuse it.
 
 ---
 
-![img_1.png](img_1.png)
+![img_1.png](/hyperv-shenanigans/img_1.png)
 
 The dang thing doesn't even show a TTY!
 Then, I remembered [github:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators) exists.

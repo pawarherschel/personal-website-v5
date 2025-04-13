@@ -47,7 +47,7 @@ Check it out here: https://bsky.app/profile/sakurakat.systems/post/3llnz5asyms2c
 You can also read the skeets as an article here: https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c 
 :::
 
-# Enter [github:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators)
+# Enter [github\:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators)
 
 ::github{repo="nix-community/nixos-generators"}
 

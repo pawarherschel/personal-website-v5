@@ -35,25 +35,25 @@ const folderExists = async path =>
       return false
     })
 
-if (await folderExists('node_modules/git/typst')) {
-  console.log('Pulling typst')
+if (await folderExists('node_modules/git/resume')) {
+  console.log('Pulling resume')
   const { _gitCloneOut, gitCloneErr } = await execPromise(
-    'git -C node_modules/git/typst pull',
+    'git -C node_modules/git/resume pull',
   )
   if (gitCloneErr) {
     console.error(gitCloneErr)
   }
 } else {
-  console.log('Cloning typst')
+  console.log('Cloning resume')
   const { _gitCloneOut, gitCloneErr } = await execPromise(
-    'git clone https://github.com/pawarherschel/typst.git node_modules/git/typst',
+    'git clone https://github.com/pawarherschel/resume.git node_modules/git/resume',
   )
   if (gitCloneErr) {
     console.error(gitCloneErr)
   }
 }
 
-// const fromFolderPath = 'node_modules/git/typst/src/logos';
+// const fromFolderPath = 'node_modules/git/resume/src/logos';
 // const toFolderPath = 'src/assets/logos';
 // if (await folderExists(fromFolderPath)) {
 //   await fs.mkdir(toFolderPath, { recursive: true });
@@ -66,7 +66,7 @@ if (await folderExists('node_modules/git/typst')) {
 //   }
 // }
 
-const sourceOfTruth = await readFile('node_modules/git/typst/SOT.toml', 'utf-8')
+const sourceOfTruth = await readFile('node_modules/git/resume/SOT.toml', 'utf-8')
 try {
   toml.parse(sourceOfTruth)
 } catch (e) {

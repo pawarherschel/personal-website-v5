@@ -49,7 +49,7 @@ You can also read the skeets as an article here: https://skywriter.blue/pages/di
 
 # Enter [github:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators)
 
-::github{repo="community/nixos-generators"}
+::github{repo="nix-community/nixos-generators"}
 
 I first started by invoking `nixos-generator` and passed my nixos config via the `--flake` option.
 I 

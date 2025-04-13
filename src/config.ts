@@ -62,12 +62,12 @@ export const profileConfig: ProfileConfig = {
     {
       name: 'Email',
       icon: 'fa6-solid:envelope',
-      url: 'mailto:pawarherschel@sakurakat.systems',
+      url: 'mailto:pawarherschel@gmail.com',
     },
     {
-      name: 'Phone',
-      icon: 'fa6-solid:phone',
-      url: 'tel:+918310783472',
+      name: 'BlueSky',
+      icon: 'fa6-brands:bluesky',
+      url: 'https://bsky.app/profile/sakurakat.systems',
     },
     {
       name: 'LinkedIn',

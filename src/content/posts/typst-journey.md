@@ -8,7 +8,7 @@ draft: false
 prevTitle: "Fractured Elements Breakdown"
 prevSlug: "fractured-elements-breakdown"
 nextTitle: ""
-nextSlug: ""
+nextSlug: "hyperv-shenanigans"
 ---
 
 # My journey with Typst

@@ -16,7 +16,8 @@ draft: false
 
 :::IMPORTANT
 
-Please wait for the Bluesky embeds to load.
+Please wait
+for the Bluesky embeds to load to avoid the content shifting while reading.
 
 :::
 

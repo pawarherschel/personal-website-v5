@@ -58,15 +58,18 @@ switch (typeof location) {
     break
 }
 
-const description_str = description.map(s => s.trim()).map(s => s.endsWith('.') ? s : `${s}.`)
-  .filter(s => !s.startsWith("My contribution"))
-  .join(" ")
+const description_str = description
+  .map(s => s.trim())
+  .map(s => (s.endsWith('.') ? s : `${s}.`))
+  .filter(s => !s.startsWith('My contribution'))
+  .join(' ')
 
-const highlight = description.map(s => s.trim())
-  .map(s => s.endsWith('.') ? s : `${s}.`)
-  .filter(s => s.startsWith("My contribution"))
-  .map(s => s.replace("My contribution: ", ""))
-  .join("")
+const highlight = description
+  .map(s => s.trim())
+  .map(s => (s.endsWith('.') ? s : `${s}.`))
+  .filter(s => s.startsWith('My contribution'))
+  .map(s => s.replace('My contribution: ', ''))
+  .join('')
 ---
 <div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative", className]}
      style={style}>

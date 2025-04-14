@@ -1,10 +1,10 @@
 import type {
-  LicenseConfig,
-  NavBarConfig,
-  ProfileConfig,
-  SiteConfig,
-} from './types/config'
-import { LinkPreset } from './types/config'
+	LicenseConfig,
+	NavBarConfig,
+	ProfileConfig,
+	SiteConfig,
+} from "./types/config";
+import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
   title: 'Sakura Kat Systems',
@@ -88,7 +88,7 @@ export const profileConfig: ProfileConfig = {
 }
 
 export const licenseConfig: LicenseConfig = {
-  enable: true,
-  name: 'CC BY 4.0',
-  url: 'https://creativecommons.org/licenses/by/4.0/',
+	enable: true,
+	name: "CC BY 4.0",
+	url: "https://creativecommons.org/licenses/by/4.0/",
 };

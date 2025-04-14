@@ -58,7 +58,7 @@ export function GithubCardComponent(properties, children) {
 		`script#${cardUuid}-script`,
 		{ type: "text/javascript", defer: true },
 		// language=JavaScript
-    `
+		`
       fetch('https://api.github.com/repos/${repo}', { referrerPolicy: "no-referrer" }).then(response => response.json()).then(data => {
         if (data.description) {
           document.getElementById('${cardUuid}-description').innerText = data.description.replace(/:[a-zA-Z0-9_]+:/g, '');

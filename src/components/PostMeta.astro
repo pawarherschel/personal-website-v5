@@ -94,6 +94,14 @@ console.log(`path: ${path}`);
 		console.error(`${command} failed and produced:\n${output}`);
 		throw undefined;
 	}
+	console.log(`output: ${output}`);
+	console.log(`new Date().toDateString(): ${new Date().toDateString()}`);
+	console.log(
+		`new Date(output.split(/\\s/)[0]).toDateString(): ${new Date(output.split(/\s/)[0]).toDateString()}`,
+	);
+	console.log(
+		`Needs unshallowing?: ${new Date(output.split(/\s/)[0]).toDateString() === new Date().toDateString()}`,
+	);
 	if (
 		new Date(output.split(/\s/)[0]).toDateString() === new Date().toDateString()
 	) {

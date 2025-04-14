@@ -1,7 +1,7 @@
 ---
 title: HyperV Shenanigans
 published: 2025-04-13
-description: This blog post covers how I created a Hyper-V VM from my laptop's NixOS Config flake along with all the errors and mistakes I made. I went through all of this trouble just so I won't have to start my laptop to rice and edit the config.
+description: This blog post covers how I created a Hyper-V VM from my laptop's NixOS Config flake along with all the errors and mistakes I made. I went through allthis trouble just, so I won't have to start my laptop to rice and edit the config.
 tags: 
   - NixOS
   - Virtualization
@@ -12,18 +12,22 @@ tags:
 category: Programming
 draft: false
 ---
+
 # Introduction
 
 I wanted to rice my laptop without turning it on.
 So, I thought, "Hey, I can just make a VM in Hyper-V",
 because I didn't want to deal with VMware or VirtualBox.
 "I already use NixOS on WSL2,
-so I can just reuse the VHDX for the" VM!"—or so I thought.
+so I can just reuse the VHDX for the" VM!" -- or so I thought.
 Then, I quickly found out I can't just reuse it.
 
 ---
 
-<img height="901" src="https://r2.sakurakat.systems/hyperv-shenanigans--no-tty.png" title="Screenshot showing No TTY" width="1467" alt="Screenshot of Hyper-V Manager with a VM booted up
+<img height="901"
+src="https://r2.sakurakat.systems/hyperv-shenanigans--no-tty.png"
+title="Screenshot showing No TTY" width="1467"
+alt="Screenshot of Hyper-V Manager with a VM booted up,
 but the display is completely black.
 This shows
 that there is no TTY."/>
@@ -31,9 +35,9 @@ that there is no TTY."/>
 The dang thing doesn't even show a TTY!
 Then,
 I remembered [github:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators) exists.
-Might as well use NixOS generators; how hard can it be?
+Might as well use NixOS generators; How hard can it be?
 It can't be that bad, right?
-right???
+Right???
 
 Thus, as usual,
 I proceeded to fuck around and find out the age-old lesson of:
@@ -45,7 +49,7 @@ but because we thought
 it would be easy" height="794" src="https://r2.sakurakat.systems/hyperv-shenanigans--mantra.svg" title="Software Programming Mantra" width="1058"/>
 
 :::note
-I journaled the whole journey on Bluesky!
+I journaled the journey on Bluesky!
 
 Check it out here:
 https://bsky.app/profile/sakurakat.systems/post/3llnz5asyms2c
@@ -62,18 +66,18 @@ https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c
 
 ::github{repo="nix-community/nixos-generators"}
 
-I first started by invoking nixos-generator
+I started by invoking nixos-generator
 and passed my NixOS config via the --flake option.
 But it kept
-saying nixos/modules/virtualisation/disk-size-option.nix is missing.
+saying `nixos/modules/virtualisation/disk-size-option.nix` is missing.
 
-Now, I am new to flakes and Nix in general,
+Now, I’m new to flakes and Nix in general,
 so I couldn't figure out why it didn't find the option.
 
 So,
 I figured
 the best course of action would be copying the example from website,
-and then slowly make changes.
+and then incrementally make changes.
 That is, create a minimal working config,
 and then adapt it to my needs.
 
@@ -81,7 +85,7 @@ and then adapt it to my needs.
 
 It worked, but then I realized I used the wrong config,
 I used WSL's config instead of my laptop's config. 🤦.
-Well, at the very least I know it works now.
+Well, at least I know it works now.
 
 :::note
 I had some errors after I changed it to my laptop's config,
@@ -93,24 +97,24 @@ Lesson learned I guess
 I then made a stupid mistake.
 See,
 NixOS allows you to have configuration for multiple...
-let's say... environments.
-When you do sudo nixos rebuild test --flake .,
+Let's say... environments.
+When you do `sudo nixos rebuild test --flake .`,
 the config that gets selected depends on the machine's hostname.
-You can also specify
+You can also specify,
 which one you want
-to build by doing sudo nixos rebuild test --flake .#<hostname>.
+to build by doing `sudo nixos rebuild test --flake .#<hostname>`.
 So, technically,
 I should have different hostnames for different machines,
-à la kats-laptop, kats-wsl, kats-rpi, kats-hyperv-vm.
+à la `kats-laptop`, `kats-wsl`, `kats-rpi`, `kats-hyperv-vm`.
 Along with a modular config,
 this allows you
-to have a single config
+to have a single config,
 which you can push to GitHub or any other place,
-and the only thing you have to do is rebuild.
+and the only thing you have to do is a rebuild.
 I do want to modularize my config,
 I'm just being lazy because it works good enough.
-Also, the #<hostname> part isn't limited to NixOS configs.
-In general, it's to select a target.
+Also, the `#<hostname>` part isn't limited to NixOS configs.
+In general, it is to select a target.
 If you've used the nix shell nixpkgs#<app> command,
 you're selecting which target to build and expose to the shell.
 Another place
@@ -118,7 +122,7 @@ you might've selected a target is when you run nix build github:<owner>/<repo>#<
 These are the outputs from the flake.
 Recently,
 I had
-to update [github\:MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake)
+to update [github\:MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
 so it builds the latest version of the Zen browser.
 In the flake,
 you can choose if you want to use the build that was optimized
@@ -137,15 +141,15 @@ Downloaded zen using github.com/MarceColl/ze...<br><br><a href="https://bsky.app
 
 While trying to get the VM image to build, at some point, I went from
 trying
-to build the hyperv target
-to trying to build the install-iso-hyperv.
-As the name suggests, install-iso-hyperv
-builds an ISO instead of a Hyper-V image
+to build the `hyperv` target
+to trying to build the `install-iso-hyperv`.
+As the name suggests, `install-iso-hyperv`
+builds an ISO instead of a Hyper-V image,
 which I can just load in the Hyper-V manager.
-It acts as a LiveISO
+It acts as a LiveISO,
 which you can try out before deciding
 if you want to install it or not,
-but I wanted the image, so it's time to remake it with the hyperv target.
+but I wanted the image, so it is time to remake it with the `hyperv` target.
 Also, the size of the ISO was ~2.6 GB.
 I was also unsure if 20 GB would be enough for the VM,
 so I bumped it up to 40 GB.
@@ -194,16 +198,16 @@ The fix was to add
   virtualisation.diskSize = 20 * 1024;
 }
 ```
-to the modules array,
+To the modules array,
 around [here](https://github.com/pawarherschel/nixos-config/blob/7042e5c893375afcf62d4f2bea0112d874e7210e/flake.nix#L56)
-<img alt="Screenshot of flake.nix on GitHub,
+<img alt="Screenshot of `flake.nix` on GitHub,
 the line
-where the above mentioned modifications have
+where the these modifications have
 to be added is highlighted in yellow"
 height="1347"
 src="https://r2.sakurakat.systems/hyperv-shenanigans--github-line.png"
 title="Screenshot of the required file on GitHub with area
-highlighted in yellow"
+highlighted in yellow."
 width="1680"/>
 
 ## Build success
@@ -218,32 +222,32 @@ New Virtual Machine&#39; failed to start.
 Synthetic SCSI Controller
 (Instance ID 1666945F-9962-4366-83F3-AA863F98254B):
 Failed
-to Power on with Error &#39;The requested operation could not be completed due to a virtual disk system limitation.
+to Power on with Error &#39;The requested operation couldn’t be completed due to a virtual disk system limitation.
 Virtual hard disk files must be uncompressed and unencrypted
-and must not be sparse.&#39;. Attachment &#39;D:\build-dir\nixos-image-hyperv-25.05pre-git-x86_64-linux.vhdx&#39; failed to open because of error: &#39;The requested operation could not be completed due to a virtual disk system limitation.
+and mustn’t be sparse.&#39;. Attachment &#39;D:\build-dir\nixos-image-hyperv-25.05pre-git-x86_64-linux.vhdx&#39; failed to open because of error: &#39;The requested operation couldn’t be completed due to a virtual disk system limitation.
 Virtual hard disk files must be uncompressed and unencrypted
 and must not be sparse.&#39;." height="432" src="https://r2.sakurakat.systems/hyperv-shenanigans--compressed-file.png" title="Screenshot of Hyper-V Manager&#39;s error" width="702"/>
 
 Let's read this error.
 - VM failed to start.
 - Something about limitations
-- "disk file must be uncompressed
-  and unencrypted and must not be sparse"
-  - uncompressed: I compress my disks, so that's easy enough to solve.
-  - unencrypted: I don't think this should be a problem. I don't have BitLocker on.
-  - sparse: I'm not even sure how I'd solve it,
+- "disk file must be `uncompressed`
+  and `unencrypted` and must not be `sparse`"
+  - `uncompressed`: I compress my disks, so I know how to solve that.
+  - `unencrypted`: I don't think this should be a problem. I don't have BitLocker on.
+  - `sparse`: I'm not even sure how I'd solve it,
     maybe the Hyper-V Manager has some tool I can use.
 
-Ok, let's uncompress it first.\
+OK, let's uncompress it first.\
 
-right click file > properties > advanced > uncheck Compress contents to save disk space
+`right click file > properties > advanced > uncheck Compress contents to save disk space`
 
 Next error:
 
 <img alt="Virtual Machine Boot Summary 1.
 SCSI Disk (0,0)
 The unsigned image&#39;s hash is not allowed (DB) 2. Network Adapter
-(00155D006403) A boot image was not found.
+(00155D006403) A boot image wasn’t found.
 No operating system was loaded.
 Your virtual machine may be configured incorrectly.
 Exit and re-configure your VM or click restart to retry the current boot sequence again." height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--unsigned-image.png" title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
@@ -263,22 +267,22 @@ The error I saw in the
 (Lead Astray)[#lead-astray] section was telling me
 that the VHDX file was 4 GB,
 and not all the various things I thought it was.
-I'm going to be honest, I forgot what I was yapping about at this point:
+I'm gonna be honest, I forgot what I was yapping about at this point:
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llqdomz7ml2g" data-bluesky-cid="bafyreie46uis7vcjglxma73ivutlnxsmbvt3dcdl2ahmpeukz6eourw2zi" data-bluesky-embed-color-mode="system"><p lang="en">i removed the sudo
 and im back to this error
        error: path &#x27;/nix/store/7a2rzcz3mjaq6ni71nn3zv6v3kxk8zab-nixpkgs/nixpkgs/nixos/modules/virtualisation/disk-size-option.nix&#x27; does not exist</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqdomz7ml2g?ref_src=embed">April 1, 2025 at 12:53 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
-## Struggles with logging in as ksakura
+## Struggles with logging in as `ksakura`
 
 <img alt="&lt;&lt;&lt; Welcome to NixOS hyperv-25.05.20250330.52faf48 (x86_64) - tty1 &gt;&gt;&gt; Run &#39;nixos-help&#39; for the NixOS manual. kats-laptop login: ksakura Password: &lt;REDACTED&gt; Login incorrect kats-laptop login: ksakura Password: &lt;REDACTED&gt; Login incorrect kats-laptop login:" height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--no-user-password.png" title="Screenshot of TTY1
 where I tried
 to log in" width="1024"/>
 
-One of the memes about NixOS is that,
+A meme about NixOS is that,
 everything is declarative, except the installation process.
 
-<img alt="Extracted text: YOU&#39;VE USED IMPERATIVE ACTIONS DURING SYSTEM DEPLOYMENT SYSADMIN CONFISCATES YOUR NIX-CHAN -999,999,999 DERIVATIONS.
-Explaination: Nix aims for perfect reproducibility,
+<img alt="Extracted text: YOU&#39;VE USED IMPERATIVE ACTIONS DURING SYSTEM DEPLOYMENT SYSADMIN CONFISCATES YOUR NIX-CHAN –999,999,999 DERIVATIONS.
+Explanation: Nix aims for perfect reproducibility,
 using imperative action means
 the change was not recorded in the config file,
 and thus, you broke the rule of perfect reproducibility,
@@ -299,8 +303,9 @@ And the fix is also on [mynixos.org](https://mynixos.com/nixpkgs/option/users.us
 
 ## Removing the errors
 
-I had errors innushell,and Hyprland because the config files were for the older version of the programs.
-See, one of the debugging steps I did was to runnix flake update,
+I had errors in `nushell`,
+and `Hyprland` because the config files were for the older version of the programs.
+See, one of the debugging steps I did was to run `nix flake update`,
 which pulled down the latest version of nixpkgs,
 and thus, updated the packages.
 I "just"
@@ -313,7 +318,7 @@ to replace the current flake lock file in the VM with the one from my laptop.
 where the config files are supposed to exist,
 however,
 the output shows
-that the directory is empty" src="https://r2.sakurakat.systems/hyperv-shenanigans--no-config-files.png" title="Screenshot of TTY1
+that the directory is empty" src="https://r2.sakurakat.systems/hyperv-shenanigans--no-config-files.png" title="Screenshot of TTY1,
 which shows
 that the config files for nixos don&#39;t exist" width="1024" height="768"/>
 ```
@@ -328,21 +333,21 @@ so the config files weren't generated.
 ### Solution
 1. Run nixos-generate-config
 2. Clone my laptop's config.
-3. Replace the one hardware-configuration.nix from my laptop with the one \[Step 1\] generated.
+3. Replace the one `hardware-configuration.nix` from my laptop with the one \[Step 1\] generated.
 4. sudo nixos-rebuild test --flake .
 
 ### Problems again
 
 <img alt="The user tried to rebuild NixOS
 but while building a specific package,
-the proccess tried
+the process tried
 to use more memory than what was allocated to it,
 thus ending up in an out of memory situation." height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--oom.png" title="Screenshot of TTY1 showing the process tried
 to use more memory than what exists" width="1024"/>
 
-- "building determinate-nix-util-3.2.1"
+- "building `determinate-nix`-util-3.2.1"
   - Problems with determinate nix?
-- Out of memory: Killed process 1316 (nix)"
+- "`Out of memory`: Killed process 1316 (nix)"
   - Out of RAM...? That shouldn't be the case.
 
 Let's just remove determinate nix for now.
@@ -350,22 +355,28 @@ Let's just remove determinate nix for now.
 <img alt="Due to the immutable nature of the nix packaging system,
 it uses quite a bit of space.
 Usually you&#39;d just garbage collect
-to recover space but in this case it was easier to resize the vm&#39;s harddrive" height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--no-disk-space.png" title="Screenshot of TTY1
+to recover space,
+but in this case it was easier to resize the vm&#39;s hard drive"
+height="768"
+src="https://r2.sakurakat.systems/hyperv-shenanigans--no-disk-space.png"
+title="Screenshot of TTY1
 showing the VM is out of disk space" width="1024"/>
 
-- "mkdir: cannot create directory '<omit>': No space left on device"
-  - Oh, ok, let's run df -h
-    df -h reports 100% used on /
+- "mkdir: cannot create directory '<omit>': `No space left on device`"
+  - Oh, OK, let's run `df -h`
+    `df -h` reports 100% used on `/`
 
-Easy, just increase the disk space.
-
-file > settings > hard drive > edit > expand disk
+Easy, just increase the disk space.\
+`file > settings > hard drive > edit > expand disk`
 
 <img alt="What size do you want to make the virtual hard disk?
 Current size is 40 GB.
 New size:
 40 GB (Maximum: 64 TB)
-Out of Bounds Specify a number between 41 and 65536." height="839" src="https://r2.sakurakat.systems/hyperv-shenanigans--resize-vhdx.png" title="Screenshot of the setting
+Out of Bounds Specify a number between 41 and 65536."
+height="839"
+src="https://r2.sakurakat.systems/hyperv-shenanigans--resize-vhdx.png"
+title="Screenshot of the setting,
 which is required
 to resize the virtual hard disk" width="1550"/>
 :::note
@@ -379,14 +390,17 @@ Reboot the VM\
 
 sudo nixos-rebuild test --flake .
 
-<img alt="Screenshot of Nushell running in kitty terminal.
+<img alt="Screenshot of `Nushell` running in kitty terminal.
 The text size in terminal is very large,
 and the cursor is glitching
-and leaving trails." height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--success.png" title="Screenshot of Hyprland running in the VM" width="1024"/>
+and leaving trails."
+height="768"
+src="https://r2.sakurakat.systems/hyperv-shenanigans--success.png"
+title="Screenshot of `Hyprland` running in the VM" width="1024"/>
 
 Success!
 
-The glitchiness is from Hyperland not liking to be run under a VM.
+The glitchiness is from `Hyperland` not liking to be run under a VM.
 
 Restart the VM.
 
@@ -413,8 +427,8 @@ I actually tried
 to rice my laptop when I had nothing else I wanted to do.
 But it just didn't feel worth it.
 It takes so much time,
-and while I don't like using Hyprland due to the author,
-it's just not worth it to switch to Niri, at least for me.
+and while I don't like using `Hyprland` due to the author,
+it is just not worth it to switch to `Niri`, at least for me.
 
 I do eventually want to update to newer packages
 but that's a thing for later.

@@ -2,7 +2,7 @@
 title: HyperV Shenanigans
 published: 2025-04-13
 description: This blog post covers how I created a Hyper-V VM from my laptop's NixOS Config flake along with all the errors and mistakes I made. I went through allthis trouble just, so I won't have to start my laptop to rice and edit the config.
-#image: null
+image: https://r2.sakurakat.systems/hyperv-shenanigans--banner.jpg
 tags: 
   - NixOS
   - Virtualization

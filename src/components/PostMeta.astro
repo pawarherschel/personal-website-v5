@@ -109,11 +109,14 @@ console.log(`path: ${path}`);
 	{
 		const command = "git fetch --unshallow";
 		console.debug(`${command}`);
-		const { stdout: output, stderr: err } = await exec(`${command}`);
-		if (err.trim() !== "") {
-			console.error(`${command} failed with error:\n${err}`);
-			console.error(`${command} failed and produced:\n${output}`);
-			// throw undefined;
+		try {
+			const { stdout: output, stderr: err } = await exec(`${command}`);
+			if (err.trim() !== "") {
+				console.error(`${command} failed with error:\n${err}`);
+				console.error(`${command} failed and produced:\n${output}`);
+			}
+		} catch {
+			console.log("'lol, lmao' ~ ??");
 		}
 	}
 }

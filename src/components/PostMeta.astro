@@ -34,43 +34,60 @@ let { published, updated } = Astro.props;
 async function isDir(path: string) {
 	try {
 		const s = await stat(path);
-		console.log(
-			`-------------- path: ${path} | ${s.birthtime} -> ${published}`,
-		);
-		if (s.birthtime !== published) {
-			published = s.birthtime;
-		}
 		return s.isDirectory();
 	} catch {
 		return false;
 	}
 }
 
+let path = file;
+if (path.startsWith("/")) {
+	path = path.slice(1);
+}
+if (path.endsWith("/")) {
+	path = path.slice(0, path.length - 1);
+}
+path = `./src/content/${path}`;
+if (await isDir(path)) {
+	path = `${path}/index.md`;
+} else {
+	path = `${path}.md`;
+}
+console.log(`path: ${path}`);
+
 if (updated === undefined) {
 	const command = `git log -1 --pretty="format:%ad" --date=short`;
-	let path = file;
-	if (path.startsWith("/")) {
-		path = path.slice(1);
-	}
-	if (path.endsWith("/")) {
-		path = path.slice(0, path.length - 1);
-	}
-	path = `./src/content/${path}`;
-
-	if (await isDir(path)) {
-		path = `${path}/index.md`;
-	} else {
-		path = `${path}.md`;
-	}
-	console.log(`path: ${path}`);
 	console.debug(`${command} ${path}`);
 	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
 	if (err.trim() !== "") {
 		console.error(`${command} ${path} failed with error:\n${err}`);
 	} else {
-		console.log(`${output.split(" ")[0]}`);
-		updated = new Date(output.split(" ")[0]);
-		console.log(`updated: ${updated}`);
+		console.log(`${output.split(/\s/)[0]}`);
+		updated = new Date(output.split(/\s/)[0]);
+		console.log(`updated: ${updated.toDateString()}`);
+	}
+}
+function minDate(date: Date, published: Date) {
+	if (published.getTime() < date.getTime()) {
+		return published;
+	}
+	if (`${date.toDateString()}` !== `${published.toDateString()}`) {
+		console.log(`PRETTY BOY LIES: ${path}`);
+		console.log(`from ${published.toDateString()} to ${date.toDateString()}`);
+	}
+	return date;
+}
+{
+	const command = 'git log --date=short --pretty="format:%ad" --reverse';
+	console.debug(`${command} ${path}`);
+	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
+	if (err.trim() !== "") {
+		console.error(`${command} ${path} failed with error:\n${err}`);
+	} else {
+		console.log(`${output.split(/\s/)[0]}`);
+		console.log(`${published.toDateString()}`);
+		published = minDate(new Date(output.split(/\s/)[0]), published);
+		console.log(`published: ${updated.toDateString()}`);
 	}
 }
 ---

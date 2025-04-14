@@ -85,44 +85,19 @@ if (await isDir(path)) {
 }
 console.log(`path: ${path}`);
 
-async function getBranches(C?: string) {
-	const command = `git ${C !== undefined ? "" : `-C ${C}`} branch`;
+{
+	const command = `git log -1 --pretty="format:%ad" --date=short LICENSE`;
 	console.debug(`${command}`);
 	const { stdout: output, stderr: err } = await exec(`${command}`);
 	if (err.trim() !== "") {
 		console.error(`${command} failed with error:\n${err}`);
+		console.error(`${command} failed and produced:\n${output}`);
 		throw undefined;
 	}
-	console.log(`output: ${output}`);
-	const branches = output
-		.split(/[,\n]/)
-		.map((it) => it.trim())
-		.filter((it) => it.length !== 0);
-	console.log(`branches: ${branches}`);
-	return branches;
-}
-
-async function getBranch(C?: string) {
-	const branches = await getBranches(C);
-	let branch = branches.find((it) => it.includes("*"));
-	if (branch === undefined) {
-		console.error("no branch found");
-		throw undefined;
-	}
-	branch = branch.split(" ", 2)[1];
-	if (branch === undefined) {
-		console.error("branch is undefined");
-		throw undefined;
-	}
-	console.log(`current branch: ${branch}`);
-	return branch;
-}
-
-if (await folderExists("node_modules/git/bare_repo")) {
-	const branch = await getBranch("node_modules/git/bare_repo");
-	const branches = await getBranches("node_modules/git/bare_repo");
-	if (branches.find((it) => it.includes(branch))) {
-		const command = `git -C node_modules/git/bare_repo checkout ${branch}`;
+	if (
+		new Date(output.split(/\s/)[0]).toDateString() === new Date().toDateString()
+	) {
+		const command = "git fetch --unshallow";
 		console.debug(`${command}`);
 		const { stdout: output, stderr: err } = await exec(`${command}`);
 		if (err.trim() !== "") {
@@ -131,18 +106,7 @@ if (await folderExists("node_modules/git/bare_repo")) {
 			throw undefined;
 		}
 	}
-} else {
-	const command =
-		"git clone --bare https://github.com/pawarherschel/personal-website-v5.git node_modules/git/bare_repo";
-	console.debug(`${command}`);
-	const { stdout: output, stderr: err } = await exec(`${command}`);
-	if (err.trim() !== "") {
-		console.error(`${command} failed with error:\n${err}`);
-		console.error(`${command} failed and produced:\n${output}`);
-		throw undefined;
-	}
 }
-
 {
 	const command = `git log -1 --pretty="format:%ad" --date=short`;
 	console.debug(`${command} ${path}`);

@@ -2,14 +2,19 @@
 title: My journey with Typst 
 published: 2025-01-06
 description: I applied to University of Aalto's game development and design program, and this blogpost covers the process of my journey with Typst with an emphasis on how i used Typst to make a 10+ minute draft which had some ideas to the condensed version which fit in the time limit of 2 minutes.
-tags: []
-category: Examples
+tags: 
+  - Typst
+category: Programming
 draft: false
-prevTitle: "Fractured Elements Breakdown"
-prevSlug: "fractured-elements-breakdown"
-nextTitle: ""
-nextSlug: ""
 ---
+
+:::important
+
+Similar to the previous post,
+I couldn't figure out a way to make the information here simpler.
+But, it is mostly complete
+
+:::
 
 # My journey with Typst
 

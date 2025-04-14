@@ -31,3 +31,7 @@ public/favicon/*.png
 /src/content/posts/scratch.md
 
 .jj
+/public/**/*.svg
+/public/**/*.png
+/public/**/*.jpg
+/public/**/*.jpeg

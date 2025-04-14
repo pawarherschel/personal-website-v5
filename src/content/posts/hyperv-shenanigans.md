@@ -14,6 +14,12 @@ category: Programming
 draft: false
 ---
 
+:::IMPORTANT
+
+Please wait for the Bluesky embeds to load.
+
+:::
+
 # Introduction
 
 I wanted to rice my laptop without turning it on.
@@ -467,6 +473,73 @@ it is just not worth it to switch to `Niri`, at least for me.
 I do eventually want to update to newer packages
 but that's a thing for later.
 I can also use the VM to modularize my config.
+
+---
+
+# The `flake.nix` File
+```nix
+{
+  inputs = {
+    # NOTE: Replace "nixos-23.11" with that which is in system.stateVersion of
+    # configuration.nix. You can also use latter versions if you wish to
+    # upgrade.
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    nixos-generators,
+    ...
+  }: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
+    # NOTE: 'nixos' is the default hostname set by the installer
+    nixosConfigurations.kats-laptop = nixpkgs.lib.nixosSystem {
+      # NOTE: Change this to aarch64-linux if you are on ARM
+      system = "x86_64-linux";
+      # extraSpecialArgs = {inherit inputs;};
+      modules = [
+        ./configuration.nix
+
+        {
+          nix.settings.experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+        }
+
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          # home-manager.useUserPkgs = true;
+          home-manager.users.ksakura = import ./home.nix;
+          home-manager.backupFileExtension = "bak";
+        }
+
+        {
+          virtualisation.diskSize = 20 * 1024;
+        }
+      ];
+    };
+
+    formatter.${system} = pkgs.alejandra;
+    devShell = with pkgs;
+      mkShell {
+        buildInputs = [nil self.formatter.${system}];
+      };
+  };
+}
+```
 
 ---
 

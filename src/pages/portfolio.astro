@@ -17,7 +17,7 @@ import CVEntryCard from "../components/CVEntryCard.astro";
 
 const execPromise = util.promisify(exec);
 
-console.log("git --version");
+console.log("\ngit --version");
 await execPromise("git --version")
 	.then(() => {
 		console.log("git is installed");

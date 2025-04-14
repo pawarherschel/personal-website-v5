@@ -15,13 +15,13 @@ const { id, alt, position = "center", basePath = "/" } = Astro.props;
 let { src } = Astro.props;
 const className = Astro.props.class;
 
-if (src.startsWith('assets/')) {
-  src = src.replace('assets/', '')
-  src = src.replace('/', '--')
+if (src.startsWith("assets/")) {
+	src = src.replace("assets/", "");
+	src = src.replace("/", "--");
 
-  src = `https://r2.sakurakat.systems/${src}`
+	src = `https://r2.sakurakat.systems/${src}`;
 
-  console.log(`expecting image to be at ${src}`)
+	console.log(`expecting image to be at ${src}`);
 }
 
 const isLocal = !(

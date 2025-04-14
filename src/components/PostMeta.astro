@@ -102,10 +102,11 @@ console.log(`path: ${path}`);
 	console.log(
 		`Needs unshallowing?: ${new Date(output.split(/\s/)[0]).toUTCString() === new Date().toUTCString()}`,
 	);
-	if (
-		new Date(output.split(/\s/)[0]).toUTCString() ===
-		new Date("T+00:00").toUTCString()
-	) {
+	// if (
+	// 	new Date(output.split(/\s/)[0]).toUTCString() ===
+	// 	new Date("T+00:00").toUTCString()
+	// )
+	{
 		const command = "git fetch --unshallow";
 		console.debug(`${command}`);
 		const { stdout: output, stderr: err } = await exec(`${command}`);

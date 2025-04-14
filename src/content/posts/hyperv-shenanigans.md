@@ -2,6 +2,7 @@
 title: HyperV Shenanigans
 published: 2025-04-13
 description: This blog post covers how I created a Hyper-V VM from my laptop's NixOS Config flake along with all the errors and mistakes I made. I went through allthis trouble just, so I won't have to start my laptop to rice and edit the config.
+#image: null
 tags: 
   - NixOS
   - Virtualization
@@ -19,7 +20,7 @@ I wanted to rice my laptop without turning it on.
 So, I thought, "Hey, I can just make a VM in Hyper-V",
 because I didn't want to deal with VMware or VirtualBox.
 "I already use NixOS on WSL2,
-so I can just reuse the VHDX for the" VM!" -- or so I thought.
+so I can just reuse the VHDX for the VM!" -- or so I thought.
 Then, I quickly found out I can't just reuse it.
 
 ---
@@ -34,8 +35,8 @@ that there is no TTY."/>
 
 The dang thing doesn't even show a TTY!
 Then,
-I remembered [github:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators) exists.
-Might as well use NixOS generators; How hard can it be?
+I remembered [github\:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators) exists.
+Might as well use NixOS Generators; How hard can it be?
 It can't be that bad, right?
 Right???
 
@@ -67,9 +68,10 @@ https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c
 ::github{repo="nix-community/nixos-generators"}
 
 I started by invoking nixos-generator
-and passed my NixOS config via the --flake option.
+and passed my NixOS config via the `--flake` option.
 But it kept
 saying `nixos/modules/virtualisation/disk-size-option.nix` is missing.
+Even though I passed the options via CLI?
 
 Now, I’m new to flakes and Nix in general,
 so I couldn't figure out why it didn't find the option.
@@ -84,14 +86,12 @@ and then adapt it to my needs.
 ## Getting the minimal working config to work
 
 It worked, but then I realized I used the wrong config,
-I used WSL's config instead of my laptop's config. 🤦.
+I used WSL's config instead of my laptop's config 🤦.
 Well, at least I know it works now.
 
-:::note
-I had some errors after I changed it to my laptop's config,
-but I didn't record what the errors were.
-
-Lesson learned I guess
+:::warning
+I had some errors here after I changed it to my laptop's config,
+but I didn't record what the errors were 🤦🤦🤦
 :::
 
 I then made a stupid mistake.
@@ -99,27 +99,30 @@ See,
 NixOS allows you to have configuration for multiple...
 Let's say... environments.
 When you do `sudo nixos rebuild test --flake .`,
-the config that gets selected depends on the machine's hostname.
-You can also specify,
-which one you want
+the config gets selected depending on the machine's hostname.
+You can also specify
+the config you want
 to build by doing `sudo nixos rebuild test --flake .#<hostname>`.
-So, technically,
-I should have different hostnames for different machines,
+So, ideally,
+I would have different hostnames for different machines,
 à la `kats-laptop`, `kats-wsl`, `kats-rpi`, `kats-hyperv-vm`.
-Along with a modular config,
+So that config flake is modular,
 this allows you
-to have a single config,
-which you can push to GitHub or any other place,
-and the only thing you have to do is a rebuild.
-I do want to modularize my config,
+to have a single config flake,
+which you can push to GitHub or some other place.
+
+Now, I do want to modularize my config,
 I'm just being lazy because it works good enough.
+
 Also, the `#<hostname>` part isn't limited to NixOS configs.
 In general, it is to select a target.
-If you've used the nix shell nixpkgs#<app> command,
+If you've used the `nix shell nixpkgs#<app>` command,
 you're selecting which target to build and expose to the shell.
 Another place
-you might've selected a target is when you run nix build github:<owner>/<repo>#<branch>.
-These are the outputs from the flake.
+you might've selected a target is when you run `nix build github:<owner>/<repo>#<branch>`.
+
+The thing after `#` is the output from the flake.
+
 Recently,
 I had
 to update [github\:MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
@@ -127,8 +130,11 @@ so it builds the latest version of the Zen browser.
 In the flake,
 you can choose if you want to use the build that was optimized
 for newer systems, or the compatibility one.
-:::info
-You can read the short thread I made on Bluesky.
+The way you chose which one to buld was by either using `#specific`,
+or `#generic`.
+If you didn't choose, the flake defaults to `specific`.
+:::note
+You can read the short thread about the process on Bluesky.
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lm3jib32pk2s" data-bluesky-cid="bafyreiae6gdke4n6voeg5sizs5skqguxjkihcbz4jes4mxp674jecjg2zq" data-bluesky-embed-color-mode="system"><p lang="en">My pc is in quarantine rn because of some RAM issues.
 I spent the whole day just lazying around and relaxed for once,
 took naps, etc.
@@ -150,14 +156,14 @@ It acts as a LiveISO,
 which you can try out before deciding
 if you want to install it or not,
 but I wanted the image, so it is time to remake it with the `hyperv` target.
-Also, the size of the ISO was ~2.6 GB.
-I was also unsure if 20 GB would be enough for the VM,
-so I bumped it up to 40 GB.
+Also, the size of the ISO was ~2.6 GB.
+I was also unsure if 20 GB would be enough for the VM,
+so I bumped it up to 40 GB.
 
 ## Back to failing to build
 
-I thought that changing the image size to 40 GB was the problem,
-so I changed it back to 20 GB.
+I thought that changing the image size to 40 GB was the problem,
+so I changed it back to 20 GB.
 I can just increase the disk size in Hyper-V Manager.
 
 The build failed again.
@@ -239,11 +245,9 @@ Let's read this error.
     maybe the Hyper-V Manager has some tool I can use.
 
 OK, let's uncompress it first.\
-
 `right click file > properties > advanced > uncheck Compress contents to save disk space`
 
 Next error:
-
 <img alt="Virtual Machine Boot Summary 1.
 SCSI Disk (0,0)
 The unsigned image&#39;s hash is not allowed (DB) 2. Network Adapter
@@ -255,22 +259,24 @@ Exit and re-configure your VM or click restart to retry the current boot sequenc
   Your virtual machine may be configured incorrectly.
   Exit and re-configure your VM or click restart to retry the current boot sequence again."
   - Hm, that doesn't tell a lot; let's read the earlier stuff.
-- "The unsigned image's hash is not allowed (DB)"
+- "The `unsigned image's hash` is not allowed (DB)"
   - Oh, I think I know what's wrong: secure boot!
 
 ## VM booted successfully
 
-I checked the VHDX file NixOS Generators created and saw it was 4 GB.
+I checked the VHDX file NixOS Generators created and saw it was 4 GB.
 
-Then, the realization hit.
+Then, the realization hit me.
 The error I saw in the
-(Lead Astray)[#lead-astray] section was telling me
-that the VHDX file was 4 GB,
+[Lead Astray #](#lead-astray) section was telling me
+that the VHDX file was 4 GB,
 and not all the various things I thought it was.
+:::warning
 I'm gonna be honest, I forgot what I was yapping about at this point:
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llqdomz7ml2g" data-bluesky-cid="bafyreie46uis7vcjglxma73ivutlnxsmbvt3dcdl2ahmpeukz6eourw2zi" data-bluesky-embed-color-mode="system"><p lang="en">i removed the sudo
 and im back to this error
        error: path &#x27;/nix/store/7a2rzcz3mjaq6ni71nn3zv6v3kxk8zab-nixpkgs/nixpkgs/nixos/modules/virtualisation/disk-size-option.nix&#x27; does not exist</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqdomz7ml2g?ref_src=embed">April 1, 2025 at 12:53 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+:::
 
 ## Struggles with logging in as `ksakura`
 
@@ -289,12 +295,14 @@ and thus, you broke the rule of perfect reproducibility,
 making it an impure flake" src="https://r2.sakurakat.systems/hyperv-shenanigans--nix-chan.png" title="Meme about you
 using imperative action
 while deploying the system" width="1922" height="1440"/>
-(src: https://youtu.be/nLwbNhSxLd4?list=TLPQMTQwNDIwMjVqtjGiwPFIvg&t=759)\
-This is documented on [mynixos.com](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.initialPassword#:~:text=If%20none%20of%20the%20password%20options%20are%20set%2C%20then%20no%20password%20is%20assigned%20to%20the%20user%2C%20and%20the%20user%20will%20not%20be%20able%20to%20do%20password%2Dbased%20logins),\
+(src: https://youtu.be/nLwbNhSxLd4?list=TLPQMTQwNDIwMjVqtjGiwPFIvg&t=759)
+
+Part of the answer is on [mynixos.com/nixpkgs/option/users.users.\<name\>.initialPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.initialPassword#:~:text=If%20none%20of%20the%20password%20options%20are%20set%2C%20then%20no%20password%20is%20assigned%20to%20the%20user%2C%20and%20the%20user%20will%20not%20be%20able%20to%20do%20password%2Dbased%20logins),\
 "If none of the password options are set,
 then no password is assigned to the user,
-and the user will not be able to do password-based logins."\
-And the fix is also on [mynixos.org](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.hashedPassword)\
+and the user will not be able to do password-based logins."
+
+And the rest is on [mynixos.com/nixpkgs/option/users.users.\<name\>.hashedPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.hashedPassword#:~:text=To%20generate%20a%20hashed%20password%20run%20mkpasswd.)\
 "To generate a hashed password run mkpasswd."
 
 ## Successfully logged in
@@ -305,7 +313,8 @@ And the fix is also on [mynixos.org](https://mynixos.com/nixpkgs/option/users.us
 
 I had errors in `nushell`,
 and `Hyprland` because the config files were for the older version of the programs.
-See, one of the debugging steps I did was to run `nix flake update`,
+
+See, while I was debugging, I ran `nix flake update`,
 which pulled down the latest version of nixpkgs,
 and thus, updated the packages.
 I "just"
@@ -331,12 +340,12 @@ I guess I didn't run the installer,
 so the config files weren't generated.
 
 ### Solution
-1. Run nixos-generate-config
-2. Clone my laptop's config.
-3. Replace the one `hardware-configuration.nix` from my laptop with the one \[Step 1\] generated.
-4. sudo nixos-rebuild test --flake .
+1. Run `nixos-generate-config`.
+2. Clone my laptop's config from GitHub.
+3. Replace the `hardware-configuration.nix` from my laptop with the one \[Step 1\] generated.
+4. `sudo nixos-rebuild test --flake .`
 
-### Problems again
+### Problems, again
 
 <img alt="The user tried to rebuild NixOS
 but while building a specific package,
@@ -364,15 +373,16 @@ showing the VM is out of disk space" width="1024"/>
 
 - "mkdir: cannot create directory '<omit>': `No space left on device`"
   - Oh, OK, let's run `df -h`
-    `df -h` reports 100% used on `/`
+
+`df -h` reported 100% used on `/`
 
 Easy, just increase the disk space.\
 `file > settings > hard drive > edit > expand disk`
 
 <img alt="What size do you want to make the virtual hard disk?
-Current size is 40 GB.
+Current size is 40 GB.
 New size:
-40 GB (Maximum: 64 TB)
+40 GB (Maximum: 64 TB)
 Out of Bounds Specify a number between 41 and 65536."
 height="839"
 src="https://r2.sakurakat.systems/hyperv-shenanigans--resize-vhdx.png"
@@ -386,9 +396,8 @@ I took the screenshot after resizing and checking if it works.
 
 ## Final stretch
 
-Reboot the VM\
-
-sudo nixos-rebuild test --flake .
+1. Reboot the VM
+2. `sudo nixos-rebuild test --flake .`
 
 <img alt="Screenshot of `Nushell` running in kitty terminal.
 The text size in terminal is very large,
@@ -400,7 +409,9 @@ title="Screenshot of `Hyprland` running in the VM" width="1024"/>
 
 Success!
 
-The glitchiness is from `Hyperland` not liking to be run under a VM.
+The glitchiness because `Hyperland` doesnt like being run in a VM.
+
+### Checking the number of generations
 
 Restart the VM.
 
@@ -438,5 +449,6 @@ I can also use the VM to modularize my config.
 
 - Link to the first skeet:
   - https://bsky.app/profile/sakurakat.systems/post/3llnz5asyms2c
+  - <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llnz5asyms2c" data-bluesky-cid="bafyreiglr2t5dl777thtxucftt5qlwbq6j57jftmwclktvjxjtnmanbd6e" data-bluesky-embed-color-mode="system"><p lang="en">trying to make a hyperv VM with nixos so i can rice my laptop without turning it on</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c?ref_src=embed">March 31, 2025 at 2:39 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 - Read the thread on Skywriter.blue:
   - https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c

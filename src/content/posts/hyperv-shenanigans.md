@@ -47,7 +47,9 @@ I proceeded to fuck around and find out the age-old lesson of:
 
 <img alt="We do this not because it is easy,
 but because we thought
-it would be easy" height="794" src="https://r2.sakurakat.systems/hyperv-shenanigans--mantra.svg" title="Software Programming Mantra" width="1058"/>
+it would be easy" height="794"
+src="https://r2.sakurakat.systems/hyperv-shenanigans--mantra.svg"
+title="Software Programming Mantra" width="1058"/>
 
 :::note
 I journaled the journey on Bluesky!
@@ -119,7 +121,8 @@ In general, it is to select a target.
 If you've used the `nix shell nixpkgs#<app>` command,
 you're selecting which target to build and expose to the shell.
 Another place
-you might've selected a target is when you run `nix build github:<owner>/<repo>#<branch>`.
+you might've selected a target is
+when you run `nix build github:<owner>/<repo>#<branch>`.
 
 The thing after `#` is the output from the flake.
 
@@ -155,7 +158,8 @@ which I can just load in the Hyper-V manager.
 It acts as a LiveISO,
 which you can try out before deciding
 if you want to install it or not,
-but I wanted the image, so it is time to remake it with the `hyperv` target.
+but I wanted the image,
+so it is time to remake it with the `hyperv` target.
 Also, the size of the ISO was ~2.6 GB.
 I was also unsure if 20 GB would be enough for the VM,
 so I bumped it up to 40 GB.
@@ -230,9 +234,15 @@ Synthetic SCSI Controller
 Failed
 to Power on with Error &#39;The requested operation couldn’t be completed due to a virtual disk system limitation.
 Virtual hard disk files must be uncompressed and unencrypted
-and mustn’t be sparse.&#39;. Attachment &#39;D:\build-dir\nixos-image-hyperv-25.05pre-git-x86_64-linux.vhdx&#39; failed to open because of error: &#39;The requested operation couldn’t be completed due to a virtual disk system limitation.
+and mustn’t be sparse.&#39;.
+Attachment &#39;D:\build-dir\nixos-image-hyperv-25.05pre-git-x86_64-linux.vhdx&#39;
+failed to open because of error:
+&#39;The requested operation couldn’t be completed due to a virtual disk system limitation.
 Virtual hard disk files must be uncompressed and unencrypted
-and must not be sparse.&#39;." height="432" src="https://r2.sakurakat.systems/hyperv-shenanigans--compressed-file.png" title="Screenshot of Hyper-V Manager&#39;s error" width="702"/>
+and must not be sparse.&#39;."
+height="432"
+src="https://r2.sakurakat.systems/hyperv-shenanigans--compressed-file.png"
+title="Screenshot of Hyper-V Manager&#39;s error" width="702"/>
 
 Let's read this error.
 - VM failed to start.
@@ -254,7 +264,10 @@ The unsigned image&#39;s hash is not allowed (DB) 2. Network Adapter
 (00155D006403) A boot image wasn’t found.
 No operating system was loaded.
 Your virtual machine may be configured incorrectly.
-Exit and re-configure your VM or click restart to retry the current boot sequence again." height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--unsigned-image.png" title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
+Exit and re-configure your VM or click restart to retry the current boot sequence again."
+height="768"
+src="https://r2.sakurakat.systems/hyperv-shenanigans--unsigned-image.png"
+title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
 - "No operating system was loaded.
   Your virtual machine may be configured incorrectly.
   Exit and re-configure your VM or click restart to retry the current boot sequence again."
@@ -287,7 +300,8 @@ to log in" width="1024"/>
 A meme about NixOS is that,
 everything is declarative, except the installation process.
 
-<img alt="Extracted text: YOU&#39;VE USED IMPERATIVE ACTIONS DURING SYSTEM DEPLOYMENT SYSADMIN CONFISCATES YOUR NIX-CHAN –999,999,999 DERIVATIONS.
+<img alt="Extracted text:
+YOU&#39;VE USED IMPERATIVE ACTIONS DURING SYSTEM DEPLOYMENT SYSADMIN CONFISCATES YOUR NIX-CHAN –999,999,999 DERIVATIONS.
 Explanation: Nix aims for perfect reproducibility,
 using imperative action means
 the change was not recorded in the config file,
@@ -342,7 +356,8 @@ so the config files weren't generated.
 ### Solution
 1. Run `nixos-generate-config`.
 2. Clone my laptop's config from GitHub.
-3. Replace the `hardware-configuration.nix` from my laptop with the one \[Step 1\] generated.
+3. Replace the `hardware-configuration.nix` from my laptop with the one \[Step
+   1\] generated.
 4. `sudo nixos-rebuild test --flake .`
 
 ### Problems, again
@@ -351,7 +366,10 @@ so the config files weren't generated.
 but while building a specific package,
 the process tried
 to use more memory than what was allocated to it,
-thus ending up in an out of memory situation." height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--oom.png" title="Screenshot of TTY1 showing the process tried
+thus ending up in an out of memory situation."
+height="768"
+src="https://r2.sakurakat.systems/hyperv-shenanigans--oom.png"
+title="Screenshot of TTY1 showing the process tried
 to use more memory than what exists" width="1024"/>
 
 - "building `determinate-nix`-util-3.2.1"
@@ -417,9 +435,14 @@ Restart the VM.
 
 And now there are more generations!
 
-<img alt="NixOS (Generation 2 NixOS Warbler 25.05.20250129.9d3ae80 (Linux 6.12.11), bu&lt;cut off&gt;     NixOS
+<img alt="NixOS
+(Generation 2 NixOS Warbler 25.05.20250129.9d3ae80 (Linux 6.12.11),
+bu&lt;cut off&gt;     NixOS
 (Generation 1 NixOS Warbler hyperv-25.05.20250330.52faf48
-(Linux 6.12.&lt;cut off&gt; Reboot Into Firmware Interface" height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--bootloader.png" title="Screenshot of the bootloader of the VM" width="1024"/>
+(Linux 6.12.&lt;cut off&gt;
+Reboot Into Firmware Interface" height="768"
+src="https://r2.sakurakat.systems/hyperv-shenanigans--bootloader.png"
+title="Screenshot of the bootloader of the VM" width="1024"/>
 
 Now, bring back determinate nix, and it builds successfully!
 
@@ -449,6 +472,8 @@ I can also use the VM to modularize my config.
 
 - Link to the first skeet:
   - https://bsky.app/profile/sakurakat.systems/post/3llnz5asyms2c
-  - <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llnz5asyms2c" data-bluesky-cid="bafyreiglr2t5dl777thtxucftt5qlwbq6j57jftmwclktvjxjtnmanbd6e" data-bluesky-embed-color-mode="system"><p lang="en">trying to make a hyperv VM with nixos so i can rice my laptop without turning it on</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c?ref_src=embed">March 31, 2025 at 2:39 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+  - <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llnz5asyms2c" data-bluesky-cid="bafyreiglr2t5dl777thtxucftt5qlwbq6j57jftmwclktvjxjtnmanbd6e" data-bluesky-embed-color-mode="system"><p lang="en">trying to make a hyperv VM with nixos
+  so i can rice my laptop
+  without turning it on</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c?ref_src=embed">March 31, 2025 at 2:39 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 - Read the thread on Skywriter.blue:
   - https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c

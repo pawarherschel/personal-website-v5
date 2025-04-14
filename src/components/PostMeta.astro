@@ -11,8 +11,8 @@ const exec = util.promisify(execCb);
 
 interface Props {
 	class: string;
-	published: Date;
-	updated: Date;
+	published?: Date;
+	updated?: Date;
 	tags: string[];
 	category: string;
 	hideTagsForMobile?: boolean;
@@ -39,7 +39,32 @@ async function isDir(path: string) {
 		return false;
 	}
 }
-
+function minDate(date1: Date, date2: Date | undefined) {
+	if (date2 === undefined) {
+		return date1;
+	}
+	if (date2.getTime() < date1.getTime()) {
+		return date2;
+	}
+	if (`${date1.toDateString()}` !== `${date2.toDateString()}`) {
+		console.log(`PRETTY BOY LIES: ${path}`);
+		console.log(`from ${date2.toDateString()} to ${date1.toDateString()}`);
+	}
+	return date1;
+}
+function maxDate(date1: Date, updated: Date | undefined) {
+	if (updated === undefined) {
+		return date1;
+	}
+	if (updated.getTime() < date1.getTime()) {
+		if (`${date1.toDateString()}` !== `${updated.toDateString()}`) {
+			console.log(`BEAUTIFUL WOMAN LIES: ${path}`);
+			console.log(`from ${updated.toDateString()} to ${date1.toDateString()}`);
+		}
+		return updated;
+	}
+	return date1;
+}
 let path = file;
 if (path.startsWith("/")) {
 	path = path.slice(1);
@@ -55,7 +80,7 @@ if (await isDir(path)) {
 }
 console.log(`path: ${path}`);
 
-if (updated === undefined) {
+{
 	const command = `git log -1 --pretty="format:%ad" --date=short`;
 	console.debug(`${command} ${path}`);
 	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
@@ -63,19 +88,10 @@ if (updated === undefined) {
 		console.error(`${command} ${path} failed with error:\n${err}`);
 	} else {
 		console.log(`${output.split(/\s/)[0]}`);
-		updated = new Date(output.split(/\s/)[0]);
+		console.log(`${updated?.toDateString()}`);
+		updated = maxDate(new Date(output.split(/\s/)[0]), updated);
 		console.log(`updated: ${updated.toDateString()}`);
 	}
-}
-function minDate(date: Date, published: Date) {
-	if (published.getTime() < date.getTime()) {
-		return published;
-	}
-	if (`${date.toDateString()}` !== `${published.toDateString()}`) {
-		console.log(`PRETTY BOY LIES: ${path}`);
-		console.log(`from ${published.toDateString()} to ${date.toDateString()}`);
-	}
-	return date;
 }
 {
 	const command = 'git log --date=short --pretty="format:%ad" --reverse';
@@ -85,9 +101,9 @@ function minDate(date: Date, published: Date) {
 		console.error(`${command} ${path} failed with error:\n${err}`);
 	} else {
 		console.log(`${output.split(/\s/)[0]}`);
-		console.log(`${published.toDateString()}`);
+		console.log(`${published?.toDateString()}`);
 		published = minDate(new Date(output.split(/\s/)[0]), published);
-		console.log(`published: ${updated.toDateString()}`);
+		console.log(`published: ${published.toDateString()}`);
 	}
 }
 ---

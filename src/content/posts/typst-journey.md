@@ -8,6 +8,14 @@ category: Programming
 draft: false
 ---
 
+:::important
+
+Similar to the previous post,
+I couldn't figure out a way to make the information here simpler.
+But, it is mostly complete
+
+:::
+
 # My journey with Typst
 
 I have been following [Typst](https://Typst.app/) for a while now.

@@ -20,7 +20,7 @@ interface Props {
 	// hideUpdateDate?: boolean;
 }
 const {
-	published,
+	// published,
 	// updated,
 	tags,
 	category,
@@ -29,11 +29,17 @@ const {
 	// hideUpdateDate = false,
 } = Astro.props;
 const className = Astro.props.class;
-let { updated } = Astro.props;
+let { published, updated } = Astro.props;
 
 async function isDir(path: string) {
 	try {
 		const s = await stat(path);
+		console.log(
+			`-------------- path: ${path} | ${s.birthtime} -> ${published}`,
+		);
+		if (s.birthtime !== published) {
+			published = s.birthtime;
+		}
 		return s.isDirectory();
 	} catch {
 		return false;

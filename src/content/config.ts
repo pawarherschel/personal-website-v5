@@ -1,6 +1,8 @@
 import { defineCollection, z } from "astro:content";
+import { authorFeedLoader } from "@ascorbic/bluesky-loader";
+import { blueskyConfig } from "../config.ts";
 
-const postsCollection = defineCollection({
+const blogCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		published: z.date(),
@@ -19,6 +21,14 @@ const postsCollection = defineCollection({
 		nextSlug: z.string().default(""),
 	}),
 });
+
+const bskyCollection = defineCollection({
+	loader: authorFeedLoader({
+		identifier: blueskyConfig.blueskyIdentifier,
+	}),
+});
+
 export const collections = {
-	posts: postsCollection,
+	posts: blogCollection,
+	bsky: bskyCollection,
 };

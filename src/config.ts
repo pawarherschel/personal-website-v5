@@ -1,4 +1,5 @@
 import type {
+	BlueskyConfig,
 	LicenseConfig,
 	NavBarConfig,
 	ProfileConfig,
@@ -86,6 +87,10 @@ export const profileConfig: ProfileConfig = {
 			url: "https://orcid.org/0009-0003-3218-801X",
 		},
 	],
+};
+
+export const blueskyConfig: BlueskyConfig = {
+	blueskyIdentifier: "sakurakat.systems",
 };
 
 export const licenseConfig: LicenseConfig = {

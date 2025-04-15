@@ -35,3 +35,5 @@ public/favicon/*.png
 /public/**/*.png
 /public/**/*.jpg
 /public/**/*.jpeg
+
+/vendored/*

@@ -287,7 +287,10 @@ title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
     :::caution[todo]
     how was this solved
     :::
-
+ 
+:::caution[todo]
+this should be a new top level heading
+:::
 ## VM booted successfully
 
 I checked the VHDX file NixOS Generators created and saw it was 4 GB.
@@ -336,6 +339,9 @@ And the rest is on [mynixos.com/nixpkgs/option/users.users.\<name\>.hashedPasswo
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llqitkdpyn2g" data-bluesky-cid="bafyreidiqtyoespfqdxfvapnwmw75cvmayqi3snlqtm6xzx6o2axqeycee" data-bluesky-embed-color-mode="system"><p lang="en">HELL YEAH<br><br><a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqitkdpyn2g?ref_src=embed">[image or embed]</a></p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqitkdpyn2g?ref_src=embed">April 1, 2025 at 2:25 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
+:::caution[todo]
+this should be a new top level heading
+:::
 ## Removing the errors
 
 I had errors in `nushell`,
@@ -348,6 +354,9 @@ I "just"
 have
 to replace the current flake lock file in the VM with the one from my laptop.
 
+:::caution[todo]
+this should be a new top level heading
+:::
 ## No config files
 
 <img alt="The user ran ls /etc/nixos,
@@ -425,6 +434,9 @@ ignore the error for Out of Bounds
 I took the screenshot after resizing and checking if it works.
 :::
 
+:::caution[todo]
+this should be a new top level heading
+:::
 ## Final stretch
 
 1. Reboot the VM

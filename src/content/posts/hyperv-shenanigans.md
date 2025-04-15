@@ -103,9 +103,6 @@ I had some errors here after I changed it to my laptop's config,
 but I didn't record what the errors were 🤦🤦🤦
 :::
 
-:::caution[todo]
-what is the stupid mistake?
-:::
 I then made a stupid mistake.
 See,
 NixOS allows you to have configuration for multiple...
@@ -115,7 +112,15 @@ the config gets selected depending on the machine's hostname.
 You can also specify
 the config you want
 to build by doing `sudo nixos rebuild test --flake .#<hostname>`.
-So, ideally,
+
+My laptop's hostname is `kats-laptop`,
+however, the hostname for WSL is `nixos` (default).
+So,
+the flake thought I wanted to build the target using `nixos`'s config,
+but, there was no config for `nixos`.
+So, I just had to mention the hostname.
+
+Ideally,
 I would have different hostnames for different machines,
 à la `kats-laptop`, `kats-wsl`, `kats-rpi`, `kats-hyperv-vm`.
 So that config flake is modular,

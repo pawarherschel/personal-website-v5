@@ -55,6 +55,8 @@ let likesData = post ? await getLikes(post.data.uri) : [];
 
 let comments = post ? await getComments(post.data.uri) : [];
 
+console.log(`number of comments found: ${comments.length}`);
+
 const today = new Date();
 ---
 

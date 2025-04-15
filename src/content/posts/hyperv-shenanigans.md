@@ -302,7 +302,7 @@ I checked the VHDX file NixOS Generators created and saw it was 4 GB.
 
 Then, the realization hit me.
 The error I saw in the
-[## Lead Astray](#lead-astray) section was telling me
+[#lead-astray](#lead-astray) section was telling me
 that the VHDX file was 4 GB,
 and not all the various things I thought it was.
 :::warning

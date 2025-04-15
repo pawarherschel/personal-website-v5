@@ -47,8 +47,8 @@ function minDate(date1: Date, date2: Date | undefined) {
 		return date2;
 	}
 	if (`${date1.toDateString()}` !== `${date2.toDateString()}`) {
-		console.log(`PRETTY BOY LIES: ${path}`);
-		console.log(`from ${date2.toDateString()} to ${date1.toDateString()}`);
+		// console.log(`PRETTY BOY LIES: ${path}`);
+		// console.log(`from ${date2.toDateString()} to ${date1.toDateString()}`);
 	}
 	return date1;
 }
@@ -58,8 +58,8 @@ function maxDate(date1: Date, updated: Date | undefined) {
 	}
 	if (updated.getTime() < date1.getTime()) {
 		if (`${date1.toDateString()}` !== `${updated.toDateString()}`) {
-			console.log(`BEAUTIFUL WOMAN LIES: ${path}`);
-			console.log(`from ${updated.toDateString()} to ${date1.toDateString()}`);
+			// console.log(`BEAUTIFUL WOMAN LIES: ${path}`);
+			// console.log(`from ${updated.toDateString()} to ${date1.toDateString()}`);
 		}
 		return updated;
 	}
@@ -78,32 +78,32 @@ if (await isDir(path)) {
 } else {
 	path = `${path}.md`;
 }
-console.log(`path: ${path}`);
+// console.log(`path: ${path}`);
 
 {
 	const command = `git log -1 --pretty="format:%ad" --date=short`;
-	console.debug(`${command} ${path}`);
+	// console.debug(`${command} ${path}`);
 	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
 	if (err.trim() !== "") {
-		console.error(`${command} ${path} failed with error:\n${err}`);
+		// console.error(`${command} ${path} failed with error:\n${err}`);
 	} else {
-		console.log(`${output.split(/\s/)[0]}`);
-		console.log(`${updated?.toDateString()}`);
+		// console.log(`${output.split(/\s/)[0]}`);
+		// console.log(`${updated?.toDateString()}`);
 		updated = maxDate(new Date(output.split(/\s/)[0]), updated);
-		console.log(`updated: ${updated.toDateString()}`);
+		// console.log(`updated: ${updated.toDateString()}`);
 	}
 }
 {
 	const command = 'git log --date=short --pretty="format:%ad" --reverse';
-	console.debug(`${command} ${path}`);
+	// console.debug(`${command} ${path}`);
 	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
 	if (err.trim() !== "") {
-		console.error(`${command} ${path} failed with error:\n${err}`);
+		// console.error(`${command} ${path} failed with error:\n${err}`);
 	} else {
-		console.log(`${output.split(/\s/)[0]}`);
-		console.log(`${published?.toDateString()}`);
+		// console.log(`${output.split(/\s/)[0]}`);
+		// console.log(`${published?.toDateString()}`);
 		published = minDate(new Date(output.split(/\s/)[0]), published);
-		console.log(`published: ${published.toDateString()}`);
+		// console.log(`published: ${published.toDateString()}`);
 	}
 }
 ---

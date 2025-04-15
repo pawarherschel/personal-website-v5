@@ -1,13 +1,13 @@
 <script lang="ts">
-	type Props = {
-		link?: string;
-		size?: string;
-		src?: string;
-		alt?: string;
-		class?: string;
-	};
+type Props = {
+	link?: string;
+	size?: string;
+	src?: string;
+	alt?: string;
+	class?: string;
+};
 
-	const { link, size = 'size-11', src, alt, class: className }: Props = $props();
+const { link, size = "size-11", src, alt, class: className }: Props = $props();
 </script>
 
 {#snippet avatar()}

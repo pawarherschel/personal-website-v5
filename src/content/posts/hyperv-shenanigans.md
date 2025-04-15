@@ -3,7 +3,7 @@ title: Hyper-V shenanigans with `nixos-generators`
 published: 2025-04-13
 description: This blog post covers how I created a Hyper-V VM from my laptop's NixOS Config flake along with some errors and mistakes I made. I went through all this trouble just, so I won't have to start my laptop to rice and edit the config.
 image: https://r2.sakurakat.systems/hyperv-shenanigans--banner.jpg
-tags: 
+tags:
   - NixOS
   - Virtualization
   - Hyper-V
@@ -103,6 +103,9 @@ I had some errors here after I changed it to my laptop's config,
 but I didn't record what the errors were 🤦🤦🤦
 :::
 
+:::caution[todo]
+what is the stupid mistake?
+:::
 I then made a stupid mistake.
 See,
 NixOS allows you to have configuration for multiple...
@@ -281,6 +284,9 @@ title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
   - Hm, that doesn't tell a lot; let's read the earlier stuff.
 - "The `unsigned image's hash` is not allowed (DB)"
   - Oh, I think I know what's wrong: secure boot!
+    :::caution[todo]
+    how was this solved
+    :::
 
 ## VM booted successfully
 

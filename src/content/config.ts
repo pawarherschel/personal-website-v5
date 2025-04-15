@@ -28,7 +28,10 @@ const bskyCollection = defineCollection({
 	}),
 });
 
+const specCollection = defineCollection({});
+
 export const collections = {
 	posts: blogCollection,
 	bsky: bskyCollection,
+	spec: specCollection,
 };

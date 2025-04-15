@@ -1,20 +1,23 @@
 <script lang="ts">
-  import {
-    atUriToPostUri,
-    renderPostAsHtml,
-    numberToHumanReadable,
-  } from "./utils";
-  import Comment from "./Comment.svelte";
-  import Avatar from "./Avatar.svelte";
-  import RelativeTime from "./relative-time";
+import Avatar from "./Avatar.svelte";
+import Comment from "./Comment.svelte";
+import RelativeTime from "./relative-time";
+import {
+	atUriToPostUri,
+	numberToHumanReadable,
+	renderPostAsHtml,
+} from "./utils";
 
-  const { comment, depth = 0 } = $props();
+const { comment, depth = 0 } = $props();
 
-  let expanded = $state(true);
+let expanded = $state(true);
 </script>
 
 {#snippet top(expand: boolean)}
-  <div class="text-sm text-base-600 dark:text-base-500 flex items-center -ml-6">
+<!--		  class="text-sm text-base-600 dark:text-base-500 flex items-center -ml-6"-->
+  <div
+	class="transition link text-[var(--primary)] font-medium flex items-center -ml-6"
+  >
     <div class="relative size-6">
       <Avatar
         src={comment.post.author.avatar}
@@ -43,7 +46,7 @@
       {comment.post.author.displayName || comment.post.author.handle}
     </a>
 
-    <div class="text-xs ml-2 text-base-500">
+    <div class="text-xs ml-2 text-50 transition">
       <RelativeTime
         date={new Date(comment.post.record.createdAt)}
         locale="en"
@@ -54,7 +57,7 @@
 
 <div class="pl-3 relative">
   <button
-    class="group absolute -left-1.5 top-0 w-3 h-full flex items-center"
+    class="group absolute -left-1.5 top-0 w-3 h-full flex items-center hover:border-r transition"
     onclick={() => (expanded = !expanded)}
   >
     <div
@@ -63,12 +66,12 @@
     <span class="sr-only">collapse comment</span>
   </button>
 
-  <div class="mt-2 pb-2">
+  <div class="mt-2 pb-2 mb-1 dark:text-neutral-50 transition">
     {#if expanded}
       {@render top(false)}
       <div>{@html renderPostAsHtml(comment.post)}</div>
 
-      <div class="mt-2 flex gap-8 text-base-500 dark:text-base-400">
+      <div class="mt-2 flex gap-8 text-50">
         <a
           href={atUriToPostUri(comment.post.uri)}
           target="_blank"

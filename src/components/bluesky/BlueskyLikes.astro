@@ -1,12 +1,16 @@
 ---
 import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
 import { blueskyConfig } from "../../config";
+import { getPostUrlBySlug } from "../../utils/url-utils";
+import ButtonLink from "../control/ButtonLink.astro";
+import WidgetLayout from "../widget/WidgetLayout.astro";
 import Comments from "./Comments.svelte";
 import Likes from "./Likes.svelte";
 import { atUriToPostUri, getComments, getLikes } from "./utils";
 const { blueskyIdentifier } = blueskyConfig;
 
-let posts = await getCollection("posts");
+let bsky = await getCollection("bsky");
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -14,55 +18,130 @@ const url = canonicalURL.toString();
 
 const { disableComments, disableLikes } = Astro.props;
 
+console.log(`searching for ${url}`);
+// console.log(
+// 	`posts: ${JSON.stringify(
+// 		bsky
+// 			.sort(
+// 				(a, b) =>
+// 					new Date(a.data.indexedAt).getTime() -
+// 					new Date(b.data.indexedAt).getTime(),
+// 			)
+// 			// // @ts-expect-error: weird type fuckery
+// 			.filter((it) =>
+// 				JSON.stringify(it.data).includes("https://sakurakat.systems"),
+// 			)
+// 			.map((it) => it.data),
+// 		null,
+// 		2,
+// 	)}`,
+// );
+
 // get first post (sorted by indexedAt) with url in embed.external.uri
-const post = posts
+const post = bsky
 	.sort(
 		(a, b) =>
 			new Date(a.data.indexedAt).getTime() -
 			new Date(b.data.indexedAt).getTime(),
 	)
 	// @ts-expect-error: weird type fuckery
-	.find((post) => post.data.embed?.external?.uri === url);
+	.find((it) => it.data.embed?.external?.uri === url);
+
+if (post) {
+	console.log(`Found url at ${atUriToPostUri(post.data.uri)}`);
+}
 
 let likesData = post ? await getLikes(post.data.uri) : [];
 
 let comments = post ? await getComments(post.data.uri) : [];
+
+const today = new Date();
 ---
 
+<!--Like or comment button-->
 {
-  post && (!disableLikes || !disableComments) ? (
-    <a
-      target="_blank"
-      href={atUriToPostUri(post.data.uri)}
-      class="text-sm text-accent-500 hover:text-accent-600 dark:hover:text-accent-400 font-semibold transition-colors duration-100"
-    >
-      {disableComments ? "Like" : disableLikes ? "Comment" : "Like or comment"}
-      on bluesky
-    </a>
-  ) : null
+	post && (!disableLikes || !disableComments) && (
+    <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
+        <a href={atUriToPostUri(post.data.uri)}
+           class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !atUriToPostUri(post.data.uri)}]}>
+			<div class="btn-card rounded-2xl w-full h-[3.75rem] flex-col" >
+				<div class="max-w-full px-4 flex items-center gap-4">
+	                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
+	                <div class="text-center overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
+	                    {
+			                (() => {
+				                if(disableComments){
+					                return "Like";
+				                } else if (disableLikes) {
+					                return "Comment";
+				                } else {
+					                return "Like or comment";
+				                }
+			                })()
+		                }
+		                on Bluesky
+	                </div>
+	                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
+				</div>
+				<div class="transition text-50 text-sm text-center">
+					{
+						(() => {
+						if(disableComments){
+							return "Likes";
+						} else if (disableLikes) {
+							return "Comments";
+						} else {
+							return "Likes and comments";
+						}
+						})()
+					}
+					last updated on {today.toISOString()} ({today.toUTCString()})
+				</div>
+            </div>
+        </a>
+    </div>
+	)
 }
 
+<div class="flex flex-col gap-4">
+<!--likes-->
 {
-  !disableLikes ? (
-    <Likes
-      uri={post?.data.uri}
-      likesData={likesData}
-      likesCount={Math.max(post?.data.likeCount ?? 0, likesData.length)}
-      user={blueskyIdentifier}
-      url={url}
-      client:idle
-    />
-  ) : null
+	!disableLikes && (
+	<div class="card-base pb-4 relative w-full z-10">
+		<WidgetLayout
+			id="likes"
+			name="Likes"
+		>
+			<Likes
+		        uri={post?.data.uri}
+		        likesData={likesData}
+		        likesCount={Math.max(post?.data.likeCount ?? 0, likesData.length)}
+		        user={blueskyIdentifier}
+		        url={url}
+		        client:idle
+			/>
+		</WidgetLayout>
+	</div>
+	)
 }
 
+<!--comments-->
 {
-  !disableComments ? (
-    <Comments
-      uri={post?.data.uri}
-      comments={comments}
-      user={blueskyIdentifier}
-      url={url}
-      client:idle
-    />
-  ) : null
+	!disableComments && (
+		<div class="card-base pb-4 relative w-full z-10">
+			<WidgetLayout
+				id="comments"
+				name="Comments"
+			>
+			    <Comments
+					uri={post?.data.uri}
+		            comments={comments}
+		            user={blueskyIdentifier}
+		            url={url}
+		            client:idle
+			    />
+			</WidgetLayout>
+		</div>
+	)
 }
+</div>

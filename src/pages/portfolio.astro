@@ -17,10 +17,10 @@ import CVEntryCard from "../components/CVEntryCard.astro";
 
 const execPromise = util.promisify(exec);
 
-console.log("\ngit --version");
+// console.log("\ngit --version");
 await execPromise("git --version")
 	.then(() => {
-		console.log("git is installed");
+		// console.log("git is installed");
 	})
 	.catch(() => {
 		throw new Error("git is not available");
@@ -36,7 +36,7 @@ const folderExists = async (path) =>
 		});
 
 if (await folderExists("node_modules/git/resume")) {
-	console.log("Pulling resume");
+	// console.log("Pulling resume");
 	const { _gitCloneOut, gitCloneErr } = await execPromise(
 		"git -C node_modules/git/resume pull",
 	);
@@ -44,7 +44,7 @@ if (await folderExists("node_modules/git/resume")) {
 		console.error(gitCloneErr);
 	}
 } else {
-	console.log("Cloning resume");
+	// console.log("Cloning resume");
 	const { _gitCloneOut, gitCloneErr } = await execPromise(
 		"git clone https://github.com/pawarherschel/resume.git node_modules/git/resume",
 	);
@@ -133,71 +133,71 @@ if (!others) {
 ---
 
 <MainGridLayout title={i18n(I18nKey.portfolio)}>
-    <div class="flex w-full flex-col rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-      {(projects) &&
-              <div
-                      class="card-base z-10 px-9 py-6 mb-6  relative w-full rounded-[var(--radius-large)] bg-[var(--card-bg)] ">
-                  <h1 class="text-4xl font-bold text-90 text-[var(--text-color)] mb-4 text-center">Projects</h1>
-                  <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
-                  <div
-                          class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4">
-                    {
-                      projects.map((project) =>
-                              <CVEntryCard
-                                      cv_entry={project}
-                              >
-                              </CVEntryCard>
-                      )
-                    }
-                  </div>
-              </div>}
-      <!-- {(publications) && -->
-              <!-- <div -->
-                      <!-- class="card-base z-10 px-9 py-6 mb-6 relative w-full rounded-[var(--radius-large)] bg-[var(--card-bg)] "> -->
-                  <!-- <h1 class="text-4xl font-bold text-90 text-[var(--text-color)] mb-4 text-center">Publications</h1> -->
-                  <!-- <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div> -->
-                  <!-- <div -->
-                          <!-- class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4"> -->
-                    <!-- { -->
-                      <!-- publications.map((publications) => -->
-                              <!-- <CVEntryCard -->
-                                      <!-- cv_entry={publications} -->
-                              <!-- > -->
-                              <!-- </CVEntryCard> -->
-                      <!-- ) -->
-                    <!-- } -->
-                  <!-- </div> -->
-              <!-- </div>} -->
-      {(others) &&
-              <div
-                      class="card-base z-10 px-9 py-6 mb-6 relative w-full rounded-[var(--radius-large)] bg-[var(--card-bg)] ">
-                  <h1 class="text-4xl font-bold text-90 text-[var(--text-color)] mb-4 text-center">Others</h1>
-                  <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
-                  <div
-                          class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4">
-                    {
-                      others.map((other) =>
-                              <CVEntryCard
-                                      cv_entry={other}
-                              >
-                              </CVEntryCard>
-                      )
-                    }
-                  </div>
-              </div>}
-        <div class="card-base z-10 px-9 py-6 mb-6 relative w-full rounded-[var(--radius-large)] bg-[var(--card-bg)] ">
-            <h1 class="text-4xl font-bold text-90 text-[var(--text-color)] mb-4 text-center">Education</h1>
-            <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
-            <div class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4">
-              {
-                education.map((education) =>
-                        <CVEntryCard
-                                cv_entry={education}
-                        >
-                        </CVEntryCard>
-                )
-              }
-            </div>
-        </div>
-    </div>
+	<div class="flex w-full flex-col rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		{(projects) &&
+				<div
+						class="card-base z-10 px-9 py-6 mb-6  relative w-full rounded-[var(--radius-large)] bg-[var(--card-bg)] ">
+					<h1 class="text-4xl font-bold text-90 text-[var(--text-color)] mb-4 text-center">Projects</h1>
+					<div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
+					<div
+							class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4">
+						{
+							projects.map((project) =>
+									<CVEntryCard
+											cv_entry={project}
+									>
+									</CVEntryCard>
+							)
+						}
+					</div>
+				</div>}
+		<!-- {(publications) && -->
+		<!-- <div -->
+		<!-- class="card-base z-10 px-9 py-6 mb-6 relative w-full rounded-[var(--radius-large)] bg-[var(--card-bg)] "> -->
+		<!-- <h1 class="text-4xl font-bold text-90 text-[var(--text-color)] mb-4 text-center">Publications</h1> -->
+		<!-- <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div> -->
+		<!-- <div -->
+		<!-- class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4"> -->
+		<!-- { -->
+		<!-- publications.map((publications) => -->
+		<!-- <CVEntryCard -->
+		<!-- cv_entry={publications} -->
+		<!-- > -->
+		<!-- </CVEntryCard> -->
+		<!-- ) -->
+		<!-- } -->
+		<!-- </div> -->
+		<!-- </div>} -->
+		{(others) &&
+				<div
+						class="card-base z-10 px-9 py-6 mb-6 relative w-full rounded-[var(--radius-large)] bg-[var(--card-bg)] ">
+					<h1 class="text-4xl font-bold text-90 text-[var(--text-color)] mb-4 text-center">Others</h1>
+					<div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
+					<div
+							class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4">
+						{
+							others.map((other) =>
+									<CVEntryCard
+											cv_entry={other}
+									>
+									</CVEntryCard>
+							)
+						}
+					</div>
+				</div>}
+		<div class="card-base z-10 px-9 py-6 mb-6 relative w-full rounded-[var(--radius-large)] bg-[var(--card-bg)] ">
+			<h1 class="text-4xl font-bold text-90 text-[var(--text-color)] mb-4 text-center">Education</h1>
+			<div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
+			<div class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4">
+				{
+					education.map((education) =>
+							<CVEntryCard
+									cv_entry={education}
+							>
+							</CVEntryCard>
+					)
+				}
+			</div>
+		</div>
+	</div>
 </MainGridLayout>

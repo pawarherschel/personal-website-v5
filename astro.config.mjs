@@ -21,115 +21,129 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://sakurakat.systems/",
-  base: "/",
-  trailingSlash: "always",
-  integrations: [
-    tailwind(
-        {
-          nesting: true,
-        }
-    ),
-    swup({
-      theme: false,
-      animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
-      // the default value `transition-` cause transition delay
-      // when the Tailwind class `transition-all` is used
-      containers: ["main", "#toc"],
-      smoothScrolling: true,
-      cache: true,
-      preload: {
-        hover: true,
-        visible: true
-      },
-      accessibility: true,
-      updateHead: true,
-      updateBodyClass: false,
-      globalInstance: true,
-    }),
-    icon({
-      include: {
-        "preprocess: vitePreprocess(),": ["*"],
-        "fa6-brands": ["*"],
-        "fa6-regular": ["*"],
-        "fa6-solid": ["*"],
-      },
-    }),
-    svelte(),
-    sitemap(),
-    Compress({
-      CSS: false,
-      Image: false,
-      Action: {
-        Passed: async () => true, // https://github.com/PlayForm/Compress/issues/376
-      },
-    }),
-  ],
-  markdown: {
-    remarkPlugins: [
-      remarkMath,
-      remarkReadingTime,
-      remarkExcerpt,
-      remarkGithubAdmonitionsToDirectives,
-      remarkDirective,
-      remarkSectionize,
-      parseDirectiveNode,
-    ],
-    rehypePlugins: [
-      rehypeKatex,
-      rehypeSlug,
-      [
-        rehypeComponents,
-        {
-          components: {
-            github: GithubCardComponent,
-            note: (x, y) => AdmonitionComponent(x, y, "note"),
-            tip: (x, y) => AdmonitionComponent(x, y, "tip"),
-            important: (x, y) => AdmonitionComponent(x, y, "important"),
-            caution: (x, y) => AdmonitionComponent(x, y, "caution"),
-            warning: (x, y) => AdmonitionComponent(x, y, "warning"),
-          },
-        },
-      ],
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: "append",
-          properties: {
-            className: ["anchor"],
-          },
-          content: {
-            type: "element",
-            tagName: "span",
-            properties: {
-              className: ["anchor-icon"],
-              "data-pagefind-ignore": true,
-            },
-            children: [
-              {
-                type: "text",
-                value: "#",
-              },
-            ],
-          },
-        },
-      ],
-    ],
-  },
-  vite: {
-    build: {
-      rollupOptions: {
-        onwarn(warning, warn) {
-          // temporarily suppress this warning
-          if (
-            warning.message.includes("is dynamically imported by") &&
-            warning.message.includes("but also statically imported by")
-          ) {
-            return;
-          }
-          warn(warning);
-        },
-      },
-    },
-  },
+	site: "https://sakurakat.systems/",
+	base: "/",
+	trailingSlash: "always",
+	prefetch: {
+		prefetchAll: true,
+		defaultStrategy: "viewport",
+	},
+	experimental: {
+		clientPrerender: true,
+		responsiveImages: true,
+	},
+	image: {
+		// Used for all Markdown images; not configurable per-image
+		// Used for all `<Image />` and `<Picture />` components unless overridden with a prop
+		// experimentalLayout: "responsive",
+		// experimentalObjectFit: "cover",
+		domains: ["sakurakat.systems"],
+	},
+	integrations: [
+		tailwind({
+			nesting: true,
+		}),
+		swup({
+			theme: false,
+			animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
+			// the default value `transition-` cause transition delay
+			// when the Tailwind class `transition-all` is used
+			containers: ["main", "#toc"],
+			smoothScrolling: true,
+			cache: true,
+			preload: {
+				hover: true,
+				visible: true,
+			},
+			accessibility: true,
+			updateHead: true,
+			updateBodyClass: false,
+			globalInstance: true,
+		}),
+		icon({
+			include: {
+				"preprocess: vitePreprocess(),": ["*"],
+				"fa6-brands": ["*"],
+				"fa6-regular": ["*"],
+				"fa6-solid": ["*"],
+			},
+		}),
+		svelte(),
+		sitemap(),
+		Compress({
+			CSS: true,
+			Image: true,
+			Action: {
+				Passed: async () => true, // https://github.com/PlayForm/Compress/issues/376
+			},
+		}),
+	],
+	markdown: {
+		remarkPlugins: [
+			remarkMath,
+			remarkReadingTime,
+			remarkExcerpt,
+			remarkGithubAdmonitionsToDirectives,
+			remarkDirective,
+			remarkSectionize,
+			parseDirectiveNode,
+		],
+		rehypePlugins: [
+			rehypeKatex,
+			rehypeSlug,
+			[
+				rehypeComponents,
+				{
+					components: {
+						github: GithubCardComponent,
+						note: (x, y) => AdmonitionComponent(x, y, "note"),
+						tip: (x, y) => AdmonitionComponent(x, y, "tip"),
+						important: (x, y) => AdmonitionComponent(x, y, "important"),
+						caution: (x, y) => AdmonitionComponent(x, y, "caution"),
+						warning: (x, y) => AdmonitionComponent(x, y, "warning"),
+					},
+				},
+			],
+			[
+				rehypeAutolinkHeadings,
+				{
+					behavior: "append",
+					properties: {
+						className: ["anchor"],
+					},
+					content: {
+						type: "element",
+						tagName: "span",
+						properties: {
+							className: ["anchor-icon"],
+							"data-pagefind-ignore": true,
+						},
+						children: [
+							{
+								type: "text",
+								value: "#",
+							},
+						],
+					},
+				},
+			],
+		],
+	},
+	vite: {
+		build: {
+			// sourcemap: true,
+			rollupOptions: {
+				onwarn(warning, warn) {
+					// temporarily suppress this warning
+					if (
+						warning.message.includes("is dynamically imported by") &&
+						warning.message.includes("but also statically imported by")
+					) {
+						return;
+					}
+					warn(warning);
+				},
+			},
+		},
+	},
 });

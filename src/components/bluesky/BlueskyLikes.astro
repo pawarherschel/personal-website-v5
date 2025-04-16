@@ -2,8 +2,6 @@
 import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { blueskyConfig } from "../../config";
-import { getPostUrlBySlug } from "../../utils/url-utils";
-import ButtonLink from "../control/ButtonLink.astro";
 import WidgetLayout from "../widget/WidgetLayout.astro";
 import Comments from "./Comments.svelte";
 import Likes from "./Likes.svelte";
@@ -16,9 +14,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const url = canonicalURL.toString();
 
-const { disableComments, disableLikes } = Astro.props;
-
-console.log(`\nsearching for ${url}`);
+// console.log(`\nsearching for ${url}`);
 // console.log(
 // 	`posts: ${JSON.stringify(
 // 		bsky
@@ -47,103 +43,68 @@ const post = bsky
 	// @ts-expect-error: weird type fuckery
 	.find((it) => it.data.embed?.external?.uri === url);
 
-if (post) {
-	console.log(`Found url at ${atUriToPostUri(post.data.uri)}`);
-}
+// if (post) {
+// 	console.log(`Found url at ${atUriToPostUri(post.data.uri)}`);
+// }
 
 let likesData = post ? await getLikes(post.data.uri) : [];
 
 let comments = post ? await getComments(post.data.uri) : [];
 
-console.log(`number of comments found: ${comments.length}`);
-
-const today = new Date();
+// console.log(`number of top level comments found: ${comments.length}`);
 ---
 
 <!--Like or comment button-->
 {
-	post && (!disableLikes || !disableComments) && (
-    <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
-        <a href={atUriToPostUri(post.data.uri)}
-           class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !atUriToPostUri(post.data.uri)}]}>
-			<div class="btn-card rounded-2xl w-full h-[3.75rem] flex-col" >
-				<div class="max-w-full px-4 flex items-center gap-4">
-	                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
-	                <div class="text-center overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
-	                    {
-			                (() => {
-				                if(disableComments){
-					                return "Like";
-				                } else if (disableLikes) {
-					                return "Comment";
-				                } else {
-					                return "Like or comment";
-				                }
-			                })()
-		                }
-		                on Bluesky
-	                </div>
-	                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
-				</div>
-				<div class="transition text-50 text-sm text-center">
-					{
-						(() => {
-						if(disableComments){
-							return "Likes";
-						} else if (disableLikes) {
-							return "Comments";
-						} else {
-							return "Likes and comments";
-						}
-						})()
-					}
-					last updated on {today.toISOString()} ({today.toUTCString()})
-				</div>
-            </div>
-        </a>
-    </div>
-	)
-}
+	post && (
+	    <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
+	        <a href={atUriToPostUri(post.data.uri)}
+	           class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !atUriToPostUri(post.data.uri)}]}>
+				<div class="btn-card rounded-2xl w-full h-[3.75rem] flex-col" >
+					<div class="max-w-full px-4 flex items-center gap-4">
+		                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
+		                <div class="text-center overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
+							Like or comment on Bluesky
+		                </div>
+		                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
+					</div>
+					<div class="transition text-50 text-sm text-center">
+						Likes and comments
+					</div>
+	            </div>
+	        </a>
+	    </div>
+		<!--likes-->
+		<div class="card-base pb-4 relative w-full z-10">
+			<WidgetLayout
+				id="likes"
+				name="Likes"
+			>
+						<!--client:idle-->
+				<Likes
+						uri={post?.data.uri}
+						likesData={likesData}
+						likesCount={Math.max(post?.data.likeCount ?? 0, likesData.length)}
+						user={blueskyIdentifier}
+						url={url}
+				/>
+			</WidgetLayout>
+		</div>
 
-<div class="flex flex-col gap-4">
-<!--likes-->
-{
-	!disableLikes && (
-	<div class="card-base pb-4 relative w-full z-10">
-		<WidgetLayout
-			id="likes"
-			name="Likes"
-		>
-			<Likes
-		        uri={post?.data.uri}
-		        likesData={likesData}
-		        likesCount={Math.max(post?.data.likeCount ?? 0, likesData.length)}
-		        user={blueskyIdentifier}
-		        url={url}
-		        client:idle
-			/>
-		</WidgetLayout>
-	</div>
-	)
-}
-
-<!--comments-->
-{
-	!disableComments && (
+		<!--comments-->
 		<div class="card-base pb-4 relative w-full z-10">
 			<WidgetLayout
 				id="comments"
 				name="Comments"
 			>
-			    <Comments
+					<!--client:idle-->
+				<Comments
 					uri={post?.data.uri}
-		            comments={comments}
-		            user={blueskyIdentifier}
-		            url={url}
-		            client:idle
-			    />
+					comments={comments}
+					user={blueskyIdentifier}
+					url={url}
+				/>
 			</WidgetLayout>
 		</div>
 	)
 }
-</div>

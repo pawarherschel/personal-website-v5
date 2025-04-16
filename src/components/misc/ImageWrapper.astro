@@ -7,6 +7,7 @@ interface Props {
 	alt?: string;
 	position?: string;
 	basePath?: string;
+	experimentalObjectFit: "string";
 }
 import { Image } from "astro:assets";
 import { url } from "../../utils/url-utils";
@@ -32,6 +33,9 @@ const isLocal = !(
 );
 const isPublic = src.startsWith("/");
 
+// console.log(`src: ${src}`);
+// console.log(`SVG ${isSvg}`);
+
 // TODO temporary workaround for images dynamic import
 // https://github.com/withastro/astro/issues/3373
 // biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
@@ -56,8 +60,8 @@ const imageClass = "w-full h-full object-cover";
 const imageStyle = `object-position: ${position}`;
 ---
 <div id={id} class:list={[className, 'overflow-hidden relative']}>
-    <div class="transition absolute inset-0 dark:bg-black/10 bg-opacity-50 pointer-events-none"></div>
-    {isLocal && img && <Image src={img} alt={alt || ""} class={imageClass} style={imageStyle}/>}
-    {!isLocal && <img loading="lazy" src={isPublic ? url(src) : src} alt={alt || ""} class={imageClass} style={imageStyle}/>}
+	<div class="transition absolute inset-0 dark:bg-black/10 bg-opacity-50 pointer-events-none"></div>
+	{isLocal && img && <Image src={img} alt={alt || ""} class={imageClass} style={imageStyle}/>}
+	{!isLocal && <Image loading="lazy" src={isPublic ? url(src) : src} alt={alt || ""} class={imageClass} style={imageStyle} inferSize={true}/>}
 </div>
 

@@ -12,7 +12,15 @@ export interface RenderState {
 }
 
 // Array reprsenting one minute, hour, day, week, month, etc in seconds
-const cutoffs = [60, 3600, 86400, 86400 * 7, 86400 * 30, 86400 * 365, Infinity];
+const cutoffs = [
+	60,
+	3600,
+	86400,
+	86400 * 7,
+	86400 * 30,
+	86400 * 365,
+	Number.POSITIVE_INFINITY,
+];
 
 // Array equivalent to the above but in the string representation of the units
 const formatUnits: Intl.RelativeTimeFormatUnit[] = [

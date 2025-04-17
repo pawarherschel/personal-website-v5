@@ -26,7 +26,7 @@ let expanded = $state(true);
       />
       {#if expand}
         <button
-          class="absolute inset-0 size-6 bg-black/50 text-white rounded-full flex items-center justify-center"
+          class=" inset-0 absolute size-6 bg-black/50 text-white rounded-full flex items-center justify-center"
           onclick={() => (expanded = !expanded)}
         >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-3">
@@ -121,7 +121,7 @@ let expanded = $state(true);
         </a>
       </div>
 
-      {#if comment.replies?.length > 0 && depth > 4}
+      {#if comment.replies?.length > 0 && depth > 15}
         <a
           href={atUriToPostUri(comment.post.uri)}
           target="_blank"

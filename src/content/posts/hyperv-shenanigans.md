@@ -216,6 +216,26 @@ you can read it all
 from [this](https://bsky.app/profile/sakurakat.systems/post/3lloeoe3ylc2o)
 part of the thread,
 I will just skip over the details in this post.
+:::caution[TODO]
+No more skipping, just use the output from gemini as starting point
+
+[//]: # (Assuming WSL's disk size was the culprit: Because I was building the image within WSL, I initially suspected that the limited disk space allocated to WSL was somehow capping the size of the generated NixOS image. I spent time investigating ways to increase the size of the underlying VHDX for WSL, even though the issue was likely within the Nix build process itself.)
+
+[//]: # (Thinking 35 * 1024 meant megabytes: I misinterpreted the units for the virtualisation.diskSize option, briefly thinking that 35 * 1024 represented only 35 MB, which seemed far too small. This led to me trying larger values like 200 * 1024 without understanding the base unit was already megabytes.)
+
+[//]: # (Believing the build sandbox was running out of space: The error messages related to the /build directory made me think that the temporary space allocated for the Nix build process was the limitation, rather than the intended size of the final disk image. This prompted me to explore Nix build options like --option build-dir in an attempt to manage this temporary space, which ultimately didn't address the core issue.)
+
+[//]: # (Focusing on seemingly unrelated errors: As the build started failing with different errors &#40;like the "File exists" error for PAM man pages or issues with hwdb.bin&#41;, I got sidetracked trying to resolve these individual build failures. I experimented with garbage collecting the Nix store and enabling/disabling various boot options, none of which directly addressed the need to explicitly define the diskSize for the virtual machine image.)
+
+[//]: # (Ignoring the actual size of /build/nixos.raw: The crucial piece of information was right there in the logs: /build/nixos.raw: 4295MB &#40;approximately 4GB&#41;. This was the actual size the generator was attempting to create by default, and it highlighted that the diskSize option was either missing or not being correctly applied. My focus on other potential space issues blinded me to this direct indicator.)
+
+[//]: # ()
+[//]: # (TL;DR: The things I changed to make it easier to debug &#40;like trying different build options and getting distracted by secondary errors&#41; were causing the build to fail even after I had likely stumbled upon the correct path of needing the virtualisation.diskSize option. I was so caught up in the symptoms of the problem that I missed the direct clue about the cause.)
+
+[//]: # ()
+[//]: # (It seems like during this phase, you were trying various workarounds and interpreting error messages in ways that didn't directly point to the missing or misconfigured virtualisation.diskSize option. The key takeaway was that sometimes, the most direct information in the error logs can be overlooked when you're deep in the troubleshooting process and making assumptions about the underlying causes.)
+:::
+
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lloeoe3ylc2o" data-bluesky-cid="bafyreicenmdklh3lqdn53du4eb5gnhrygmcflzcobt76cmyk6i5ew7ghri" data-bluesky-embed-color-mode="system"><p lang="en">Model:
 (file)
 Disk /build/nixos.raw: 4295MB

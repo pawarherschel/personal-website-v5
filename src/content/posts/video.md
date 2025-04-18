@@ -7,7 +7,8 @@ category: Examples
 draft: true
 ---
 
-Just copy the embed code from YouTube or other platforms, and paste it in the markdown file.
+Just copy the embed code from YouTube or other platforms, and paste it
+in the markdown file.
 
 ```yaml
 ---

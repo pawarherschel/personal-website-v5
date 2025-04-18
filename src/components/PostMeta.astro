@@ -113,7 +113,7 @@ if (await isDir(path)) {
     <div class="flex items-center">
         <div class="meta-icon"
         >
-            <Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
+            <Icon name="line-md:uploading-loop" class="text-xl"></Icon>
         </div>
         <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
     </div>
@@ -123,7 +123,7 @@ if (await isDir(path)) {
     <div class="flex items-center">
         <div class="meta-icon"
         >
-            <Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl"></Icon>
+            <Icon name="line-md:bell-alert-loop" class="text-xl"></Icon>
         </div>
         <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated)}</span>
     </div>
@@ -132,7 +132,7 @@ if (await isDir(path)) {
     <div class="flex items-center">
         <div class="meta-icon"
         >
-            <Icon name="material-symbols:book-2-outline-rounded" class="text-xl"></Icon>
+            <Icon name="line-md:star-pulsating-loop" class="text-xl"></Icon>
         </div>
         <div class="flex flex-row flex-nowrap items-center">
             <a href={url(`/archive/category/${category || 'uncategorized'}/`)} aria-label=`View all posts in the ${category} category`
@@ -147,7 +147,7 @@ if (await isDir(path)) {
     <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
         <div class="meta-icon"
         >
-            <Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
+            <Icon name="line-md:hash" class="text-xl"></Icon>
         </div>
         <div class="flex flex-row flex-nowrap items-center">
 			{(tags && tags.length > 0) && tags.map((tag, i) => (

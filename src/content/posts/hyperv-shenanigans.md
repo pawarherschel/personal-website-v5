@@ -31,6 +31,12 @@ because I didn't want to deal with VMware or VirtualBox.
 so I can just reuse the VHDX for the VM!" -- or so I thought.
 Then, I quickly found out I can't just reuse it.
 
+:::caution[todo]
+
+take them on a journey, make the vm from scratch, find the wsl vhdx, etc
+
+:::
+
 ---
 
 <img height="901"
@@ -84,6 +90,11 @@ and passed my NixOS config via the `--flake` option.
 But it kept
 saying `nixos/modules/virtualisation/disk-size-option.nix` is missing.
 Even though I passed the options via CLI?
+
+:::caution[TODO]
+add various links to flakes, the libre pheonix person, vimjoyer, the rust person,
+whoever i can find
+:::
 
 Now, I’m new to flakes and Nix in general,
 so I couldn't figure out why it didn't find the option.
@@ -185,6 +196,17 @@ which you can try out before deciding
 if you want to install it or not,
 but I wanted the image,
 so it is time to remake it with the `hyperv` target.
+:::caution[TODO]
+
+why did i want direct image instead of iso?
+because i can
+
+:::
+:::caution[TODO]
+
+make the transition better
+
+:::
 Also, the size of the ISO was ~2.6 GB.
 I was also unsure if 20 GB would be enough for the VM,
 so I bumped it up to 40 GB.
@@ -398,6 +420,12 @@ And the rest is
 on [mynixos.com/nixpkgs/option/users.users.\<name\>.hashedPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.hashedPassword#:~:text=To%20generate%20a%20hashed%20password%20run%20mkpasswd.)\
 "To generate a hashed password run mkpasswd."
 
+:::caution[TODO]
+
+add the command i used to create the password hash and why i didnt use initialPassword
+
+:::
+
 ## Successfully logged in
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llqitkdpyn2g" data-bluesky-cid="bafyreidiqtyoespfqdxfvapnwmw75cvmayqi3snlqtm6xzx6o2axqeycee" data-bluesky-embed-color-mode="system"><p lang="en">HELL YEAH<br><br><a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqitkdpyn2g?ref_src=embed">[image or embed]</a></p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqitkdpyn2g?ref_src=embed">April 1, 2025 at 2:25 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
@@ -453,6 +481,9 @@ so the config files weren't generated.
 3. Replace the `hardware-configuration.nix` from my laptop with the
    one \[Step
    1\] generated.
+    :::caution[todo]
+        check if i need to explain why i only needed `hardware-configuration.nix`
+    ::: 
 4. `sudo nixos-rebuild test --flake .`
 
 ### Problems, again
@@ -472,6 +503,9 @@ to use more memory than what exists" width="1024"/>
 - "`Out of memory`: Killed process 1316 (nix)"
     - Out of RAM...? That shouldn't be the case.
 
+:::caution[TODO]
+add whatever here, and why, ie easier to just add it later
+:::
 Let's just remove determinate nix for now.
 
 <img alt="Due to the immutable nature of the nix packaging system,
@@ -527,6 +561,9 @@ title="Screenshot of `Hyprland` running in the VM" width="1024"/>
 Success!
 
 The glitchiness because `Hyperland` doesnt like being run in a VM.
+:::caution[TODO]
+https://wiki.hyprland.org/Getting-Started/Installation/#running-in-a-vm
+:::
 
 ### Checking the number of generations
 

@@ -11,13 +11,15 @@ import {
 const { comment, depth = 0 } = $props();
 
 let expanded = $state(true);
+let maxDepth = 15;
 </script>
 
 {#snippet top(expand: boolean)}
 <!--		  class="text-sm text-base-600 dark:text-base-500 flex items-center -ml-6"-->
   <div
-	class="transition link text-[var(--primary)] font-medium flex items-center -ml-6"
+	class="transition text-[var(--primary)] font-medium flex items-center"
   >
+  <div class ="transition link text-[var(--primary)] flex items-center">
     <div class="relative size-6">
       <Avatar
         src={comment.post.author.avatar}
@@ -32,7 +34,6 @@ let expanded = $state(true);
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-3">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
-
           <span class="sr-only">expand comment</span>
         </button>
       {/if}
@@ -45,6 +46,7 @@ let expanded = $state(true);
     >
       {comment.post.author.displayName || comment.post.author.handle}
     </a>
+  </div>
 
     <div class="text-xs ml-2 text-50 transition">
       <RelativeTime
@@ -57,7 +59,7 @@ let expanded = $state(true);
 
 <div class="pl-3 relative">
   <button
-    class="group absolute -left-1.5 top-0 w-3 h-full flex items-center hover:border-r transition"
+    class="group absolute -left-1.5 top-0 w-3 h-full flex items-center hover:border-r transition border-[var(--primary)] "
     onclick={() => (expanded = !expanded)}
   >
     <div
@@ -76,7 +78,7 @@ let expanded = $state(true);
           href={atUriToPostUri(comment.post.uri)}
           target="_blank"
           rel="noopener noreferrer nofollow"
-          class="group inline-flex items-center gap-2 text-sm"
+          class="group inline-flex items-center gap-2 text-sm transition link"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +102,7 @@ let expanded = $state(true);
           href={atUriToPostUri(comment.post.uri)}
           target="_blank"
           rel="noopener noreferrer nofollow"
-          class="group inline-flex items-center gap-2 text-sm"
+          class="group inline-flex items-center gap-2 text-sm transition link"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +123,7 @@ let expanded = $state(true);
         </a>
       </div>
 
-      {#if comment.replies?.length > 0 && depth > 15}
+      {#if comment.replies?.length > 0 && depth > maxDepth}
         <a
           href={atUriToPostUri(comment.post.uri)}
           target="_blank"
@@ -137,7 +139,7 @@ let expanded = $state(true);
     {/if}
   </div>
 
-  {#if comment.replies?.length > 0 && depth <= 4 && expanded}
+  {#if comment.replies?.length > 0 && depth <= maxDepth && expanded}
     {#each comment.replies.toSorted((a: any, b: any) => new Date(a.post.record.createdAt).getTime() - new Date(b.post.record.createdAt).getTime()) as reply}
       <Comment comment={reply} depth={depth + 1} />
     {/each}

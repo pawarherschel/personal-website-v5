@@ -57,8 +57,8 @@ let comments = post ? await getComments(post.data.uri) : [];
 <!--Like or comment button-->
 {
 	post && (
-		<div>
-		    <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
+		<div class="gap-4 flex flex-col">
+		    <div class="flex flex-col md:flex-row justify-between gap-4 overflow-hidden w-full">
 		        <a href={atUriToPostUri(post.data.uri)}  target="_blank"
 				   rel="noopener noreferrer nofollow"
 		           class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !atUriToPostUri(post.data.uri)}]}>

@@ -17,8 +17,7 @@ draft: false
 :::IMPORTANT
 
 Please wait
-for the Bluesky embeds to load to avoid the content shifting while
-reading.
+for the Bluesky embeds to load to avoid the content shifting while reading.
 
 :::
 
@@ -56,9 +55,7 @@ that there is no TTY."/>
 
 The dang thing doesn't even show a TTY!
 Then,
-I
-remembered [github\:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators)
-exists.
+I remembered [github\:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators) exists.
 Might as well use NixOS Generators; How hard can it be?
 It can't be that bad, right?
 Right???
@@ -164,8 +161,7 @@ The thing after `#` is the output from the flake.
 
 Recently,
 I had
-to
-update [github\:MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
+to update [github\:MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
 so it builds the latest version of the Zen browser.
 In the flake,
 you can choose if you want to use the build that was optimized
@@ -181,13 +177,7 @@ took naps, etc.
 I suddenly remembered
 that I have a laptop I can use instead of bedrot.
 
-Downloaded zen using
-github.com/MarceColl/ze...<br><br><a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lm3jib32pk2s?ref_src=embed">[image or embed]</a></p>
-&mdash;
-Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">
-@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lm3jib32pk2s?ref_src=embed">
-April 5, 2025 at 11:36
-PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+Downloaded zen using github.com/MarceColl/ze...<br><br><a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lm3jib32pk2s?ref_src=embed">[image or embed]</a></p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lm3jib32pk2s?ref_src=embed">April 5, 2025 at 11:36 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 :::
 
 While trying to get the VM image to build, at some point, I went from
@@ -295,8 +285,8 @@ Yeah thats cool and all, but where is this useful?
 
 ## Back to failing to build
 
-I thought that changing the image size to 40 GB was the problem,
-so I changed it back to 20 GB.
+I thought that changing the image size to 40 GB was the problem,
+so I changed it back to 20 GB.
 I can just increase the disk size in Hyper-V Manager.
 
 The build failed again.
@@ -395,13 +385,11 @@ and they're not intercompatible.
 During the confusion, I also managed to fix the `diskSize` issue.
 
 The fix was to add
-
 ```nix
 {
   virtualisation.diskSize = 20 * 1024;
 }
 ```
-
 To the modules array,
 around [here](https://github.com/pawarherschel/nixos-config/blob/7042e5c893375afcf62d4f2bea0112d874e7210e/flake.nix#L56)
 <img alt="Screenshot of `flake.nix` on GitHub,
@@ -426,15 +414,12 @@ New Virtual Machine&#39; failed to start.
 Synthetic SCSI Controller
 (Instance ID 1666945F-9962-4366-83F3-AA863F98254B):
 Failed
-to Power on with Error &#39;The requested operation couldn’t be
-completed due to a virtual disk system limitation.
+to Power on with Error &#39;The requested operation couldn’t be completed due to a virtual disk system limitation.
 Virtual hard disk files must be uncompressed and unencrypted
 and mustn’t be sparse.&#39;.
-Attachment &#39;D:
-\build-dir\nixos-image-hyperv-25.05pre-git-x86_64-linux.vhdx&#39;
+Attachment &#39;D:\build-dir\nixos-image-hyperv-25.05pre-git-x86_64-linux.vhdx&#39;
 failed to open because of error:
-&#39;The requested operation couldn’t be completed due to a virtual
-disk system limitation.
+&#39;The requested operation couldn’t be completed due to a virtual disk system limitation.
 Virtual hard disk files must be uncompressed and unencrypted
 and must not be sparse.&#39;."
 height="432"
@@ -442,17 +427,14 @@ src="https://r2.sakurakat.systems/hyperv-shenanigans--compressed-file.png"
 title="Screenshot of Hyper-V Manager&#39;s error" width="702"/>
 
 Let's read this error.
-
 - VM failed to start.
 - Something about limitations
 - "disk file must be `uncompressed`
   and `unencrypted` and must not be `sparse`"
-    - `uncompressed`: I compress my disks, so I know how to solve
-      that.
-    - `unencrypted`: I don't think this should be a problem. I don't
-      have BitLocker on.
-    - `sparse`: I'm not even sure how I'd solve it,
-      maybe the Hyper-V Manager has some tool I can use.
+  - `uncompressed`: I compress my disks, so I know how to solve that.
+  - `unencrypted`: I don't think this should be a problem. I don't have BitLocker on.
+  - `sparse`: I'm not even sure how I'd solve it,
+    maybe the Hyper-V Manager has some tool I can use.
 
 OK, let's uncompress it first.\
 `right click file > properties > advanced > uncheck Compress contents to save disk space`
@@ -464,35 +446,32 @@ The unsigned image&#39;s hash is not allowed (DB) 2. Network Adapter
 (00155D006403) A boot image wasn’t found.
 No operating system was loaded.
 Your virtual machine may be configured incorrectly.
-Exit and re-configure your VM or click restart to retry the current
-boot sequence again."
+Exit and re-configure your VM or click restart to retry the current boot sequence again."
 height="768"
 src="https://r2.sakurakat.systems/hyperv-shenanigans--unsigned-image.png"
 title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
-
 - "No operating system was loaded.
   Your virtual machine may be configured incorrectly.
-  Exit and re-configure your VM or click restart to retry the current
-  boot sequence again."
-    - Hm, that doesn't tell a lot; let's read the earlier stuff.
+  Exit and re-configure your VM or click restart to retry the current boot sequence again."
+  - Hm, that doesn't tell a lot; let's read the earlier stuff.
 - "The `unsigned image's hash` is not allowed (DB)"
-    - Oh, I think I know what's wrong: secure boot!
-      :::caution[todo]
-      how was this solved
-      :::
+  - Oh, I think I know what's wrong: secure boot!
+
+`right click vm > settings > Security > uncheck 'Enable Secure Boot' `
+
+![img_1.png](img_1.png)
 
 :::caution[todo]
 this should be a new top level heading
 :::
-
 ## VM booted successfully
 
-I checked the VHDX file NixOS Generators created and saw it was 4 GB.
+I checked the VHDX file NixOS Generators created and saw it was 4 GB.
 
 Then, the realization hit me.
 The error I saw in the
 [#lead-astray](#lead-astray) section was telling me
-that the VHDX file was 4 GB,
+that the VHDX file was 4 GB,
 and not all the various things I thought it was.
 :::warning
 I'm gonna be honest, I forgot what I was yapping about at this point:
@@ -503,14 +482,7 @@ and im back to this error
 
 ## Struggles with logging in as `ksakura`
 
-<img alt="&lt;&lt;&lt; Welcome to NixOS
-hyperv-25.05.20250330.52faf48 (x86_64) - tty1 &gt;&gt;&gt; Run
-&#39;nixos-help&#39; for the NixOS manual. kats-laptop login: ksakura
-Password: &lt;REDACTED&gt; Login incorrect kats-laptop login: ksakura
-Password: &lt;REDACTED&gt; Login incorrect kats-laptop login:"
-height="768"
-src="https://r2.sakurakat.systems/hyperv-shenanigans--no-user-password.png"
-title="Screenshot of TTY1
+<img alt="&lt;&lt;&lt; Welcome to NixOS hyperv-25.05.20250330.52faf48 (x86_64) - tty1 &gt;&gt;&gt; Run &#39;nixos-help&#39; for the NixOS manual. kats-laptop login: ksakura Password: &lt;REDACTED&gt; Login incorrect kats-laptop login: ksakura Password: &lt;REDACTED&gt; Login incorrect kats-laptop login:" height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--no-user-password.png" title="Screenshot of TTY1
 where I tried
 to log in" width="1024"/>
 
@@ -518,28 +490,22 @@ A meme about NixOS is that,
 everything is declarative, except the installation process.
 
 <img alt="Extracted text:
-YOU&#39;VE USED IMPERATIVE ACTIONS DURING SYSTEM DEPLOYMENT SYSADMIN
-CONFISCATES YOUR NIX-CHAN –999,999,999 DERIVATIONS.
+YOU&#39;VE USED IMPERATIVE ACTIONS DURING SYSTEM DEPLOYMENT SYSADMIN CONFISCATES YOUR NIX-CHAN –999,999,999 DERIVATIONS.
 Explanation: Nix aims for perfect reproducibility,
 using imperative action means
 the change was not recorded in the config file,
 and thus, you broke the rule of perfect reproducibility,
-making it an impure flake"
-src="https://r2.sakurakat.systems/hyperv-shenanigans--nix-chan.png"
-title="Meme about you
+making it an impure flake" src="https://r2.sakurakat.systems/hyperv-shenanigans--nix-chan.png" title="Meme about you
 using imperative action
 while deploying the system" width="1922" height="1440"/>
-(
-src: https://youtu.be/nLwbNhSxLd4?list=TLPQMTQwNDIwMjVqtjGiwPFIvg&t=759)
+(src: https://youtu.be/nLwbNhSxLd4?list=TLPQMTQwNDIwMjVqtjGiwPFIvg&t=759)
 
-Part of the answer is
-on [mynixos.com/nixpkgs/option/users.users.\<name\>.initialPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.initialPassword#:~:text=If%20none%20of%20the%20password%20options%20are%20set%2C%20then%20no%20password%20is%20assigned%20to%20the%20user%2C%20and%20the%20user%20will%20not%20be%20able%20to%20do%20password%2Dbased%20logins),\
+Part of the answer is on [mynixos.com/nixpkgs/option/users.users.\<name\>.initialPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.initialPassword#:~:text=If%20none%20of%20the%20password%20options%20are%20set%2C%20then%20no%20password%20is%20assigned%20to%20the%20user%2C%20and%20the%20user%20will%20not%20be%20able%20to%20do%20password%2Dbased%20logins),\
 "If none of the password options are set,
 then no password is assigned to the user,
 and the user will not be able to do password-based logins."
 
-And the rest is
-on [mynixos.com/nixpkgs/option/users.users.\<name\>.hashedPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.hashedPassword#:~:text=To%20generate%20a%20hashed%20password%20run%20mkpasswd.)\
+And the rest is on [mynixos.com/nixpkgs/option/users.users.\<name\>.hashedPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.hashedPassword#:~:text=To%20generate%20a%20hashed%20password%20run%20mkpasswd.)\
 "To generate a hashed password run mkpasswd."
 
 :::caution[TODO]
@@ -555,38 +521,30 @@ add the command i used to create the password hash and why i didnt use initialPa
 :::caution[todo]
 this should be a new top level heading
 :::
-
 ## Removing the errors
 
 I had errors in `nushell`,
-and `Hyprland` because the config files were for the older version of
-the programs.
+and `Hyprland` because the config files were for the older version of the programs.
 
 See, while I was debugging, I ran `nix flake update`,
 which pulled down the latest version of nixpkgs,
 and thus, updated the packages.
 I "just"
 have
-to replace the current flake lock file in the VM with the one from my
-laptop.
+to replace the current flake lock file in the VM with the one from my laptop.
 
 :::caution[todo]
 this should be a new top level heading
 :::
-
 ## No config files
 
 <img alt="The user ran ls /etc/nixos,
 where the config files are supposed to exist,
 however,
 the output shows
-that the directory is empty"
-src="https://r2.sakurakat.systems/hyperv-shenanigans--no-config-files.png"
-title="Screenshot of TTY1,
+that the directory is empty" src="https://r2.sakurakat.systems/hyperv-shenanigans--no-config-files.png" title="Screenshot of TTY1,
 which shows
-that the config files for nixos don&#39;t exist" width="1024" height="
-768"/>
-
+that the config files for nixos don&#39;t exist" width="1024" height="768"/>
 ```
 > ls /etc/nixos/
 Empty List
@@ -597,11 +555,9 @@ I guess I didn't run the installer,
 so the config files weren't generated.
 
 ### Solution
-
 1. Run `nixos-generate-config`.
 2. Clone my laptop's config from GitHub.
-3. Replace the `hardware-configuration.nix` from my laptop with the
-   one \[Step
+3. Replace the `hardware-configuration.nix` from my laptop with the one \[Step
    1\] generated.
     :::caution[todo]
         check if i need to explain why i only needed `hardware-configuration.nix`
@@ -621,9 +577,9 @@ title="Screenshot of TTY1 showing the process tried
 to use more memory than what exists" width="1024"/>
 
 - "building `determinate-nix`-util-3.2.1"
-    - Problems with determinate nix?
+  - Problems with determinate nix?
 - "`Out of memory`: Killed process 1316 (nix)"
-    - Out of RAM...? That shouldn't be the case.
+  - Out of RAM...? That shouldn't be the case.
 
 :::caution[TODO]
 add whatever here, and why, ie easier to just add it later
@@ -641,7 +597,7 @@ title="Screenshot of TTY1
 showing the VM is out of disk space" width="1024"/>
 
 - "mkdir: cannot create directory '<omit>': `No space left on device`"
-    - Oh, OK, let's run `df -h`
+  - Oh, OK, let's run `df -h`
 
 `df -h` reported 100% used on `/`
 
@@ -649,9 +605,9 @@ Easy, just increase the disk space.\
 `file > settings > hard drive > edit > expand disk`
 
 <img alt="What size do you want to make the virtual hard disk?
-Current size is 40 GB.
+Current size is 40 GB.
 New size:
-40 GB (Maximum: 64 TB)
+40 GB (Maximum: 64 TB)
 Out of Bounds Specify a number between 41 and 65536."
 height="839"
 src="https://r2.sakurakat.systems/hyperv-shenanigans--resize-vhdx.png"
@@ -666,7 +622,6 @@ I took the screenshot after resizing and checking if it works.
 :::caution[todo]
 this should be a new top level heading
 :::
-
 ## Final stretch
 
 1. Reboot the VM
@@ -695,7 +650,7 @@ And now there are more generations!
 
 <img alt="NixOS
 (Generation 2 NixOS Warbler 25.05.20250129.9d3ae80 (Linux 6.12.11),
-bu&lt;cut off&gt; NixOS
+bu&lt;cut off&gt;     NixOS
 (Generation 1 NixOS Warbler hyperv-25.05.20250330.52faf48
 (Linux 6.12.&lt;cut off&gt;
 Reboot Into Firmware Interface" height="768"
@@ -729,7 +684,6 @@ I can also use the VM to modularize my config.
 ---
 
 # The `flake.nix` File
-
 ```nix
 {
   inputs = {
@@ -797,12 +751,12 @@ I can also use the VM to modularize my config.
 ---
 
 - Link to the first skeet:
-    - https://bsky.app/profile/sakurakat.systems/post/3llnz5asyms2c
-    - <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llnz5asyms2c" data-bluesky-cid="bafyreiglr2t5dl777thtxucftt5qlwbq6j57jftmwclktvjxjtnmanbd6e" data-bluesky-embed-color-mode="system"><p lang="en">trying to make a hyperv VM with nixos
-      so i can rice my laptop
-      without turning it on</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c?ref_src=embed">March 31, 2025 at 2:39 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+  - https://bsky.app/profile/sakurakat.systems/post/3llnz5asyms2c
+  - <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llnz5asyms2c" data-bluesky-cid="bafyreiglr2t5dl777thtxucftt5qlwbq6j57jftmwclktvjxjtnmanbd6e" data-bluesky-embed-color-mode="system"><p lang="en">trying to make a hyperv VM with nixos
+    so i can rice my laptop
+    without turning it on</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c?ref_src=embed">March 31, 2025 at 2:39 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 - Read the thread on Skywriter.blue:
-    - https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c
+  - https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c
 
 ---
 

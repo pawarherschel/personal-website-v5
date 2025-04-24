@@ -590,10 +590,8 @@ to use more memory than what exists" width="1024"/>
 - "`Out of memory`: Killed process 1316 (nix)"
   - Out of RAM...? That shouldn't be the case.
 
-:::caution[TODO]
-add whatever here, and why, ie easier to just add it later
-:::
-Let's just remove determinate nix for now.
+Whatever, let's just remove determinate nix for now.
+Adding it back is easy enough.
 
 <img alt="Due to the immutable nature of the nix packaging system,
 it uses quite a bit of space.

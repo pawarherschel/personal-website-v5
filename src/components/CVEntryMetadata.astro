@@ -17,7 +17,7 @@ const className = Astro.props.class;
     <div class="flex items-center">
         <div class="meta-icon"
         >
-            <Icon name="line-md:menu" class="text-xl"></Icon>
+            <Icon name="material-symbols:menu-rounded" class="text-xl"></Icon>
         </div>
         <div class="flex flex-row flex-nowrap transition text-50 text-sm font-medium whitespace-nowrap">
           {society}
@@ -30,7 +30,7 @@ const className = Astro.props.class;
             <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
                 <div class="meta-icon"
                 >
-                    <Icon name="line-md:hash" class="text-xl"></Icon>
+                    <Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
                 </div>
                 <div class="flex flex-row flex-nowrap">
                   {(tags && tags.length > 0) && tags.map(tag =>
@@ -47,7 +47,7 @@ const className = Astro.props.class;
         <span class="text-50 text-sm font-medium">{date}</span>
         <div class="meta-icon"
         >
-            <Icon name="line-md:calendar" class="text-xl"></Icon>
+            <Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
         </div>
     </div>
 </div>

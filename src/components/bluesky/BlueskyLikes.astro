@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { blueskyConfig } from "../../config";
 import WidgetLayout from "../widget/WidgetLayout.astro";
-import BlueskyAnimatedIcon from "./BlueskyAnimatedIcon.astro";
 import Comments from "./Comments.svelte";
 import Likes from "./Likes.svelte";
 import { atUriToPostUri, getComments, getLikes } from "./utils";
@@ -62,15 +61,17 @@ let comments = post ? await getComments(post.data.uri) : [];
 		    <div class="flex flex-col md:flex-row justify-between gap-4 overflow-hidden w-full">
 		        <a href={atUriToPostUri(post.data.uri)}  target="_blank"
 				   rel="noopener noreferrer nofollow"
-		           class:list={["w-full font-bold overflow-hidden active:scale-95 bluesky-logo-container", {"pointer-events-none": !atUriToPostUri(post.data.uri)}]}>
+		           class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !atUriToPostUri(post.data.uri)}]}>
 					<div class="btn-card rounded-2xl w-full h-[3.75rem] flex-col" >
 						<div class="max-w-full px-4 flex items-center gap-4">
-							<BlueskyAnimatedIcon klass="text-[var(--primary)] h-full max-w-fit"/>
-			                <div class="text-center transition whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
+			                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
+			                <div class="text-center overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
 								Like or comment on Bluesky
 			                </div>
-							<BlueskyAnimatedIcon klass="text-[var(--primary)] h-full max-w-fit"/>
-			                <!--<Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(&#45;&#45;primary)]" />-->
+			                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
+						</div>
+						<div class="transition text-50 text-sm text-center">
+							Likes and comments
 						</div>
 		            </div>
 		        </a>

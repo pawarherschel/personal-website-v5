@@ -508,11 +508,21 @@ and the user will not be able to do password-based logins."
 And the rest is on [mynixos.com/nixpkgs/option/users.users.\<name\>.hashedPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.hashedPassword#:~:text=To%20generate%20a%20hashed%20password%20run%20mkpasswd.)\
 "To generate a hashed password run mkpasswd."
 
-:::caution[TODO]
+### Solution
 
-add the command i used to create the password hash and why i didnt use initialPassword
+```bash 
+$ mkpasswd <password>
+```
+output: 
+```
+$y$j9T$MxmF8OTQHxbHHSRiBN6x5.$l4pf7mt76eBt6NWeyW1t4fM0fdQlWRovwtuwS43kYXB
+```
 
-:::
+Use the above hash for the hashedPassword
+
+#### Why not `users.users.<name>.initialPassword`?
+
+insecure lol
 
 ## Successfully logged in
 

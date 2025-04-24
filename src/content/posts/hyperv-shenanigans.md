@@ -39,10 +39,9 @@ I didn't want to install VMWare or god forbid Oracle VirtualBox.
 
 ---
 
-Ok, lets create the VM.
+## Let's create the VM together!
 
 1. enable `Hyper-V` using this guide https://techcommunity.microsoft.com/blog/educatordeveloperblog/step-by-step-enabling-hyper-v-for-use-on-windows-11/3745905
-
 2. `click new > Virtual Machine`
     ![img_4.png](img_4.png)
 3. `next` `next`
@@ -79,7 +78,7 @@ that there is no TTY."/>
 The dang thing doesn't even show a TTY!
 
 Oh well,
-Then,
+then,
 I remembered [github\:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators) exists.
 Might as well use NixOS Generators; How hard can it be?
 It can't be that bad, right?
@@ -114,6 +113,8 @@ https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c
 
 ::github{repo="nix-community/nixos-generators"}
 
+`nixos-generators` is a project based on the Nix ecosystem, which makes it easy to create VM images, ISOs, cloud images, and a plethora of other formats.
+
 I started by invoking nixos-generator
 and passed my NixOS config via the `--flake` option.
 But it kept
@@ -122,7 +123,12 @@ Even though I passed the options via CLI?
 
 Now, I’m new to flakes and Nix in general,
 so I couldn't figure out why it didn't find the option.
-Check [^nix-flakes-vids] to find resources to learn more about nix and flakes.
+:::note
+
+If you're also new to Nix,
+check [^nix-flakes-vids] to find resources to learn more about them
+
+:::
 [^nix-flakes-vids]: In no particular order
     1. https://youtu.be/JCeYq72Sko0
         <iframe width="560" height="315" src="https://www.youtube.com/embed/JCeYq72Sko0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -148,16 +154,19 @@ and then adapt it to my needs.
 
 # Getting the minimal working config to work
 
-It worked, but then I realized I used the wrong config,
+I just copied the example from the repo.
+
+And it worked! 
+But then I realized I used the wrong config,
 I used WSL's config instead of my laptop's config 🤦.
 Well, at least I know it works now.
+[^fogor-to-record-error]
 
-:::warning
-I had some errors here after I changed it to my laptop's config,
-but I didn't record what the errors were 🤦🤦🤦
-:::
+[^fogor-to-record-error]: I had some errors here after I changed it to my laptop's config,
+    but I didn't record what the errors were 🤦🤦🤦
 
-I then made a stupid mistake.
+Then I made a stupid mistake.
+
 See,
 NixOS allows you to have configuration for multiple...
 Let's say... environments.
@@ -172,18 +181,19 @@ however, the hostname for WSL is `nixos` (default).
 So,
 the flake thought I wanted to build the target using `nixos`'s config,
 but, there was no config for `nixos`.
-So, I just had to mention the hostname.
+So, I just had to mention the hostname. 
+[^ideal-case-hostnames]
 
-Ideally,
-I would have different hostnames for different machines,
-à la `kats-laptop`, `kats-wsl`, `kats-rpi`, `kats-hyperv-vm`.
-So that config flake is modular,
-this allows you
-to have a single config flake,
-which you can push to GitHub or some other place.
+[^ideal-case-hostnames]: Ideally,
+    I would have different hostnames for different machines,
+    à la `kats-laptop`, `kats-wsl`, `kats-rpi`, `kats-hyperv-vm`.
+    So that config flake is modular,
+    this allows you
+    to have a single config flake,
+    which you can push to GitHub or some other place.
 
-Now, I do want to modularize my config,
-I'm just being lazy because it works good enough.
+    Now, I do want to modularize my config,
+    I'm just being lazy because it works good enough.
 
 Also, the `#<hostname>` part isn't limited to NixOS configs.
 In general, it is to select a target.
@@ -205,16 +215,16 @@ for newer systems, or the compatibility one.
 The way you chose which one to buld was by either using `#specific`,
 or `#generic`.
 If you didn't choose, the flake defaults to `specific`.
-:::note[You can read the short thread about the process on Bluesky]
-<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lm3jib32pk2s" data-bluesky-cid="bafyreiae6gdke4n6voeg5sizs5skqguxjkihcbz4jes4mxp674jecjg2zq" data-bluesky-embed-color-mode="system"><p lang="en">My pc is in quarantine rn because of some RAM issues.
-I spent the whole day just lazying around and relaxed for once,
-took naps, etc.
+(You can read the short thread about the process on Bluesky [^zen-browser-flake-bsky])
 
-I suddenly remembered
-that I have a laptop I can use instead of bedrot.
-
-Downloaded zen using github.com/MarceColl/ze...<br><br><a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lm3jib32pk2s?ref_src=embed">[image or embed]</a></p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lm3jib32pk2s?ref_src=embed">April 5, 2025 at 11:36 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
-:::
+[^zen-browser-flake-bsky]: <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lm3jib32pk2s" data-bluesky-cid="bafyreiae6gdke4n6voeg5sizs5skqguxjkihcbz4jes4mxp674jecjg2zq" data-bluesky-embed-color-mode="system"><p lang="en">My pc is in quarantine rn because of some RAM issues.
+    I spent the whole day just lazying around and relaxed for once,
+    took naps, etc.
+    
+    I suddenly remembered
+    that I have a laptop I can use instead of bedrot.
+    
+    Downloaded zen using github.com/MarceColl/ze...<br><br><a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lm3jib32pk2s?ref_src=embed">[image or embed]</a></p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lm3jib32pk2s?ref_src=embed">April 5, 2025 at 11:36 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 While trying to get the VM image to build, at some point, I went from
 trying
@@ -222,79 +232,78 @@ to build the `hyperv` target
 to trying to build the `install-iso-hyperv`.
 As the name suggests, `install-iso-hyperv`
 builds an ISO instead of a Hyper-V image.
-I can’t just load the ISO in the Hyper-V manager.
 (btw the size of the ISO was ~2.6 GB).
-But I wanted the image.
+I can’t just load the ISO in the Hyper-V manager.
 So, it is time to remake it with the `hyperv` target.
 
 I was also unsure if 20 GB would be enough for the VM,
 so I bumped it up to 40 GB.
+(changing multiple variables at once is bad, I know)
 
-# temp Heading
-The question is; why did I want an image?
-Why couldn't I use the ISO I just made?
+## Image? ISO? Does it matter?
 
 Let's talk about the ISO first.
 If you've ever installed linux on you pc,
 you might've noticed that you can just *use* your pc.
 You don't need to install linux to use it.
 This feature is called LiveISO (or live CD,
-read more on [wikipedia:Live_CD](https://en.wikipedia.org/wiki/Live_CD)).
+read more on [wikipedia\:Live_CD](https://en.wikipedia.org/wiki/Live_CD)).
+Some distros exclusively run off a USB, some are here [^live-isos].
 
-:::note[Some distros exclusively run off a USB]
-
-- [Tails](https://tails.net/)
-    - [wikipedia:Tails_(operating_system)](https://en.wikipedia.org/wiki/Tails_(operating_system))
-        - > security-focused Debian-based Linux distribution aimed at preserving privacy and anonymity against surveillance
-- [PuppyLinux : HomePage](https://wikka.puppylinux.com/HomePage)
-    - [wikipedia:Puppy_Linux](https://en.wikipedia.org/wiki/Puppy_Linux)
-        - > light-weight Linux distributions that focus on ease of use and minimal memory footprint
-- [GNOME Partition Editor](https://gparted.org/)
-    - [wikipedia:GParted](https://en.wikipedia.org/wiki/GParted)
-        - > used for creating, deleting, resizing, moving, checking, and copying disk partitions and their file systems
-
-:::
+[^live-isos]: 
+    - [Tails](https://tails.net/)
+        - [wikipedia\:Tails_(operating_system)](https://en.wikipedia.org/wiki/Tails_(operating_system))
+            - Quote from Wikipedia
+            > security-focused Debian-based Linux distribution aimed at preserving privacy and anonymity against surveillance
+      - [PuppyLinux : HomePage](https://wikka.puppylinux.com/HomePage)
+          - [wikipedia\:Puppy_Linux](https://en.wikipedia.org/wiki/Puppy_Linux)
+            - Quote from Wikipedia
+            > light-weight Linux distributions that focus on ease of use and minimal memory footprint
+      - [GNOME Partition Editor](https://gparted.org/)
+          - [wikipedia\:GParted](https://en.wikipedia.org/wiki/GParted)
+            - Quote from Wikipedia
+            > used for creating, deleting, resizing, moving, checking, and copying disk partitions and their file systems
 
 The ISO I just made was a LiveISO.
 I would need to install it to use it in the VM.
+
 Installing OS in one VM? 
 That's fine.
 But at least for me, 
-it feels like the goal of `nixos-generators` is to automate
+I feel like the point of using `nixos-generators` is to automate
 the creation of VMs.
 
 Creating an image means I can load the "VHDX"
 file as the VM's storage, 
 I would still need to allocate CPU, Memory, configure networking, etc,
-but that work can be automated (see: [learn.microsoft.com: Working with Hyper-V and Windows PowerShell](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/try-hyper-v-powershell)).
+but that work can be automated (see: [learn.microsoft.com: Working with Hyper-V and Windows PowerShell](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/try-hyper-v-powershell) and 
+[^hyperv-ps]).
+[^hyperv-ps]: ```powershell {7}
+    $VMName = "VMNAME"
+    
+    $VM = @{
+         Name = $VMName
+         MemoryStartupBytes = 2147483648
+         Generation = 2
+         NewVHDPath = "C:\Virtual Machines\$VMName\$VMName.vhdx" # <- here 
+         NewVHDSizeBytes = 53687091200
+         BootDevice = "VHD"
+         Path = "C:\Virtual Machines\$VMName"
+         SwitchName = (Get-VMSwitch).Name
+     }
+    
+    New-VM @VM
+    ```
+    (From [learn.microsoft.com: Working with Hyper-V and Windows PowerShell | Section\: Create a new virtual machine](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/try-hyper-v-powershell#create-a-new-virtual-machine) on 2025-04-24)
+    
+    By pointing `NewVHDPath` to the created image, 
+    you can make a new VM with NixOS already installed.
 
-For example:
-```powershell {7}
-$VMName = "VMNAME"
 
-$VM = @{
-     Name = $VMName
-     MemoryStartupBytes = 2147483648
-     Generation = 2
-     NewVHDPath = "C:\Virtual Machines\$VMName\$VMName.vhdx" # <- here 
-     NewVHDSizeBytes = 53687091200
-     BootDevice = "VHD"
-     Path = "C:\Virtual Machines\$VMName"
-     SwitchName = (Get-VMSwitch).Name
- }
+### Why go through so much trouble?
 
-New-VM @VM
-```
-(From [learn.microsoft.com: Working with Hyper-V and Windows PowerShell | Section: Create a new virtual machine](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/try-hyper-v-powershell#create-a-new-virtual-machine) on 2025-04-24)
-
-By pointing `NewVHDPath` to the created image, 
-you can make a new VM with NixOS already installed.
-
-:::important[You]
-
-Yeah thats cool and all, but where is this useful?
-
-:::
+VMs are very useful if you can automate them.
+Some examples I can come up with are:
 
 - Integration testing
     - Test your whole application
@@ -337,7 +346,7 @@ Number  Start   End     Size    File system  Name     Flags
 
 Let's talk about the assumptions I made which turned out to be wrong.
 
-# WSL's disk size
+## WSL's disk size
 
 I thought WSL had a limited disk size,
 and while building the 40 GB image, I was running out of space.
@@ -355,22 +364,22 @@ If I run `df -h`
 
 Seems like by default windows assigns 1007 GB to the disk.
 
-# Unit for `virtualisation.diskSize`
+## Unit for `virtualisation.diskSize`
 
 I thought `20 * 1024` for `virtualisation.diskSize` meant 20 MB and not 20 GB. 
 This feels wrong, 
-why would the tutorial on `nixos-generators`' GitHub use 20 MB?
+why would the example on `nixos-generators`' GitHub use 20 MB?
 
 So, I changed it to `200 * 1024`, but it still failed.
 So, 
 I assumed wrong, and my initial understanding was correct.
 It was 20 GB.
 
-# NixOS' build sandbox ran out of space
+## NixOS' build sandbox ran out of space
 
 Nope, don't know why I thought this.
 
-# Making it easier to debug
+## Making it easier to debug
 
 I dug around
 and changed the build directory to be in the Windows partition, 
@@ -392,14 +401,21 @@ error: 1 dependencies of derivation '/nix/store/xlfbh71qyiwbb00k9xg6bmimqqmip75q
 error: 1 dependencies of derivation '/nix/store/bk0kb7mp9kswp6kvnrlqqnmd7fxb1cvh-nixos-hyperv-hyperv-25.05.20250330.52faf48-x86_64-linux.drv' failed to build
 ```
 
-# Giving up and creating an issue
+I checked the folders and found out the files are empty!
+
+But why???
+I spent quite a bit of time just tweaking things and asking around.
+However, I didn't find anything.
+The exit code wasn't in [nix.dev\: nix-build | Section\: Special exit codes for build failure](https://nix.dev/manual/nix/2.26/command-ref/nix-build.html#special-exit-codes-for-build-failure)
+
+## Giving up and creating an issue
 
 I created an issue on GitHub.
 Then, while trying to create the minimal reproducible configuration,
 I reverted the `build-dir` option, AND THE IMAGE SUCCESSFULLY BUILD.
 So the thing I did to debug easier made the build fail.
 
-# Why was it a mistake?
+### Why was it a mistake?
 
 Windows' permission system is different compared to linux,
 and they're not intercompatible.
@@ -415,7 +431,9 @@ and they're not intercompatible.
 
 During the confusion, I also managed to fix the `diskSize` issue.
 
-The fix was to add
+## The fix
+
+add
 ```nix
 {
   virtualisation.diskSize = 20 * 1024;
@@ -486,7 +504,7 @@ title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
   Exit and re-configure your VM or click restart to retry the current boot sequence again."
   - Hm, that doesn't tell a lot; let's read the earlier stuff.
 - "The `unsigned image's hash` is not allowed (DB)"
-  - Oh, I think I know what's wrong: secure boot!
+  - Oh, I think I know what's wrong: `secure boot`!
 
 `right click vm > settings > Security > uncheck 'Enable Secure Boot' `
 
@@ -501,12 +519,6 @@ The error I saw in the
 [#lead-astray](#lead-astray) section was telling me
 that the VHDX file was 4 GB,
 and not all the various things I thought it was.
-:::warning
-I'm gonna be honest, I forgot what I was yapping about at this point:
-<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llqdomz7ml2g" data-bluesky-cid="bafyreie46uis7vcjglxma73ivutlnxsmbvt3dcdl2ahmpeukz6eourw2zi" data-bluesky-embed-color-mode="system"><p lang="en">i removed the sudo
-and im back to this error
-       error: path &#x27;/nix/store/7a2rzcz3mjaq6ni71nn3zv6v3kxk8zab-nixpkgs/nixpkgs/nixos/modules/virtualisation/disk-size-option.nix&#x27; does not exist</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqdomz7ml2g?ref_src=embed">April 1, 2025 at 12:53 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
-:::
 
 # Struggles with logging in as `ksakura`
 
@@ -536,10 +548,10 @@ and the user will not be able to do password-based logins."
 And the rest is on [mynixos.com/nixpkgs/option/users.users.\<name\>.hashedPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.hashedPassword#:~:text=To%20generate%20a%20hashed%20password%20run%20mkpasswd.)\
 "To generate a hashed password run mkpasswd."
 
-# Solution
+## Solution
 
-```bash 
-$ mkpasswd <password>
+```bash
+mkpasswd <password>
 ```
 output: 
 ```
@@ -548,7 +560,7 @@ $y$j9T$MxmF8OTQHxbHHSRiBN6x5.$l4pf7mt76eBt6NWeyW1t4fM0fdQlWRovwtuwS43kYXB
 
 Use the above hash for the hashedPassword
 
-# Why not `users.users.<name>.initialPassword`?
+### Why not `users.users.<name>.initialPassword`?
 
 insecure lol
 
@@ -556,7 +568,7 @@ insecure lol
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llqitkdpyn2g" data-bluesky-cid="bafyreidiqtyoespfqdxfvapnwmw75cvmayqi3snlqtm6xzx6o2axqeycee" data-bluesky-embed-color-mode="system"><p lang="en">HELL YEAH<br><br><a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqitkdpyn2g?ref_src=embed">[image or embed]</a></p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqitkdpyn2g?ref_src=embed">April 1, 2025 at 2:25 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
-# Removing the errors
+## Removing the errors
 
 I had errors in `nushell`,
 and `Hyprland` because the config files were for the older version of the programs.
@@ -577,25 +589,28 @@ the output shows
 that the directory is empty" src="https://r2.sakurakat.systems/hyperv-shenanigans--no-config-files.png" title="Screenshot of TTY1,
 which shows
 that the config files for nixos don&#39;t exist" width="1024" height="768"/>
+```bash
+ls /etc/nixos/
 ```
-> ls /etc/nixos/
+```
 Empty List
 ```
-
 Huh, that's concerning.
-I guess I didn't run the installer,
-so the config files weren't generated.
+I didn't run the installer,
+so I guess the config files weren't generated.
 
-# Solution
+But, at this point, I just want to get done with this project.
 
-1. Run `nixos-generate-config`.
+## Solution
+
+1. Run `nixos-generate-config` inside the VM.
 2. Clone my laptop's config from GitHub.
 3. Replace the `hardware-configuration.nix` from my laptop with the one \[Step
    1\] generated.
     - I only need the `hardware-configuration.nix` as the rest of the system is based on my laptop. 
 4. `sudo nixos-rebuild test --flake .`
 
-# Problems, again
+## `determinate-nix` causing issues
 
 <img alt="The user tried to rebuild NixOS
 but while building a specific package,
@@ -665,10 +680,10 @@ Success!
 
 The glitchiness is because `Hyperland` doesn't like being run in a VM.\
 Reason: "YMMV, this is not officially supported."\
-From: [wiki.hyprland.org\:Getting-Started/Installation | Section: Running In a VM](https://wiki.hyprland.org/Getting-Started/Installation/#running-in-a-vm)\
+From: [wiki.hyprland.org\:Getting-Started/Installation | Section\: Running In a VM](https://wiki.hyprland.org/Getting-Started/Installation/#running-in-a-vm)\
 Taken on 2025-04-24
 
-# Checking the number of generations
+## Checking the number of generations
 
 Restart the VM.
 
@@ -700,11 +715,12 @@ I actually tried
 to rice my laptop when I had nothing else I wanted to do.
 But it just didn't feel worth it.
 It takes so much time,
-and while I don't like using `Hyprland` due to the author,
+and while I don't like using `Hyprland` (due to the author),
 it is just not worth it to switch to `Niri`, at least for me.
 
 I do eventually want to update to newer packages
 but that's a thing for later.
+
 I can also use the VM to modularize my config.
 
 ---

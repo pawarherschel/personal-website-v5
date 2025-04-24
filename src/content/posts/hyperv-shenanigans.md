@@ -122,13 +122,24 @@ But it kept
 saying `nixos/modules/virtualisation/disk-size-option.nix` is missing.
 Even though I passed the options via CLI?
 
-:::caution[TODO]
-add various links to flakes, the libre pheonix person, vimjoyer, the rust person,
-whoever i can find
-:::
-
 Now, I’m new to flakes and Nix in general,
 so I couldn't figure out why it didn't find the option.
+Check [^nix-flakes-vids] to find resources to learn more about nix and flakes.
+[^nix-flakes-vids]: In no particular order
+    1. https://youtu.be/JCeYq72Sko0
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/JCeYq72Sko0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    2. https://youtu.be/S3VBi6kHw5c
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/S3VBi6kHw5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    3. https://youtu.be/ACybVzRvDhs
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ACybVzRvDhs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    4. https://youtu.be/ylL6CFEw0Ck
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ylL6CFEw0Ck" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    5. https://youtu.be/5D3nUU1OVx8
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/5D3nUU1OVx8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    6. https://youtu.be/RoMArT8UCKM
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/RoMArT8UCKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    7. https://youtu.be/CwfKlX3rA6E
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/CwfKlX3rA6E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 So,
 I figured

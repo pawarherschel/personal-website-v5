@@ -565,13 +565,12 @@ I guess I didn't run the installer,
 so the config files weren't generated.
 
 ### Solution
+
 1. Run `nixos-generate-config`.
 2. Clone my laptop's config from GitHub.
 3. Replace the `hardware-configuration.nix` from my laptop with the one \[Step
    1\] generated.
-    :::caution[todo]
-        check if i need to explain why i only needed `hardware-configuration.nix`
-    ::: 
+    - I only need the `hardware-configuration.nix` as the rest of the system is based on my laptop. 
 4. `sudo nixos-rebuild test --flake .`
 
 ### Problems, again

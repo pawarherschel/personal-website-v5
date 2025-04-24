@@ -45,9 +45,7 @@ Ok, lets create the VM.
 
 2. `click new > Virtual Machine`
     ![img_4.png](img_4.png)
-
 3. `next` `next`
-
 4. Specify Generation: let's just pick `Generation 2`.
 5. Assign Memory: 10 GB should be enough, so 10*1024
 6. Configure Networking: let's pick the default switch
@@ -90,7 +88,7 @@ Right???
 Thus, as usual,
 I proceeded to fuck around and find out the age-old lesson of:
 
-## Software Programming Mantra
+# Software Programming Mantra
 
 <img alt="We do this not because it is easy,
 but because we thought
@@ -148,7 +146,7 @@ and then incrementally make changes.
 That is, create a minimal working config,
 and then adapt it to my needs.
 
-## Getting the minimal working config to work
+# Getting the minimal working config to work
 
 It worked, but then I realized I used the wrong config,
 I used WSL's config instead of my laptop's config 🤦.
@@ -232,12 +230,7 @@ So, it is time to remake it with the `hyperv` target.
 I was also unsure if 20 GB would be enough for the VM,
 so I bumped it up to 40 GB.
 
-:::caution[TODO]
-
-This should be a heading
-
-:::
-
+# temp Heading
 The question is; why did I want an image?
 Why couldn't I use the ISO I just made?
 
@@ -321,7 +314,7 @@ Yeah thats cool and all, but where is this useful?
     - Create preconfigured environments where you can't uninstall or install anything for learning purposes.
     - I required one when I was preparing for `RHCSA` and `RHCE`
 
-## Back to failing to build
+# Back to failing to build
 
 I thought that changing the image size to 40 GB was the problem,
 so I changed it back to 20 GB.
@@ -340,11 +333,11 @@ Number  Start   End     Size    File system  Name     Flags
 1      8389kB  269MB   261MB   fat32        ESP      boot, esp
 2      269MB   4294MB  4024MB  ext4         primary</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lloeoe3ylc2o?ref_src=embed">March 31, 2025 at 6:05 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
-## Lead astray
+# Lead astray
 
 Let's talk about the assumptions I made which turned out to be wrong.
 
-### WSL's disk size
+# WSL's disk size
 
 I thought WSL had a limited disk size,
 and while building the 40 GB image, I was running out of space.
@@ -362,7 +355,7 @@ If I run `df -h`
 
 Seems like by default windows assigns 1007 GB to the disk.
 
-### Unit for `virtualisation.diskSize`
+# Unit for `virtualisation.diskSize`
 
 I thought `20 * 1024` for `virtualisation.diskSize` meant 20 MB and not 20 GB. 
 This feels wrong, 
@@ -373,11 +366,11 @@ So,
 I assumed wrong, and my initial understanding was correct.
 It was 20 GB.
 
-### NixOS' build sandbox ran out of space
+# NixOS' build sandbox ran out of space
 
 Nope, don't know why I thought this.
 
-### Making it easier to debug
+# Making it easier to debug
 
 I dug around
 and changed the build directory to be in the Windows partition, 
@@ -399,14 +392,14 @@ error: 1 dependencies of derivation '/nix/store/xlfbh71qyiwbb00k9xg6bmimqqmip75q
 error: 1 dependencies of derivation '/nix/store/bk0kb7mp9kswp6kvnrlqqnmd7fxb1cvh-nixos-hyperv-hyperv-25.05.20250330.52faf48-x86_64-linux.drv' failed to build
 ```
 
-### Giving up and creating an issue
+# Giving up and creating an issue
 
 I created an issue on GitHub.
 Then, while trying to create the minimal reproducible configuration,
 I reverted the `build-dir` option, AND THE IMAGE SUCCESSFULLY BUILD.
 So the thing I did to debug easier made the build fail.
 
-### Why was it a mistake?
+# Why was it a mistake?
 
 Windows' permission system is different compared to linux,
 and they're not intercompatible.
@@ -440,7 +433,7 @@ title="Screenshot of the required file on GitHub with area
 highlighted in yellow."
 width="1680"/>
 
-## Build success
+# Build success
 
 I copied the successful build from the Nix store to Windows.
 
@@ -499,10 +492,7 @@ title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
 
 ![img_1.png](img_1.png)
 
-:::caution[todo]
-this should be a new top level heading
-:::
-## VM booted successfully
+# VM booted successfully
 
 I checked the VHDX file NixOS Generators created and saw it was 4 GB.
 
@@ -518,7 +508,7 @@ and im back to this error
        error: path &#x27;/nix/store/7a2rzcz3mjaq6ni71nn3zv6v3kxk8zab-nixpkgs/nixpkgs/nixos/modules/virtualisation/disk-size-option.nix&#x27; does not exist</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqdomz7ml2g?ref_src=embed">April 1, 2025 at 12:53 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 :::
 
-## Struggles with logging in as `ksakura`
+# Struggles with logging in as `ksakura`
 
 <img alt="&lt;&lt;&lt; Welcome to NixOS hyperv-25.05.20250330.52faf48 (x86_64) - tty1 &gt;&gt;&gt; Run &#39;nixos-help&#39; for the NixOS manual. kats-laptop login: ksakura Password: &lt;REDACTED&gt; Login incorrect kats-laptop login: ksakura Password: &lt;REDACTED&gt; Login incorrect kats-laptop login:" height="768" src="https://r2.sakurakat.systems/hyperv-shenanigans--no-user-password.png" title="Screenshot of TTY1
 where I tried
@@ -546,7 +536,7 @@ and the user will not be able to do password-based logins."
 And the rest is on [mynixos.com/nixpkgs/option/users.users.\<name\>.hashedPassword](https://mynixos.com/nixpkgs/option/users.users.%3Cname%3E.hashedPassword#:~:text=To%20generate%20a%20hashed%20password%20run%20mkpasswd.)\
 "To generate a hashed password run mkpasswd."
 
-### Solution
+# Solution
 
 ```bash 
 $ mkpasswd <password>
@@ -558,18 +548,15 @@ $y$j9T$MxmF8OTQHxbHHSRiBN6x5.$l4pf7mt76eBt6NWeyW1t4fM0fdQlWRovwtuwS43kYXB
 
 Use the above hash for the hashedPassword
 
-#### Why not `users.users.<name>.initialPassword`?
+# Why not `users.users.<name>.initialPassword`?
 
 insecure lol
 
-## Successfully logged in
+# Successfully logged in
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llqitkdpyn2g" data-bluesky-cid="bafyreidiqtyoespfqdxfvapnwmw75cvmayqi3snlqtm6xzx6o2axqeycee" data-bluesky-embed-color-mode="system"><p lang="en">HELL YEAH<br><br><a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqitkdpyn2g?ref_src=embed">[image or embed]</a></p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqitkdpyn2g?ref_src=embed">April 1, 2025 at 2:25 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
-:::caution[todo]
-this should be a new top level heading
-:::
-## Removing the errors
+# Removing the errors
 
 I had errors in `nushell`,
 and `Hyprland` because the config files were for the older version of the programs.
@@ -581,10 +568,7 @@ I "just"
 have
 to replace the current flake lock file in the VM with the one from my laptop.
 
-:::caution[todo]
-this should be a new top level heading
-:::
-## No config files
+# No config files
 
 <img alt="The user ran ls /etc/nixos,
 where the config files are supposed to exist,
@@ -602,7 +586,7 @@ Huh, that's concerning.
 I guess I didn't run the installer,
 so the config files weren't generated.
 
-### Solution
+# Solution
 
 1. Run `nixos-generate-config`.
 2. Clone my laptop's config from GitHub.
@@ -611,7 +595,7 @@ so the config files weren't generated.
     - I only need the `hardware-configuration.nix` as the rest of the system is based on my laptop. 
 4. `sudo nixos-rebuild test --flake .`
 
-### Problems, again
+# Problems, again
 
 <img alt="The user tried to rebuild NixOS
 but while building a specific package,
@@ -664,10 +648,7 @@ ignore the error for Out of Bounds
 I took the screenshot after resizing and checking if it works.
 :::
 
-:::caution[todo]
-this should be a new top level heading
-:::
-## Final stretch
+# Final stretch
 
 1. Reboot the VM
 2. `sudo nixos-rebuild test --flake .`
@@ -687,7 +668,7 @@ Reason: "YMMV, this is not officially supported."\
 From: [wiki.hyprland.org\:Getting-Started/Installation | Section: Running In a VM](https://wiki.hyprland.org/Getting-Started/Installation/#running-in-a-vm)\
 Taken on 2025-04-24
 
-### Checking the number of generations
+# Checking the number of generations
 
 Restart the VM.
 

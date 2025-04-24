@@ -14,12 +14,6 @@ category: Programming
 draft: false
 ---
 
-:::caution[todo]
-
-REVERT THE ANIMATED SVG CHANGES, THEY MAKE THE WEBSITE FEEL LAGGY
-
-:::
-
 :::IMPORTANT
 
 Please wait

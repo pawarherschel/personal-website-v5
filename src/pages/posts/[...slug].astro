@@ -12,6 +12,7 @@ import { licenseConfig } from "src/config";
 import PostMetadata from "../../components/PostMeta.astro";
 import BlueskyLikes from "../../components/bluesky/BlueskyLikes.astro";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
+import SocialShare from "../../components/widget/SocialShare.astro";
 import { profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
 
@@ -110,6 +111,8 @@ const jsonLd = {
 
         </div>
     </div>
+
+    <SocialShare description={entry.data.description} title={entry.data.title + ` by "${profileConfig.name}" (${licenseConfig.name})`}/>
 
     <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
         <a href={entry.data.nextSlug ? getPostUrlBySlug(entry.data.nextSlug) : "#"}

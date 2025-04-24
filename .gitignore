@@ -37,3 +37,6 @@ public/favicon/*.png
 /public/**/*.jpeg
 
 /vendored/
+/src/components/social-share
+!/src/components/social-share/src
+!/src/components/social-share/SOURCE.toml

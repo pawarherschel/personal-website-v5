@@ -21,6 +21,15 @@ for the Bluesky embeds to load to avoid the content shifting while reading.
 
 :::
 
+# Prerequisite Knowledge
+
+WSL with NixOS running
+
+Basic understanding of:
+1. Virtualization
+2. Linux
+3. Nix/NixOS
+
 # Introduction
 
 I wanted to rice my laptop without turning it on.
@@ -797,6 +806,13 @@ I can also use the VM to modularize my config.
     without turning it on</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c?ref_src=embed">March 31, 2025 at 2:39 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 - Read the thread on Skywriter.blue:
   - https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c
+
+---
+
+# Proofreaders
+
+> Divyesh Patil
+> - https://www.linkedin.com/in/divyesh-patil-525808257/
 
 ---
 

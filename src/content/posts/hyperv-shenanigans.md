@@ -25,8 +25,15 @@ reading.
 # Introduction
 
 I wanted to rice my laptop without turning it on.
-So, I thought, "Hey, I can just make a VM in Hyper-V",
-because I didn't want to deal with VMware or VirtualBox.
+So, I thought, "Hey, I can just make a VM in Hyper-V".
+
+:::caution[todo]
+
+why hyper-v?
+because I didn't want to deal with VMware or VirtualBox
+
+:::
+
 "I already use NixOS on WSL2,
 so I can just reuse the VHDX for the VM!" -- or so I thought.
 Then, I quickly found out I can't just reuse it.

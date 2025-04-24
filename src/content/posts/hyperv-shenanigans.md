@@ -456,10 +456,11 @@ title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
   - Hm, that doesn't tell a lot; let's read the earlier stuff.
 - "The `unsigned image's hash` is not allowed (DB)"
   - Oh, I think I know what's wrong: secure boot!
-    :::caution[todo]
-    how was this solved
-    :::
- 
+
+`right click vm > settings > Security > uncheck 'Enable Secure Boot' `
+
+![img_1.png](img_1.png)
+
 :::caution[todo]
 this should be a new top level heading
 :::

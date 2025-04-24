@@ -186,30 +186,111 @@ trying
 to build the `hyperv` target
 to trying to build the `install-iso-hyperv`.
 As the name suggests, `install-iso-hyperv`
-builds an ISO instead of a Hyper-V image,
-which I can just load in the Hyper-V manager.
-It acts as a LiveISO,
-which you can try out before deciding
-if you want to install it or not,
-but I wanted the image,
-so it is time to remake it with the `hyperv` target.
-Also, the size of the ISO was ~2.6 GB.
+builds an ISO instead of a Hyper-V image.
+I can’t just load the ISO in the Hyper-V manager.
+(btw the size of the ISO was ~2.6 GB).
+But I wanted the image.
+So, it is time to remake it with the `hyperv` target.
+
 I was also unsure if 20 GB would be enough for the VM,
 so I bumped it up to 40 GB.
+
+The question is; why did I want an image?
+Why couldn't I use the ISO I just made?
+
 :::caution[TODO]
 
-why did i want direct image instead of iso?
-because i can
+This should be a heading
 
 :::
+
+Let's talk about the ISO first.
+If you've ever installed linux on you pc,
+you might've noticed that you can just *use* your pc.
+You don't need to install linux to use it.
+This feature is called LiveISO (or live CD,
+read more on [wikipedia:Live_CD](https://en.wikipedia.org/wiki/Live_CD)).
+
+:::note
+
+Some distros exclusively run off a USB,
+like:
+- [Tails](https://tails.net/)
+    - [wikipedia:Tails_(operating_system)](https://en.wikipedia.org/wiki/Tails_(operating_system))
+        - > security-focused Debian-based Linux distribution aimed at preserving privacy and anonymity against surveillance
+- [PuppyLinux : HomePage](https://wikka.puppylinux.com/HomePage)
+    - [wikipedia:Puppy_Linux](https://en.wikipedia.org/wiki/Puppy_Linux)
+        - > light-weight Linux distributions that focus on ease of use and minimal memory footprint
+- [GNOME Partition Editor](https://gparted.org/)
+    - [wikipedia:GParted](https://en.wikipedia.org/wiki/GParted)
+        - > used for creating, deleting, resizing, moving, checking, and copying disk partitions and their file systems
+
+:::
+
+The ISO I just made was a LiveISO.
+I would need to install it to use it in the VM.
+Installing OS in one VM? 
+That's fine.
+But at least for me, 
+it feels like the goal of `nixos-generators` is to automate
+the creation of VMs.
+
+Creating an image means I can load the "VHDX"
+file as the VM's storage, 
+I would still need to allocate CPU, Memory, configure networking, etc,
+but that work can be automated (see: [learn.microsoft.com: Working with Hyper-V and Windows PowerShell](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/try-hyper-v-powershell)).
+
+For example:
+```powershell {7}
+$VMName = "VMNAME"
+
+$VM = @{
+     Name = $VMName
+     MemoryStartupBytes = 2147483648
+     Generation = 2
+     NewVHDPath = "C:\Virtual Machines\$VMName\$VMName.vhdx" # <- here 
+     NewVHDSizeBytes = 53687091200
+     BootDevice = "VHD"
+     Path = "C:\Virtual Machines\$VMName"
+     SwitchName = (Get-VMSwitch).Name
+ }
+
+New-VM @VM
+```
+(From [learn.microsoft.com: Working with Hyper-V and Windows PowerShell | Section: Create a new virtual machine](https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/try-hyper-v-powershell#create-a-new-virtual-machine) on 2025-04-24)
+
+By pointing `NewVHDPath` to the created image, 
+you can make a new VM with NixOS already installed.
+
+:::important[You]
+
+Yeah thats cool and all, but where is this useful?
+
+:::
+
+- Integration testing
+    - Test your whole application
+        - You get a litter-free environment to test your application
+    - https://nix.dev/tutorials/nixos/integration-testing-using-virtual-machines.html
+- Malware Analysis and pentesting
+    - You can harden your image once, and then replicate it every time.
+    - Don't need to worry about the malware infecting the host machine.[^vms-as-a-service]
+[^vms-as-a-service]: You can turn this into a service by Sell hardened VMs for testing malware. Network Chuck has done a similar thing but he did browser instead of a full-blown VMs. <iframe width="560" height="315" src="https://www.youtube.com/embed/NDlQrK_QAzY?si=QsWZIi132ReUyAgn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+- Different architecture
+    - You can test your application for different CPU architectures
+        - I have an `x86_64` cpu, I can create a VM with `aarch64` cpu to check if the application behaves as expected. 
+- Different OS
+    - Similar to the "Different architecture" points, you can install a different OS and check your application there.
+        - I have a Windows machine (hence Hyper-V), and I can run check my application in linux. 
+- Lab environments
+    - Create preconfigured environments where you can't uninstall or install anything for learning purposes.
+    - I required one when I was preparing for `RHCSA` and `RHCE`
+
 :::caution[TODO]
 
 make the transition better
 
 :::
-Also, the size of the ISO was ~2.6 GB.
-I was also unsure if 20 GB would be enough for the VM,
-so I bumped it up to 40 GB.
 
 ## Back to failing to build
 
@@ -641,3 +722,7 @@ I can also use the VM to modularize my config.
     without turning it on</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c?ref_src=embed">March 31, 2025 at 2:39 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 - Read the thread on Skywriter.blue:
   - https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c
+
+---
+
+# Footnotes

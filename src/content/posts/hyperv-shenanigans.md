@@ -205,14 +205,14 @@ So, it is time to remake it with the `hyperv` target.
 I was also unsure if 20 GB would be enough for the VM,
 so I bumped it up to 40 GB.
 
-The question is; why did I want an image?
-Why couldn't I use the ISO I just made?
-
 :::caution[TODO]
 
 This should be a heading
 
 :::
+
+The question is; why did I want an image?
+Why couldn't I use the ISO I just made?
 
 Let's talk about the ISO first.
 If you've ever installed linux on you pc,
@@ -295,12 +295,6 @@ Yeah thats cool and all, but where is this useful?
 - Lab environments
     - Create preconfigured environments where you can't uninstall or install anything for learning purposes.
     - I required one when I was preparing for `RHCSA` and `RHCE`
-
-:::caution[TODO]
-
-make the transition better
-
-:::
 
 ## Back to failing to build
 

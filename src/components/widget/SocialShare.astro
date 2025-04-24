@@ -39,12 +39,9 @@ const {
 } = Astro.props;
 ---
 <div class="card-base p-4 mb-4 relative w-full z-10">
-	<WidgetLayout
-		id="share-buttons"
-		name="Share"
-	>
-		<div class="flex flex-row">
-            {buttons.map((Button) => <div class="flex-grow"><Button url={url} description={description} via={via} title={title} class="inline-block transition link btn-card rounded-2xl w-[3.75rem] h-[3.75rem] px-4 flex items-center fill-white/75 rounded-lg h-10 w-10 active:scale-90" /></div>)}
-		</div>
-	</WidgetLayout>
+	<h3 class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">Share (ad blocker might remove the buttons)</h3>
+	<div class="h-1 w-20 bg-[var(--primary)] mx-auto rounded-full mb-4 transition"></div>
+	<div class="flex flex-row">
+        {buttons.map((Button) => <div class="flex-grow"><Button url={url} description={description} via={via} title={title} class="inline-block transition link btn-card rounded-2xl w-[3.75rem] h-[3.75rem] px-4 flex items-center fill-white/75 rounded-lg h-10 w-10 active:scale-90" /></div>)}
+	</div>
 </div>

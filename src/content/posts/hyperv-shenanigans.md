@@ -264,12 +264,12 @@ Some distros exclusively run off a USB, some are here [^live-isos].
         - [wikipedia\:Tails_(operating_system)](https://en.wikipedia.org/wiki/Tails_(operating_system))
             - Quote from Wikipedia
             > security-focused Debian-based Linux distribution aimed at preserving privacy and anonymity against surveillance
-      - [PuppyLinux : HomePage](https://wikka.puppylinux.com/HomePage)
-          - [wikipedia\:Puppy_Linux](https://en.wikipedia.org/wiki/Puppy_Linux)
+    - [PuppyLinux : HomePage](https://wikka.puppylinux.com/HomePage)
+        - [wikipedia\:Puppy_Linux](https://en.wikipedia.org/wiki/Puppy_Linux)
             - Quote from Wikipedia
             > light-weight Linux distributions that focus on ease of use and minimal memory footprint
-      - [GNOME Partition Editor](https://gparted.org/)
-          - [wikipedia\:GParted](https://en.wikipedia.org/wiki/GParted)
+    - [GNOME Partition Editor](https://gparted.org/)
+        - [wikipedia\:GParted](https://en.wikipedia.org/wiki/GParted)
             - Quote from Wikipedia
             > used for creating, deleting, resizing, moving, checking, and copying disk partitions and their file systems
 

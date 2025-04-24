@@ -173,8 +173,7 @@ for newer systems, or the compatibility one.
 The way you chose which one to buld was by either using `#specific`,
 or `#generic`.
 If you didn't choose, the flake defaults to `specific`.
-:::note
-You can read the short thread about the process on Bluesky.
+:::note[You can read the short thread about the process on Bluesky]
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lm3jib32pk2s" data-bluesky-cid="bafyreiae6gdke4n6voeg5sizs5skqguxjkihcbz4jes4mxp674jecjg2zq" data-bluesky-embed-color-mode="system"><p lang="en">My pc is in quarantine rn because of some RAM issues.
 I spent the whole day just lazying around and relaxed for once,
 took naps, etc.
@@ -221,10 +220,8 @@ You don't need to install linux to use it.
 This feature is called LiveISO (or live CD,
 read more on [wikipedia:Live_CD](https://en.wikipedia.org/wiki/Live_CD)).
 
-:::note
+:::note[Some distros exclusively run off a USB]
 
-Some distros exclusively run off a USB,
-like:
 - [Tails](https://tails.net/)
     - [wikipedia:Tails_(operating_system)](https://en.wikipedia.org/wiki/Tails_(operating_system))
         - > security-focused Debian-based Linux distribution aimed at preserving privacy and anonymity against surveillance

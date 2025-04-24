@@ -24,16 +24,14 @@ It first piqued my interest
 when I saw it's a modern replacement for LaTeX,
 especially since it's written in Rust!
 
-The first thing I made using Typst is
-my [CV](https://github.com/pawarherschel/Typst/blob/main/output/CV.pdf).
+The first thing I made using Typst is my [CV](https://github.com/pawarherschel/Typst/blob/main/output/CV.pdf).
 ::github{repo="pawarherschel/Typst"}
 I just took an aesthetically pleasing enough template
 and just shoved the stuff I had made into it.
 
 As for my website,
 after 5 iterations
-(more coming after Typst has HTML export, or I get bored with this
-template)
+(more coming after Typst has HTML export, or I get bored with this template)
 trying templates and building my website myself,
 I finally decided to use [fuwari](https://fuwari.vercel.app/).
 ::github{repo="saicaca/fuwari"}
@@ -45,16 +43,11 @@ to make the process less error prone
 while also reducing the amount of work I do.
 
 I was debating between
-
 - Parsing the Abstract Syntax Tree (AST)
-    - I wanted to learn [
-      `winnow`](https://github.com/winnow-rs/winnow), a parser
-      combinator library in rust
+  - I wanted to learn [`winnow`](https://github.com/winnow-rs/winnow), a parser combinator library in rust
 - Hacking on the compiler
-    - So, I could use existing tools, and then expose the modified
-      version as a TypeScript module, via Foreign Function Interface (
-      FFI)
-        - I've been trying to find reasons to use FFI to JS/Python.
+  - So, I could use existing tools, and then expose the modified version as a TypeScript module, via Foreign Function Interface (FFI)
+    - I've been trying to find reasons to use FFI to JS/Python.
 
 However, in the end, I decided to just embed the PDF,
 that also didn't pan out well either,
@@ -72,7 +65,6 @@ As part of the application deliverables,
 I had to submit a short introduction video
 (they mentioned 2-minute max).
 I decided I wanted to
-
 - make slides
 - add voice (somehow),
 - also show my face (again, somehow).
@@ -132,20 +124,14 @@ that I had to enclose everything in a `block`
 and duplicated a lot of work.
 However, it's still miles better than the original.
 
-I started with
-the [UniStra theme for Touying](https://Typst.app/universe/package/Touying-unistra-pristine),
-then
-tried [Grape Suite](https://Typst.app/universe/package/grape-suite),
+I started with the [UniStra theme for Touying](https://Typst.app/universe/package/Touying-unistra-pristine),
+then tried [Grape Suite](https://Typst.app/universe/package/grape-suite),
 [Diatypst](https://Typst.app/universe/package/diatypst),
-but in the end, I ended up
-using [Touying](https://Typst.app/universe/package/touying)
-with
-the [metropolis theme](https://touying-typ.github.io/docs/themes/metropolis)
-and
+but in the end, I ended up using [Touying](https://Typst.app/universe/package/touying)
+with the [metropolis theme](https://touying-typ.github.io/docs/themes/metropolis) and
 [Catppuccin](https://catppuccin.com/)
 [colors](https://catppuccin.com/palette#:~:text=Macchiato-,Mocha,-Project).
 I also tried to consistently add subtle hints such as:
-
 - using a different font for stuff I consider creative
 - adding `=` to show the heading level
 - showing original and preview image paths
@@ -164,17 +150,14 @@ that extracts just the text parts.
 
 The Typst compiler didn't allow me to make it recursive.
 I ended up duplicating the function
-and making them call each other instead of recursing (
-see: [Table of Links section](#table-of-links)).
-The solution is fragile, and it broke when I tried to move it to the
-top.
+and making them call each other instead of recursing (see: [Table of Links section](#table-of-links)).
+The solution is fragile, and it broke when I tried to move it to the top.
 
 ![can we have x at home eme with text Me: Can we use recursion in our slides? Typst: We already have recursion at home. recursion at home: snippet of code from condensed-slides.typ](https://r2.sakurakat.systems/typst-journey--we-have-recursion-at-home.svg "Can we have recursion at home")
 
 ## Video
 
-I was planning to use my phone to change slides
-using [KDE Connect](https://kdeconnect.kde.org/),
+I was planning to use my phone to change slides using [KDE Connect](https://kdeconnect.kde.org/),
 my tablet to read the script,
 and record my screen for video.
 
@@ -185,8 +168,7 @@ but I didn't know which key presses it sent.
 I dug into the source code
 and found out it uses page up and down to change slides.
 
-I used [Tinymist](https://github.com/Myriad-Dreamin/tinymist) to
-present my slides,
+I used [Tinymist](https://github.com/Myriad-Dreamin/tinymist) to present my slides,
 but Tinymist doesn't support page up and down to change slides,
 so I modified it.
 This was a 2-line change.
@@ -229,8 +211,7 @@ I imported the SVGs into KDenLive,
 and for some reason it didn't work as expected.
 On top of that,
 I was under time pressure.
-Earlier, I had set up [OBS](https://obsproject.com/) for only
-recording the slides
+Earlier, I had set up [OBS](https://obsproject.com/) for only recording the slides
 and not the other UI.
 I ended up taking screenshots of the slides using OBS,
 and used them as frames.
@@ -247,42 +228,31 @@ I proceeded to give minimal time for others.
 As for the slides where I'm talking about myself,
 I composed the webcam footage of me speaking into the video
 and hoped that people will notice it.
-I used photos I captured in VRChat as the video background when I'm
-speaking.
+I used photos I captured in VRChat as the video background when I'm speaking.
 The photos were chosen based on how I wanted the mood to be.
 For example,
-
 - Introduction slides: bright and hopeful
-    - The original images had my friend
-    - I joined her to ask how it's going
-    - and the whole scene just felt like she was the final boss of a
-      video game.
-    - I thought it looked really good and had to take the image.
-    -
-    World: [Observatorium Aureatus](https://vrchat.com/home/world/wrld_f3fbb28f-f83f-4ed4-a6fc-8a20c9d7d43e/info)
-    - Youtube
-      Preview: [VRChat world - Observatorium Aureatus](https://www.youtube.com/watch?v=rg5BrawnhN8)
+  - The original images had my friend
+  - I joined her to ask how it's going
+  - and the whole scene just felt like she was the final boss of a video game.
+  - I thought it looked really good and had to take the image.
+  - World: [Observatorium Aureatus](https://vrchat.com/home/world/wrld_f3fbb28f-f83f-4ed4-a6fc-8a20c9d7d43e/info)
+  - Youtube Preview: [VRChat world - Observatorium Aureatus](https://www.youtube.com/watch?v=rg5BrawnhN8)
 
 ![](https://r2.sakurakat.systems/typst-journey--video-bg-1.jpg)
-
 - The [bevy](https://bevyengine.org/) slide: technology
-    - Pong might've been better, but it would've been too plain.
-    - The world I took the photo in is an artwork that shows old web
-      aesthetics.
-    -
-    World: [Sensory Rooms](https://vrchat.com/home/world/wrld_3f4e1cf3-9551-4599-86bb-a1945dba41d6/info)
-    - Youtube
-      Preview: [Sensory Rooms - OST (Original Soundtrack)](https://www.youtube.com/watch?v=B91JfFg0ec0)
+  - Pong might've been better, but it would've been too plain.
+  - The world I took the photo in is an artwork that shows old web aesthetics.
+  - World: [Sensory Rooms](https://vrchat.com/home/world/wrld_3f4e1cf3-9551-4599-86bb-a1945dba41d6/info)
+  - Youtube Preview: [Sensory Rooms - OST (Original Soundtrack)](https://www.youtube.com/watch?v=B91JfFg0ec0)
 
 ![](https://r2.sakurakat.systems/typst-journey--video-bg-2.jpg)
-
 - The quote slide: somber and heartfelt
-    - It has a big, beating heart
-    - The world was made in memory of someone the creator knew who
-      died by suicide.
-    -
-    World: [VoN: Fragmented Love & Silence](https://vrchat.com/home/world/wrld_10af394e-064d-430c-b0d5-84f7780f2881/info)
-    - No Youtube preview available
+  - It has a big, beating heart
+  - The world was made in memory of someone the creator knew who died by suicide.
+  - World: [VoN: Fragmented Love & Silence](https://vrchat.com/home/world/wrld_10af394e-064d-430c-b0d5-84f7780f2881/info)
+  - No Youtube preview available
+
 
 ![](https://r2.sakurakat.systems/typst-journey--video-bg-3.jpg)
 
@@ -363,12 +333,10 @@ Shows the path for the original file's path in the repo,
 and the preview file's path for the slides if required.
 The text is formatted in a way that makes sure it doesn't
 create newlines.
-
 - `#sym.wj` (word joiner)
-    - doesn't change the text and prevents the word from being broken
-      up
+  - doesn't change the text and prevents the word from being broken up
 - `~` (non-breaking space)
-    - adds a space and prevents the word from being broken up
+  - adds a space and prevents the word from being broken up
 
 Got both of them from this video
 [Six Things I Bet You Didn't Know About Typst | Laurenz Mädje @ Typst Meetup](https://youtu.be/WQyqyrRQcSw)

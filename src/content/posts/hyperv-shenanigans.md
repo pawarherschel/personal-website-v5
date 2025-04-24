@@ -644,10 +644,10 @@ title="Screenshot of `Hyprland` running in the VM" width="1024"/>
 
 Success!
 
-The glitchiness because `Hyperland` doesnt like being run in a VM.
-:::caution[TODO]
-https://wiki.hyprland.org/Getting-Started/Installation/#running-in-a-vm
-:::
+The glitchiness is because `Hyperland` doesn't like being run in a VM.\
+Reason: "YMMV, this is not officially supported."\
+From: [wiki.hyprland.org\:Getting-Started/Installation | Section: Running In a VM](https://wiki.hyprland.org/Getting-Started/Installation/#running-in-a-vm)\
+Taken on 2025-04-24
 
 ### Checking the number of generations
 

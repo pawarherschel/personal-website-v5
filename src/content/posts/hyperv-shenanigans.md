@@ -37,13 +37,38 @@ I didn't want to install VMWare or god forbid Oracle VirtualBox.
 
 :::
 
-:::caution[todo]
-
-take them on a journey, make the vm from scratch, find the wsl vhdx, etc
-
-:::
-
 ---
+
+Ok, lets create the VM.
+
+1. enable `Hyper-V` using this guide https://techcommunity.microsoft.com/blog/educatordeveloperblog/step-by-step-enabling-hyper-v-for-use-on-windows-11/3745905
+
+2. `click new > Virtual Machine`
+    ![img_4.png](img_4.png)
+
+3. `next` `next`
+
+4. Specify Generation: let's just pick `Generation 2`.
+5. Assign Memory: 10 GB should be enough, so 10*1024
+6. Configure Networking: let's pick the default switch
+7. Connect Virtual Hard Disk: hm, I'm not sure where my WSL's VHDX is.
+   1. Open `C:\` in file explorer
+   2. `right click > WizTree`
+        - https://www.diskanalyzer.com/
+   3. Locate `VHDX` file format on the right panel
+    ![img_5.png](img_5.png)
+   4. `right click > select`
+   5. Voila! Found the VHDX WSL uses
+   ![img_6.png](img_6.png)
+   6. `right click > Copy Path`
+   7. Back to creating the VM
+8. click `Use an existing virtual hard disk`
+9. put the path in location
+    - `C:\Users\Kat Sakura\NixOS\ext4.vhdx` for me
+10. Finish!
+11. almost there
+12. `right click the vm > Connect`
+
 
 <img height="901"
 src="https://r2.sakurakat.systems/hyperv-shenanigans--no-tty.png"
@@ -54,6 +79,8 @@ This shows
 that there is no TTY."/>
 
 The dang thing doesn't even show a TTY!
+
+Oh well,
 Then,
 I remembered [github\:nix-community/nixos-generators](https://github.com/nix-community/nixos-generators) exists.
 Might as well use NixOS Generators; How hard can it be?

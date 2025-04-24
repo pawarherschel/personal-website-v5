@@ -43,7 +43,7 @@ I didn't want to install VMWare or god forbid Oracle VirtualBox.
 
 1. enable `Hyper-V` using this guide https://techcommunity.microsoft.com/blog/educatordeveloperblog/step-by-step-enabling-hyper-v-for-use-on-windows-11/3745905
 2. `click new > Virtual Machine`
-    ![img_4.png](img_4.png)
+   <img alt="Screenshot of Hyper-V Manager where the &quot;New&quot; button has been clicked" height="901" src="https://r2.sakurakat.systems/hyperv-shenanigans--create-new-vm.png" title="Screenshot of Hyper-V Manager" width="1671"/>
 3. `next` `next`
 4. Specify Generation: let's just pick `Generation 2`.
 5. Assign Memory: 10 GB should be enough, so 10*1024
@@ -53,10 +53,10 @@ I didn't want to install VMWare or god forbid Oracle VirtualBox.
    2. `right click > WizTree`
         - https://www.diskanalyzer.com/
    3. Locate `VHDX` file format on the right panel
-    ![img_5.png](img_5.png)
+      <img alt="The focus is on the right hand panel which has the `.vhdx` file extention" height="1348" src="https://r2.sakurakat.systems/hyperv-shenanigans--wiztree-vhdx-find.png" title="Screenshot of WizTree" width="1683"/>
    4. `right click > select`
    5. Voila! Found the VHDX WSL uses
-   ![img_6.png](img_6.png)
+      <img alt="Screenshot of WizTree with highlight on the vhdx files. There are two files, one for docker, and one for nixos. We want the nixos file." height="1348" src="https://r2.sakurakat.systems/hyperv-shenanigans--wiztree-vhdx-highlight.png" title="Screenshot of WizTree" width="1683"/>
    6. `right click > Copy Path`
    7. Back to creating the VM
 8. click `Use an existing virtual hard disk`
@@ -358,9 +358,7 @@ it should be able
 to expand till there's no space left on the physical disk. 
 
 If I run `df -h`
-![root partition
-`/` has 49 GB used and 908 GB free.](img.png "screenshot of terminal with the command
-`df -h`")
+<img alt="root partition `/` has 49 GB used and 908 GB free." height="502" src="https://r2.sakurakat.systems/hyperv-shenanigans--wsl-df-h.png" title="screenshot of terminal with the command `df -h`" width="1040"/>
 
 Seems like by default windows assigns 1007 GB to the disk.
 
@@ -508,7 +506,7 @@ title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
 
 `right click vm > settings > Security > uncheck 'Enable Secure Boot' `
 
-![img_1.png](img_1.png)
+<img alt="Screenshot of VM setting in Security panel with Secure boot turned off" height="859" src="https://r2.sakurakat.systems/hyperv-shenanigans--secureboot-turn-off.png" title="Screenshot of VM setting in Security panel" width="902"/>
 
 # VM booted successfully
 

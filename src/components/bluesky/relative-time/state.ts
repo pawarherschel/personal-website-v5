@@ -1,6 +1,6 @@
 import { getFormatter } from "./formatter";
-import type { Callback, RenderState } from "./render";
 import { render } from "./render";
+import type { Callback, RenderState } from "./render";
 
 interface UpdateState extends RenderState {
 	update: number;

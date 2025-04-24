@@ -44,18 +44,9 @@ importers:
       '@iconify-json/fa6-solid':
         specifier: ^1.2.3
         version: 1.2.3
-      '@iconify-json/line-md':
-        specifier: ^1.2.7
-        version: 1.2.7
       '@iconify-json/material-symbols':
         specifier: ^1.2.17
         version: 1.2.17
-      '@iconify-json/meteocons':
-        specifier: ^1.2.2
-        version: 1.2.2
-      '@iconify-json/svg-spinners':
-        specifier: ^1.2.2
-        version: 1.2.2
       '@iconify/svelte':
         specifier: ^4.2.0
         version: 4.2.0(svelte@5.25.9)
@@ -1126,17 +1117,8 @@ packages:
   '@iconify-json/fa6-solid@1.2.3':
     resolution: {integrity: sha512-C5o8YJF+ekrS4wRb/6/0SE2KjRyJlCg++IOVC/fineiRinITivsmzFRNW1MQX2xfDZ1T7bxeKxLN6lcaTG3jGA==}
 
-  '@iconify-json/line-md@1.2.7':
-    resolution: {integrity: sha512-ps7izJ+UwvFGWhbqNQ24JmbzRFIqTG3riesqfnwfPIwxa0TCIvngQdn0M6wv8EyidgWlko3CcBsPkGl49hqTdA==}
-
   '@iconify-json/material-symbols@1.2.17':
     resolution: {integrity: sha512-hKb+Ii5cqLXXefYMxUB2jIc8BNqxixQogud4KU/fn0F4puM1iCdCF2lFV+0U8wnJ6dZIx6E+w8Ree4bIT7To+A==}
-
-  '@iconify-json/meteocons@1.2.2':
-    resolution: {integrity: sha512-IYkII3CGvqDAGbLNqIN6bWIz6dKHPvZvPoTq34veKJy0clRRrSwiEQUrK4IOiF8MXPzhRchsVwtH7U/F3clMbw==}
-
-  '@iconify-json/svg-spinners@1.2.2':
-    resolution: {integrity: sha512-DIErwfBWWzLfmAG2oQnbUOSqZhDxlXvr8941itMCrxQoMB0Hiv8Ww6Bln/zIgxwjDvSem2dKJtap+yKKwsB/2A==}
 
   '@iconify/svelte@4.2.0':
     resolution: {integrity: sha512-fEl0T7SAPonK7xk6xUlRPDmFDZVDe2Z7ZstlqeDS/sS8ve2uyU+Qa8rTWbIqzZJlRvONkK5kVXiUf9nIc+6OOQ==}
@@ -6558,19 +6540,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/line-md@1.2.7':
-    dependencies:
-      '@iconify/types': 2.0.0
-
   '@iconify-json/material-symbols@1.2.17':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/meteocons@1.2.2':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/svg-spinners@1.2.2':
     dependencies:
       '@iconify/types': 2.0.0
 

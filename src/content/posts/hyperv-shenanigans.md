@@ -299,7 +299,7 @@ Yeah thats cool and all, but where is this useful?
 - Malware Analysis and pentesting
     - You can harden your image once, and then replicate it every time.
     - Don't need to worry about the malware infecting the host machine.[^vms-as-a-service]
-[^vms-as-a-service]: You can turn this into a service by Sell hardened VMs for testing malware. Network Chuck has done a similar thing but he did browser instead of a full-blown VMs. <iframe width="560" height="315" src="https://www.youtube.com/embed/NDlQrK_QAzY?si=QsWZIi132ReUyAgn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[^vms-as-a-service]: You can turn this into a service by selling hardened VMs for testing malware. Network Chuck has done a similar thing but he did browser instead of a full-blown VMs. <iframe width="560" height="315" src="https://www.youtube.com/embed/NDlQrK_QAzY?si=QsWZIi132ReUyAgn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 - Different architecture
     - You can test your application for different CPU architectures
         - I have an `x86_64` cpu, I can create a VM with `aarch64` cpu to check if the application behaves as expected. 

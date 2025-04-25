@@ -14,7 +14,6 @@ swap:
   "[Nn]avigate": click|select|browse|go to
   "bottom(?:-)?left": lower left|lower-left
   "bottom(?:-)?right": lower right|lower-right
-  "shell(?! prompt| script)": shell prompt
   "x64|x86-64|(?<!64-bit )x86": 64-bit x86|x86_64
   '(?<!.*-|program )operator': Operator
   '(?<!.*-|program )operators': Operators

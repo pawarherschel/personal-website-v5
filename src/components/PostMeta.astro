@@ -1,21 +1,111 @@
 ---
-import { formatDateToYYYYMMDD } from '../utils/date-utils'
-import { Icon } from 'astro-icon/components'
-import { i18n } from '../i18n/translation'
-import I18nKey from '../i18n/i18nKey'
-import { url } from '../utils/url-utils'
+import { exec as execCb } from "node:child_process";
+import { stat } from "node:fs/promises";
+import util from "node:util";
+import { Icon } from "astro-icon/components";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+import { formatDateToYYYYMMDD } from "../utils/date-utils";
+import { url } from "../utils/url-utils";
+const exec = util.promisify(execCb);
 
 interface Props {
-  class: string
-  published: Date
-  updated?: Date
-  tags: string[]
-  category: string
-  hideTagsForMobile?: boolean
-  hideUpdateDate?: boolean
+	class: string;
+	published?: Date;
+	updated?: Date;
+	tags: string[];
+	category: string;
+	hideTagsForMobile?: boolean;
+	file: string;
+	// hideUpdateDate?: boolean;
 }
-const { published, updated, tags, category, hideTagsForMobile = false, hideUpdateDate = false } = Astro.props
-const className = Astro.props.class
+const {
+	// published,
+	// updated,
+	tags,
+	category,
+	hideTagsForMobile = false,
+	file,
+	// hideUpdateDate = false,
+} = Astro.props;
+const className = Astro.props.class;
+let { published, updated } = Astro.props;
+
+async function isDir(path: string) {
+	try {
+		const s = await stat(path);
+		return s.isDirectory();
+	} catch {
+		return false;
+	}
+}
+function minDate(date1: Date, date2: Date | undefined) {
+	if (date2 === undefined) {
+		return date1;
+	}
+	if (date2.getTime() < date1.getTime()) {
+		return date2;
+	}
+	if (`${date1.toDateString()}` !== `${date2.toDateString()}`) {
+		// console.log(`PRETTY BOY LIES: ${path}`);
+		// console.log(`from ${date2.toDateString()} to ${date1.toDateString()}`);
+	}
+	return date1;
+}
+function maxDate(date1: Date, updated: Date | undefined) {
+	if (updated === undefined) {
+		return date1;
+	}
+	if (updated.getTime() < date1.getTime()) {
+		if (`${date1.toDateString()}` !== `${updated.toDateString()}`) {
+			// console.log(`BEAUTIFUL WOMAN LIES: ${path}`);
+			// console.log(`from ${updated.toDateString()} to ${date1.toDateString()}`);
+		}
+		return updated;
+	}
+	return date1;
+}
+let path = file;
+if (path.startsWith("/")) {
+	path = path.slice(1);
+}
+if (path.endsWith("/")) {
+	path = path.slice(0, path.length - 1);
+}
+path = `./src/content/${path}`;
+if (await isDir(path)) {
+	path = `${path}/index.md`;
+} else {
+	path = `${path}.md`;
+}
+// console.log(`path: ${path}`);
+
+{
+	const command = `git log -1 --pretty="format:%ad" --date=short`;
+	// console.debug(`${command} ${path}`);
+	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
+	if (err.trim() !== "") {
+		// console.error(`${command} ${path} failed with error:\n${err}`);
+	} else {
+		// console.log(`${output.split(/\s/)[0]}`);
+		// console.log(`${updated?.toDateString()}`);
+		updated = maxDate(new Date(output.split(/\s/)[0]), updated);
+		// console.log(`updated: ${updated.toDateString()}`);
+	}
+}
+{
+	const command = 'git log --date=short --pretty="format:%ad" --reverse';
+	// console.debug(`${command} ${path}`);
+	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
+	if (err.trim() !== "") {
+		// console.error(`${command} ${path} failed with error:\n${err}`);
+	} else {
+		// console.log(`${output.split(/\s/)[0]}`);
+		// console.log(`${published?.toDateString()}`);
+		published = minDate(new Date(output.split(/\s/)[0]), published);
+		// console.log(`published: ${published.toDateString()}`);
+	}
+}
 ---
 
 <div class:list={["flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2", className]}>
@@ -29,15 +119,14 @@ const className = Astro.props.class
     </div>
 
     <!-- update date -->
-    {!hideUpdateDate && updated && updated.getTime() !== published.getTime() && (
-        <div class="flex items-center">
-            <div class="meta-icon"
-            >
-                <Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl"></Icon>
-            </div>
-            <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated)}</span>
+
+    <div class="flex items-center">
+        <div class="meta-icon"
+        >
+            <Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl"></Icon>
         </div>
-    )}
+        <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated)}</span>
+    </div>
 
     <!-- categories -->
     <div class="flex items-center">
@@ -49,7 +138,7 @@ const className = Astro.props.class
             <a href={url(`/archive/category/${category || 'uncategorized'}/`)} aria-label=`View all posts in the ${category} category`
                class="link-lg transition text-50 text-sm font-medium
                             hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
-                {category || i18n(I18nKey.uncategorized)}
+				{category || i18n(I18nKey.uncategorized)}
             </a>
         </div>
     </div>
@@ -61,15 +150,15 @@ const className = Astro.props.class
             <Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
         </div>
         <div class="flex flex-row flex-nowrap items-center">
-            {(tags && tags.length > 0) && tags.map((tag, i) => (
-                <div class:list={[{"hidden": i == 0}, "mx-1.5 text-[var(--meta-divider)] text-sm"]}>/</div>
-                <a href={url(`/archive/tag/${tag}/`)} aria-label=`View all posts with the ${tag} tag`
-                   class="link-lg transition text-50 text-sm font-medium
+			{(tags && tags.length > 0) && tags.map((tag, i) => (
+                    <div class:list={[{"hidden": i == 0}, "mx-1.5 text-[var(--meta-divider)] text-sm"]}>/</div>
+                    <a href={url(`/archive/tag/${tag}/`)} aria-label=`View all posts with the ${tag} tag`
+                       class="link-lg transition text-50 text-sm font-medium
                                 hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
-                    {tag}
-                </a>
-            ))}
-            {!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
+						{tag}
+                    </a>
+			))}
+			{!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
         </div>
     </div>
 </div>

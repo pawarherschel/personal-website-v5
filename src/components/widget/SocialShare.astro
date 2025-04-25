@@ -1,0 +1,46 @@
+---
+import BlueskyShareButton from "../social-share/src/Bluesky.astro";
+import EmailShareButton from "../social-share/src/Email.astro";
+import FacebookShareButton from "../social-share/src/Facebook.astro";
+import HackerNewsShareButton from "../social-share/src/HackerNews.astro";
+import LinkedInShareButton from "../social-share/src/LinkedIn.astro";
+import MediumShareButton from "../social-share/src/Medium.astro";
+import RedditShareButton from "../social-share/src/Reddit.astro";
+import ThreadsShareButton from "../social-share/src/Threads.astro";
+import TwitterShareButton from "../social-share/src/Twitter.astro";
+import WhatsAppShareButton from "../social-share/src/Whatsapp.astro";
+import type ButtonProps from "../social-share/src/types";
+
+interface Props extends ButtonProps {
+	// biome-ignore lint/complexity/noBannedTypes: <explanation>
+	buttons?: Object[];
+}
+
+const DEFAULT_COMPONENTS = [
+	BlueskyShareButton,
+	EmailShareButton,
+	FacebookShareButton,
+	HackerNewsShareButton,
+	LinkedInShareButton,
+	MediumShareButton,
+	RedditShareButton,
+	ThreadsShareButton,
+	TwitterShareButton,
+	WhatsAppShareButton,
+];
+
+const {
+	buttons = DEFAULT_COMPONENTS,
+	url = Astro.request.url,
+	title,
+	description,
+	via,
+} = Astro.props;
+---
+<div class="card-base p-4 mb-4 relative w-full z-10" id="share">
+	<h3 class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">Share (ad blocker might remove the buttons)</h3>
+	<div class="h-1 w-20 bg-[var(--primary)] mx-auto rounded-full mb-4 transition"></div>
+	<div class="flex flex-row justify-evenly">
+        {buttons.map((Button) => <div class="group"><Button url={url} description={description} via={via} title={title} class="transition flex-grow btn-card rounded-2xl w-[3.75rem] h-[3.75rem] fill-white/75 p-2 group-hover:-scale-x-100"/></div>)}
+	</div>
+</div>

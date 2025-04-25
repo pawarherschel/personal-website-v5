@@ -81,6 +81,37 @@ if (await isDir(path)) {
 // console.log(`path: ${path}`);
 
 {
+	const command = `git log -1 --pretty="format:%ad" --date=short LICENSE`;
+	console.debug(`${command}`);
+	const { stdout: output, stderr: err } = await exec(`${command}`);
+	if (err.trim() !== "") {
+		console.error(`${command} failed with error:\n${err}`);
+		console.error(`${command} failed and produced:\n${output}`);
+		throw undefined;
+	}
+	console.log(`output: ${output}`);
+	console.log(`new Date().toUTCString(): ${new Date().toUTCString()}`);
+	console.log(
+		`new Date(output.split(/\\s/)[0]).toUTCString(): ${new Date(output.split(/\s/)[0]).toUTCString()}`,
+	);
+	const needsUnshallowing =
+		new Date(output.split(/\s/)[0]).toUTCString() === new Date().toUTCString();
+	console.log(`Needs unshallowing?: ${needsUnshallowing}`);
+	if (needsUnshallowing) {
+		const command = "git fetch --unshallow";
+		console.debug(`${command}`);
+		try {
+			const { stdout: output, stderr: err } = await exec(`${command}`);
+			if (err.trim() !== "") {
+				console.error(`${command} failed with error:\n${err}`);
+				console.error(`${command} failed and produced:\n${output}`);
+			}
+		} catch {
+			console.error("\n'lol, lmao' ~ 🦂");
+		}
+	}
+}
+{
 	const command = `git log -1 --pretty="format:%ad" --date=short`;
 	// console.debug(`${command} ${path}`);
 	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
@@ -109,56 +140,56 @@ if (await isDir(path)) {
 ---
 
 <div class:list={["flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2", className]}>
-    <!-- publish date -->
-    <div class="flex items-center">
-        <div class="meta-icon"
-        >
-            <Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
-        </div>
-        <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
-    </div>
+	<!-- publish date -->
+	<div class="flex items-center">
+		<div class="meta-icon"
+		>
+			<Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
+		</div>
+		<span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
+	</div>
 
-    <!-- update date -->
+	<!-- update date -->
 
-    <div class="flex items-center">
-        <div class="meta-icon"
-        >
-            <Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl"></Icon>
-        </div>
-        <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated)}</span>
-    </div>
+	<div class="flex items-center">
+		<div class="meta-icon"
+		>
+			<Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl"></Icon>
+		</div>
+		<span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated)}</span>
+	</div>
 
-    <!-- categories -->
-    <div class="flex items-center">
-        <div class="meta-icon"
-        >
-            <Icon name="material-symbols:book-2-outline-rounded" class="text-xl"></Icon>
-        </div>
-        <div class="flex flex-row flex-nowrap items-center">
-            <a href={url(`/archive/category/${category || 'uncategorized'}/`)} aria-label=`View all posts in the ${category} category`
-               class="link-lg transition text-50 text-sm font-medium
+	<!-- categories -->
+	<div class="flex items-center">
+		<div class="meta-icon"
+		>
+			<Icon name="material-symbols:book-2-outline-rounded" class="text-xl"></Icon>
+		</div>
+		<div class="flex flex-row flex-nowrap items-center">
+			<a href={url(`/archive/category/${category || 'uncategorized'}/`)} aria-label=`View all posts in the ${category} category`
+			   class="link-lg transition text-50 text-sm font-medium
                             hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
 				{category || i18n(I18nKey.uncategorized)}
-            </a>
-        </div>
-    </div>
+			</a>
+		</div>
+	</div>
 
-    <!-- tags -->
-    <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
-        <div class="meta-icon"
-        >
-            <Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
-        </div>
-        <div class="flex flex-row flex-nowrap items-center">
+	<!-- tags -->
+	<div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
+		<div class="meta-icon"
+		>
+			<Icon name="material-symbols:tag-rounded" class="text-xl"></Icon>
+		</div>
+		<div class="flex flex-row flex-nowrap items-center">
 			{(tags && tags.length > 0) && tags.map((tag, i) => (
-                    <div class:list={[{"hidden": i == 0}, "mx-1.5 text-[var(--meta-divider)] text-sm"]}>/</div>
-                    <a href={url(`/archive/tag/${tag}/`)} aria-label=`View all posts with the ${tag} tag`
-                       class="link-lg transition text-50 text-sm font-medium
+					<div class:list={[{"hidden": i == 0}, "mx-1.5 text-[var(--meta-divider)] text-sm"]}>/</div>
+					<a href={url(`/archive/tag/${tag}/`)} aria-label=`View all posts with the ${tag} tag`
+					   class="link-lg transition text-50 text-sm font-medium
                                 hover:text-[var(--primary)] dark:hover:text-[var(--primary)] whitespace-nowrap">
 						{tag}
-                    </a>
+					</a>
 			))}
 			{!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
-        </div>
-    </div>
+		</div>
+	</div>
 </div>

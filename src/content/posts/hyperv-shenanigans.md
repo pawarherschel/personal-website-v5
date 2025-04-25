@@ -34,18 +34,18 @@ Basic understanding of:
 # Introduction
 
 I wanted to rice my laptop without turning it on.
-So, I thought, "Hey, I can just make a VM in Hyper-V".
+I thought, "Hey, I can just make a VM in Hyper-V".
 "I already use NixOS on WSL2,
-so I can just reuse the VHDX for the VM!" -- or so I thought.
-Then, I quickly found out I can't just reuse it.
+so I can reuse the VHDX for the VM!" -- or so I thought.
+Then, I quickly found out I can't *just* reuse it.
 
 :::note[Why Hyper-V?]
 
 `Hyper-V` is a type 1 hypervisor made by Microsoft for Windows machines.
 WSL's v2 runs on Hyper-V.
 
-I wanted to use what's already installed on my machine,
-which means I get the privilege of using Hyper-V (yay /s).
+I wanted to use what I already had on my machine,
+that means I get the privilege of using Hyper-V (yay /s).
 
 I didn't want to install VMWare or god forbid Oracle VirtualBox.
 
@@ -65,10 +65,19 @@ I didn't want to install VMWare or god forbid Oracle VirtualBox.
    2. `right click > WizTree`
         - https://www.diskanalyzer.com/
    3. Locate `VHDX` file format on the right panel
-      <img alt="The focus is on the right hand panel which has the `.vhdx` file extention" height="1348" src="https://r2.sakurakat.systems/hyperv-shenanigans--wiztree-vhdx-find.png" title="Screenshot of WizTree" width="1683"/>
+      <img alt="The focus is on the right panel,
+      which has the `.vhdx` file extension" height="1348"
+      src="https://r2.sakurakat.systems/hyperv-shenanigans--wiztree-vhdx-find.png"
+      title="Screenshot of WizTree" width="1683"/>
    4. `right click > select`
-   5. Voila! Found the VHDX WSL uses
-      <img alt="Screenshot of WizTree with highlight on the vhdx files. There are two files, one for docker, and one for nixos. We want the nixos file." height="1348" src="https://r2.sakurakat.systems/hyperv-shenanigans--wiztree-vhdx-highlight.png" title="Screenshot of WizTree" width="1683"/>
+   5. Voilà!
+      Found the VHDX WSL uses
+      <img alt="Screenshot of WizTree with a highlight on the vhdx files.
+      There's two files, one for Docker, and one for NixOS.
+      We want the NixOS VHDX."
+      height="1348"
+      src="https://r2.sakurakat.systems/hyperv-shenanigans--wiztree-vhdx-highlight.png"
+      title="Screenshot of WizTree" width="1683"/>
    6. `right click > Copy Path`
    7. Back to creating the VM
 8. click `Use an existing virtual hard disk`
@@ -101,7 +110,7 @@ I proceeded to fuck around and find out the age-old lesson of:
 
 # Software Programming Mantra
 
-<img alt="We do this not because it is easy,
+<img alt="We do this not because it's easy,
 but because we thought
 it would be easy" height="794"
 src="https://r2.sakurakat.systems/hyperv-shenanigans--mantra.svg"
@@ -128,17 +137,18 @@ https://skywriter.blue/pages/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llnz5asyms2c
 `nixos-generators` is a project based on the Nix ecosystem, which makes it easy to create VM images, ISOs, cloud images, and a plethora of other formats.
 
 I started by invoking nixos-generator
-and passed my NixOS config via the `--flake` option.
-But it kept
+and passed my NixOS config by using the `--flake` option.
+However, it kept
 saying `nixos/modules/virtualisation/disk-size-option.nix` is missing.
-Even though I passed the options via CLI?
+Even though I passed the options through the CLI args?
 
-Now, I’m new to flakes and Nix in general,
-so I couldn't figure out why it didn't find the option.
+Now, I'm new to flakes and Nix in general,
+so I couldn't figure out why it can't find the option.
+
 :::note
 
 If you're also new to Nix,
-check [^nix-flakes-vids] to find resources to learn more about them
+check [^nix-flakes-vids] to find resources to learn more about them.
 
 :::
 [^nix-flakes-vids]: In no particular order
@@ -171,11 +181,11 @@ I just copied the example from the repo.
 And it worked! 
 But then I realized I used the wrong config,
 I used WSL's config instead of my laptop's config 🤦.
-Well, at least I know it works now.
-[^fogor-to-record-error]
+Well, at least I know it works now
+[^fogor-to-record-error].
 
 [^fogor-to-record-error]: I had some errors here after I changed it to my laptop's config,
-    but I didn't record what the errors were 🤦🤦🤦
+    but I didn't record what the errors were 🤦🤦🤦.
 
 Then I made a stupid mistake.
 
@@ -193,8 +203,8 @@ however, the hostname for WSL is `nixos` (default).
 So,
 the flake thought [^personifying] I wanted to build the target using `nixos`'s config,
 but, there was no config for `nixos`.
-So, I just had to mention the hostname. 
-[^ideal-case-hostnames]
+So, I just had to mention the hostname
+[^ideal-case-hostnames].
 
 [^personifying]: I'm treating the flake like a human, also called as personifying. ("to conceive of or represent as a person or as having human qualities or powers" from [merriam-webster\:personify](https://www.merriam-webster.com/dictionary/personify))
 
@@ -210,11 +220,11 @@ So, I just had to mention the hostname.
     I'm just being lazy because it works good enough.
 
 Also, the `#<hostname>` part isn't limited to NixOS configs.
-In general, it is to select a target.
+In general, you use it to select a target.
 If you've used the `nix shell nixpkgs#<app>` command,
-you're selecting which target to build and expose to the shell.
+you're selecting a target to build and expose to the shell.
 Another place
-you might've selected a target is
+you might've chosen is
 when you run `nix build github:<owner>/<repo>#<branch>`.
 
 The thing after `#` is the output from the flake.
@@ -224,11 +234,11 @@ I had
 to update [github\:MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
 so it builds the latest version of the Zen browser.
 In the flake,
-you can choose if you want to use the build that was optimized
+you can select if you want to use the build optimized
 for newer systems, or the compatibility one.
-The way you chose which one to build is by either using `#specific`,
+The way you chose is by either using `#specific`,
 or `#generic`.
-If you don't choose, the flake defaults to `specific`.
+If you don't specify, the flake defaults to `specific`.
 (You can read the short thread about the process on Bluesky [^zen-browser-flake-bsky])
 
 [^zen-browser-flake-bsky]: <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lm3jib32pk2s" data-bluesky-cid="bafyreiae6gdke4n6voeg5sizs5skqguxjkihcbz4jes4mxp674jecjg2zq" data-bluesky-embed-color-mode="system"><p lang="en">My pc is in quarantine rn because of some RAM issues.
@@ -262,7 +272,7 @@ you might've noticed that you can just *use* your pc.
 You don't need to install Linux to use it.
 This feature is called LiveISO (or live CD,
 read more on [wikipedia\:Live_CD](https://en.wikipedia.org/wiki/Live_CD)).
-Some distros exclusively run off a USB, some are here [^live-isos].
+Some distros can run off a USB, some are here [^live-isos].
 
 [^live-isos]: 
     - [Tails](https://tails.net/)
@@ -281,7 +291,7 @@ Some distros exclusively run off a USB, some are here [^live-isos].
 The ISO I just made was a LiveISO.
 I would need to install it to use it in the VM.
 
-Installing OS in one VM? 
+Installing an operating system in one VM? 
 That's fine.
 But at least for me, 
 I feel like the point of using `nixos-generators` is to automate
@@ -316,7 +326,8 @@ but that work can be automated (see: [learn.microsoft.com: Working with Hyper-V 
 
 ### Why go through so much trouble?
 
-VMs are very useful if you can automate them.
+VMs are already useful,
+but if you can automate them they're even more useful.
 Some examples I can come up with are:
 
 - Integration testing
@@ -325,17 +336,18 @@ Some examples I can come up with are:
     - https://nix.dev/tutorials/nixos/integration-testing-using-virtual-machines.html
 - Malware Analysis and pentesting
     - You can harden your image once, and then replicate it every time.
-    - Don't need to worry about the malware infecting the host machine.[^vms-as-a-service]
-[^vms-as-a-service]: You can turn this into a service by selling hardened VMs for testing malware. Network Chuck has done a similar thing but he did browser instead of a full-blown VMs. <iframe width="560" height="315" src="https://www.youtube.com/embed/NDlQrK_QAzY?si=QsWZIi132ReUyAgn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    - Don't need to worry about the malware infecting the host machine [^vms-as-a-service].
 - Different architecture
     - You can test your application for different CPU architectures
         - I have an `x86_64` cpu, I can create a VM with `aarch64` cpu to check if the application behaves as expected. 
-- Different OS
-    - Similar to the "Different architecture" points, you can install a different OS and check your application there.
-        - I have a Windows machine (hence Hyper-V), and I can run check my application in Linux. 
+- Different operating system
+    - Like the "Different architecture" points, you can install a different operating system and check your application there.
+        - I have a Windows machine (therefore Hyper-V), and I can run check my application in Linux. 
 - Lab environments
     - Create preconfigured environments where you can't uninstall or install anything for learning purposes.
     - I required one when I was preparing for `RHCSA` and `RHCE`
+
+[^vms-as-a-service]: You can turn this into a service by selling hardened VMs for testing malware. Network Chuck has done a similar thing, but he did browser instead of a full-blown VMs. <iframe width="560" height="315" src="https://www.youtube.com/embed/NDlQrK_QAzY?si=QsWZIi132ReUyAgn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 # Back to failing to build
 
@@ -358,7 +370,7 @@ Number  Start   End     Size    File system  Name     Flags
 
 # Lead astray
 
-Let's talk about the assumptions I made which turned out to be wrong.
+Let's talk about the assumptions I made that turned out to be wrong.
 
 ## WSL's disk size
 
@@ -415,10 +427,12 @@ error: 1 dependencies of derivation '/nix/store/bk0kb7mp9kswp6kvnrlqqnmd7fxb1cvh
 
 I checked the folders and found out the files are empty!
 
-But why???
-I spent quite a bit of time just tweaking things and asking around.
+HUH? Why???
+
+I spent a bit of time just tweaking things and asking around.
 However, I didn't find anything.
-The exit code wasn't in [nix.dev\: nix-build | Section\: Special exit codes for build failure](https://nix.dev/manual/nix/2.26/command-ref/nix-build.html#special-exit-codes-for-build-failure)
+The exit code wasn't in [nix.dev\: nix-build | Section\:
+Special exit codes for build failure](https://nix.dev/manual/nix/2.26/command-ref/nix-build.html#special-exit-codes-for-build-failure).
 
 ## Giving up and creating an issue
 
@@ -451,12 +465,12 @@ add
   virtualisation.diskSize = 20 * 1024;
 }
 ```
-To the modules array,
+To the `modules` array,
 around [here](https://github.com/pawarherschel/nixos-config/blob/7042e5c893375afcf62d4f2bea0112d874e7210e/flake.nix#L56)
 <img alt="Screenshot of `flake.nix` on GitHub,
 the line
 where the these modifications have
-to be added is highlighted in yellow"
+to be added is highlighted"
 height="1347"
 src="https://r2.sakurakat.systems/hyperv-shenanigans--github-line.png"
 title="Screenshot of the required file on GitHub with area
@@ -475,12 +489,12 @@ New Virtual Machine&#39; failed to start.
 Synthetic SCSI Controller
 (Instance ID 1666945F-9962-4366-83F3-AA863F98254B):
 Failed
-to Power on with Error &#39;The requested operation couldn’t be completed due to a virtual disk system limitation.
+to Power on with Error &#39;The requested operation couldn't be completed due to a virtual disk system limitation.
 Virtual hard disk files must be uncompressed and unencrypted
-and mustn’t be sparse.&#39;.
+and mustn't be sparse.&#39;.
 Attachment &#39;D:\build-dir\nixos-image-hyperv-25.05pre-git-x86_64-linux.vhdx&#39;
 failed to open because of error:
-&#39;The requested operation couldn’t be completed due to a virtual disk system limitation.
+&#39;The requested operation couldn't be completed due to a virtual disk system limitation.
 Virtual hard disk files must be uncompressed and unencrypted
 and must not be sparse.&#39;."
 height="432"
@@ -497,14 +511,14 @@ Let's read this error.
   - `sparse`: I'm not even sure how I'd solve it,
     maybe the Hyper-V Manager has some tool I can use.
 
-OK, let's uncompress it first.\
+OK, let's decompress it first.\
 `right click file > properties > advanced > uncheck Compress contents to save disk space`
 
 Next error:
 <img alt="Virtual Machine Boot Summary 1.
 SCSI Disk (0,0)
 The unsigned image&#39;s hash is not allowed (DB) 2. Network Adapter
-(00155D006403) A boot image wasn’t found.
+(00155D006403) A boot image wasn't found.
 No operating system was loaded.
 Your virtual machine may be configured incorrectly.
 Exit and re-configure your VM or click restart to retry the current boot sequence again."
@@ -514,13 +528,13 @@ title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
 - "No operating system was loaded.
   Your virtual machine may be configured incorrectly.
   Exit and re-configure your VM or click restart to retry the current boot sequence again."
-  - Hm, that doesn't tell a lot; let's read the earlier stuff.
+  - Hm, that doesn't tell much; let's read the earlier stuff.
 - "The `unsigned image's hash` is not allowed (DB)"
   - Oh, I think I know what's wrong: `secure boot`!
 
 `right click vm > settings > Security > uncheck 'Enable Secure Boot' `
 
-<img alt="Screenshot of VM setting in Security panel with Secure boot turned off" height="859" src="https://r2.sakurakat.systems/hyperv-shenanigans--secureboot-turn-off.png" title="Screenshot of VM setting in Security panel" width="902"/>
+<img alt="Screenshot of VM setting in the Security panel with Secure boot turned off." height="859" src="https://r2.sakurakat.systems/hyperv-shenanigans--secureboot-turn-off.png" title="Screenshot of VM setting in the Security panel" width="902"/>
 
 # VM booted successfully
 
@@ -636,7 +650,7 @@ I just don't want to learn about it right now.
 You can't reuse it for other machines.
 
 On the other hand, `configuration.nix`
-has packages, users, wifi settings, etc.
+has packages, users, Wi-Fi settings, etc.
 Everything you would edit manually to set up your device.
 
 Splitting the config into these two parts means 
@@ -734,7 +748,7 @@ Success!
 The glitchiness is because `Hyperland` doesn't like being run in a VM.\
 Reason: "YMMV, this is not officially supported."\
 From: [wiki.hyprland.org\:Getting-Started/Installation | Section\: Running In a VM](https://wiki.hyprland.org/Getting-Started/Installation/#running-in-a-vm)\
-Taken on 2025-04-24
+Taken on 2025-04-24.
 
 ## Checking the number of generations
 
@@ -861,9 +875,10 @@ when I got a different hash here [^different-hash-celebration]).
 [^different-hash-celebration]: <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llqi6j53qd2g" data-bluesky-cid="bafyreibj57liuq3l3cdaps7iuhxufukbcb5ij2qmnz5onfbya4w7op5f6q" data-bluesky-embed-color-mode="system"><p lang="en">DIFFERENT HASH</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqi6j53qd2g?ref_src=embed">April 1, 2025 at 2:13 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 This is done by putting every single dependency
-and describing every step required in a file, which is `flake.lock` if you're using flakes.
+and describing every step required in a file 
+(`flake.lock` if you're using flakes).
 It's kinda like docker,
-but there are differences,
+but they're different,
 and,
 also there are reasons to use nix instead of docker
 (watch Matthew Croughan's "Use flake.nix,
@@ -875,10 +890,10 @@ It's
 like if `Dockerfile` had a lockfile
 to freeze dependencies at a specific version (not too dissimilar to `Cargo.lock` / `pnpm-lock.yaml`).
 
-### My experience with docker
-
-When docker works, it's great, its almost invisible.
-But when it doesn't, it's really bad.
+My experience with Docker is that
+when it works, it's great, its almost invisible
+but,
+when it doesn't, it's really bad.
 
 I'm not sure about you,
 but there have been times
@@ -891,6 +906,10 @@ and figure out how to make it work.
 Which means
 it goes from a 5--10 minute task
 to half a day of debugging.
+
+Nix adds complexity to the process,
+but so far,
+I've felt like it's worth the additional complexity.
 
 ---
 
@@ -909,6 +928,8 @@ to half a day of debugging.
 > Divyesh Patil
 > - https://www.linkedin.com/in/divyesh-patil-525808257/
 
+> Andrew Voynov
+> - https://codeberg.org/Andrew15-5
 
 > Garnet
 > - Opted out of sharing socials

@@ -9,6 +9,7 @@ export let live = true;
 let instance = new Object();
 let text = "";
 
+// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
 register(instance, date, locale, live, (value) => ({ text } = value));
 
 onDestroy(() => unregister(instance));

@@ -6,6 +6,7 @@ const { uri, likesCount, likesData, user, url } = $props();
 
 let postUri = $state(uri);
 let postLikesCount = $state(likesCount);
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 let postLikesData = $state(likesData.filter((like: any) => like.actor.avatar));
 
 onMount(async () => {

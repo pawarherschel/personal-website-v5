@@ -9,7 +9,7 @@ const {
 	class: classList,
 } = Astro.props;
 
-let URL = `whatsapp://send?text=`;
+let URL = "whatsapp://send?text=";
 
 if (description) URL += `${description} `;
 URL += `${url}`;

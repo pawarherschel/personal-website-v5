@@ -71,6 +71,7 @@ export function render(state: RenderState, now: number) {
 
 	const divisorMs = divisor * 1000;
 
+	// biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
 	let updateIn;
 
 	if (unitIndex) {

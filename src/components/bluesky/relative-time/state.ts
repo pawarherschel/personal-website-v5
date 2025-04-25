@@ -1,12 +1,13 @@
 import { getFormatter } from "./formatter";
-import { render } from "./render";
 import type { Callback, RenderState } from "./render";
+import { render } from "./render";
 
 interface UpdateState extends RenderState {
 	update: number;
 }
 
 // keep track of each instance
+// biome-ignore lint/complexity/noBannedTypes: <explanation>
 const instances = new Map<Object, UpdateState>();
 
 // we use a single timer for efficiency and to keep updates in sync
@@ -14,6 +15,7 @@ let updateInterval: number | NodeJS.Timeout;
 
 // register or update instance
 export function register(
+	// biome-ignore lint/complexity/noBannedTypes: <explanation>
 	instance: Object,
 	date: Date | number,
 	locale: string,
@@ -51,6 +53,7 @@ export function register(
 	}
 }
 
+// biome-ignore lint/complexity/noBannedTypes: <explanation>
 export function unregister(instance: Object) {
 	instances.delete(instance);
 	if (instances.size === 0) {

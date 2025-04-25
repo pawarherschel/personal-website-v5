@@ -25,6 +25,7 @@ export function renderPostAsHtml(post?: AppBskyFeedDefs.PostView | Post) {
 	if (!post) {
 		return "";
 	}
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const rt = new RichText(post.record as any);
 	let html = "";
 
@@ -71,21 +72,21 @@ export function viewRecordToEmbed(
 
 	if (allowNestedQuotes) {
 		return embed;
-	} else {
-		if (
-			AppBskyEmbedImages.isView(embed) ||
-			AppBskyEmbedExternal.isView(embed) ||
-			AppBskyEmbedVideo.isView(embed)
-		) {
-			return embed;
-		} else if (
-			AppBskyEmbedRecordWithMedia.isView(embed) &&
-			(AppBskyEmbedImages.isView(embed.media) ||
-				AppBskyEmbedExternal.isView(embed.media) ||
-				AppBskyEmbedVideo.isView(embed.media))
-		) {
-			return embed.media;
-		}
+	}
+	if (
+		AppBskyEmbedImages.isView(embed) ||
+		AppBskyEmbedExternal.isView(embed) ||
+		AppBskyEmbedVideo.isView(embed)
+	) {
+		return embed;
+	}
+	if (
+		AppBskyEmbedRecordWithMedia.isView(embed) &&
+		(AppBskyEmbedImages.isView(embed.media) ||
+			AppBskyEmbedExternal.isView(embed.media) ||
+			AppBskyEmbedVideo.isView(embed.media))
+	) {
+		return embed.media;
 	}
 	return undefined;
 }
@@ -97,6 +98,7 @@ const agent = new AtpAgent({
 export async function resolvePost(
 	postUrl: string | Post | AppBskyFeedDefs.PostView,
 ): Promise<Post | undefined> {
+	// biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
 	let atUri;
 
 	if (typeof postUrl === "object") {
@@ -110,7 +112,9 @@ export async function resolvePost(
 			return undefined;
 		}
 		const urlParts = new URL(postUrl).pathname.split("/");
+		// biome-ignore lint/style/noNonNullAssertion: <explanation>
 		let did = urlParts[2]!;
+		// biome-ignore lint/style/noNonNullAssertion: <explanation>
 		const postId = urlParts[4]!;
 		if (!did || !postId) {
 			return undefined;
@@ -122,10 +126,9 @@ export async function resolvePost(
 					return undefined;
 				}
 				did = handleResolution.data.did;
+				// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 			} catch (e: any) {
-				console.error(
-					`[error]  astro-embed` + "\n         " + (e?.message ?? e),
-				);
+				console.error(`[error]  astro-embed\n         ${e?.message ?? e}`);
 				return undefined;
 			}
 		}
@@ -136,8 +139,9 @@ export async function resolvePost(
 	try {
 		const hydratedPost = await agent.getPosts({ uris: [atUri] });
 		return hydratedPost.data.posts[0] as unknown as Post;
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (e: any) {
-		console.error(`[error]  astro-embed` + "\n         " + (e?.message ?? e));
+		console.error(`[error]  astro-embed\n         ${e?.message ?? e}`);
 		return undefined;
 	}
 }
@@ -165,7 +169,10 @@ export function starterPackOgImage(uri: string) {
 export async function getLikes(uri: string, getMore = false) {
 	const allLikes = [];
 
-	let likesData, cursor;
+	// biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
+	let likesData;
+	// biome-ignore lint/suspicious/noImplicitAnyLet: <explanation>
+	let cursor;
 	do {
 		let getLikesURL = `https://public.api.bsky.app/xrpc/app.bsky.feed.getLikes?uri=${uri}&limit=100`;
 
@@ -186,8 +193,9 @@ export async function getPost(uri: string) {
 	try {
 		const hydratedPost = await agent.getPosts({ uris: [uri] });
 		return hydratedPost.data.posts[0] as unknown as Post;
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	} catch (e: any) {
-		console.error(`[error]  astro-embed` + "\n         " + (e?.message ?? e));
+		console.error(`[error]  astro-embed\n         ${e?.message ?? e}`);
 		return undefined;
 	}
 }
@@ -205,6 +213,7 @@ export async function getComments(uri: string) {
 	const commentsData = await comments.json();
 	const replies = commentsData.thread.replies;
 	return replies.sort(
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		(a: any, b: any) =>
 			new Date(b.post.record.createdAt).getTime() -
 			new Date(a.post.record.createdAt).getTime(),
@@ -221,6 +230,7 @@ export function numberToHumanReadable(number: number) {
 	return `${Math.floor(number / 1000000)}m`;
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function getCommentCount(comments: { replies?: any }[]) {
 	// recursively check for replies and add them up
 	let count = comments.length;

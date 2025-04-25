@@ -9,7 +9,7 @@ let text = "";
 if (title) text = encodeURIComponent(title);
 if (url) text += ` ${encodeURIComponent(url)}`;
 
-let URL = `https://bsky.app/intent/compose`;
+let URL = "https://bsky.app/intent/compose";
 
 if (text) URL += `?text=${text}`;
 ---

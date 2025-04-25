@@ -36,15 +36,15 @@ function srcToPublicPath(src: string) {
 	if (src.startsWith("http")) {
 		return src;
 	}
-	src = src.replace("src", "assets");
-	console.log("src", src);
-	return src;
+	let src_l = src.replace("src", "assets");
+	console.log("src", src_l);
+	return src_l;
 }
 const image = hasCover ? srcToPublicPath(logo) : undefined;
 
 const coverWidth = "28%";
 
-let url;
+let url: string;
 switch (typeof location) {
 	case "object":
 		if ("github" in location && location.github) {

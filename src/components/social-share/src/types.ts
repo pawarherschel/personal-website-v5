@@ -3,6 +3,5 @@ export default interface Props {
 	title?: string;
 	description?: string;
 	via?: string;
-	class: string;
-	color: string;
+	class?: string;
 }

@@ -24,12 +24,12 @@ export default defineConfig({
 	site: "https://sakurakat.systems/",
 	base: "/",
 	trailingSlash: "always",
-	prefetch: {
-		prefetchAll: true,
-		defaultStrategy: "viewport",
-	},
+	// prefetch: {
+	// 	prefetchAll: true,
+	// 	defaultStrategy: "viewport",
+	// },
 	experimental: {
-		clientPrerender: true,
+		// clientPrerender: true,
 		responsiveImages: true,
 	},
 	image: {

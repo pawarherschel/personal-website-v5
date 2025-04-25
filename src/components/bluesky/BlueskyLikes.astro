@@ -1,0 +1,115 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import { blueskyConfig } from "../../config";
+import WidgetLayout from "../widget/WidgetLayout.astro";
+import Comments from "./Comments.svelte";
+import Likes from "./Likes.svelte";
+import { atUriToPostUri, getComments, getLikes } from "./utils";
+const { blueskyIdentifier } = blueskyConfig;
+
+let bsky = await getCollection("bsky");
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const url = canonicalURL.toString();
+
+// console.log(`\nsearching for ${url}`);
+// console.log(
+// 	`posts: ${JSON.stringify(
+// 		bsky
+// 			.sort(
+// 				(a, b) =>
+// 					new Date(a.data.indexedAt).getTime() -
+// 					new Date(b.data.indexedAt).getTime(),
+// 			)
+// 			// // @ts-expect-error: weird type fuckery
+// 			.filter((it) =>
+// 				JSON.stringify(it.data).includes("https://sakurakat.systems"),
+// 			)
+// 			.map((it) => it.data),
+// 		null,
+// 		2,
+// 	)}`,
+// );
+
+// get first post (sorted by indexedAt) with url in embed.external.uri
+const post = bsky
+	.sort(
+		(a, b) =>
+			new Date(a.data.indexedAt).getTime() -
+			new Date(b.data.indexedAt).getTime(),
+	)
+	// @ts-expect-error: weird type fuckery
+	.find((it) => it.data.embed?.external?.uri === url);
+
+// if (post) {
+// 	console.log(`Found url at ${atUriToPostUri(post.data.uri)}`);
+// }
+
+let likesData = post ? await getLikes(post.data.uri) : [];
+
+let comments = post ? await getComments(post.data.uri) : [];
+
+// console.log(`number of top level comments found: ${comments.length}`);
+---
+
+<!--Like or comment button-->
+{
+	post && (
+		<div class="gap-4 flex flex-col">
+		    <div class="flex flex-col md:flex-row justify-between gap-4 overflow-hidden w-full">
+		        <a href={atUriToPostUri(post.data.uri)}  target="_blank"
+				   rel="noopener noreferrer nofollow"
+		           class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !atUriToPostUri(post.data.uri)}]}>
+					<div class="btn-card rounded-2xl w-full h-[3.75rem] flex-col" >
+						<div class="max-w-full px-4 flex items-center gap-4">
+			                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
+			                <div class="text-center overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
+								Like or comment on Bluesky
+			                </div>
+			                <Icon name="fa6-brands:bluesky" class="text-[2rem] text-[var(--primary)]" />
+						</div>
+						<div class="transition text-50 text-sm text-center">
+							Likes and comments
+						</div>
+		            </div>
+		        </a>
+		    </div>
+			<!--likes-->
+			<div class="card-base pb-4 relative w-full z-10">
+				<WidgetLayout
+					id="likes"
+					name="Likes"
+				>
+							<!--client:idle-->
+					<Likes
+							uri={post?.data.uri}
+							likesData={likesData}
+							likesCount={Math.max(post?.data.likeCount ?? 0, likesData.length)}
+							user={blueskyIdentifier}
+							url={url}
+							client:only="svelte"
+					/>
+				</WidgetLayout>
+			</div>
+
+			<!--comments-->
+			<div class="card-base pb-4 relative w-full z-10">
+				<WidgetLayout
+					id="comments"
+					name="Comments"
+				>
+						<!--client:idle-->
+					<Comments
+						uri={post?.data.uri}
+						comments={comments}
+						user={blueskyIdentifier}
+						url={url}
+						client:only="svelte"
+					/>
+				</WidgetLayout>
+			</div>
+		</div>
+	)
+}

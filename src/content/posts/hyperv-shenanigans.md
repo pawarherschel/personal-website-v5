@@ -635,7 +635,7 @@ I just don't want to learn about it right now.
 2. Clone my laptop's config from GitHub.
 3. Replace the `hardware-configuration.nix` from my laptop with the one \[Step
    1\] generated. 
-4. `sudo nixos-rebuild test --flake .`
+4. `nixos-rebuild test --flake . --use-remote-sudo`
 
 ### Why just `hardware-configuration.nix`?
 
@@ -657,7 +657,7 @@ Splitting the config into these two parts means
 you can just swap out the `hardware-configuration.nix` from someone's dotfiles,
 and everything else should be handled by nix.
 
-I have another file called `home.nix`,
+I also have a file called `home.nix`,
 which has the configuration for 
 [atuin](https://atuin.sh/),
 [nushell](https://www.nushell.sh/),
@@ -673,11 +673,12 @@ which handles this.
 So if you want, you can just use my `home.nix`, 
 and then you'll get the setup for my editor, terminal and WM.
 
-Anyway in the end, 
+Anyway, in the end, 
 to set up the VM as close to my laptop as possible, 
 I just had 
 to swap out the machine specific `hardware-configuration.nix`.
 
+## More problems
 
 <img alt="The user tried to rebuild NixOS
 but while building a specific package,
@@ -733,7 +734,7 @@ I took the screenshot after resizing and checking if it works.
 # Final stretch
 
 1. Reboot the VM
-2. `sudo nixos-rebuild test --flake .`
+2. `nixos-rebuild test --flake . --use-remote-sudo`
 
 <img alt="Screenshot of `Nushell` running in kitty terminal.
 The text size in terminal is very large,

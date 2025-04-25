@@ -6,6 +6,7 @@ image: https://r2.sakurakat.systems/hyperv-shenanigans--banner.jpg
 tags:
   - NixOS
   - Virtualization
+  - Windows
   - Hyper-V
   - Nix flakes
   - nixos-generators
@@ -40,13 +41,15 @@ Then, I quickly found out I can't just reuse it.
 
 :::note[Why Hyper-V?]
 
-I wanted to use what's already installed on my machine.
+`Hyper-V` is a type 1 hypervisor made by Microsoft for Windows machines.
+WSL's v2 runs on Hyper-V.
+
+I wanted to use what's already installed on my machine,
+which means I get the privilege of using Hyper-V (yay /s).
 
 I didn't want to install VMWare or god forbid Oracle VirtualBox.
 
 :::
-
----
 
 ## Let's create the VM together!
 
@@ -179,19 +182,21 @@ Then I made a stupid mistake.
 See,
 NixOS allows you to have configuration for multiple...
 Let's say... environments.
-When you do `sudo nixos rebuild test --flake .`,
+When you do `nixos-rebuild test --flake . --use-remote-sudo`,
 the config gets selected depending on the machine's hostname.
 You can also specify
 the config you want
-to build by doing `sudo nixos rebuild test --flake .#<hostname>`.
+to build by doing `nixos-rebuild test --flake .#<hostname> --use-remote-sudo`.
 
 My laptop's hostname is `kats-laptop`,
 however, the hostname for WSL is `nixos` (default).
 So,
-the flake thought I wanted to build the target using `nixos`'s config,
+the flake thought [^personifying] I wanted to build the target using `nixos`'s config,
 but, there was no config for `nixos`.
 So, I just had to mention the hostname. 
 [^ideal-case-hostnames]
+
+[^personifying]: I'm treating the flake like a human, also called as personifying. ("to conceive of or represent as a person or as having human qualities or powers" from [merriam-webster\:personify](https://www.merriam-webster.com/dictionary/personify))
 
 [^ideal-case-hostnames]: Ideally,
     I would have different hostnames for different machines,
@@ -221,9 +226,9 @@ so it builds the latest version of the Zen browser.
 In the flake,
 you can choose if you want to use the build that was optimized
 for newer systems, or the compatibility one.
-The way you chose which one to buld was by either using `#specific`,
+The way you chose which one to build is by either using `#specific`,
 or `#generic`.
-If you didn't choose, the flake defaults to `specific`.
+If you don't choose, the flake defaults to `specific`.
 (You can read the short thread about the process on Bluesky [^zen-browser-flake-bsky])
 
 [^zen-browser-flake-bsky]: <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lm3jib32pk2s" data-bluesky-cid="bafyreiae6gdke4n6voeg5sizs5skqguxjkihcbz4jes4mxp674jecjg2zq" data-bluesky-embed-color-mode="system"><p lang="en">My pc is in quarantine rn because of some RAM issues.
@@ -241,20 +246,20 @@ to build the `hyperv` target
 to trying to build the `install-iso-hyperv`.
 As the name suggests, `install-iso-hyperv`
 builds an ISO instead of a Hyper-V image.
-(btw the size of the ISO was ~2.6 GB).
-I can’t just load the ISO in the Hyper-V manager.
-So, it is time to remake it with the `hyperv` target.
+(btw, the size of the ISO was ~2.6 GiB).
+I can't just load the ISO in the Hyper-V manager.
+So, it's time to remake it with the `hyperv` target.
 
-I was also unsure if 20 GB would be enough for the VM,
-so I bumped it up to 40 GB.
-(changing multiple variables at once is bad, I know)
+I was also unsure if 20 GiB would be enough for the VM,
+so I bumped it up to 40 GiB
+(changing multiple variables at once is bad, I know).
 
 ## Image? ISO? Does it matter?
 
 Let's talk about the ISO first.
-If you've ever installed linux on you pc,
+If you've ever installed Linux on you pc,
 you might've noticed that you can just *use* your pc.
-You don't need to install linux to use it.
+You don't need to install Linux to use it.
 This feature is called LiveISO (or live CD,
 read more on [wikipedia\:Live_CD](https://en.wikipedia.org/wiki/Live_CD)).
 Some distros exclusively run off a USB, some are here [^live-isos].
@@ -327,15 +332,15 @@ Some examples I can come up with are:
         - I have an `x86_64` cpu, I can create a VM with `aarch64` cpu to check if the application behaves as expected. 
 - Different OS
     - Similar to the "Different architecture" points, you can install a different OS and check your application there.
-        - I have a Windows machine (hence Hyper-V), and I can run check my application in linux. 
+        - I have a Windows machine (hence Hyper-V), and I can run check my application in Linux. 
 - Lab environments
     - Create preconfigured environments where you can't uninstall or install anything for learning purposes.
     - I required one when I was preparing for `RHCSA` and `RHCE`
 
 # Back to failing to build
 
-I thought that changing the image size to 40 GB was the problem,
-so I changed it back to 20 GB.
+I thought that changing the image size to 40 GiB was the problem,
+so I changed it back to 20 GiB.
 I can just increase the disk size in Hyper-V Manager.
 
 The build failed again.
@@ -358,7 +363,7 @@ Let's talk about the assumptions I made which turned out to be wrong.
 ## WSL's disk size
 
 I thought WSL had a limited disk size,
-and while building the 40 GB image, I was running out of space.
+and while building the 40 GiB image, I was running out of space.
 
 But that doesn't make any sense. 
 WSL's disk should be big enough.
@@ -367,20 +372,20 @@ it should be able
 to expand till there's no space left on the physical disk. 
 
 If I run `df -h`
-<img alt="root partition `/` has 49 GB used and 908 GB free." height="502" src="https://r2.sakurakat.systems/hyperv-shenanigans--wsl-df-h.png" title="screenshot of terminal with the command `df -h`" width="1040"/>
+<img alt="root partition `/` has 49 GiB used and 908 GiB free." height="502" src="https://r2.sakurakat.systems/hyperv-shenanigans--wsl-df-h.png" title="screenshot of terminal with the command `df -h`" width="1040"/>
 
-Seems like by default windows assigns 1007 GB to the disk.
+Seems like by default windows assigns 1007 GiB to the disk.
 
 ## Unit for `virtualisation.diskSize`
 
-I thought `20 * 1024` for `virtualisation.diskSize` meant 20 MB and not 20 GB. 
+I thought `20 * 1024` for `virtualisation.diskSize` meant 20 MiB and not 20 GiB. 
 This feels wrong, 
-why would the example on `nixos-generators`' GitHub use 20 MB?
+why would the example on `nixos-generators`' GitHub use 20 MiB?
 
 So, I changed it to `200 * 1024`, but it still failed.
 So, 
 I assumed wrong, and my initial understanding was correct.
-It was 20 GB.
+It was 20 GiB.
 
 ## NixOS' build sandbox ran out of space
 
@@ -424,7 +429,7 @@ So the thing I did to debug easier made the build fail.
 
 ### Why was it a mistake?
 
-Windows' permission system is different compared to linux,
+Windows' permission system is different compared to Linux,
 and they're not intercompatible.
 
 :::note[You can read more about the file permission stuff here]
@@ -519,12 +524,12 @@ title="Screenshot of Hyper-V UEFI&#39;s Error" width="1024"/>
 
 # VM booted successfully
 
-I checked the VHDX file NixOS Generators created and saw it was 4 GB.
+I checked the VHDX file NixOS Generators created and saw it was 4 GiB.
 
 Then, the realization hit me.
 The error I saw in the
 [#lead-astray](#lead-astray) section was telling me
-that the VHDX file was 4 GB,
+that the VHDX file was 4 GiB,
 and not all the various things I thought it was.
 
 # Struggles with logging in as `ksakura`
@@ -607,17 +612,58 @@ I didn't run the installer,
 so I guess the config files weren't generated.
 
 But, at this point, I just want to get done with this project.
+Also, I'm pretty sure there's already a way to copy over those files,
+I just don't want to learn about it right now.  
 
 ## Solution
 
 1. Run `nixos-generate-config` inside the VM.
 2. Clone my laptop's config from GitHub.
 3. Replace the `hardware-configuration.nix` from my laptop with the one \[Step
-   1\] generated.
-    - I only need the `hardware-configuration.nix` as the rest of the system is based on my laptop. 
+   1\] generated. 
 4. `sudo nixos-rebuild test --flake .`
 
-## `determinate-nix` causing issues
+### Why just `hardware-configuration.nix`?
+
+`nixos-generate-config` creates two files
+1. `configuration.nix`
+    - all the software related configuration
+2. `hardware-configuration.nix` 
+    - all the hardware related configuration
+
+`hardware-configuration.nix` is specific to each device
+(example: it has configuration for `/etc/fstab`, and kernel modules).
+You can't reuse it for other machines.
+
+On the other hand, `configuration.nix`
+has packages, users, wifi settings, etc.
+Everything you would edit manually to set up your device.
+
+Splitting the config into these two parts means 
+you can just swap out the `hardware-configuration.nix` from someone's dotfiles,
+and everything else should be handled by nix.
+
+I have another file called `home.nix`,
+which has the configuration for 
+[atuin](https://atuin.sh/),
+[nushell](https://www.nushell.sh/),
+[Hyprland](https://hyprland.org/),
+[helix](https://helix-editor.com/), 
+etc.
+Everything specific to MY needs.
+NixOS doesn't handle this tho.
+There's another module called home-manager
+(manager for your user's home folder `/home/{user}`) 
+which handles this.
+
+So if you want, you can just use my `home.nix`, 
+and then you'll get the setup for my editor, terminal and WM.
+
+Anyway in the end, 
+to set up the VM as close to my laptop as possible, 
+I just had 
+to swap out the machine specific `hardware-configuration.nix`.
+
 
 <img alt="The user tried to rebuild NixOS
 but while building a specific package,
@@ -733,6 +779,11 @@ I can also use the VM to modularize my config.
 ---
 
 # The `flake.nix` File
+
+This is not perfect or good, 
+but I got it to work, 
+it's good enough for now.
+
 ```nix
 {
   inputs = {
@@ -799,6 +850,50 @@ I can also use the VM to modularize my config.
 
 ---
 
+# Questions people have asked me
+
+## Why not just use docker?
+
+The whole shtick of NixOS is perfect reproducibility down to the hash
+(that's why I got excited
+when I got a different hash here [^different-hash-celebration]).
+
+[^different-hash-celebration]: <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llqi6j53qd2g" data-bluesky-cid="bafyreibj57liuq3l3cdaps7iuhxufukbcb5ij2qmnz5onfbya4w7op5f6q" data-bluesky-embed-color-mode="system"><p lang="en">DIFFERENT HASH</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3llqi6j53qd2g?ref_src=embed">April 1, 2025 at 2:13 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+
+This is done by putting every single dependency
+and describing every step required in a file, which is `flake.lock` if you're using flakes.
+It's kinda like docker,
+but there are differences,
+and,
+also there are reasons to use nix instead of docker
+(watch Matthew Croughan's "Use flake.nix,
+not Dockerfile" [^nix-not-docker] to learn more).
+
+[^nix-not-docker]: <iframe width="560" height="315" src="https://www.youtube.com/embed/0uixRE8xlbY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;  clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+It's
+like if `Dockerfile` had a lockfile
+to freeze dependencies at a specific version (not too dissimilar to `Cargo.lock` / `pnpm-lock.yaml`).
+
+### My experience with docker
+
+When docker works, it's great, its almost invisible.
+But when it doesn't, it's really bad.
+
+I'm not sure about you,
+but there have been times
+when I got happy because
+I can just use a docker container to run a program
+(for example some ML program),
+and then it turns out the Dockerfile used to build the container had `ubuntu:latest`,
+and then I have to debug the container,
+and figure out how to make it work.
+Which means
+it goes from a 5--10 minute task
+to half a day of debugging.
+
+---
+
 - Link to the first skeet:
   - https://bsky.app/profile/sakurakat.systems/post/3llnz5asyms2c
   - <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3llnz5asyms2c" data-bluesky-cid="bafyreiglr2t5dl777thtxucftt5qlwbq6j57jftmwclktvjxjtnmanbd6e" data-bluesky-embed-color-mode="system"><p lang="en">trying to make a hyperv VM with nixos
@@ -813,6 +908,10 @@ I can also use the VM to modularize my config.
 
 > Divyesh Patil
 > - https://www.linkedin.com/in/divyesh-patil-525808257/
+
+
+> Garnet
+> - Opted out of sharing socials
 
 ---
 

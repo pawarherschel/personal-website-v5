@@ -89,15 +89,16 @@ if (await isDir(path)) {
 		console.error(`${command} failed and produced:\n${output}`);
 		throw undefined;
 	}
-	console.log(`output: ${output}`);
-	console.log(`new Date().toUTCString(): ${new Date().toUTCString()}`);
-	console.log(
-		`new Date(output.split(/\\s/)[0]).toUTCString(): ${new Date(output.split(/\s/)[0]).toUTCString()}`,
-	);
-	const needsUnshallowing =
-		new Date(output.split(/\s/)[0]).toUTCString() === new Date().toUTCString();
-	console.log(`Needs unshallowing?: ${needsUnshallowing}`);
-	if (needsUnshallowing) {
+	// console.log(`output: ${output}`);
+	// console.log(`new Date().toUTCString(): ${new Date().toUTCString()}`);
+	// console.log(
+	// 	`new Date(output.split(/\\s/)[0]).toUTCString(): ${new Date(output.split(/\s/)[0]).toUTCString()}`,
+	// );
+	// const needsUnshallowing =
+	// 	new Date(output.split(/\s/)[0]).toUTCString() === new Date().toUTCString();
+	// console.log(`Needs unshallowing?: ${needsUnshallowing}`);
+	// if (needsUnshallowing)
+	{
 		const command = "git fetch --unshallow";
 		console.debug(`${command}`);
 		try {

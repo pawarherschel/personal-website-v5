@@ -4,7 +4,6 @@ import { licenseConfig, profileConfig } from "../../config";
 import I18nKey from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
-import hCard from "./hCard.astro";
 
 interface Props {
 	title: string;
@@ -29,8 +28,7 @@ const postUrl = decodeURIComponent(Astro.url.toString());
 	<div class="flex gap-6 mt-2">
 		<div>
 			<div class="transition text-black/30 dark:text-white/30 text-sm">{i18n(I18nKey.author)}</div>
-			<div class="transition text-black/75 dark:text-white/75 line-clamp-2" href={Astro.site.toString()}>{profileConf.name}</div>
-			<hCard></hCard>
+			<a  rel="author" class="p-author h-card transition text-black/75 dark:text-white/75 line-clamp-2" href={(Astro.site ?? new URL("/")).toString()}>{profileConf.name}</a>
 		</div>
 		<div>
 			<div class="transition text-black/30 dark:text-white/30 text-sm">{i18n(I18nKey.publishedAt)}</div>

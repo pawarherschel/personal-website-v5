@@ -1,13 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
-import { profileConfig, siteConfig } from "../../config";
+import { profileConfig } from "../../config";
 import { url } from "../../utils/url-utils";
 import ImageWrapper from "../misc/ImageWrapper.astro";
-import hCard from "./hCard.astro";
+import HCard from "./HCard.astro";
 
 const config = profileConfig;
-
-const email = config.links.find((it) => it.name.toUpperCase() === "EMAIL")?.url;
 ---
 <div class="card-base p-3">
     <a aria-label="Go to About Page" href={url('/about/')}
@@ -38,6 +36,6 @@ const email = config.links.find((it) => it.name.toUpperCase() === "EMAIL")?.url;
             </a>}
         </div>
     </div>
-    <hCard></hCard>
+    <HCard></HCard>
 </div>
 

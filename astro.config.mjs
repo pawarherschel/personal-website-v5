@@ -145,5 +145,8 @@ export default defineConfig({
 				},
 			},
 		},
+		server: {
+			allowedHosts: [".sakurakat.systems"],
+		},
 	},
 });

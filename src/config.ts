@@ -72,6 +72,11 @@ export const profileConfig: ProfileConfig = {
 			url: "https://bsky.app/profile/sakurakat.systems",
 		},
 		{
+			name: "Fediverse",
+			icon: "ph:fediverse-logo-fill",
+			url: "https://transfem.social/@katsakura",
+		},
+		{
 			name: "LinkedIn",
 			icon: "fa6-brands:linkedin",
 			url: "https://www.linkedin.com/in/pawarherschel/",

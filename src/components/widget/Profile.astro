@@ -41,8 +41,8 @@ const email = config.links.find((it) => it.name.toUpperCase() === "EMAIL")?.url;
     <div class="h-card" style="display:none">
         <img class="u-photo" src={config.avatar}/>
         <span class="p-name">{config.name}</span>
+        <a class="u-url u-uid" href={Astro.site.toString()}>{siteConfig.title}</a>
         <p class="p-note">{config.bio}</p>
-        <a class="u-url" href={url("/")}>{siteConfig.title}</a>
         {email && <a class="u-email"
             href={email}>email!</a>}
         {

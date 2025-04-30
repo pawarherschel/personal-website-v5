@@ -38,8 +38,9 @@ const email = config.links.find((it) => it.name.toUpperCase() === "EMAIL")?.url;
         </div>
     </div>
     <div class="hidden h-card">
-        <span class="p-name">{config.name}</span>
         <img class="u-photo" src={config.avatar}/>
+        <span class="p-name">{config.name}</span>
+        <p class="p-note">{config.bio}</p>
         <a class="u-url" href={url("/")}>{siteConfig.title}</a>
         {email && <a class="u-email"
             href={email}>email!</a>}

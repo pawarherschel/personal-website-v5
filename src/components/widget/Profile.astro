@@ -37,7 +37,8 @@ const email = config.links.find((it) => it.name.toUpperCase() === "EMAIL")?.url;
             </a>}
         </div>
     </div>
-    <div class="hidden h-card">
+    <!--IndieWeb Microformat v2-->
+    <div class="h-card" style="display:none">
         <img class="u-photo" src={config.avatar}/>
         <span class="p-name">{config.name}</span>
         <p class="p-note">{config.bio}</p>
@@ -50,6 +51,8 @@ const email = config.links.find((it) => it.name.toUpperCase() === "EMAIL")?.url;
                 )
             )
         }
+        <a rel="me" class="u-url" href={url("/rss.xml")}>RSS</a>
+        <a rel="me" class="u-url" href={url("sitemap-index.xml")}>Sitemap Index</a>
     </div>
 </div>
 

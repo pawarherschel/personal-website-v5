@@ -1,0 +1,22 @@
+---
+import { siteConfig } from "../../config";
+import { url } from "../../utils/url-utils";
+---
+
+<!--IndieWeb Microformat v2-->
+<div class="h-card" style="display:none">
+	<img class="u-photo" src={config.avatar}/>
+	<span class="p-name">{config.name}</span>
+	<a class="u-url u-uid" href={Astro.site.toString()}>{siteConfig.title}</a>
+	<p class="p-note">{config.bio}</p>
+	{email && <a class="u-email"
+				 href={email}>email!</a>}
+	{
+		config.links.filter(it => it.name.toUpperCase() !== "EMAIL").map(it => (
+						<a rel="me" class="u-url" href={it.url}>{it.name}</a>
+			)
+		)
+	}
+	<a rel="me" class="u-url" href={url("/rss.xml")}>RSS</a>
+	<a rel="me" class="u-url" href={url("sitemap-index.xml")}>Sitemap Index</a>
+</div>

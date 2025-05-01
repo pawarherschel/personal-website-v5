@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import { AtUri } from "@atproto/api";
-import { View } from "@atproto/api/dist/client/types/app/bsky/embed/video";
 import type { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
 import { blueskyConfig } from "../../config";
 const { blueskyIdentifier } = blueskyConfig;
@@ -18,7 +17,7 @@ export async function getStaticPaths() {
 				new Date(a.data.indexedAt).getTime(),
 		);
 	return posts.map((post) => ({
-		params: { slug: post.id },
+		params: { slug: post.data.cid },
 		props: { post },
 	}));
 }
@@ -55,12 +54,13 @@ interface markup {
 	payload: string;
 }
 
+// biome-ignore lint/complexity/noBannedTypes: <explanation>
 function dbg(it: Object) {
 	console.log(JSON.stringify(it, null, 3));
 }
 
-async function uriToHtml(uri: string): string {
-	async function uriToThread(uri: string): ThreadViewPost {
+async function uriToHtml(uri: string): Promise<string> {
+	async function uriToThread(uri: string): Promise<ThreadViewPost> {
 		return (
 			await (
 				await fetch(
@@ -74,7 +74,7 @@ async function uriToHtml(uri: string): string {
 
 	async function threadToTreeNode(
 		thread: ThreadViewPost,
-	): TreeNode | undefined {
+	): Promise<TreeNode | undefined> {
 		if (thread.post.author.handle !== blueskyIdentifier) {
 			return undefined;
 		}
@@ -109,7 +109,7 @@ async function uriToHtml(uri: string): string {
 		};
 	}
 
-	async function getRepliesTree(thread: ThreadViewPost): TreeNode {
+	async function getRepliesTree(thread: ThreadViewPost): Promise<TreeNode> {
 		const tree = await threadToTreeNode(thread);
 		if (tree === undefined) {
 			throw "Root should not be undefined";
@@ -134,7 +134,7 @@ async function uriToHtml(uri: string): string {
 		);
 
 		if (links) {
-			links.forEach((link) => {
+			for (const link of links) {
 				ret.push({
 					type: markupType.text,
 					payload: text.slice(0, link.byteStart),
@@ -147,7 +147,7 @@ async function uriToHtml(uri: string): string {
 					type: markupType.text,
 					payload: text.slice(link.byteEnd),
 				});
-			});
+			}
 		} else {
 			ret.push({
 				type: markupType.text,

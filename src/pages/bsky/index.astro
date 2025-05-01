@@ -22,7 +22,7 @@ const posts = bsky
 {
 	posts.map(post => (
 			<br>
-			<a href={`/bsky/${post.id}/`}>{post.id}</a>
+			<a href={`/bsky/${post.data.cid}/`}>{post.id}</a>
 				<pre set:html={post.rendered.html} />
 			<hr>
 		)

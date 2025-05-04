@@ -300,7 +300,6 @@ swap:
   organised: organized
   organising: organizing
   orientate: orient
-  pain point: challenge|concern|difficulty|issue
   parent task: parent process
   parent/child: parent-child
   peer-pod: peer pod
@@ -380,7 +379,6 @@ swap:
   soft copy: softcopy
   specfile: spec file
   spelt: spelled
-  spend: expense|expenditure|outlay
   standalone mode: standalone server
   sunset: withdraw from service|withdraw from marketing|discontinue|no longer support
   swapspace: swap space

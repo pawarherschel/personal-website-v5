@@ -6,11 +6,10 @@ draft: true
 ---
 
 Working properly with Git is a chore.
-I need to make sure the commits are descriptive,
-often following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
-Another pain point is keeping commits atomic.
-That slows me down,
-since I need
+I need to make sure the commits are descriptive
+(often following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)),
+and the commits are atomic.
+I need
 to make sure the changes
 I'm doing,
 fit in the commit goal I'm working towards.
@@ -19,45 +18,48 @@ to spend a non-trivial amount of time and effort
 trying to keep my history sensible, and still failed.
 While I knew about history editing,
 I always thought it was for experts.
-When I used `git`, 
-I preferred to use JetBrains' IDE features rather than the CLI.
-Even then, I stuck to the basic `add`,
+Also, when I used `git`, 
+I preferred to use JetBrains' IDE features rather than the CLI, 
+and even then, I stuck to the basic `add`,
 `commit`, `push`, `checkout` commands,
 and occasionally `merge` and `rebase`.
-[Jujutsu (`jj`)](https://jj-vcs.github.io/)(my history with jj:[^my-history-with-jj]) changed that.
+[Jujutsu (`jj`)](https://jj-vcs.github.io/) changed that.
 `jj` made it easy to fix the usual mistakes I'd make with `git`.
-There are differences from `git`, but they're easy to adapt to.
-From what I've been told, you will also like `jj` more if you're a fan of [Mercurial](https://www.mercurial-scm.org/).
-You can use both, `git`, and `jj` in the same repo 
-(learn more here: [Co-located Jujutsu/Git repos](https://jj-vcs.github.io/jj/latest/git-compatibility/#co-located-jujutsugit-repos)). 
+There are differences from `git`,
+but once they clicked, I couldn't go back.
+Also, from what I've been told,
+you will also like `jj` more
+if you're a fan of [Mercurial](https://www.mercurial-scm.org/).
+You don't need to choose between `jj` and `git` either, you can use both!
+learn more here:
+[Co-located Jujutsu/Git repos](https://jj-vcs.github.io/jj/latest/git-compatibility/#co-located-jujutsugit-repos). 
 That's what I did to learn `jj`.
-Let's learn about the building blocks to use `jj`.
+In this blog post I want to show you the building blocks to use `jj`.
 
-[^my-history-with-jj]: I started hearing about `jj` from
-[Steve Klabnik (@steveklabnik.com)](https://bsky.app/profile/steveklabnik.com).
-I had known about `jj` for a while before that.
-I don't remember when or where I first heard about `jj`,
-but I distinctly remember making a mental note about it when
-[Orhun Parmaksız (@orhun.dev)](https://bsky.app/profile/orhun.dev),
-dedicated a stream to learning Jujutsu
-([Learning Jujutsu (a version control system)](https://www.youtube.com/watch?v=VcKKhrb4E6s)).
+:::caution[ASSUMED AUDIENCE]
+
+Existing `git` users who share the same pain points.
+
+Somebody who loved `hg`, and is unhappy about `git`.
+
+:::
 
 # Minimal workflow
 
 Let's
-talk about the standard minimal workflow I used to do using `git`,
+talk about the standard minimal workflow I used for `git`,
 and compare it with `jj`.
 
 
-| Action                     | Git                                                      | Jujutsu                                                |
-|----------------------------|----------------------------------------------------------|--------------------------------------------------------|
-| Start tracking a file      | `git add .`                                              | All files are tracked by default                       |
-| Save the state of the file | `git commit -m "(hopefully descriptive) commit message"` | `jj commit -m "commit message (easy to change later)"` |
-| push to repo               | `git push`                                               | `jj git push -b "branch-name"`                         |
-| Check status               | `git status`                                             | `jj st`                                                |
+| Action                | Git                                                      | Jujutsu                                                |
+|-----------------------|----------------------------------------------------------|--------------------------------------------------------|
+| Start tracking a file | `git add .`                                              | All files are tracked by default                       |
+| Commit the file       | `git commit -m "(hopefully descriptive) commit message"` | `jj commit -m "commit message (easy to change later)"` |
+| Push to repo          | `git push`                                               | `jj git push -b "branch-name"`                         |
+| Check status          | `git status`                                             | `jj st`                                                |
 
-That's it,
-when I first learned about `git`,
+That's it!
+When I first learned about `git`,
 those were the only commands I'd use.
 
 Later on, I learned about branches.
@@ -77,6 +79,9 @@ If the stolen projects don't run,
 they just go to the classmates who know,
 and then make them fix it, 
 sometimes in exchange for money.
+So, I never really got the chance to do teamwork until last semester of third year, and last year.
+I even conducted git and GitHub workshops.
+But, I'm bad at explaining, so while I did make the slides, I left the explanation to my peers who were way better at teaching.
 
 # Branches
 
@@ -87,26 +92,26 @@ I had the problem of "Working on the wrong branch".
 
 `jj` sidesteps the problem, you commit changes, and then assign the branch equivalent (bookmark) to those changes.
 
-More on branches later in [# Working with branches](#working-with-branches)
+More on branches later in [# Working with branches/bookmarks](#working-with-branchesbookmarks)
 
 # Partially committing changes
 
 Part of keeping a good git history is only using atomic commits.
 I'd always get distracted and do more than one commit worth of work.
 So, I'd want to commit only certain files, and certain sections of the file.
-I never found out how to do that.
+I never found out how to do that using the `git` cli.
 I always did it via my IDE.
 
 In `jj`, you can split a commit by using `jj split`.
 You then select the changes you want to commit in a TUI.
 
-Controls:
+## Working with the `jj split` TUI
 
-## `Down arrow` to move the "cursor" down, and `Up arrow` to move the "cursor" up
+### `Down arrow` to move the "cursor" down, and `Up arrow` to move the "cursor" up
 
-## `Right arrow` to expand a section, and `Left arrow` to collapse the section
+### `Right arrow` to expand a section, and `Left arrow` to collapse the section
 
-![img.png](img.png)
+<img height="1380" src="https://r2.sakurakat.systems/jj-my-beloved--jj-split-tui-1.png" width="2560"/>
 
 In the above image,
 I’ve expanded the changes for `TermErrors.yml` file.
@@ -116,14 +121,14 @@ Currently, none of the changes are selected.
 Selecting a change adds it to first commit,
 and the rest of the changes are in the second commit.
 
-## `spacebar` to select changes
-
 Let's select the first change in `TermsErrors.yml`.
 
+### `spacebar` to select changes
+
 1. Press `Down arrow`
-    ![img_1.png](img_1.png) 
+   <img height="1380" src="https://r2.sakurakat.systems/jj-my-beloved--jj-split-tui-2.png" width="2560"/>
 2. Press `spacebar`
-    ![img_2.png](img_2.png)
+   <img height="1380" src="https://r2.sakurakat.systems/jj-my-beloved--jj-split-tui-3.png" width="2560"/>
 
 You'll notice there are three states of "selectedness".
 
@@ -131,12 +136,12 @@ You'll notice there are three states of "selectedness".
 - `[◐]`: Children are partially selected.
 - `[●]`: All the children are selected.
 
-## `c` to confirm changes
+### `c` to confirm changes
 
 I use [Helix (`hx`)](https://helix-editor.com) in terminal,
 so, the commit messages are edited in `hx`.
 
-![img_3.png](img_3.png)
+<img height="1380" src="https://r2.sakurakat.systems/jj-my-beloved--jj-split-tui-helix.png" width="2560"/>
 
 ```jj-commit
 JJ: This commit contains the following changes:
@@ -151,11 +156,11 @@ Let's check the status
 jj st
 ```
 
-![img_4.png](img_4.png)
+<img height="292" src="https://r2.sakurakat.systems/jj-my-beloved--jj-split-tui-jj-st.png" width="749"/>
 
 # Reading the status
 
-Let's address the highlighted lines.
+Let's address the sections one by one.
 
 ```diff
   PS D:\Sync\Projects\personal-website-v5> jj st
@@ -221,9 +226,10 @@ There's also `@` and `@-`.
 
 Similarly, `@+` is the next commit.
 
-You can add multiple `+` or `-`
+You can add multiple `+` or `-`.
 
-If `@-` is the "father" of the commit, then
+Another way to think about the number of `-`(or `+`) is
+if `@-` is the "father" of the commit, then
 `@---` refers to "grand-grandfather" of the commit. 
 
 There's also two of what seem to be hashes.
@@ -235,26 +241,58 @@ There's also two of what seem to be hashes.
 + [lwymzvzm] [1263aaec] feat: reduce vale noise
 ```
 
-The first hash (`omrruoov` and `lwymzvzm`) are change ID.
+The first hash on each line 
+(`omrruoov` and `lwymzvzm`) are change ID.
 These will remain persistent through changes.
 
-The second hash (`cb05513b` and `1263aaec`) are commit ID.
+:::note
+
+If you're familiar with Mercurial's "revset"
+terminology, the change ID is the ID for the revset.
+
+For others, you can think of "revset" as a commit in `git`. 
+It's technically wrong, but I can't think of a parallel in `git`.
+
+You already know one revset: "@".
+
+Revsets are really cool,
+read more about them on the docs here:
+https://jj-vcs.github.io/jj/latest/revsets/
+
+I will be using "revset" from here on where it's appropriate
+as it will reduce confusion in the long term.
+
+:::
+
+The second hash on each line 
+(`cb05513b` and `1263aaec`) are commit ID.
 These will change as you modify the commit.
 
-The CLI also conveniently highlights the minimal hash 
-I need to enter to address the commit.
+<img height="56" src="https://r2.sakurakat.systems/jj-my-beloved--read-status-highlight.png" width="459"/>
 
-So, `om` for the current commit,
-and `lw` for the previous commit.
+Entering the full hash is inconvenient,
+and unless you have really good memory, 
+you can't memorize the hash.
+So, `jj` allows you use the least amount of letters from the hash 
+that won't cause any collisions,
+and highlights them.
+In this case `om`, `cb`, `lw`, and `1`.
 
-# Working with branches
+So, I can use `om` refer to commit with change ID `omrruoov`,
+and `lw` for the previous one.
+
+# Working with branches/bookmarks
 
 Bookmarks are what `git` calls branches.
 
-I forgot to create a branch!
+While working in `git`,
+the best practice is to work in a separate branch,
+and then merge all the changes into the main branch.
+But you might've noticed I forgot to create a branch!
 If I was using `git`, I would be panicking now.
 
-As discussed in [# Branches](#branches), I don't need to worry about that.
+However, as discussed in [# Branches](#branches), 
+I don't need to panic.
 
 Let's create the bookmark
 
@@ -267,9 +305,10 @@ and then there's `-r "@"`.
 What does that mean?
 
 `-r` is shorthand for `--revision`.
-You pass the change ID to it.
+You pass the change ID or revset
+(tbh I assumed `-r` stood for `revset`) to it.
 `jj` will then create a new branch, 
-and the latest commit in the branch will be the commit with that change ID.
+and the latest commit in the branch will be that revset.
 
 `@`, as discussed before, is just shorthand for the current commit.
 So,
@@ -283,7 +322,22 @@ Let's try pushing changes to the repo
 jj git push -b "jj-my-beloved"
 ```
 
-![img_5.png](img_5.png)
+:::note
+
+Notice that the command is `jj git...` and not just `jj...`
+
+That's because `jj` was built with different backends in mind.
+Backend in this case refers to different VCS.
+So, you can add support for multiple VCS to `jj`.
+You aren't just limited to `git`.
+
+If there are some backend-specific features,
+they will have the backend's name in the command
+(like `git` here).
+
+:::
+
+<img height="138" src="https://r2.sakurakat.systems/jj-my-beloved--jj-git-push.png" width="1103"/>
 
 Here, we run into one of the many safeguards `jj` has.
 
@@ -292,31 +346,76 @@ In this case, the branch `jj-my-beloved` doesn't exist in `origin`.
 To allow `jj` to create a new branch you need
 to pass the `-N`/`--allow-new` flag.
 
-:::warning[ALARM]
-Oops!
-It's dinner time.
-Time to wind down for the day! 
+So,
+
+```powershell
+jj git push -b "jj-my-beloved" -N
+```
+
+:::warning
+
+HARSH TRANSITION
+
 :::
 
-Let's just commit everything using the below command.
+Let's say its end of day, 
+and I'd like to 
+commit all the changes I've done to save the progress.
+I used to avoid doing this in `git`, 
+I had to keep aside 15 minutes everyday,
+just so I can make meaningful commits.
+However, with `jj`, I don't need to worry about that.
+
+:::note
+
+Or you know,
+
+<img height="715" src="https://r2.sakurakat.systems/jj-my-beloved--in-case-of-fire.png" width="1024"/>
+
+:::
+
+I can just commit everything using the below command.
 
 ```powershell
 jj commit -m "checkpoint: EOD"
 ```
 
-![img_6.png](img_6.png)
+:::note
 
-I can do this now,
-and then worry about splitting and combining the changes tomorrow.
-Something I would try to not do using `git`.
+If you didn't notice `-m` is the same flag
+you use to add messages using `git`
+
+:::
+
+<img height="119" src="https://r2.sakurakat.systems/jj-my-beloved--EOD.png" width="917"/>
+
+And then worry about splitting and combining the changes tomorrow.
 
 # Squashing changes
 
-I'm editing writing this blog post 
-and showing you examples of how I use `jj`. 
-I wrote all the text today after doing the EOD checkpoint,
-and didn't commit it.
-I _think_ in `git` I'd need to amend changes.
+You might've noticed,
+I'm writing this blog post 
+and showing you examples of how I use `jj`
+by showing screenshots of the commands I'm using.
+So, all the changes since the "EOD" commit haven't been commited.
+
+How can I be sure my changes aren't commited?
+Let's check the status.
+
+```powershell
+jj st
+```
+
+<img height="160" src="https://r2.sakurakat.systems/jj-my-beloved--jj-squash-jj-st.png" width="910"/>
+
+It says `(no description set)`,
+which means I haven't described the change in the commit,
+but it doesn't say `(empty)`, which means the commit isn't empty. 
+You can interpret that
+as I have changes that I haven't commited yet. 
+
+In `git` I _think_ I would need to amend the changes.
+I never did it using the cli tho, always through my IDE.
 
 In `jj` however, the command is
 
@@ -324,22 +423,23 @@ In `jj` however, the command is
 jj squash
 ```
 
-![img_7.png](img_7.png)
+<img height="104" src="https://r2.sakurakat.systems/jj-my-beloved--jj-squash-actual.png" width="910"/>
 
 Voilà!
 
 # Cleaning yesterday's history mess
 
-Since I used `commit`, I'm now on a different commit.
+Yesterday I used `jj commit`, so all the changes were commited,
+so now I'm editing a different commit. 
 
-I also accidentally commited the temporary images,
+When I commited, I accidentally commited the temporary images,
 and deleted `draft.md`.
 
 Let's revert those mistakes!
 
 As mentioned in [# Reading the status](#reading-the-status),
 you can just use the highlighted part of the change ID instead of typing the whole thing.
-So, from here-on, I'm going to use the highlighted part of the change.
+So, from here-on, I'm going to use the shortened form.
 
 ```powershell
 jj split yx
@@ -353,16 +453,16 @@ I also need to undo deleting `draft.md`,
 let's split the current change again, 
 this time, `draft.md` will be in first commit.
 
-![img_8.png](img_8.png)
+<img height="220" src="https://r2.sakurakat.systems/jj-my-beloved--jj-split-jj-st.png" width="951"/>
 
 # Reverting commits
 
-There are two ways to undo the mistake in `git`,
+There are two ways to undo the mistake in `git` AFAIK,
 `git reset` and `git revert`.
 
-`jj` also has two ways,
+`jj` has similar commands.
 1. `jj backout -r <revision>`
-    - Reverts the commit by creating a commit that cancels out the commit
+    - Reverts the commit by creating a commit that cancels out the commit.
     - Reversible.
     - similar to `git revert`
 2. `jj abandon -r <revision>`
@@ -384,7 +484,7 @@ jj abandon -r pp
 
 This is where the power of `jj` comes through the most.
 
-In (# Partially committing changes)[#partially-committing-changes], 
+In [# Partially committing changes](#partially-committing-changes), 
 I only commited part of the `TermsErrors.yml` file.
 
 Let's fix that.
@@ -397,26 +497,35 @@ Let's use
 jj log
 ```
 
-![img_9.png](img_9.png)
+<img height="171" src="https://r2.sakurakat.systems/jj-my-beloved--editing-history-jj-log.png" width="951"/>
 
 The letters I need to enter are "lw"
 
 Let's commit the `TermsErrors.yml` file, so `jj split`.
 
-![img_10.png](img_10.png)
+<img height="162" src="https://r2.sakurakat.systems/jj-my-beloved--editing-history-jj-split.png" width="1381"/>
 
 I need to move the commit into "lw"
 
 ```powershell
 jj squash --from sx --into lw
 ```
-![img_11.png](img_11.png)
-![img_12.png](img_12.png)
+
+<img height="351" src="https://r2.sakurakat.systems/jj-my-beloved--editing-history-squash-commit-message.png" width="848"/>
+
+<img height="162" src="https://r2.sakurakat.systems/jj-my-beloved--editing-history-jj-log-after-squash.png" width="957"/>
+
+:::note
+
+In [# Reading the status](#reading-the-status) I said that commit ID changes, and change ID remains the same.
+
+You can see it here!
 
 Notice how earlier,
 the commit ID for "lw" was "1", 
 and now it's "24".
-But, the change ID remained same!
+
+:::
 
 # Show the changes in commit
 
@@ -426,7 +535,7 @@ Let's see the changes in the revision/change "lw"
 jj show lw
 ```
 
-![img_13.png](img_13.png)
+<img height="735" src="https://r2.sakurakat.systems/jj-my-beloved--jj-show-lw.png" width="1175"/>
 
 Oops,
 I forgot to remove the duplicated description from the commit message.
@@ -437,7 +546,7 @@ Let's edit the commit message.
 jj describe lw
 ```
 
-![img_14.png](img_14.png)
+<img height="217" src="https://r2.sakurakat.systems/jj-my-beloved--jj-describe-lw.png" width="911"/>
 
 Done!
 
@@ -448,9 +557,9 @@ Another common operation is merging branches.
 Let's say I want to update the template for my website.
 For my setup,
 I have "origin" as my fork, 
-and "upstream" as original template.  
+and "upstream" as the original template.  
 
-Let's fetch the changes from `upstream`
+Let's fetch the changes from all remotes.
 
 ```powershell
 jj git fetch --all-remotes
@@ -459,15 +568,15 @@ jj git fetch --all-remotes
 Merging changes in `jj` is the same
 as creating a new commit with two parents.
 To use a different remote for a branch/bookmark,
-you need to write it in the form "bookmark@remote". 
+you need to write it in the form `bookmark@remote`. 
 
 ```powershell
 jj new "@" "main@upstream"
 ```
 
-![img_15.png](img_15.png)
+<img height="443" src="https://r2.sakurakat.systems/jj-my-beloved--update-template-conflicts.png" width="1717"/>
 
-Oh no! So many conflicts!
+Oh, no! So many conflicts!
 
 Fortunately,
 conflicts feel easier to solve in `jj` for whatever reason.
@@ -485,7 +594,13 @@ So, `jj new`.
 
 `jj` also has an inbuilt conflict resolver, but I prefer to resolve them in my IDE.
 
-Ok, now that the template is updated,
+You can use the inbuilt resolver by using 
+
+```powershell
+jj resolve
+```
+
+OK, now that the template is updated,
 I want to remove the images from git history, again ^^;
 I need to first change to the "rs" commit, and then split.
 
@@ -502,24 +617,26 @@ The way I need to do that is via `jj rebase`
 
 The change ID for the images' commit is "sw"
 
-The change ID for latest commit is "wm"
+The change ID for the latest commit is "wm"
 
-I need to rebase the commit so "sw" is before "wm"
+I need to move the commit so "sw" is before "wm"
 
 ```powershell
 jj rebase -r sw --insert-before wm
 ```
 
-What is the command doing? 
-It rebase revisions "sw" (singular revision in this case), 
-and insert them before "wm".
+What's the command doing? 
+It moves the revision "sw", 
+and insert it before "wm".
 
-![img_17.png](img_17.png)
+<img height="224" src="https://r2.sakurakat.systems/jj-my-beloved--jj-rebase-results.png" width="1087"/>
 
 Done!
 
-I need to squash "wm" into "sw", and then split again,
+That being said, I need to squash "wm" 
+into "sw", and then split again,
 as I'm editing the blog post live ^^;
+The changes from me writing into this document are in "wm".
 
 No problem, easy enough, just use split!
 
@@ -529,32 +646,86 @@ As you see, even with just a few commands, I can do so much.
 Let's
 talk about a real world example where editing history came useful.
 
-As I mentioned in (# Reverting commits)[#reverting-commits],
+As I mentioned in [# Reverting commits](#reverting-commits),
 I use git history to find the last updated date.
 
 When I released [Hyper-V shenanigans with `nixos-generators`](/posts/hyperv-shenanigans/),
-I ran the linter in my IDE and didn't check which files it "touched".
+I ran the linter in my IDE and didn't check what files it "touched".
 
-Turns out, it touched all the markdown files,
+Turns out, it touched all the Markdown files,
 and so, the "last updated date" for all my posts became `2025-04-25`.
 
 It took me ~10 minutes to fix the mistake, 
 where I spent a lot of time just fumbling commands.
 
 While doing it, one of `jj`'s safeguard activated, 
-and prevented me from editing a commit that I had already pushed.
+preventing me from editing a commit that I have already pushed.
 
-![img_18.png](img_18.png)
+<img height="219" src="https://r2.sakurakat.systems/jj-my-beloved--immutable-commits-error.png" width="1374"/>
 
 It was an error similar to the above image.
 
 I bypassed the safeguard by using `--ignore-immutable` flag, 
 and then force pushed.
 
+:::note
+
 `jj` has more safeguards like `jj op log`,
 `jj undo`.
 
 But, I don't know how to use them yet ^^;
 
-# Links to learn more from experts
+:::
 
+# Links to learn more from experts!
+
+1. Official docs
+   - https://jj-vcs.github.io/jj/latest/
+2. The tutorial I followed by [Steve Klabnik (@steveklabnik.com)](https://bsky.app/profile/did:plc:3danwc67lo7obz2fmdg6jxcr) that initially sold me on at least trying out `jj`
+    - https://steveklabnik.github.io/jujutsu-tutorial/
+3. An excellent essay by [Chris Krycho (@chriskrycho.com)](https://bsky.app/profile/did:plc:i55fkgcwrczbj7edpucwl5mz) on `jj`
+    - https://v5.chriskrycho.com/essays/jj-init/ 
+    - It is also available in video form on YouTube:
+    [What if version control was AWESOME?](https://youtu.be/2otjrTzRfVk)  
+4. An episode of Bits and Booze by [GitButler](https://www.youtube.com/@gitbutlerapp) where they discuss `jj`
+    - [Jujutsu | Ep. 5 Bits and Booze](https://www.youtube.com/watch?v=dwyMlLYIrPk)
+5. An article recommended by [amos in goblin mode (@fasterthanlime@hachyderm.io)](https://hachyderm.io/@fasterthanlime)
+    - https://zerowidth.com/2025/what-ive-learned-from-jj/
+    - Source: [`hachyderm.io` post](https://hachyderm.io/@fasterthanlime/114442568865148840)
+    - Alternative source: [`bluesky` post](https://bsky.app/profile/fasterthanli.me/post/3loaqqrdfi22o)
+6. [Orhun Parmaksız (@orhun.dev)](https://bsky.app/profile/orhun.dev)'s stream VOD
+   dedicated to learning Jujutsu on YouTube
+   - [Learning Jujutsu (a version control system)](https://www.youtube.com/watch?v=VcKKhrb4E6s) 
+
+---
+
+# Inspiration for writing the blog post
+
+## Amos (also known as fasterthanlime) posting "jj is going to make me worse at git isn't it"
+
+<img height="1028" src="https://r2.sakurakat.systems/jj-my-beloved--amos-jj-reply.png" width="842"/>
+
+[Link to my reply](https://transfem.social/notes/a7agywefhcnb1m03)
+
+[Fediverse Link to Amos' post](https://hachyderm.io/@fasterthanlime/114438567588642818)
+
+[Bluesky Link to Amos' post](https://bsky.app/profile/fasterthanli.me/post/3lo6xvkhtvk27)
+
+If you want to read more about other people's experiences,
+you can read them on fediverse, and bluesky.
+
+## A conversation on Typst's discord server
+
+I recognized
+the person was using `jj` because of the distinct output for `jj log`,
+and started talking about Amos' post, and how `jj` made life easier.
+
+<img height="392" src="https://r2.sakurakat.systems/jj-my-beloved--typst-T-reply.png" width="832"/>
+
+A random person replied to my message asking how Amos' post can be taken in a negative light.
+
+<img height="618" src="https://r2.sakurakat.systems/jj-my-beloved--typst-M-reply.png" width="876"/>
+
+---
+
+# Footnotes

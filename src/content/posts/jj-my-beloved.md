@@ -6,7 +6,7 @@ draft: true
 ---
 
 Working properly with Git is a chore.
-I need to make sure your commits are descriptive,
+I need to make sure the commits are descriptive,
 often following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 Another pain point is keeping commits atomic.
 That slows me down,
@@ -51,7 +51,7 @@ and compare it with `jj`.
 
 | Action                     | Git                                                      | Jujutsu                                                |
 |----------------------------|----------------------------------------------------------|--------------------------------------------------------|
-| Start tracking a file      | `git add .`                                              | Implicitly tracked by default                          |
+| Start tracking a file      | `git add .`                                              | All files are tracked by default                       |
 | Save the state of the file | `git commit -m "(hopefully descriptive) commit message"` | `jj commit -m "commit message (easy to change later)"` |
 | push to repo               | `git push`                                               | `jj git push -b "branch-name"`                         |
 | Check status               | `git status`                                             | `jj st`                                                |
@@ -87,10 +87,14 @@ I had the problem of "Working on the wrong branch".
 
 `jj` sidesteps the problem, you commit changes, and then assign the branch equivalent (bookmark) to those changes.
 
+More on branches later in [# Working with branches](#working-with-branches)
+
 # Partially committing changes
 
-I never found out how to commit only certain files,
-or certain parts of a file.
+Part of keeping a good git history is only using atomic commits.
+I'd always get distracted and do more than one commit worth of work.
+So, I'd want to commit only certain files, and certain sections of the file.
+I never found out how to do that.
 I always did it via my IDE.
 
 In `jj`, you can split a commit by using `jj split`.
@@ -134,7 +138,7 @@ so, the commit messages are edited in `hx`.
 
 ![img_3.png](img_3.png)
 
-```jj
+```jj-commit
 JJ: This commit contains the following changes:
 JJ:     M .vale-styles\RedHat\TermsErrors.yml
 ```
@@ -151,7 +155,29 @@ jj st
 
 # Reading the status
 
-Let's address the below-highlighted lines first.
+Let's address the highlighted lines.
+
+```diff
+  PS D:\Sync\Projects\personal-website-v5> jj st
++ Working copy changes:
+  M .vale-styles\RedHat\TermsErrors.yml
+  D src\content\posts\draft.md
+  A src\content\posts\img.png
+  A src\content\posts\img_1.png
+  A src\content\posts\img_2.png
+  A src\content\posts\img_3.png
+  M src\content\posts\jj-my-beloved.md
+  Working copy  (@) : omrruoov cb05513b (no description set)
+  Parent commit (@-): lwymzvzm 1263aaec feat: reduce vale noise
+```
+
+What's a working copy?
+
+`jj` doesn't have a staging area.
+It treats the current state of the repo as a commit,
+and when you edit the repo,
+you're editing the commit.
+
 
 ```diff
   PS D:\Sync\Projects\personal-website-v5> jj st
@@ -259,7 +285,7 @@ jj git push -b "jj-my-beloved"
 
 ![img_5.png](img_5.png)
 
-Here, we run into the many safeguards `jj` has.
+Here, we run into one of the many safeguards `jj` has.
 
 In this case, the branch `jj-my-beloved` doesn't exist in `origin`.
 
@@ -286,13 +312,18 @@ Something I would try to not do using `git`.
 
 # Squashing changes
 
-I wrote all the text, and didn't commit it.
+I'm editing writing this blog post 
+and showing you examples of how I use `jj`. 
+I wrote all the text today after doing the EOD checkpoint,
+and didn't commit it.
 I _think_ in `git` I'd need to amend changes.
 
 In `jj` however, the command is
+
 ```powershell
 jj squash
 ```
+
 ![img_7.png](img_7.png)
 
 Voilà!
@@ -305,6 +336,10 @@ I also accidentally commited the temporary images,
 and deleted `draft.md`.
 
 Let's revert those mistakes!
+
+As mentioned in [# Reading the status](#reading-the-status),
+you can just use the highlighted part of the change ID instead of typing the whole thing.
+So, from here-on, I'm going to use the highlighted part of the change.
 
 ```powershell
 jj split yx
@@ -385,6 +420,8 @@ But, the change ID remained same!
 
 # Show the changes in commit
 
+Let's see the changes in the revision/change "lw"
+
 ```powershell
 jj show lw
 ```
@@ -406,7 +443,12 @@ Done!
 
 # Merging branches
 
-I want to update the template for my website.
+Another common operation is merging branches.
+
+Let's say I want to update the template for my website.
+For my setup,
+I have "origin" as my fork, 
+and "upstream" as original template.  
 
 Let's fetch the changes from `upstream`
 
@@ -416,6 +458,8 @@ jj git fetch --all-remotes
 
 Merging changes in `jj` is the same
 as creating a new commit with two parents.
+To use a different remote for a branch/bookmark,
+you need to write it in the form "bookmark@remote". 
 
 ```powershell
 jj new "@" "main@upstream"
@@ -443,6 +487,7 @@ So, `jj new`.
 
 Ok, now that the template is updated,
 I want to remove the images from git history, again ^^;
+I need to first change to the "rs" commit, and then split.
 
 ```powershell
 jj edit rs
@@ -465,10 +510,51 @@ I need to rebase the commit so "sw" is before "wm"
 jj rebase -r sw --insert-before wm
 ```
 
-Rebase revisions "sw" (singular revision in this case), 
+What is the command doing? 
+It rebase revisions "sw" (singular revision in this case), 
 and insert them before "wm".
 
 ![img_17.png](img_17.png)
 
 Done!
+
+I need to squash "wm" into "sw", and then split again,
+as I'm editing the blog post live ^^;
+
+No problem, easy enough, just use split!
+
+# Case Study
+
+As you see, even with just a few commands, I can do so much.
+Let's
+talk about a real world example where editing history came useful.
+
+As I mentioned in (# Reverting commits)[#reverting-commits],
+I use git history to find the last updated date.
+
+When I released [Hyper-V shenanigans with `nixos-generators`](/posts/hyperv-shenanigans/),
+I ran the linter in my IDE and didn't check which files it "touched".
+
+Turns out, it touched all the markdown files,
+and so, the "last updated date" for all my posts became `2025-04-25`.
+
+It took me ~10 minutes to fix the mistake, 
+where I spent a lot of time just fumbling commands.
+
+While doing it, one of `jj`'s safeguard activated, 
+and prevented me from editing a commit that I had already pushed.
+
+![img_18.png](img_18.png)
+
+It was an error similar to the above image.
+
+I bypassed the safeguard by using `--ignore-immutable` flag, 
+and then force pushed.
+
+`jj` has more safeguards like `jj op log`,
+`jj undo`.
+
+But, I don't know how to use them yet ^^;
+
+# Links to learn more from experts
 

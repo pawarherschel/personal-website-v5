@@ -421,4 +421,24 @@ as creating a new commit with two parents.
 jj new "@" "main@upstream"
 ```
 
+![img_15.png](img_15.png)
+
+Oh no! So many conflicts!
+
+Fortunately,
+conflicts feel easier to solve in `jj` for whatever reason.
+
+# Solving merge conflicts
+
+In `jj`, conflicts are first-class citizens. 
+You can just, leave the conflicts as they as are if you need to. 
+
+The recommended way to resolve merge conflicts is
+to create a new commit,
+resolve the conflicts, and then squash the commit.
+
+So, `jj new`.
+
+`jj` also has an inbuilt conflict resolver, but I prefer to resolve them in my IDE.
+
 

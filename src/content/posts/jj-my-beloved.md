@@ -441,4 +441,34 @@ So, `jj new`.
 
 `jj` also has an inbuilt conflict resolver, but I prefer to resolve them in my IDE.
 
+Ok, now that the template is updated,
+I want to remove the images from git history, again ^^;
+
+```powershell
+jj edit rs
+jj split
+```
+
+Now, I have a problem.
+
+I need to bring the images' commit to latest commit.
+
+The way I need to do that is via `jj rebase`
+
+The change ID for the images' commit is "sw"
+
+The change ID for latest commit is "wm"
+
+I need to rebase the commit so "sw" is before "wm"
+
+```powershell
+jj rebase -r sw --insert-before wm
+```
+
+Rebase revisions "sw" (singular revision in this case), 
+and insert them before "wm".
+
+![img_17.png](img_17.png)
+
+Done!
 

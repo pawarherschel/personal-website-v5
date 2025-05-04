@@ -215,7 +215,13 @@ These will remain persistent through changes.
 The second hash (`cb05513b` and `1263aaec`) are commit ID.
 These will change as you modify the commit.
 
-# Bookmarks
+The CLI also conveniently highlights the minimal hash 
+I need to enter to address the commit.
+
+So, `om` for the current commit,
+and `lw` for the previous commit.
+
+# Working with branches
 
 Bookmarks are what `git` calls branches.
 
@@ -260,7 +266,7 @@ In this case, the branch `jj-my-beloved` doesn't exist in `origin`.
 To allow `jj` to create a new branch you need
 to pass the `-N`/`--allow-new` flag.
 
-:::note[ALARM]
+:::warning[ALARM]
 Oops!
 It's dinner time.
 Time to wind down for the day! 
@@ -290,3 +296,129 @@ jj squash
 ![img_7.png](img_7.png)
 
 Voilà!
+
+# Cleaning yesterday's history mess
+
+Since I used `commit`, I'm now on a different commit.
+
+I also accidentally commited the temporary images,
+and deleted `draft.md`.
+
+Let's revert those mistakes!
+
+```powershell
+jj split yx
+```
+
+I want to keep the changes to this file, 
+so I need to add the file to first commit, 
+and the rest will in the working commit.
+
+I also need to undo deleting `draft.md`,
+let's split the current change again, 
+this time, `draft.md` will be in first commit.
+
+![img_8.png](img_8.png)
+
+# Reverting commits
+
+There are two ways to undo the mistake in `git`,
+`git reset` and `git revert`.
+
+`jj` also has two ways,
+1. `jj backout -r <revision>`
+    - Reverts the commit by creating a commit that cancels out the commit
+    - Reversible.
+    - similar to `git revert`
+2. `jj abandon -r <revision>`
+    - Just, straight up, delete the commit. 
+    - Irreversible.
+    - similar to `git reset --hard`
+
+In my case, I'd prefer to not touch the file.
+Since the "last updated date"
+on my posts are taken from the git history.
+
+So, I'm going to use abandon.
+
+```powershell
+jj abandon -r pp
+```
+
+# Editing history
+
+This is where the power of `jj` comes through the most.
+
+In (# Partially committing changes)[#partially-committing-changes], 
+I only commited part of the `TermsErrors.yml` file.
+
+Let's fix that.
+
+First I need to find the change ID for the commit.
+
+Let's use 
+
+```powershell
+jj log
+```
+
+![img_9.png](img_9.png)
+
+The letters I need to enter are "lw"
+
+Let's commit the `TermsErrors.yml` file, so `jj split`.
+
+![img_10.png](img_10.png)
+
+I need to move the commit into "lw"
+
+```powershell
+jj squash --from sx --into lw
+```
+![img_11.png](img_11.png)
+![img_12.png](img_12.png)
+
+Notice how earlier,
+the commit ID for "lw" was "1", 
+and now it's "24".
+But, the change ID remained same!
+
+# Show the changes in commit
+
+```powershell
+jj show lw
+```
+
+![img_13.png](img_13.png)
+
+Oops,
+I forgot to remove the duplicated description from the commit message.
+
+Let's edit the commit message.
+
+```powershell
+jj describe lw
+```
+
+![img_14.png](img_14.png)
+
+Done!
+
+# Merging branches
+
+I want to update the template for my website.
+
+Let's fetch the changes from `upstream`
+
+```powershell
+jj git fetch --all-remotes
+```
+
+Merging changes in `jj` is the same
+as creating a new commit with two parents.
+
+```powershell
+jj new "@" "main@upstream"
+```
+
+

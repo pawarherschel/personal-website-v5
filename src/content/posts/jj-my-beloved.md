@@ -728,4 +728,12 @@ A random person replied to my message asking how Amos' post can be taken in a ne
 
 ---
 
+# Proofreaders
+
+> Divyesh Patil
+> - https://www.linkedin.com/in/divyesh-patil-525808257/
+
+
+---
+
 # Footnotes

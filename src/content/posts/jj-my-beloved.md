@@ -2,7 +2,7 @@
 title: "How Jujutsu VCS lowers the barrier to perfect git history"
 published: 2025-05-04
 tags: []
-draft: true
+draft: false
 ---
 
 Working properly with Git is a chore.

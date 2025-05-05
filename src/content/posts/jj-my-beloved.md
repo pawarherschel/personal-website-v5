@@ -1,5 +1,5 @@
 ---
-title: "How Jujutsu VCS lowers the barrier to perfect git history"
+title: "How Jujutsu VCS helps lowers the barrier to perfect git history"
 published: 2025-05-04
 tags: []
 draft: false
@@ -589,6 +589,8 @@ You can just, leave the conflicts as they as are if you need to.
 The recommended way to resolve merge conflicts is
 to create a new commit,
 resolve the conflicts, and then squash the commit.
+This is called the Squash Workflow.
+More on that later in [# Squash Workflow](^squash-workflow)
 
 So, `jj new`.
 
@@ -676,6 +678,25 @@ and then force pushed.
 But, I don't know how to use them yet ^^;
 
 :::
+
+# Squash Workflow
+
+The squash workflow is a general good practice.
+
+It goes as follows:
+1. Create a new commit (do not edit the commit)
+2. Make the required changes
+3. Squash the changes into the old commit
+
+`jj` has the ability to directly edit the commits, 
+so why would you go through all this effort?
+
+This workflow ensures that the previous commit remains as is, 
+and if required, you can reset the changes. 
+The changes also remain "atomic", 
+in the sense that either you fix the problem (by squashing),
+or you don't.
+You won't be stuck in a middle phase.
 
 # Links to learn more from experts!
 

@@ -1,7 +1,13 @@
 ---
 title: "How Jujutsu VCS helps lowers the barrier to perfect git history"
+description: "Keeping a clean Git history is hard, but Jujutsu VCS changes that! Learn more about Jujutsu VCS in this blog post."
 published: 2025-05-04
-tags: []
+image: https://r2.sakurakat.systems/jj-my-beloved--banner.png
+tags:
+  - Jujutsu
+  - VCS
+  - Git
+category: Tools
 draft: false
 ---
 
@@ -31,7 +37,7 @@ Also, from what I've been told,
 you will also like `jj` more
 if you're a fan of [Mercurial](https://www.mercurial-scm.org/).
 You don't need to choose between `jj` and `git` either, you can use both!
-learn more here:
+Learn more here:
 [Co-located Jujutsu/Git repos](https://jj-vcs.github.io/jj/latest/git-compatibility/#co-located-jujutsugit-repos). 
 That's what I did to learn `jj`.
 In this blog post I want to show you the building blocks to use `jj`.

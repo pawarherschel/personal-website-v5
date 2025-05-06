@@ -102,6 +102,18 @@ So, I'd want to commit only certain files, and certain sections of the file.
 I never found out how to do that using the `git` cli.
 I always did it via my IDE.
 
+<div id="ayumis-comment">
+
+:::note
+
+As far as partially committing changes goes, in git you can only stage some and not all files (and only parts of them by using `git add -p` IIRC) or you can use `git gui`.
+
+~ ayumi
+
+:::
+
+</div>
+
 In `jj`, you can split a commit by using `jj split`.
 You then select the changes you want to commit in a TUI.
 
@@ -753,6 +765,9 @@ A random person replied to my message asking how Amos' post can be taken in a ne
 
 > Divyesh Patil
 > - https://www.linkedin.com/in/divyesh-patil-525808257/
+
+> ayumi (also the comment in [# Partially committing changes](#partially-committing-changes) giving an idea of how to do it in git [aymi's comment](#ayumis-comment))
+> - Opted out of sharing socials
 
 
 ---

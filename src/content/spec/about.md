@@ -200,6 +200,8 @@ Good practices in other languages, mandatory in rust.
 
 **We stand on the shoulders of giants.**\
 And we should take advantage of that.
+Let's use the advancements people have made in programming.
+
 Let the computer do what it's best at, 
 and use the limited time and resources we have to fill in the rest. 
 
@@ -239,20 +241,20 @@ but the biggest inspiration for me was [Kate Compton](https://www.galaxykate.com
 
 I made a few bog-standard minecraft mods,
 tried to make a discord bot,
-did some simple canvas stuff in P3, but nothing really stuck.
+did some simple canvas stuff in [Processing for Java](https://processing.org/),
+but nothing really stuck.
 
-... And then I saw proper java code and gave up lmao.\
-I got discouraged enough to just not touch Java.
+... And then I saw proper Java code and gave up lmao.\
+I got discouraged I still avoid touching Java.
 
 ### RedHat Era
 
 Due to the trauma I got from Java,
 I tried to get into system administration,
-I didn't want to write code.
+because I didn't want to write code.
 
 I attempted `RHCSA` and `RHCE`, 
-and failed both of them due to various circumstances
-(however, I believe that I can pass them now).
+and failed both of them due to various circumstances.
 Typically, you'd get two chances at the exams.
 I was only able to give the exam once.
 
@@ -261,7 +263,7 @@ As an attempt at being friendly,
 I tried to coordinate the exam dates and location.
 One thing lead to another, 
 and in the end, 
-I had to give the exam at the last possible dates.\
+I had to give the exam on the last possible date.\
 **I know better now.**
 
 ### Checking out Godot
@@ -269,7 +271,7 @@ I had to give the exam at the last possible dates.\
 Now that the whole RedHat thing was done,
 I wanted to check out Godot.
 I heard
-how it's an open sourced game engine, it has a Python-like syntax,
+how it's an open source game engine, it has a Python-like syntax,
 that means--at least in my mind--it's the complete opposite of Java.
 
 So, I started watching Godot tutorials.
@@ -307,10 +309,8 @@ I couldn't just leave the script running;
 eventually, it will run into an error I didn't expect.
 Meanwhile, I kept hearing about this newfangled language called Rust.
 
-I decided that I have had enough of Python's bs.
-
-I looked into Rust,
-the most influential YouTube channel for me was [No Boilerplate](https://www.youtube.com/@NoBoilerplate).
+I decided that I had enough of Python's bs and looked into Rust.
+The most influential YouTube channel for me was [No Boilerplate](https://www.youtube.com/@NoBoilerplate).
 
 ### Rust Era
 
@@ -332,12 +332,13 @@ but I had always thought that it makes sense.
 It's just like how a database works.
 Also-also,
 I always thought that it makes no sense to manually manage memory.
-There HAS to be a way to manage it during compilation right?
-Many variables can be deleted at the end of function scope.\
-**It just made sense.**
+Many variables can be deleted at the end of function scope. 
+There HAS to be a way to manage it during compilation right?\
+It just makes sense to me.
 
 Then, I started looking for a new project.
-One of my VRChat friends kept teasing I know everyone in VRChat.
+One of my VRChat friends kept
+teasing me about how I know everyone in VRChat.
 While it's true I know a lot of people,
 I still couldn't grasp the scale of how many people I knew.
 I also had trouble just remembering who is who.
@@ -355,7 +356,7 @@ I don't want to submit a paper with a bad run time performance.
 So, 
 I started looking for ways to increase it.
 I also started
-looking for better ways to add connections between people.
+looking for better algorithms to add connections between people.
 But by then, I had to fucus on not failing my exams,
 and I decided to put the project on hold.
 
@@ -388,24 +389,24 @@ at least in the UK.
 
 I learned unity basics from the professors, 
 and realized
-how much more fun learning is 
+how fun learning is 
 when the professor is interested in teaching,
 and know what they're talking about.
 
-They told me they had a course on game engine development,
-the field I was considering.
+They told me they had a course on game engine development
+(the field I was considering).
 But 2024 was their last batch.
 That being said,
 even if it wasn't their last batch,
 I didn't have enough marks in college to apply.
-I was too scared to live in TERFLand anyways,
+I was also too scared to live in TERFLand,
 and then _stuff_ happened in UK.
 
 ### College ended
 
 I was really uncertain about what to do.
 I didn't want
-to stay in Indie due to some political situation I notice.
+to stay in India.
 
 So, I had two paths.
 
@@ -413,7 +414,7 @@ So, I had two paths.
 2. Get accepted into a University.
 
 I decided to do both,
-I was already looking for Rust jobs,
+I was already looking for Rust jobs while in college,
 and started keeping an eye out for university stuff.
 However, the reality was that I wasn't doing either properly.
 
@@ -430,11 +431,11 @@ And then I hit jackpot.
 
 ### Aalto University
 
-For game development at Aalto University,
+For the game development course at Aalto University,
 the primary criteria was projects,
 and not marks.
 
-It screams to me that they care about passion.
+It screamd to me that they care about passion.
 I thought, "I'm passionate about games".
 Even if it's not game engine development,
 I can still meet and ask help from other professors there.
@@ -444,7 +445,7 @@ I would have a great time there.
 I applied,
 had fun in the preliminary tasks,
 and then **horribly fumbled my interview**.
-During the admission process I realized how bad I am at everything.
+During the whole admission process I realized how bad I am at everything.
 I knew I was most probably going to get rejected.
 
 
@@ -459,40 +460,37 @@ So just trying my best to improve everything!
 # Spite
 
 I live to spite on people who want me dead.\
-I live to blow the people who underestimate me.
+I live to blow the minds of people who underestimate me.
 
 I tend
 to turn anger and rage into a positive feeling
 by using the energy to do productive things.
 
-**I will stay alive and thrive.**
+**I will not just live, I will thrive.**
 
 # Life lessons I've learnt
 
 - Never back down on learning anything new
   - everything is connected, and everything is related
-- Don't dwell in past
+- Don't dwell on past
   - `I did the best I can in the circumstances I was in`
   - look forward to the future and ask "what can I learn to improve on that mistake"
   - you can't change the past, but you can influence the future.
   - As the saying goes, "It's no use crying over spilt milk"
 - Trust. your. gut.
-  - Rust? good
-  - Game dev? not accurate
-    - Game engine development? yes please
-  - If something feels wrong, question it
 - Don't wait for other people
-  - If I need to get something done, then I should just do it
+  - If I need to get something done, then I should just do it myself.
 - Either stay on top of politics, or politics **will** fuck you over
   - No one is apolitical, nothing is apolitical
   - And most definitely, no matter how hard you try to avoid politics,
     politics is still going to come to bite you.
-- Try to practice good habits, even if it doesn't matter
+- Practice good habits, even if it doesn't matter
   - I used to solve leetcode problems with one of my friends, 
     and even if the quality of the code didn't matter,
     I stuck to best practices.
-  - This way, I tend to build up good practices as a reflex.
+  - This way, I tended to build up good practices as a reflex, and not as a reaction.
   - Practice during low stakes situations, so you can put it into effect during high stakes situations.
+  - People also say "practice makes perfect", but I disagree. Practice makes habits, so practice good habits.
 
 ---
 

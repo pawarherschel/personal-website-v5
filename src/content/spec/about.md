@@ -50,8 +50,8 @@ There's also a quote that's attributed to Steve Jobs:
 > The broader one's understanding of the human experience,
 > the better design we will have.
 
-Now, I'm not sure if its actually by him,
-[goodreads claims it is](https://www.goodreads.com/quotes/1031045-creativity-is-just-connecting-things-when-you-ask-creative-people).
+Now, I'm not sure if he said it,
+[goodreads claims he did](https://www.goodreads.com/quotes/1031045-creativity-is-just-connecting-things-when-you-ask-creative-people).
 But, I'm not gonna fact check that.
 
 I, want to be able to write these kinds of quotes.
@@ -65,7 +65,7 @@ that the general masses can understand.
 People used
 to come to me to ask about concepts they didn't understand.
 But, usually, they'd go through my other friend.
-I was able to explain concepts to him,
+I explained the concepts to him,
 and then he would help the others out.
 
 People need to know me for a while
@@ -77,7 +77,7 @@ However,
 I'm out of college now,
 and I can't rely on others to understand me.
 So, I started writing more and more.
-I'm actively trying to find more topics to write about,
+I'm looking for more topics to write about,
 and I'm open to criticism (but pls be soft >.>).
 
 I also think that even if I can't explain the concepts 
@@ -172,7 +172,7 @@ and has performance comparable to C
 pick THREE"](https://youtu.be/Z3xPIYHKSoI?list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP&t=68)),
 and the industry adoption for Rust is increasing.
 
-The fact that I don't need to worry about memory safety,
+I don't need to worry about memory safety,
 and performance is great.
 But, for me, those aren't the only reasons.
 
@@ -187,7 +187,7 @@ the biggest upgrade for me wasn't the speed.
 
 **It was predictability.**
 
-There are no exceptions, or ambiguous null objects.
+Exceptions and ambiguous null objects don't exist.
 `Result<T, E>`, and `Option<T>` makes it explicit.
 Rust also has better defaults.
 But why does that matter?
@@ -215,7 +215,7 @@ Another is reducing the barriers for making performant software.
 
 I want to make it so creating a multithreaded application, 
 and using resources like GPU, 
-and TPU is as simple as writing a single threaded application.
+and TPU is as easy as writing a single threaded application.
 
 I've also always had interest in game development.
 
@@ -241,7 +241,7 @@ but the biggest inspiration for me was [Kate Compton](https://www.galaxykate.com
 
 I made a few bog-standard minecraft mods,
 tried to make a discord bot,
-did some simple canvas stuff in [Processing for Java](https://processing.org/),
+did some canvas stuff in [Processing for Java](https://processing.org/),
 but nothing really stuck.
 
 ... And then I saw proper Java code and gave up lmao.\
@@ -254,7 +254,7 @@ I tried to get into system administration,
 because I didn't want to write code.
 
 I attempted `RHCSA` and `RHCE`, 
-and failed both of them due to various circumstances.
+and failed both due to various circumstances.
 Typically, you'd get two chances at the exams.
 I was only able to give the exam once.
 
@@ -268,7 +268,7 @@ I had to give the exam on the last possible date.\
 
 ### Checking out Godot
 
-Now that the whole RedHat thing was done,
+After the whole RedHat thing got over,
 I wanted to check out Godot.
 I heard
 how it's an open source game engine, it has a Python-like syntax,
@@ -373,7 +373,7 @@ I knew
 I decided to ask her if I can start with Vulkan directly,
 and she said technically yes. 
 
-### Covuni
+### Coventry University Experience
 
 Then, I went to Coventry University, UK, 
 for summer school.
@@ -435,11 +435,11 @@ For the game development course at Aalto University,
 the primary criteria was projects,
 and not marks.
 
-It screamd to me that they care about passion.
+It screamed to me that they care about passion.
 I thought, "I'm passionate about games".
 Even if it's not game engine development,
 I can still meet and ask help from other professors there.
-If it was anywhere similar to my experience at Coventry University,
+If it was anywhere like my experience at Coventry University,
 I would have a great time there.
 
 I applied,

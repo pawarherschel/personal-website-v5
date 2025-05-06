@@ -26,7 +26,7 @@ Lemme give you some examples.
    - I haven't read the book; I don't think I will ever read the book. 
     But the quote still rests in my heart. 
 3. [I am a mosaic of everyone I've ever loved, even for a heartbeat.](https://viridianmasquerade.tumblr.com/post/634434560565936128/smokeinsilence-have-you-ever-noticed-you-pick-up)
-   - A tumblr post which I saw in a [tweet](https://x.com/caffeinana/status/1791572955941720195)
+   - A tumblr post that I saw in a [tweet](https://x.com/caffeinana/status/1791572955941720195)
     ![](https://r2.sakurakat.systems/about--everyone-ive-loved.png)
    - And the [original post](https://viridianmasquerade.tumblr.com/post/634434560565936128/smokeinsilence-have-you-ever-noticed-you-pick-up) is even more beautiful
     ![](https://r2.sakurakat.systems/about--viridianmasquerade-original.png)
@@ -198,8 +198,8 @@ If the borrow checker is making something hard,
 then it probably means that the way I structured the program is bad.\
 Good practices in other languages, mandatory in rust.
 
-**We stand on the shoulders of giants.**\
-And we should take advantage of that.
+**We stand on the shoulders of giants**,\
+and we should take advantage of that.
 Let's use the advancements people have made in programming.
 
 Let the computer do what it's best at, 
@@ -219,7 +219,7 @@ and TPU is as simple as writing a single threaded application.
 
 I've also always had interest in game development.
 
-It might seem like I have diverging goals.
+It might seem like my goals are diverging.
 However, 
 I believe that no matter how different the fields are,
 everything is connected and will help in someway or another.
@@ -237,7 +237,7 @@ So, Java was the first general purpose programming language I learnt.
 Then,
 I found [The Coding Train](https://www.youtube.com/@TheCodingTrain)
 who inspired me to pursue Java further,
-but the biggest inspiration for me was [Kate Compton](https://www.galaxykate.com/)'s talk on [Practical Procedural Generation for Everyone](https://www.youtube.com/watch?v=WumyfLEa6bU)
+but the biggest inspiration for me was [Kate Compton](https://www.galaxykate.com/)'s talk on [Practical Procedural Generation for Everyone](https://www.youtube.com/watch?v=WumyfLEa6bU).
 
 I made a few bog-standard minecraft mods,
 tried to make a discord bot,
@@ -331,7 +331,7 @@ People kept complaining about the borrow checker,
 but I had always thought that it makes sense.
 It's just like how a database works.
 Also-also,
-I always thought that it makes no sense to manually manage memory.
+I always thought that it made no sense to manually manage memory.
 Many variables can be deleted at the end of function scope. 
 There HAS to be a way to manage it during compilation right?\
 It just makes sense to me.
@@ -400,7 +400,7 @@ That being said,
 even if it wasn't their last batch,
 I didn't have enough marks in college to apply.
 I was also too scared to live in TERFLand,
-and then _stuff_ happened in UK.
+and then _stuff_ happened in the UK.
 
 ### College ended
 
@@ -480,7 +480,7 @@ by using the energy to do productive things.
 - Trust. your. gut.
 - Don't wait for other people
   - If I need to get something done, then I should just do it myself.
-- Either stay on top of politics, or politics **will** fuck you over
+- Either stay on top of politics, or politics **will** fuck you over.
   - No one is apolitical, nothing is apolitical
   - And most definitely, no matter how hard you try to avoid politics,
     politics is still going to come to bite you.

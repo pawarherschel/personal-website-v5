@@ -11,7 +11,7 @@ tags:
   - Nix flakes
   - nixos-generators
   - Fighting with Nix
-category: Programming
+category: Tools
 draft: false
 ---
 
@@ -934,6 +934,14 @@ I've felt like it's worth the additional complexity.
 
 > Garnet
 > - Opted out of sharing socials
+
+---
+
+# Updates
+
+## 2025-05-06
+
+Updated category to `Tools`
 
 ---
 

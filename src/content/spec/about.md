@@ -1,33 +1,79 @@
 # About me
 
 Hi, I'm Herschel Pravin Pawar, you can call me kat (with a small k)!
-I’ve been programming on and off since 2018,
-and I wrote my first lines of rust in August 2023.
-I love learning and trying new things,
-and I especially love solving programs I encounter using rust.
+
+I'm bad at introductions,
+so let's just start with seemingly arbitrary questions (and answers).
 
 # Why do I write?
 
 I initially started writing
-because I wanted to put out my experiences out in the internet.
-"I have opinions, and I must voice them".
+because I wanted to put out my experience out in the internet.
 Simple as that.
 
-# The reason I keep writing
+## Longer answer
+
+"I have opinions, and I must voice them."\
+"I have feelings, and I must express them."
+
+Every so often, I find quotes that resonate deeply with me.
+Lemme give you some examples.
+1. Progress happens one funeral at a time
+   - Maybe [Planck's principle](https://en.wikipedia.org/wiki/Planck%27s_principle)?
+   - Pretty sure I just saw this in someone's twitch chat.
+2. [In this life and the next, for however long our souls remain, mine will always find yours.](https://www.goodreads.com/work/quotes/68554383-our-violent-ends) 
+   - [Our Violent Ends](https://thechloegong.com/ove/) by [Chloe Gong](https://en.wikipedia.org/wiki/Chloe_Gong)
+   - I haven't read the book; I don't think I will ever read the book. 
+    But the quote still rests in my heart. 
+3. [I am a mosaic of everyone I've ever loved, even for a heartbeat.](https://viridianmasquerade.tumblr.com/post/634434560565936128/smokeinsilence-have-you-ever-noticed-you-pick-up)
+   - A tumblr post which I saw in a [tweet](https://x.com/caffeinana/status/1791572955941720195)
+    ![](https://r2.sakurakat.systems/about--everyone-ive-loved.png)
+   - And the [original post](https://viridianmasquerade.tumblr.com/post/634434560565936128/smokeinsilence-have-you-ever-noticed-you-pick-up) is even more beautiful
+    ![](https://r2.sakurakat.systems/about--viridianmasquerade-original.png)
+
+There's also a quote that's attributed to Steve Jobs:
+> Creativity is just connecting things.
+> When you ask creative people how they did something,
+> they feel a little guilty because they didn't really do it,
+> they just saw something.
+> It seemed obvious to them after a while.
+> That's
+> because they were able
+> to connect experiences they've had and synthesize new things.
+> And the reason they were able to do that was
+> that they've had more experiences
+> or they have thought more about their experiences than other people.
+> Unfortunately, that's too rare a commodity.
+> A lot of people in our industry haven't had very diverse experiences.
+> So they don't have enough dots to connect,
+> and they end up with very linear solutions without a broad perspective on the problem.
+> The broader one's understanding of the human experience,
+> the better design we will have.
+
+Now, I'm not sure if its actually by him,
+[goodreads claims it is](https://www.goodreads.com/quotes/1031045-creativity-is-just-connecting-things-when-you-ask-creative-people).
+But, I'm not gonna fact check that.
+
+I, want to be able to write these kinds of quotes.
+
+## Longer-longer answer
 
 I noticed that my communication skills are terrible.
-I can't explain concepts in a way that general masses can understand.
-My friends used
+I can't explain concepts in a way 
+that the general masses can understand.
+
+People used
 to come to me to ask about concepts they didn't understand.
 But, usually, they'd go through my other friend.
 I was able to explain concepts to him,
-and then he would help out others.
+and then he would help the others out.
 
-People need to know me for a while,
-before they can understand what I'm trying to teach,
+People need to know me for a while
+before they can understand what I'm trying to teach,\
 and I need to know them for a while,
 so I can adjust to the way they learn.
 
+However, 
 I'm out of college now,
 and I can't rely on others to understand me.
 So, I started writing more and more.
@@ -36,51 +82,81 @@ and I'm open to criticism (but pls be soft >.>).
 
 I also think that even if I can't explain the concepts 
 (like in [Fractured Elements Breakdown](/posts/fractured-elements-breakdown/))
-it's better to just leave it in whatever state it's in, 
+it's better to just leave it as is, 
 instead of trying to perfect it,
 and just publish it.
 It's better to mark it as "complete" and then move on.
+
+:::note
+
+You see,
+I came across [this post](https://heywriters.tumblr.com/post/171785460111/write-it-badly-write-it-badly-write-it-badly) on tumblr 
+that rewired my brain.
+![](https://r2.sakurakat.systems/about--write-it-badly.png)
+
+Combined with "Move fast and break things",
+and "Done is better than perfect",
+I feel
+like it's just better to put stuff out
+rather than trying to perfect it and never finishing it.
+
+:::
 
 Over time, I've started to recognize hints from my brain when 
 I need to explain something better.
 My hope is that by practicing writing,
 I'll be able to explain (and communicate) better.
 
-I have terrible memory,
+I also have terrible memory,
 so I started microblog on Bluesky.
 The first blog post that was recorded on Bluesky via microblogging is
 [Hyper-V shenanigans with `nixos-generators`](/posts/hyperv-shenanigans/).
 
-A side effect of blogging is
+A side effect of blogging and microblogging is
 that I can offload the task of "remembering"
 to the computer.
-I'm a big proponent of letting the computer do what it's best at;
-that is, remembering, and calculations.
+I'm a big proponent of letting the computer do what they're best at;
+that is, remembering, and calculating.
+
+In the long run, 
+I want to be able to write longer, and better essays.
+That being said,
+rather than the essays being long just for the sake of being long,
+I want each word to have a reason to exist (unlike output from LLMs).
+
+I want
+to evoke feelings in the readers that they didn't even know existed.\
+I want to be the spark that will ignite passion in people's hearts.
+
+And the only way to improve,
+is to keep going on.
 
 # Goals for 2025 in no specific order
 
-- [ ] Learn Blender (2025-05-05)
+- [ ] Learn Blender (2025-04)
   - In progress
   - I play VRChat, and I want to express myself better in it.
-- [ ] Write at least once every month (2025-05-05)
+- [ ] Write at least once every month (2025-05-01)
   - Ongoing
   - Get better than communication
-  - [Hyper-V shenanigans with `nixos-generators`](/posts/hyperv-shenanigans/) (2025-04-25)
-  - [How Jujutsu VCS helps lowers the barrier to perfect git history](/posts/jj-my-beloved/) (2025-05-??)
+  - [x] April [Hyper-V shenanigans with `nixos-generators`](/posts/hyperv-shenanigans/)
+  - [ ] May [How Jujutsu VCS helps lowers the barrier to perfect git history](/posts/jj-my-beloved/)
+  - [ ] June
 - [ ] GitHub contributions (2024)
   - Shows teamwork (I hope)
-- [ ] Give one technical talk (2025-05-05)
+- [ ] Give one technical talk (2024)
   - [Kate Compton](https://www.galaxykate.com/) inspired me
     to pursue programming, 
     and now I want to pass the inspiration to others.
-- [ ] More NixOS stuff (2025-05-05)
+- [ ] More NixOS stuff (2024-12)
   - I've barely scratched the surface of what's possible with NixOS, 
     and Nix in general, and I can still see the benefits of it's way.
-- [ ] Learn more about parallel processing (2025-05-05)
-  - I believe that the future of performant code is accelerator cards,
+- [ ] Learn more about parallel processing (2024)
+  - I believe that the future of performant code is
+    by using accelerator cards,
     even if I might learn the legacy system, 
     it's still better to know about it.
-    I want to use it today,
+  - Also, I want to use it today,
     so, I'll work with what's available today.
 - [ ] Write a scientific paper and publish it in a recognized journal (2023)
   - on hold
@@ -91,8 +167,11 @@ that is, remembering, and calculations.
 People advertise Rust because (so far)
 it's the only language that's memory safe,
 doesn't have a garbage collector,
-and has performance comparable to C,
+and has performance comparable to C
+(or as [No Boilerplate](https://noboilerplate.org/) put it, ["Fast, Reliable, Productive,
+pick THREE"](https://youtu.be/Z3xPIYHKSoI?list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP&t=68)),
 and the industry adoption for Rust is increasing.
+
 The fact that I don't need to worry about memory safety,
 and performance is great.
 But, for me, those aren't the only reasons.
@@ -111,156 +190,292 @@ the biggest upgrade for me wasn't the speed.
 There are no exceptions, or ambiguous null objects.
 `Result<T, E>`, and `Option<T>` makes it explicit.
 Rust also has better defaults.
-But what does that matter?
+But why does that matter?
+
 Usually, the easy way is the better way.
+
 If the borrow checker is making something hard,
-then it probably means that the way I structured the program is bad.
+then it probably means that the way I structured the program is bad.\
+Good practices in other languages, mandatory in rust.
 
 **We stand on the shoulders of giants.**\
 And we should take advantage of that.
 Let the computer do what it's best at, 
 and use the limited time and resources we have to fill in the rest. 
 
-# My hubris
+# Hubris
 
 I want to leave a long-lasting impact on the world, 
-so even once I die, 
-people will still remember me.
+so people will remember me even after I die.
 
-Part of my life-long goals is to be known for public speaking.
+Part of my life-long goals is to be known for public speaking.\
+Another is reducing the barriers for making performant software.
 
-For that, I need to get better in my field first.
+I want to make it so creating a multithreaded application, 
+and using resources like GPU, 
+and TPU is as simple as writing a single threaded application.
 
-I always had game development in the back of my head as my field.
-But I didn't want to get into it due to the horror stories.
+I've also always had interest in game development.
 
-So I tried to find some other field,
-even if it's not something as glorious or impactful as game development.
+It might seem like I have diverging goals.
+However, 
+I believe that no matter how different the fields are,
+everything is connected and will help in someway or another.
+
+Lessons learned in one field will help in others.
 
 ## An incomplete story of my attempts
 
 ### Java Era
 
-did java in school
-got inspired by the coding train
-saw the talk by galaxykate
-saw proper java code and gave up
+We had Logo, a kind of Lisp, in earlier years, 
+but I never thought of it as a programming language.
+We just made a turtle move around and drew some simple shapes.
+So, Java was the first general purpose programming language I learnt.
+Then,
+I found [The Coding Train](https://www.youtube.com/@TheCodingTrain)
+who inspired me to pursue Java further,
+but the biggest inspiration for me was [Kate Compton](https://www.galaxykate.com/)'s talk on [Practical Procedural Generation for Everyone](https://www.youtube.com/watch?v=WumyfLEa6bU)
+
+I made a few bog-standard minecraft mods,
+tried to make a discord bot,
+did some simple canvas stuff in P3, but nothing really stuck.
+
+... And then I saw proper java code and gave up lmao.\
+I got discouraged enough to just not touch Java.
 
 ### RedHat Era
 
-I tried to get into system administration first.
+Due to the trauma I got from Java,
+I tried to get into system administration,
+I didn't want to write code.
+
 I attempted `RHCSA` and `RHCE`, 
-and failed both of them due to various circumstances.
-However, I believe that I can pass them now.
+and failed both of them due to various circumstances
+(however, I believe that I can pass them now).
 Typically, you'd get two chances at the exams.
 I was only able to give the exam once.
+
 See, I studied for the exams with another person.
 As an attempt at being friendly,
-I tried to coordinate the exam dates and place.
+I tried to coordinate the exam dates and location.
 One thing lead to another, 
 and in the end, 
-I gave the exam at the last possible dates.\
+I had to give the exam at the last possible dates.\
 **I know better now.**
 
 ### Checking out Godot
 
-did some quick games
-something sparked
-realized gamedev industry is bad
-started watching game dev videos
-Acerola hit
-something sparkled again but decided to ignore it
-saw python syntax is similar
-kept hearing python is easy
-decide to get into python instead
+Now that the whole RedHat thing was done,
+I wanted to check out Godot.
+I heard
+how it's an open sourced game engine, it has a Python-like syntax,
+that means--at least in my mind--it's the complete opposite of Java.
 
+So, I started watching Godot tutorials.
+
+I made many small and quick games to learn Godot.
+Once I got familiar with the engine,
+I started experimenting.
+I still followed tutorials but instead of copying them as is,
+I started adding my own twists like creating my own assets, 
+or deviating from the tutorial.
+
+Making games sparked something in my mind.
+I didn't know what exactly it was,
+but I knew I wanted to get into games industry.
+However,
+I promptly stopped
+that thought due to the infamous nature of games industry.
+
+Eventually,
+I found [Acerola](https://www.youtube.com/@Acerola_t)'s channel.
+Something sparked again, but I decided to ignore it.
+
+Since I had a decent experience working in GDScript,
+I decided to specialize in Python.
 
 ### Python Era
 
-tried python
-got fed up with python
-said fuck it we ball
-kept hearing about rust
-then learnt rust because of propaganda from THAT channel
+One of my first proper Python projects was a web-scrapper.
+It was nice to not constantly write the datatypes.
+I have always thought to myself,
+"The computer surely knows what type the variable has,
+why do I have to keep typing it?"
+Then the unpredictability of Python hit me.
+I couldn't just leave the script running; 
+eventually, it will run into an error I didn't expect.
+Meanwhile, I kept hearing about this newfangled language called Rust.
+
+I decided that I have had enough of Python's bs.
+
+I looked into Rust,
+the most influential YouTube channel for me was [No Boilerplate](https://www.youtube.com/@NoBoilerplate).
 
 ### Rust Era
 
-learnt rust
-converted the project from python to rust
-fell in love with rust
-friend kept teasing me that "i know everybody in vrc"
-decided to start a vrcx-insights
-will help with my terrible memory
-found out decent results with simple metrics
-wanted to turn it into a proper paper
-academics took priority
-decided to put it on hold
-get intrigued by Vulkan
-acerola uploads video about how to get into graphics
-ask Luna if i can start with vulkan directly
-she said yes
+After getting hyped up on Rust,
+I learned it
+by doing [rustlings](https://github.com/rust-lang/rustlings).
 
+I already knew the basics of programming,
+and it shouldn't be hard to adapt to the syntax.
+It took me a few days to go through rustlings,
+I had to look up the solution for several problems.
+Nevertheless, I got enough confidence to rewrite my web scrapper.
+
+Then, I fell in love with Rust.
+
+Everything made sense.
+People kept complaining about the borrow checker,
+but I had always thought that it makes sense.
+It's just like how a database works.
+Also-also,
+I always thought that it makes no sense to manually manage memory.
+There HAS to be a way to manage it during compilation right?
+Many variables can be deleted at the end of function scope.\
+**It just made sense.**
+
+Then, I started looking for a new project.
+One of my VRChat friends kept teasing I know everyone in VRChat.
+While it's true I know a lot of people,
+I still couldn't grasp the scale of how many people I knew.
+I also had trouble just remembering who is who.
+So, 
+I decided to make my new project "VRCX Insights".
+I wanted to see how people might be connected.
+Viz, I know "A" through "B", and "B" is in the friend group of "C",
+etc.
+It's the same concept as [Six degrees of separation](https://en.wikipedia.org/wiki/Six_degrees_of_separation).
+I got decent results with simple metrics,
+and I wanted to turn it into a proper paper.
+However,
+the program took a long time to crunch through the data.
+I don't want to submit a paper with a bad run time performance.
+So, 
+I started looking for ways to increase it.
+I also started
+looking for better ways to add connections between people.
+But by then, I had to fucus on not failing my exams,
+and I decided to put the project on hold.
+
+Between all the academic stuff,
+I didn't stop searching for ways to make performance better.
+I found out about Vulkan, and got intrigued.
+Then, almost like fate,
+Acerola uploads [What Is A Graphics Programmer?](https://www.youtube.com/watch?v=O-2viBhLTqI).
+I decided to join their discord,
+and there's a channel about how to get into graphics programming.
+
+I knew
+[Inochi2d](https://inochi2d.com/)'s creator LunaTheFoxgirl knew about Vulkan.
+I decided to ask her if I can start with Vulkan directly,
+and she said technically yes. 
 
 ### Covuni
 
-went to covuni
-talked to professors
-talked to people IN games industry
-they told its not that bad
-learnt the basics of unity from professors
-realized how much better learning is 
-when someone is interested in teaching and knows their shit
-they had a course on game engine development
-wanted to apply but then realize low marks
-due to burnout and depression
-give up on covuni (dont want to get in TERFLand)
+Then, I went to Coventry University, UK, 
+for summer school.
 
-### college ended
+I talked to the professors about Vulkan, 
+and they recommended me to start with OpenGL.
+"Fair enough", I thought.
 
-uncertain about what to do
-def dont want to stay in india tho due to politics
-two paths
+I met someone who's a game dev and works at a company,
+and according to them,
+the industry isn't that bad, 
+at least in the UK.
 
-1. job > get xp > get out
-2. uni
+I learned unity basics from the professors, 
+and realized
+how much more fun learning is 
+when the professor is interested in teaching,
+and know what they're talking about.
 
-kept looking for rust jobs while saying 
-"if i get uni first then uni, otherwise job"
-didnt do a good job on either
-met a certain somebody
-got me out of my paralysis
-decide to full focus on game dev
+They told me they had a course on game engine development,
+the field I was considering.
+But 2024 was their last batch.
+That being said,
+even if it wasn't their last batch,
+I didn't have enough marks in college to apply.
+I was too scared to live in TERFLand anyways,
+and then _stuff_ happened in UK.
 
-### aalto
+### College ended
 
-saw they dont care about marks for game dev
-they care about passion
-think "i am passionate"
-its not game engine dev but i can learn game dev
-and meet other other people
-uni isnt just about studies
-finland is a pleasant country
-decide to go for it
-tried my best to get admission
-had fun with friends with the tasks
-fumbled the interview HARD
-made me realize how bad i am at everything
-knew id get rejected
-focus on improvement
+I was really uncertain about what to do.
+I didn't want
+to stay in Indie due to some political situation I notice.
 
-### Now
+So, I had two paths.
 
-trying my best to improve everything
+1. Get a job, work for a few years, and then go out.
+2. Get accepted into a University.
+
+I decided to do both,
+I was already looking for Rust jobs,
+and started keeping an eye out for university stuff.
+However, the reality was that I wasn't doing either properly.
+
+Then, I met a certain somebody.
+She got me out of decision paralysis,
+and I started looking for Universities.
+
+I had finally come to a conclusion
+that I want to study game development.
+I've always said that nothing is better than being able to learn.
+So went full throttle on it.
+
+And then I hit jackpot.
+
+### Aalto University
+
+For game development at Aalto University,
+the primary criteria was projects,
+and not marks.
+
+It screams to me that they care about passion.
+I thought, "I'm passionate about games".
+Even if it's not game engine development,
+I can still meet and ask help from other professors there.
+If it was anywhere similar to my experience at Coventry University,
+I would have a great time there.
+
+I applied,
+had fun in the preliminary tasks,
+and then **horribly fumbled my interview**.
+During the admission process I realized how bad I am at everything.
+I knew I was most probably going to get rejected.
+
+
+### Now (2025-05-07)
+
+The reason
+they gave for rejecting me in the email was lack of teamwork
+and not enough game projects or at least 3D game projects.
+
+So just trying my best to improve everything!
+
+# Spite
+
+I live to spite on people who want me dead.\
+I live to blow the people who underestimate me.
+
+I tend
+to turn anger and rage into a positive feeling
+by using the energy to do productive things.
+
+**I will stay alive and thrive.**
 
 # Life lessons I've learnt
 
 - Never back down on learning anything new
   - everything is connected, and everything is related
-  - even lessons from abstract maths like category theory will come around to be useful 
 - Don't dwell in past
-  - I did the best I can in the circumstances I was in
-  - look forward to the future and ask myself "what can I learn to improve on that mistake"
-  - you cant change the past, but you can affect the future
+  - `I did the best I can in the circumstances I was in`
+  - look forward to the future and ask "what can I learn to improve on that mistake"
+  - you can't change the past, but you can influence the future.
+  - As the saying goes, "It's no use crying over spilt milk"
 - Trust. your. gut.
   - Rust? good
   - Game dev? not accurate
@@ -268,6 +483,16 @@ trying my best to improve everything
   - If something feels wrong, question it
 - Don't wait for other people
   - If I need to get something done, then I should just do it
+- Either stay on top of politics, or politics **will** fuck you over
+  - No one is apolitical, nothing is apolitical
+  - And most definitely, no matter how hard you try to avoid politics,
+    politics is still going to come to bite you.
+- Try to practice good habits, even if it doesn't matter
+  - I used to solve leetcode problems with one of my friends, 
+    and even if the quality of the code didn't matter,
+    I stuck to best practices.
+  - This way, I tend to build up good practices as a reflex.
+  - Practice during low stakes situations, so you can put it into effect during high stakes situations.
 
 ---
 

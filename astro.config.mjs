@@ -69,7 +69,6 @@ export default defineConfig({
 		}),
 		svelte(),
 		sitemap(),
-
 	],
 	markdown: {
 		remarkPlugins: [

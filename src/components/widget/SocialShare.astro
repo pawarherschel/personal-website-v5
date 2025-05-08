@@ -40,7 +40,7 @@ const {
 <div class="card-base p-4 mb-4 relative w-full z-10" id="share">
 	<h3 class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">Share (ad blocker might remove the buttons)</h3>
 	<div class="h-1 w-20 bg-[var(--primary)] mx-auto rounded-full mb-4 transition"></div>
-	<div class="flex flex-row justify-evenly">
-        {buttons.map((Button) => <div class="group"><Button url={url} description={description} via={via} title={title} class="transition flex-grow btn-card rounded-2xl w-[3.75rem] h-[3.75rem] fill-white/75 p-2 group-hover:-scale-x-100"/></div>)}
+	<div class="grid grid-flow-row-dense auto-rows-min auto-cols-min grid-cols-5 md:grid-cols-10">
+        {buttons.map((Button) => <div class="group h-fit w-fit contents"><Button url={url} description={description} via={via} title={title} class="transition btn-card rounded-2xl w-[3.75rem] h-[3.75rem] fill-white/75 p-2 group-hover:-scale-x-100"/></div>)}
 	</div>
 </div>

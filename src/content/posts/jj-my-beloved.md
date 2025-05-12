@@ -1,5 +1,5 @@
 ---
-title: "How Jujutsu VCS helps lowers the barrier to perfect git history"
+title: "How Jujutsu VCS helps to lower the barrier to perfect git history"
 description: "Keeping a clean Git history is hard, but Jujutsu VCS changes that! Learn more about Jujutsu VCS in this blog post."
 published: 2025-05-04
 image: https://r2.sakurakat.systems/jj-my-beloved--banner.png
@@ -14,11 +14,7 @@ draft: false
 Working properly with Git is a chore.
 I need to make sure the commits are descriptive
 (often following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)),
-and the commits are atomic.
-I need
-to make sure the changes
-I'm doing,
-fit in the commit goal I'm working towards.
+and the commits need to be atomic.
 I used
 to spend a non-trivial amount of time and effort
 trying to keep my history sensible, and still failed.
@@ -31,7 +27,7 @@ and even then, I stuck to the basic `add`,
 and occasionally `merge` and `rebase`.
 [Jujutsu (`jj`)](https://jj-vcs.github.io/) changed that.
 `jj` made it easy to fix the usual mistakes I'd make with `git`.
-There are differences from `git`,
+It's different from `git`,
 but once they clicked, I couldn't go back.
 Also, from what I've been told,
 you will also like `jj` more
@@ -68,12 +64,13 @@ That's it!
 When I first learned about `git`,
 those were the only commands I'd use.
 
-Later on, I learned about branches.
+Later, I learned about branches.
 I had no use for branches
-until I had to collaborate with people in college(college rant[^college-rant]).
+until I had to collaborate with people in college
+(college rant[^college-rant]).
 
 [^college-rant]: See, in Indian colleges, the "team" in "team project" is in name only.
-Majority of the projects are either copied directly from GitHub,
+Most of the projects are either copied directly from GitHub,
 or from a YouTube video.
 One person does the "coding"; 
 another does the documentation required for the project 
@@ -131,8 +128,8 @@ You then select the changes you want to commit in a TUI.
 
 <img height="1380" src="https://r2.sakurakat.systems/jj-my-beloved--jj-split-tui-1.png" width="2560"/>
 
-In the above image,
-I’ve expanded the changes for `TermErrors.yml` file.
+In the image above,
+I've expanded the changes for `TermErrors.yml` file.
 
 Currently, none of the changes are selected.
 
@@ -148,7 +145,7 @@ Let's select the first change in `TermsErrors.yml`.
 2. Press `spacebar`
    <img height="1380" src="https://r2.sakurakat.systems/jj-my-beloved--jj-split-tui-3.png" width="2560"/>
 
-You'll notice there are three states of "selectedness".
+You'll notice there are three selection states:
 
 - `[ ]`: None of the children are selected.
 - `[◐]`: Children are partially selected.
@@ -175,6 +172,13 @@ jj st
 ```
 
 <img height="292" src="https://r2.sakurakat.systems/jj-my-beloved--jj-split-tui-jj-st.png" width="749"/>
+
+:::note
+
+I use `jj st` is an alias for `jj status` in the cli.
+I use it so often, I instinctively type `st` instead of `status`.
+
+:::
 
 # Reading the status
 
@@ -273,9 +277,16 @@ It's technically wrong, but I can't think of a parallel in `git`.
 
 You already know one revset: "@".
 
+An interesting revset is `root()` which is a virtual commit,
+and all the commits are "descendants" of "root()".
+
+So, the first commit in the repo is `root()+`,
+and all the commits from `root()` to the current commit `@` can be expressed as
+`root()..@`.
+
 Revsets are really cool,
 read more about them on the docs here:
-https://jj-vcs.github.io/jj/latest/revsets/
+https://jj-vcs.github.io/jj/latest/revsets/.
 
 I will be using "revset" from here on where it's appropriate
 as it will reduce confusion in the long term.
@@ -291,7 +302,7 @@ These will change as you modify the commit.
 Entering the full hash is inconvenient,
 and unless you have really good memory, 
 you can't memorize the hash.
-So, `jj` allows you use the least amount of letters from the hash 
+So, `jj` allows you to use the least number of letters from the hash 
 that won't cause any collisions,
 and highlights them.
 In this case `om`, `cb`, `lw`, and `1`.
@@ -318,13 +329,23 @@ Let's create the bookmark
 jj bookmark create jj-my-beloved -r "@"
 ```
 
+:::note
+
+I need to wrap the `@` in double quotes as I'm using PowerShell.
+
+From https://jj-vcs.github.io/jj/latest/windows/#typing-in-powershell:
+> PowerShell uses @ as part the [array sub-expression operator](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_arrays?view=powershell-7.4#the-array-sub-expression-operator), so it often needs to be escaped or quoted in commands:
+
+:::
+
+
 The command seems fine till `jj-my-beloved`, 
 and then there's `-r "@"`. 
 What does that mean?
 
 `-r` is shorthand for `--revision`.
-You pass the change ID or revset
-(tbh I assumed `-r` stood for `revset`) to it.
+You pass the change ID or revset to it
+(tbh I assumed `-r` stood for `revset`).
 `jj` will then create a new branch, 
 and the latest commit in the branch will be that revset.
 
@@ -344,12 +365,12 @@ jj git push -b "jj-my-beloved"
 
 Notice that the command is `jj git...` and not just `jj...`
 
-That's because `jj` was built with different backends in mind.
-Backend in this case refers to different VCS.
+That's because `jj` was built with different backends in mind, 
+where backend in this case refers to different VCS.
 So, you can add support for multiple VCS to `jj`.
 You aren't just limited to `git`.
 
-If there are some backend-specific features,
+I would guess that if there are some backend-specific features,
 they will have the backend's name in the command
 (like `git` here).
 
@@ -376,13 +397,7 @@ HARSH TRANSITION
 
 :::
 
-Let's say its end of day, 
-and I'd like to 
-commit all the changes I've done to save the progress.
-I used to avoid doing this in `git`, 
-I had to keep aside 15 minutes everyday,
-just so I can make meaningful commits.
-However, with `jj`, I don't need to worry about that.
+I like to commit all my changes at the end of day.
 
 :::note
 
@@ -392,7 +407,17 @@ Or you know,
 
 :::
 
-I can just commit everything using the below command.
+If I'm using `git`,
+I can't just use the usual command of `git commit`.
+I would need
+to take aside time to ensure my git history is "good enough".
+But with `jj`,
+I can do `jj commit` and end my work any time,
+and then deal with the messy history afterward.
+
+
+I can just commit everything using the below command,
+and then worry about splitting and combining the changes tomorrow.
 
 ```powershell
 jj commit -m "checkpoint: EOD"
@@ -407,7 +432,24 @@ you use to add messages using `git`
 
 <img height="119" src="https://r2.sakurakat.systems/jj-my-beloved--EOD.png" width="917"/>
 
-And then worry about splitting and combining the changes tomorrow.
+<div id="andrew-eod">
+
+:::note
+
+You can do the same with different branch:
+
+```bash
+git checkout -b tmp && git all -A && git commit -m "checkpoint: EOD"
+```
+
+or directly on your branch, if it's just yours.
+Then just do `git reset HEAD~`.
+
+~ Andrew
+
+:::
+
+</div>
 
 # Squashing changes
 
@@ -564,9 +606,36 @@ Let's edit the commit message.
 jj describe lw
 ```
 
+<div id="andrew-describe">
+
+:::note
+
+You can change it with `git commit --amend hash`.
+But only first,
+the rest through `git rebase -i`.
+I assume
+`jj` does this behind the scene anyway,
+because changing any commit will change the hash of the rest.
+
+~ Andrew
+
+:::
+
+</div>
+
 <img height="217" src="https://r2.sakurakat.systems/jj-my-beloved--jj-describe-lw.png" width="911"/>
 
 Done!
+
+:::note
+
+unlike `git`'s way of doing things, 
+`jj describe` can be used any time.
+
+In fact, `jj commit -m "msg"`
+is an alias for `jj new` followed by `jj describe -m "msg"`.
+
+:::
 
 # Merging branches
 
@@ -608,7 +677,7 @@ The recommended way to resolve merge conflicts is
 to create a new commit,
 resolve the conflicts, and then squash the commit.
 This is called the Squash Workflow.
-More on that later in [# Squash Workflow](^squash-workflow)
+More on that later in [# Squash Workflow](^squash-workflow).
 
 So, `jj new`.
 
@@ -620,7 +689,7 @@ You can use the inbuilt resolver by using
 jj resolve
 ```
 
-OK, now that the template is updated,
+OK, now, the template is updated,
 I want to remove the images from git history, again ^^;
 I need to first change to the "rs" commit, and then split.
 
@@ -633,21 +702,21 @@ Now, I have a problem.
 
 I need to bring the images' commit to latest commit.
 
-The way I need to do that is via `jj rebase`
+Let's think about what I need to do to achieve that.
 
-The change ID for the images' commit is "sw"
-
-The change ID for the latest commit is "wm"
-
-I need to move the commit so "sw" is before "wm"
+1. I need to rebase the commits.
+2. The change ID for the images' commit is "sw".
+3. The change ID for the latest commit is "wm".
+4. I need to move the commit so "sw" is before "wm".
 
 ```powershell
 jj rebase -r sw --insert-before wm
 ```
 
-What's the command doing? 
+So what does the command do?
 It moves the revision "sw", 
-and insert it before "wm".
+and insert it before "wm".\
+Perfect!
 
 <img height="224" src="https://r2.sakurakat.systems/jj-my-beloved--jj-rebase-results.png" width="1087"/>
 
@@ -678,12 +747,25 @@ and so, the "last updated date" for all my posts became `2025-04-25`.
 It took me ~10 minutes to fix the mistake, 
 where I spent a lot of time just fumbling commands.
 
-While doing it, one of `jj`'s safeguard activated, 
+While doing it, one of `jj`'s safeguards activated, 
 preventing me from editing a commit that I have already pushed.
+
+<div id="andrew-edited-commits">
+
+:::note
+
+`git` will stop you from pushing edited commits,
+but not editing them locally.
+
+~ Andrew
+
+:::
+
+</div>
 
 <img height="219" src="https://r2.sakurakat.systems/jj-my-beloved--immutable-commits-error.png" width="1374"/>
 
-It was an error similar to the above image.
+It was an error like the image above.
 
 I bypassed the safeguard by using `--ignore-immutable` flag, 
 and then force pushed.
@@ -693,7 +775,7 @@ and then force pushed.
 `jj` has more safeguards like `jj op log`,
 `jj undo`.
 
-But, I don't know how to use them yet ^^;
+But I don't know how to use them yet ^^;
 
 :::
 
@@ -706,7 +788,7 @@ It goes as follows:
 2. Make the required changes
 3. Squash the changes into the old commit
 
-`jj` has the ability to directly edit the commits, 
+`jj` can directly edit the commits, 
 so why would you go through all this effort?
 
 This workflow ensures that the previous commit remains as is, 
@@ -765,6 +847,61 @@ A random person replied to my message asking how Amos' post can be taken in a ne
 
 <img height="618" src="https://r2.sakurakat.systems/jj-my-beloved--typst-M-reply.png" width="876"/>
 
+## Misc
+
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:qfpnj4og54vl56wngdriaxug/app.bsky.feed.post/3lotgdvwv322c" data-bluesky-cid="bafyreifjo5hggla7fahujjmf4amovgutxa7ejg7ufx7uvi6u5fw6yjy66y" data-bluesky-embed-color-mode="system"><p lang="en">jeez i had a variety of hacks in place to manage simultaeneous streams of work with git (branches, stashes, worktrees).
+
+... and jj just has one tool: jj new. fewer concepts but so much more powerful.</p>&mdash; akshay (<a href="https://bsky.app/profile/did:plc:qfpnj4og54vl56wngdriaxug?ref_src=embed">@oppi.li</a>) <a href="https://bsky.app/profile/did:plc:qfpnj4og54vl56wngdriaxug/post/3lotgdvwv322c?ref_src=embed">May 10, 2025 at 10:34 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+
+---
+
+# Post-writing discussion
+
+I asked ayumi if, after reading the blog post,
+she's at least somewhat interested in `jj`.
+
+Her reply:
+> Maybe once it's finished--for example nowadays I mainly contribute to Tangara firmware
+> and I need Git submodules support for that, which appears to be absent in jj. 
+> Some other things like SHA–256 Git repositories also appear not to work. 
+> I'm sure that those two things will be implemented eventually. 
+> I played with it a little and getting used to the different workflow 
+> would probably take some time in my case, 
+> though if I were to guess jj would probably be simpler to use for
+> people who either didn’t use a VCS before or haven’t got used 
+> (or can’t get used) to Git yet.
+
+Garnet chimed in
+and said that she uses `git commit --amend` very often,
+and ayumi concurred.
+
+Garnet also commented:
+> I like how jj handles commit hashes (as in, allowing you to use the shortened hash)
+> but on Git I don't have a much of a problem either because the CLI supports tab completion
+> also git has an interactive rebase feature
+> `git rebase --interactive`
+> it is a little confusing to me sometimes but I take it as a skill issue
+> I'm not convinced that it's worth switching to jj but that's just my opinion
+
+ayumi also had a "fun fact" about `jj`
+> if you set up commit signing
+> and like me have the signature stored on a U2F key it will ask you
+> to tap the key every time it sees changes.
+
+By "it sees changes", ayumi meant everytime `jj` is executed.
+
+While trying out `jj`, ayumi noticed a problem,
+even three line `jj st` output was shown in the pager.
+
+The solution she found was 
+```bash
+jj config set --repo ui.pager 'less -F'
+```
+
+Another interesting thing,
+<blockquote class="mastodon-embed" data-embed-url="https://inuh.net/@evmar/114461788446840271/embed" style="background: #FCF8FF; border-radius: 8px; border: 1px solid #C9C4DA; margin: 0; max-width: 540px; min-width: 270px; overflow: hidden; padding: 0;"> <a href="https://inuh.net/@evmar/114461788446840271" target="_blank" style="align-items: center; color: #1C1A25; display: flex; flex-direction: column; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Roboto, sans-serif; font-size: 14px; justify-content: center; letter-spacing: 0.25px; line-height: 20px; padding: 24px; text-decoration: none;"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 79 75"><path d="M74.7135 16.6043C73.6199 8.54587 66.5351 2.19527 58.1366 0.964691C56.7196 0.756754 51.351 0 38.9148 0H38.822C26.3824 0 23.7135 0.756754 22.2966 0.964691C14.1319 2.16118 6.67571 7.86752 4.86669 16.0214C3.99657 20.0369 3.90371 24.4888 4.06535 28.5726C4.29578 34.4289 4.34049 40.275 4.877 46.1075C5.24791 49.9817 5.89495 53.8251 6.81328 57.6088C8.53288 64.5968 15.4938 70.4122 22.3138 72.7848C29.6155 75.259 37.468 75.6697 44.9919 73.971C45.8196 73.7801 46.6381 73.5586 47.4475 73.3063C49.2737 72.7302 51.4164 72.086 52.9915 70.9542C53.0131 70.9384 53.0308 70.9178 53.0433 70.8942C53.0558 70.8706 53.0628 70.8445 53.0637 70.8179V65.1661C53.0634 65.1412 53.0574 65.1167 53.0462 65.0944C53.035 65.0721 53.0189 65.0525 52.9992 65.0371C52.9794 65.0218 52.9564 65.011 52.9318 65.0056C52.9073 65.0002 52.8819 65.0003 52.8574 65.0059C48.0369 66.1472 43.0971 66.7193 38.141 66.7103C29.6118 66.7103 27.3178 62.6981 26.6609 61.0278C26.1329 59.5842 25.7976 58.0784 25.6636 56.5486C25.6622 56.5229 25.667 56.4973 25.6775 56.4738C25.688 56.4502 25.7039 56.4295 25.724 56.4132C25.7441 56.397 25.7678 56.3856 25.7931 56.3801C25.8185 56.3746 25.8448 56.3751 25.8699 56.3816C30.6101 57.5151 35.4693 58.0873 40.3455 58.086C41.5183 58.086 42.6876 58.086 43.8604 58.0553C48.7647 57.919 53.9339 57.6701 58.7591 56.7361C58.8794 56.7123 58.9998 56.6918 59.103 56.6611C66.7139 55.2124 73.9569 50.665 74.6929 39.1501C74.7204 38.6967 74.7892 34.4016 74.7892 33.9312C74.7926 32.3325 75.3085 22.5901 74.7135 16.6043ZM62.9996 45.3371H54.9966V25.9069C54.9966 21.8163 53.277 19.7302 49.7793 19.7302C45.9343 19.7302 44.0083 22.1981 44.0083 27.0727V37.7082H36.0534V27.0727C36.0534 22.1981 34.124 19.7302 30.279 19.7302C26.8019 19.7302 25.0651 21.8163 25.0617 25.9069V45.3371H17.0656V25.3172C17.0656 21.2266 18.1191 17.9769 20.2262 15.568C22.3998 13.1648 25.2509 11.9308 28.7898 11.9308C32.8859 11.9308 35.9812 13.492 38.0447 16.6111L40.036 19.9245L42.0308 16.6111C44.0943 13.492 47.1896 11.9308 51.2788 11.9308C54.8143 11.9308 57.6654 13.1648 59.8459 15.568C61.9529 17.9746 63.0065 21.2243 63.0065 25.3172L62.9996 45.3371Z" fill="currentColor"/></svg> <div style="color: #787588; margin-top: 16px;">Post by @evmar@inuh.net</div> <div style="font-weight: 500;">View on Mastodon</div> </a> </blockquote> <script data-allowed-prefixes="https://inuh.net/" async src="https://inuh.net/embed.js"></script>
+
+
 ---
 
 # Proofreaders
@@ -772,9 +909,14 @@ A random person replied to my message asking how Amos' post can be taken in a ne
 > Divyesh Patil
 > - https://www.linkedin.com/in/divyesh-patil-525808257/
 
-> ayumi (also the comment in [# Partially committing changes](#partially-committing-changes) giving an idea of how to do it in git [aymi's comment](#ayumis-comment))
+> ayumi (also the comment in [# Partially committing changes](#partially-committing-changes) giving an idea of how to do it in git [ayumi's comment](#ayumis-comment))
 > - Opted out of sharing socials
 
+> Andrew (also multiple comments, [1](#andrew-eod), [2](#andrew-describe), [3](#andrew-edited-commits))
+> - https://codeberg.org/Andrew15-5
+
+> Garnet
+> - Opted out of sharing socials
 
 ---
 

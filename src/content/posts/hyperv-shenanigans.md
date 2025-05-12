@@ -929,7 +929,7 @@ I've felt like it's worth the additional complexity.
 > Divyesh Patil
 > - https://www.linkedin.com/in/divyesh-patil-525808257/
 
-> Andrew Voynov
+> Andrew
 > - https://codeberg.org/Andrew15-5
 
 > Garnet
@@ -938,6 +938,10 @@ I've felt like it's worth the additional complexity.
 ---
 
 # Updates
+
+## 2025-05-12
+
+Removed the last name from Andrew's name
 
 ## 2025-05-06
 

@@ -12,10 +12,10 @@
 
 [//]: # (Boasting)
 
-Hi, I'm Herschel Pravin Pawar, you can call me kat (with a small k)!
+Heya, I'm Herschel Pravin Pawar. You can call me kat (with a small k)!
 
 My interests vary from 3D modelling, programming, writing,
-_yapping_ about technical stuff,
+yapping about technical stuff,
 and trying my best to learn everything.
 I try my best to look forward to a better future,
 and also make sure I'm not only getting better myself,
@@ -220,7 +220,7 @@ But 2024 was their last batch.
 That being said,
 even if it wasn't their last batch,
 I didn't have enough marks in college to apply.
-I was also too scared to live in TERFLand,
+Living in "TERFLand" also sounded scary,
 and then _stuff_ happened in the UK.
 
 ### College ended
@@ -302,8 +302,8 @@ Get better than communication
 ### Progress
 
 1. [x] April [Hyper-V shenanigans with `nixos-generators`](/posts/hyperv-shenanigans/)
-2. [ ] May [How Jujutsu VCS helps lowers the barrier to perfect git history](/posts/jj-my-beloved/)
-3. [ ] June
+2. [x] May [How Jujutsu VCS helps lowers the barrier to perfect git history](/posts/jj-my-beloved/)
+3. [ ] June TODO: Why Rust?
 
 ## GitHub contributions (2024)
 
@@ -438,11 +438,7 @@ If I can express myself properly, it will inspire people.
 
 ## "I have opinions, and I must voice them."
 
-:::caution[TODO]
-
-`/posts/why-rust`
-
-:::
+I want to explain to other people why I do things the way I do them.
 
 ## "Look at this cool rock I found!"
 
@@ -455,6 +451,8 @@ to come to me to ask about concepts they didn't understand.
 But, usually, they'd go through my other friend.
 I explained the concepts to him,
 and then he would help the others out.
+They'd go to the same friend to ask help for technical stuff,
+and if he couldn't solve it, then he'd ask me.
 
 People need to know me for a while
 before they can understand what I'm trying to teach,\
@@ -497,7 +495,7 @@ I'll be able to explain (and communicate) better.
 
 I also have terrible memory,
 so I started microblog on Bluesky.
-The first blog post that was recorded on Bluesky via microblogging is
+The first blog post recorded on Bluesky via microblogging is
 [Hyper-V shenanigans with `nixos-generators`](/posts/hyperv-shenanigans/).
 
 A side effect of blogging and microblogging is
@@ -542,14 +540,16 @@ And always remember the saying "It's no use crying over spilt milk".
 
 If I need to get something done, then I should just do it myself.
 
-## Either stay on top of politics, or politics **will** fuck you over
+## Either stay on top of politics, or politics **will** fuck you over.
 
 No one is apolitical and nothing is apolitical.
 And most definitely, no matter how hard you try to avoid politics,
 politics is still going to come to bite you.
 
 Politics isn't just limited to governance,
-even small decisions and opinions can be considered political under the right circumstances.
+even small decisions and opinions are political under the right circumstances.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/7iKjSCTxke8?si=TmZApVaYU7umdJOD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Practice good habits, even if it doesn't matter
 

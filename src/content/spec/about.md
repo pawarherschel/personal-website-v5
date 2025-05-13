@@ -1,7 +1,7 @@
 [//]: # (- [ ] Apathy)
-[//]: # (- [ ] Gluttony)
 [//]: # (- [x] Boasting)
 [//]: # (- [x] Envy)
+[//]: # (- [x] Gluttony)
 [//]: # (- [x] Greed)
 [//]: # (- [x] Lust)
 [//]: # (- [x] Pride)
@@ -549,8 +549,6 @@ politics is still going to come to bite you.
 Politics isn't just limited to governance,
 even small decisions and opinions are political under the right circumstances.
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/7iKjSCTxke8?si=TmZApVaYU7umdJOD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
 ## Practice good habits, even if it doesn't matter
 
 I used to solve leetcode problems with one of my friends, 
@@ -564,6 +562,125 @@ so I will be able to perform during high stakes situations.
 
 People also say "practice makes perfect", but I disagree.\
 Practice makes habits, so practice good habits.
+
+# Intemperance (or "Things close to my heart")
+
+[//]: # (Gluttony)
+
+Think of this section as media I like to recommend.\
+Sorted in reverse chronological order.
+
+## 2025-05-11: (YouTube) The Desire to Be Sad by Clark Elieson
+
+Specifically the "My Story" section
+
+https://youtu.be/3zdudOjHMk8?t=1032 (timestamped)
+
+Depression made me obsessed with art and beauty.
+I've said it to one of my friends,
+being depressed and melancholic makes you "enlightened".
+"You can only find the true meaning of life
+if you get past the fear of death".
+
+I was only able to discover myself when nothing mattered.
+And if nothing mattered, then who cares if I'm considered "normal".
+Might as well be myself.
+
+I still don't talk about the hardest moments in my life,
+but they're the reason I am who I am.
+
+## 2025-05-07: (Anime) Frieren: Beyond Journey's End (Sousou no Frieren)
+
+https://anilist.co/anime/154587/Frieren-Beyond-Journeys-End/
+
+There are a lot of anime that follow the basic plot of:
+1. A brat (the hero, who's human) forms a party of powerful people
+2. One of the people is an elf girl
+3. They both fall in love with each other
+4. The party kills the demon king
+5. The hero and the elf get married
+6. Anime ends
+
+`Frieren: Beyond Journey's End` (hereby `Frieren`) is different.
+
+I often asked myself,
+"What happens after the hero dies?
+He's a human, and she's an elf.
+The difference in their lifespan is an order of magnitude different,
+sometimes even more."
+
+`Frieren` answers that question, and more.
+
+The elf Frieren has lived for millenniums
+but never cared to connect with anyone
+after her teacher died.
+She's going to outlive everyone, 
+what's the point in knowing anyone?
+Then, the cliché pattern happened.
+She gets recruited by a human who goes by "Himmel".
+The boy is kind and charming.
+
+He's an extremely positive influence on Frieren,
+despite being with him for ten years,
+less than one-tenth of her lifespan.
+Even after his death,
+when she's unsure about what to do,
+she thinks "What would Himmel the hero do?".
+
+The anime follows Frieren,
+as she retraces the adventures they had;
+Just,
+so she can savour their memories together
+before the world inevitably forgets about them.
+
+The anime has a lot of comedic and high octane action scenes, 
+but,
+in my opinion,
+the best scenes are the minor ones.
+
+The ones where she interacts with the people.
+\
+The ones where she reminisces about her "short" time with the party.
+\
+It's the little things in life.
+
+The anime makes sure we experience the moments vicariously through her memories.
+It makes you **feel** the loss of Himmel and how it affects Frieren.\
+It's truly bittersweet anime.
+
+As one of the [reviews](https://anilist.co/review/24028) put it,
+"What it means to be human, as taught by an elf.".
+
+# 2024-06-13 (Anime) Delicious in Dungeon (Dungeon Meshi)
+
+https://anilist.co/anime/153518/Delicious-in-Dungeon/
+
+`Delicious in Dungeon` has a really great representation of autism.
+
+Watch: [Dungeon Meshi - Spelunking On the Spectrum by Superdude](https://www.youtube.com/watch?v=SsclZHp0orE)
+
+It has the best character writing I've seen so far,
+and it would be hard to beat it, at least for me.
+
+Senshi the dwarf helped people with eating disorder.
+
+See: [I have anorexia and when I can't force myself to put food in my mouth, I imagine Senshi encouraging me to try, and it works in r/DungeonMeshi](https://www.reddit.com/r/DungeonMeshi/comments/1d4yc54/i_have_anorexia_and_when_i_cant_force_myself_to/)
+\
+See: [Has the show changed how you view meals and food? in r/DungeonMeshi](https://www.reddit.com/r/DungeonMeshi/comments/1d2zcyq/has_the_show_changed_how_you_view_meals_and_food/)
+
+I know it's not a scientific method by any means, 
+but I can personally say that Senshi influenced me to eat healthier.
+
+Anime has "kemonomimi"
+(kemono: animal, mimi: ear) humans who have animal traits.
+has Izutsumi the Beast-man who is an animal with human traits.
+She's selfish and cold, but she's not a bad person by any means.
+
+Izutsumi was treated cruelly by her original found family, 
+and as a result she acts the way she is.
+She warms up to her new found family and slowly turns more "human".
+
+She's the character who's closest to me.
 
 # Covetousness (or "Credits")
 

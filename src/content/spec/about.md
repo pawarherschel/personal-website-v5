@@ -359,29 +359,40 @@ I just wanna :3
 
 https://github.com/pawarherschel/vrcx-insights
 
-# Spite (or "What drives me?")
+[//]: # (# Spite &#40;or "What drives me?"&#41;)
 
-[//]: # (Wrath)
+[//]: # ()
+[//]: # ([//]: # &#40;Wrath&#41;)
+[//]: # ()
+[//]: # (## "Channel your inner rage into bringing positivity")
 
-## "Channel your inner rage into bringing positivity"
+[//]: # ()
+[//]: # (I tend)
 
-I tend
-to turn anger and rage into a positive feeling
-by using the energy to do productive things.
+[//]: # (to turn anger and rage into a positive feeling)
 
-## "I live to spite on people who want me dead."
+[//]: # (by using the energy to do productive things.)
 
-I will not just live, I will thrive.
+[//]: # ()
+[//]: # (## "I live to spite on people who want me dead.")
 
-## "I spite on the people who underestimate me."
+[//]: # ()
+[//]: # (I will not just live, I will thrive.)
 
-## "I spite this world where corporations matter more than humans."
+[//]: # ()
+[//]: # (## "I spite on the people who underestimate me.")
 
-## "I spite the world where difficulty exists to gatekeep people."
+[//]: # ()
+[//]: # (## "I spite this world where corporations matter more than humans.")
 
-I want to break down those barriers.
+[//]: # ()
+[//]: # (## "I spite the world where difficulty exists to gatekeep people.")
 
-I don't just want to improve myself, I also want to empower others. 
+[//]: # ()
+[//]: # (I want to break down those barriers.)
+
+[//]: # ()
+[//]: # (I don't just want to improve myself, I also want to empower others. )
 
 # Compulsion (or "Why do I write?")
 

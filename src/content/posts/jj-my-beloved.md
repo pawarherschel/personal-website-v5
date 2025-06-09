@@ -633,7 +633,7 @@ unlike `git`'s way of doing things,
 `jj describe` can be used any time.
 
 In fact, `jj commit -m "msg"`
-is an alias for `jj new` followed by `jj describe -m "msg"`.
+is an alias for `jj describe -m "msg"` followed by `jj new`.
 
 :::
 
@@ -917,6 +917,18 @@ Another interesting thing,
 
 > Garnet
 > - Opted out of sharing socials
+
+---
+
+# Updates
+
+## 2025-06-09
+
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:p3dj242qnnw43v2ctju6hdfy/app.bsky.feed.post/3lqyet4etoc2r" data-bluesky-cid="bafyreibt5tdr747seux667v6ayzlv5b55aflgel3csj4mngtidcexexll4" data-bluesky-embed-color-mode="system"><p lang="en">Thanks I really enjoyed your article! It was the perfect depth for an overview
+
+One question about this note: In fact, jj commit -m &quot;msg&quot; is an alias for jj new followed by jj describe -m &quot;msg&quot;.
+
+Shouldn&#x27;t the order be reversed? First the working changeset is described, then &quot;commited&quot; with jj new?</p>&mdash; tiki.bsky.social (<a href="https://bsky.app/profile/did:plc:p3dj242qnnw43v2ctju6hdfy?ref_src=embed">@tiki.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:p3dj242qnnw43v2ctju6hdfy/post/3lqyet4etoc2r?ref_src=embed">June 7, 2025 at 8:40 AM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 ---
 

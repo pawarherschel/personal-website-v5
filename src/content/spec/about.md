@@ -580,6 +580,108 @@ Practice makes habits, so practice good habits.
 
 Think of this section as media I like to recommend.\
 Sorted in reverse chronological order.
+ 
+## 2025-06-09: (YouTube) [WotG] ENNWAY ft. Heart Plus Up! - TWISTED GARDEN (Nameless Deity) by ENNWAY!
+
+https://www.youtube.com/watch?v=3bIy-eaLmKc
+
+G E N D E R
+
+I'm not sure 
+why but eldritch horrors beyond humankind's comprehension feel such gender.
+
+I also find it incredibly funny
+the music is for a boss fight for a mod made for another mod.
+
+## 2025-06-01: (YouTube) Clair Obscur is an Endless Canvas of Grief by Jacob Geller
+
+https://youtu.be/9NKzr9_rZaY
+
+"Art cannot truely be an escape"
+
+And yet,
+expressing gives closure.
+
+"If you're going to give someone flowers,
+you should probably do it before they wither and die"
+
+I'm not yet sure why it resonates with me.
+There are a lot of things I can feel,
+but I don't understand _what_ I'm feeling.
+I will eventually find out.
+I just hope its before _I_ wither and die.
+
+## 2025-05-28: (Bluesky) "I think about this every time I make music." by John Scalzi (@scalzi.com)
+
+https://bsky.app/profile/scalzi.com/post/3lp5in4mrlk2g
+
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:qvzn322kmcvd7xtnips5xaun/app.bsky.feed.post/3lp5in4mrlk2g" data-bluesky-cid="bafyreig5tqvau4b4thkodvhvmjan33hwtm6zfp3u7lssmfwpyskcqvq5zm" data-bluesky-embed-color-mode="system"><p lang="en">I think about this every time I make music.<br><br><a href="https://bsky.app/profile/did:plc:qvzn322kmcvd7xtnips5xaun/post/3lp5in4mrlk2g?ref_src=embed">[image or embed]</a></p>&mdash; John Scalzi (<a href="https://bsky.app/profile/did:plc:qvzn322kmcvd7xtnips5xaun?ref_src=embed">@scalzi.com</a>) <a href="https://bsky.app/profile/did:plc:qvzn322kmcvd7xtnips5xaun/post/3lp5in4mrlk2g?ref_src=embed">May 14, 2025 at 10:42 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+
+It's better to get stuff done,
+even if it's not perfect.
+It's better to be done,
+than to wait eons to perfect it.
+
+(Yes I repeated this)
+
+## 2025-05-28: (Bluesky) "i will grow old & grey & beautiful & frail. i am going to outlive the bigots who demand my corpse" by Sage 🏳️‍⚧️ (@trans.bsky.social)
+
+https://bsky.app/profile/trans.bsky.social/post/3lphxus4di22n
+
+I won't just stay alive,
+I will thrive to sprite on the people who want me dead.
+I will grow old and watch them mald.
+
+## 2025-05-28: (YouTube) Burn after watching by a_lilian
+
+https://www.youtube.com/watch?v=7UYL1ggFSmY
+
+"Bear with me"
+"Burn to stay alive"
+"The orbit is dying"
+
+"It's 3:30 at night [...] 
+I realize I'm out of fuel [...] 
+I message my friend [...] 
+Burning that conversation gets me another night in orbit"
+
+So far, this is the best representation of how I'm surviving.
+
+It's a reminder to myself; to do whatever it takes, 
+just to survive one more day on this dying planet.
+
+You might've noticed my interests seem to be all over the place,
+I just from one topic to another,
+it feeds me.
+It gives me a reason to live,
+and not just survive by staying alive.
+Staying alive != Living.
+
+For what it's worth,
+I burn passion.
+Without passion,
+I'm nothing.
+
+## 2025-05-28: (YouTube) Terraria Infernum Mod Music - "รอยแผลแห่งหายนะ (Scars of Calamity)" - Alt Theme of Supreme Calamitas by PinpinNeon
+
+https://www.youtube.com/watch?v=7UYL1ggFSmY
+
+G E N D E R
+
+Calamity's music is really-really-really good, 
+but I've always felt like the theme for Supreme Calamitas needed lyrics,
+or well,
+I didn't even realize it had lyrics.
+The words were too quiet to notice.
+
+My favorite song from Calamity used to be 
+[Terraria Calamity Mod Music - "Roar of The Jungle Dragon" - Theme of Jungle Dragon, Yharon (Phase 2) by DM DOKURO](https://youtu.be/5GcPA3C0QeI), 
+and while I still think it's good,
+I like this one better now.
+
+The lyrics add another dimension to the boss fight music,
+which I really like.
+It suits the bosses.
 
 ## 2025-05-11: (YouTube) The Desire to Be Sad by Clark Elieson
 

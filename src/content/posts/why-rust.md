@@ -1,50 +1,46 @@
 ---
 title: Why Rust?
+published: 2025-06-09
 description: "todo!()"
 tags: []
 category: Programming
 ---
+
 another month, another blog post
 
 Today, there are dozens of programming languages to choose from.
 
-this time it's something very close to my heart. The programming language I use to express myself : Rust! a lot of you know I love rust, some of you heard about how the industry is adopting rust, but there's a huge enough chunk of people that don't understand why people like rust so much
-
+this time it's something very close to my heart. The programming language I use
+to express myself : Rust! a lot of you know I love rust, some of you heard about
+how the industry is adopting rust, but there's a huge enough chunk of people
+that don't understand why people like rust so much
 
 # Why Rust
 
 Let's get the obvious points out first.
 
-People advertise Rust because (so far)
-it's the only language that's memory safe,
-doesn't have a garbage collector,
-and has performance comparable to C
-(or as [No Boilerplate](https://noboilerplate.org/) put it, ["Fast, Reliable, Productive,
+SeVeNtY PeRcEnT oF aLl SeCuRiTy BuGs ArE mEmOrY sAfEtY iSsUes.
+
+People advertise Rust because (so far) it's the only language that's memory
+safe, doesn't have a garbage collector, and has performance comparable to C (or
+as [No Boilerplate](https://noboilerplate.org/) put it,
+["Fast, Reliable, Productive,
 pick THREE"](https://youtu.be/Z3xPIYHKSoI?list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP&t=68)).
-I don't need to worry about memory safety,
-and performance is great.
-People are noticing the advantages,
-and the industry adoption for Rust is increasing.
+I don't need to worry about memory safety, and performance is great. People are
+noticing the advantages, and the industry adoption for Rust is increasing.
 
-But performance isn't the only factor
-that matters for industry adoption
-(see: all the applications written in Python, and Electron+JS).
-Memory safety doesn't matter that much either 
-(see: Zig,
-a more ergonomic C with practically the same footguns as far
-as I can see to C. 
-Or godforbid Go with all the concurrency hazards,
-which is praised for easy to use concurrent features, 
-AND it decided to bring back null pointers).
+But performance isn't the only factor that matters for industry adoption (see:
+all the applications written in Python, and Electron+JS). Memory safety doesn't
+matter that much either (see: Zig, a more ergonomic C with practically the same
+footguns as far as I can see to C. Or godforbid Go with all the concurrency
+hazards, which is praised for easy to use concurrent features, AND it decided to
+bring back null pointers).
 
-IMHO,
-what ended up making a difference is more social than pragmatic. 
-Rust has great tooling, the community is inclusive.
-It takes the best parts of functional programming,
-and brings it to the masses.
+IMHO, what ended up making a difference is more social than pragmatic. Rust has
+great tooling, the community is inclusive. It takes the best parts of functional
+programming, and brings it to the masses.
 
-And, coming from Python,
-the biggest factor for me was predictability.
+And, coming from Python, the biggest factor for me was predictability.
 
 # Predictability
 
@@ -52,100 +48,71 @@ So, what do I mean when I say predictability?
 
 Rust doesn't have exceptions or implicitly nullable objects.
 
-Rust has `Result<T, E>` which explicitly signals that 
-"This function can fail in ways 
-that you might be able to recover from".
+Rust has `Result<T, E>` which explicitly signals that "This function can fail in
+ways that you might be able to recover from".
 
-There are multiple ways to say "null"
-which signals a different kind of "null".
-The most common being `Option<T>` that signals
-"This function might, or might not produce a value"
-where the `Option::None` is treated as null.
-Others include `()` (empty tuple)
-signalling no return value (like `void` return type in C),
-`!` (never returns) signalling the function doesn't return anything, 
-not even `void`, the function will directly exit the program.
+There are multiple ways to say "null" which signals a different kind of "null".
+The most common being `Option<T>` that signals "This function might, or might
+not produce a value" where the `Option::None` is treated as null. Others include
+`()` (empty tuple) signalling no return value (like `void` return type in C),
+`!` (never returns) signalling the function doesn't return anything, not even
+`void`, the function will directly exit the program.
 
-Rust makes you explicitly `Result`, and `Option`.
-You can't ignore it.
-You can say you don't care about it,
-or you know it won't happen by doing `.unwrap()`,
-but that's you making a choice.
-In Go, and C, you can ignore the result.
-In JS, and Python, you don't even know if the function can error.
-Zig saw the benefit
-and requires you to declare the function can error,
-but adding context for _why_ it failed requires works.
+Rust makes you explicitly `Result`, and `Option`. You can't ignore it. You can
+say you don't care about it, or you know it won't happen by doing `.unwrap()`,
+but that's you making a choice. In Go, and C, you can ignore the result. In JS,
+and Python, you don't even know if the function can error. Zig saw the benefit
+and requires you to declare the function can error, but adding context for _why_
+it failed requires works.
 
-Just knowing if the function can fail, 
-or not return anything reduces the cognitive load.
-I know when a function is going to fail,
-and I can react to it because of the additional context.
+Just knowing if the function can fail, or not return anything reduces the
+cognitive load. I know when a function is going to fail, and I can react to it
+because of the additional context.
 
-Another thing,
-Rust has `Send`, and `Sync` marker traits.
-`Send` signals that the object can safely be sent to another thread.
-`Sync` signals that the object can safely be shared with another thread.
-I think `Send` is pretty easy to understand,
-it's just moving an object from one thread to another.
-`Sync` on the other hand felt confusing to me,
-what does it mean for an object to be shared?
-"Shared"
-here means
-that even if you send a pointer to the object to another thread,
-when the other thread dereferences the pointer,
-the pointer is still valid,
-and the data is in "sync" with what the original thread sees.
+Another thing, Rust has `Send`, and `Sync` marker traits. `Send` signals that
+the object can safely be sent to another thread. `Sync` signals that the object
+can safely be shared with another thread. I think `Send` is pretty easy to
+understand, it's just moving an object from one thread to another. `Sync` on the
+other hand felt confusing to me, what does it mean for an object to be shared?
+"Shared" here means that even if you send a pointer to the object to another
+thread, when the other thread dereferences the pointer, the pointer is still
+valid, and the data is in "sync" with what the original thread sees.
 
-For example,
-take the [Producer–consumer problem](https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem).
-In this case,
-the data we send, well, needs to be marked `Send`.
-The queue on the other hand needs to be marked `Send`, and `Sync`.
-At any time, the data is owned by one thread only,
-but the queue needs to be accessed from both, 
-the consumer, and the producer.
-The producer will send the data to the queue,
-and the consumer will consume the data from the queue.
-So, it is important that both see the same data.
-
+For example, take the
+[Producer–consumer problem](https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem).
+In this case, the data we send, well, needs to be marked `Send`. The queue on
+the other hand needs to be marked `Send`, and `Sync`. At any time, the data is
+owned by one thread only, but the queue needs to be accessed from both, the
+consumer, and the producer. The producer will send the data to the queue, and
+the consumer will consume the data from the queue. So, it is important that both
+see the same data.
 
 # Borrow checker
 
-I've always wondered,
-the compiler has access to my code,
-it should know when I'm done with a variable 
-and automatically free it.
-Most variables are temporary and limited to the scope anyway.
-Why can't the compiler "just" see that?
+I've always wondered, the compiler has access to my code, it should know when
+I'm done with a variable and automatically free it. Most variables are temporary
+and limited to the scope anyway. Why can't the compiler "just" see that?
 
-When I first heard about how Rust cleans up memory automatically, 
-I was like "fucking finally".
-Then I heard about how it forces you to either, multiple readers,
-or a single writer.
-If you think about it, 
-it's the same thing databases enforce internally,
-so it clicked almost instantaneously for me.
-I went, "Oh, that's just like a database, that's cool".
-So I never got why people kept complaining about the borrow checker.
+When I first heard about how Rust cleans up memory automatically, I was like
+"fucking finally". Then I heard about how it forces you to either, multiple
+readers, or a single writer. If you think about it, it's the same thing
+databases enforce internally, so it clicked almost instantaneously for me. I
+went, "Oh, that's just like a database, that's cool". So I never got why people
+kept complaining about the borrow checker.
 
-Like,
-you guys can make complex software that I can only dream of making,
-but the borrow checker is confusing???
-Also, 
-aren't you supposed to follow the readers xor writer rule anyways???
-If the compiler makes sure you follow the rule,
-isn't that just a good thing?
+Like, you guys can make complex software that I can only dream of making, but
+the borrow checker is confusing??? Also, aren't you supposed to follow the
+readers xor writer rule anyways??? If the compiler makes sure you follow the
+rule, isn't that just a good thing?
 
-Sure,
-it makes it harder to architect large software compared to 
-when you implicitly follow certain rules.
-I feel like if the borrow checker is making it difficult then I'm doing something wrong.
+Sure, it makes it harder to architect large software compared to when you
+implicitly follow certain rules. I feel like if the borrow checker is making it
+difficult then I'm doing something wrong.
 
 # Tooling
 
-If you release a new language today,
-you can't just get away with releasing the language, and the docs.\
+If you release a new language today, you can't just get away with releasing the
+language, and the docs.\
 You need to have a good LSP.\
 You need to have a good package manager.\
 You need to have a good build system.\
@@ -154,21 +121,19 @@ You need to have a good linter.\
 You need to have a good test framework.\
 You need to have a good way to view docs.
 
-Rust tooling is so good,
-people are copying it and creating tooling for other ecosystems, 
-like uv for Python.
+Rust tooling is so good, people are copying it and creating tooling for other
+ecosystems, like uv for Python.
 
 ## Rustup
 
 Rustup is the first thing you need to install to use Rust.
 
-Rustup manages Rust versions, and toolchains.
-Rustup also helps install all the other tools.
+Rustup manages Rust versions, and toolchains. Rustup also helps install all the
+other tools.
 
 ## Cargo
 
-Cargo is the default build system,
-package manager, linter, tester, for Rust.
+Cargo is the default build system, package manager, linter, tester, for Rust.
 
 It's also the entry point to most of the tools below.
 
@@ -182,13 +147,13 @@ Rustfmt is the default formatter for rust.
 cargo fmt
 ```
 
-
 ## Rustdoc
 
-Rustdoc generates documentation
-and produces HTML that you can read in a browser.
+Rustdoc generates documentation and produces HTML that you can read in a
+browser.
 
 Usage:
+
 ```
 cargo doc --open
 ```
@@ -197,85 +162,120 @@ cargo doc --open
 
 Rust-analyzer is the default LSP for rust.
 
-
 ## Clippy
 
-Clippy is an add-on linter that makes your code more idiomatic,
-and prevents common mistakes.
+Clippy is an add-on linter that makes your code more idiomatic, and prevents
+common mistakes.
 
 The lints it has are more advanced compared to the default lints in Cargo.
 
 Usage:
+
 ```
 cargo clippy
 ```
 
 ## Miri
 
-Miri checks for undefined behavior in unsafe blocks. 
-So, even unsafe isn't as unsafe as people make it out to be.
+Miri checks for undefined behavior in unsafe blocks. So, even unsafe isn't as
+unsafe as people make it out to be.
 
 Usage:
+
 ```
 cargo miri
 ```
+
+# User-created tooling
+
+## cargo-semver-check
+
+## cargo-tarpaulin
+
+## cargo-insta
+
+## cargo-flamegraph
+
+## cargo-pgo
 
 # Choices made for Rust
 
 Rust doesn't just have good tooling.
 
 - It also has great error messages for most common mistakes.
-- It has the best features from functional programming languages while still being performant, compiling to native code, and feeling like a C-style language.
-    - [Hindley-Milner Type System](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system)
-    - Type inference
-    - Iterators
-    - Immutable by default
-    - Everything is an expression
+- It has the best features from functional programming languages while still
+  being performant, compiling to native code, and feeling like a C-style
+  language.
+  - [Hindley-Milner Type System](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system)
+  - Type inference
+  - Iterators
+  - Immutable by default
+  - Everything is an expression
 - It strikes a good balance between language features, and additional syntax.
-    - Operators like `+` can be implemented for any type by implementing the appropriate trait.
-    - `Option`, and `Result` are just enums and not a special language construct.
-
+  - Operators like `+` can be implemented for any type by implementing the
+    appropriate trait.
+  - `Option`, and `Result` are just enums and not a special language construct.
 
 # Community
 
 OK, fine, Rust the language is great.
 
-But the people also need to be good,
-it won't matter how good the language is if the environment is toxic.
+But the people also need to be good, it won't matter how good the language is if
+the environment is toxic.
 
-And I'm happy
-to say that the community is welcoming
-and has a disproportionate amount of queer people.
-It's hard to spend one day in the rust ecosystem without running into queer people.
+And I'm happy to say that the community is welcoming and has a disproportionate
+amount of queer people. It's hard to spend one day in the rust ecosystem without
+running into queer people.
 
 https://blog.rust-lang.org/2025/02/13/2024-State-Of-Rust-Survey-results/#community
 
+But, again, why does it matter?
 
+IMO, the number of queer people in a community can be a good sniff test for
+toxicity.
+
+There's an interesting phenomenon called
+[curb cut effect](https://en.wikipedia.org/wiki/Curb_cut_effect), it's an
+accessibility feature which helps everyone so much, people don't even notice
+it's an accessibility feature.
+
+In the same vain, if a project has a diverse community, and diversity is treated
+with care and the project makes sure that they're taken care of appropriately
+(and I don't mean giving special perks), it means that the project cares about
+the community. Which seems obvious, but it's hard to make sure everyone is
+treated equitably.
+
+There's a big correlation between being queer, and being neurodivergent. And
+neurodivergent is a disability.
+
+Repeat with me.\
+Accessibility.\
+Helps.\
+All.
+
+It's only political if you think queer people are... well... not people.
 
 # Sensible Defaults
 
-most common operations have low barrier,
-eg read only by default
-But why does that matter?
+Most common operations have low barrier, e.g., read only by default, but why
+does that matter?
 
 Usually, the easy way is the better way.
 
-If the borrow checker is making something hard,
-then it probably means that the way I structured the program is bad.\
+If the borrow checker is making something hard, then it probably means that the
+way I structured the program is bad.\
 Good practices in other languages, mandatory in rust.
 
 # TODO
 
-
 Rust also has better defaults.
 
 **We stand on the shoulders of giants**,\
-and we should take advantage of that.
-Let's use the advancements people have made in programming.
+and we should take advantage of that. Let's use the advancements people have
+made in programming.
 
-Let the computer do what it's best at,
-and use the limited time and resources we have to fill in the rest.
-
+Let the computer do what it's best at, and use the limited time and resources we
+have to fill in the rest.
 
 - rust rewired my brain
 - i now get ancious without result and option type
@@ -284,43 +284,40 @@ and use the limited time and resources we have to fill in the rest.
 - it can blow up anytime, anywhere
 - its not something i should need to remember
 - it should just be standard practice
-- people might be able to learn where the standard library can fail, but i dont think its feasible to learn it for every library people consume
-- it made me think more about long term planning, i need to deal with Option and Result, it made me realize how much better predictability is in the long run compared to short term gains
+- people might be able to learn where the standard library can fail, but i dont
+  think its feasible to learn it for every library people consume
+- it made me think more about long term planning, i need to deal with Option and
+  Result, it made me realize how much better predictability is in the long run
+  compared to short term gains
 
+new language should make function call graph and automatically spread the load
+across cores
 
-new language should make function call graph and automatically spread the load across cores
-
-
-life is already hard and complicated, the complexity rust adds helps reduce the overall complexity
-
+life is already hard and complicated, the complexity rust adds helps reduce the
+overall complexity
 
 # Case Studies
 
-##  Piccolo - A Stackless Lua Interpreter by kyren (Catherine West)
+## Piccolo - A Stackless Lua Interpreter by kyren (Catherine West)
 
 https://kyju.org/blog/piccolo-a-stackless-lua-interpreter/
 
-[Piccolo](https://github.com/kyren/piccolo) is a lua interpreter in pure,
-mostly safe Rust.
+[Piccolo](https://github.com/kyren/piccolo) is a lua interpreter in pure, mostly
+safe Rust.
 
-Kyren gave up on the VM for four years
-because she couldn't figure out
-how to make it work with the borrow checker.
+Kyren gave up on the VM for four years because she couldn't figure out how to
+make it work with the borrow checker.
 
-But,
-in the end,
-the architecture she ended up making turned out
-to have more features like cancellation, and better concurrency.
+But, in the end, the architecture she ended up making turned out to have more
+features like cancellation, and better concurrency.
 
-So,
-it just made the VM better,
-and now there's a reason to use it over other VMs.
+So, it just made the VM better, and now there's a reason to use it over other
+VMs.
 
-Borrow checker doesn't just prevent memory safety bugs,
-it also forces you to design the program in a better way.
-I'd even say that the complexity borrow checker brings is a good tradeoff
-if you consider the amount of brain power it saves.
-The upfront investment is worth the long-term returns.
+Borrow checker doesn't just prevent memory safety bugs, it also forces you to
+design the program in a better way. I'd even say that the complexity borrow
+checker brings is a good tradeoff if you consider the amount of brain power it
+saves. The upfront investment is worth the long-term returns.
 
 ---
 
@@ -328,39 +325,28 @@ The upfront investment is worth the long-term returns.
 
 https://www.collabora.com/news-and-blog/blog/2025/05/06/matt-godbolt-sold-me-on-rust-by-showing-me-c-plus-plus/
 
-Gustavo said,
-and I quote "a well designed language saves you a lot of brain cycles
-by not forcing you
-to think about how to protect your code from the simplest mistakes." 
+Gustavo said, and I quote "a well designed language saves you a lot of brain
+cycles by not forcing you to think about how to protect your code from the
+simplest mistakes."
 
 If that's not reducing the cognitive load then IDK what is.
 
-C++ had decades to learn,
-but it didn't matter.
+C++ had decades to learn, but it didn't matter.
 
-From my personal experience,
-when I was following [Learn OpenGL](https://learnopengl.com/),
-I kept shooting myself in the foot because C++ has a feature, 
-but MSVC doesn't support it.
-I tried to use smart pointers, 
-but the way I couldn't use them instead of normal pointers.
+From my personal experience, when I was following
+[Learn OpenGL](https://learnopengl.com/), I kept shooting myself in the foot
+because C++ has a feature, but MSVC doesn't support it. I tried to use smart
+pointers, but the way I couldn't use them instead of normal pointers.
 
-Also, it doesn't mesh with the way I learn.
-Initially when I have to learn something,
-I go with spoonfeeding.
-Once I'm done getting spoonfed,
-I jump directly into a project,
-and then proceed to fuck around and find out.
-I like to see what methods are available on a given struct, 
-and read the docs for them.
+Also, it doesn't mesh with the way I learn. Initially when I have to learn
+something, I go with spoonfeeding. Once I'm done getting spoonfed, I jump
+directly into a project, and then proceed to fuck around and find out. I like to
+see what methods are available on a given struct, and read the docs for them.
 
-I couldn't do that with C++.
-I tried to see what other options I can use for `glBegin`,
-and all I saw was macro expansions.
-Enums being just integers was also extremely annoying,
-because I could pass `GL_TRIANGLE_STRIP` to...
-let's say...
-`glGenerateMipmap`.
+I couldn't do that with C++. I tried to see what other options I can use for
+`glBegin`, and all I saw was macro expansions. Enums being just integers was
+also extremely annoying, because I could pass `GL_TRIANGLE_STRIP` to... let's
+say... `glGenerateMipmap`.
 
 It felt like the language itself is fragmented.
 
@@ -370,28 +356,20 @@ It felt like the language itself is fragmented.
 
 https://ianwwagner.com/blog/ownership-benefits-beyond-memory-safety
 
-Ian says
-that it prevents subtle bugs
-where you don't know if a function will return a new value
-or modify the old one.
+Ian says that it prevents subtle bugs where you don't know if a function will
+return a new value or modify the old one.
 
-I feel this the most when I write JS/TS,
-some functions modify the value, 
-some functions return new value,
-others modify the value and returns it again,
-and then some return modify and return the old value.
+I feel this the most when I write JS/TS, some functions modify the value, some
+functions return new value, others modify the value and returns it again, and
+then some modify and return the old value.
 
-He also mentions
-that traditional functional languages also have the same benefit,
-but in their case,
-everything is cloned because everything is immutable,
-so you just aren't given the choice.
-On the other hand, Rust gives you the choice,
-and makes the choice explicit.
+He also mentions that traditional functional languages also have the same
+benefit, but in their case, everything is cloned because everything is
+immutable, so you just aren't given the choice. On the other hand, Rust gives
+you the choice, and makes the choice explicit.
 
-I'll directly quote him, "the borrow checker is a powerful ally,
-and you can leverage it to make truly better APIs,
-saving hours of debugging in the future."
+I'll directly quote him, "the borrow checker is a powerful ally, and you can
+leverage it to make truly better APIs, saving hours of debugging in the future."
 
 ---
 
@@ -401,13 +379,17 @@ https://kobzol.github.io/rust/rustc/2025/05/16/evolution-of-rustc-errors.html
 
 ---
 
-## Communicating in Types • Kris Jenkins • GOTO 2024 by Kris Jenkins
+## Communicating in Types • Kris Jenkins • GOTO 2024 by TO Conferences
 
 https://www.youtube.com/watch?v=SOz66dcsuT8
 
-Modern type systems have come a long way since C. They’re no longer just about pleasing the compiler. These days they form a sub-language that helps us express ideas about software clearly & succinctly. A true design language.
+Modern type systems have come a long way since C. They’re no longer just about
+pleasing the compiler. These days they form a sub-language that helps us express
+ideas about software clearly & succinctly. A true design language.
 
-So let’s take a look at how a modern type system supports talking about software. How it highlights problems, clarifies designs, and supports reuse. Most importantly, see how types can help you talk to your colleagues.
+So let’s take a look at how a modern type system supports talking about
+software. How it highlights problems, clarifies designs, and supports reuse.
+Most importantly, see how types can help you talk to your colleagues.
 
 ---
 
@@ -417,8 +399,14 @@ https://blog.sebastianwoehrl.name/blog/2025-05-rust/
 
 https://blog.sebastianwoehrl.name/blog/2025-05-rust/
 
-I work with Kubernetes and other cloud-native technologies every day in my job at MaibornWolff. I not only use existing products, I routinely also implement my own tools. Lately I have mostly used Rust as my programming language. In the past my language of choice was Python, and for many things it still is. I have also used Go. But my clear favorite nowadays is Rust. In this article I want to explain why I like Rust and why I think it is a great language. And why I would use it for Kubernetes development, even though most of the cloud-native ecosystem is written in Go.
-
+I work with Kubernetes and other cloud-native technologies every day in my job
+at MaibornWolff. I not only use existing products, I routinely also implement my
+own tools. Lately I have mostly used Rust as my programming language. In the
+past my language of choice was Python, and for many things it still is. I have
+also used Go. But my clear favorite nowadays is Rust. In this article I want to
+explain why I like Rust and why I think it is a great language. And why I would
+use it for Kubernetes development, even though most of the cloud-native
+ecosystem is written in Go.
 
 ---
 
@@ -426,13 +414,17 @@ I work with Kubernetes and other cloud-native technologies every day in my job a
 
 https://medium.com/@gustavokov/constructor-acquires-destructor-releases-e1455b63289c
 
+On this final article based on Matt Godbolt's talk on making APIs easy to use
+and hard to misuse, I will discuss locking. This is actually an area where C++
+has produced some interesting ideas, most notably something called RAII —
+Resource Acquisition Is Initialization.
 
-On this final article based on Matt Godbolt's talk on making APIs easy to use and hard to misuse, I will discuss locking. This is actually an area where C++ has produced some interesting ideas, most notably something called RAII — Resource Acquisition Is Initialization.
-
-Matt doesn't like that acronym very much, so he proposes a new one that I also think is much better: CADR. It tells you everything you need to know: Constructor Acquires, Destructor Releases. That is basically what the RAII pattern does.
+Matt doesn't like that acronym very much, so he proposes a new one that I also
+think is much better: CADR. It tells you everything you need to know:
+Constructor Acquires, Destructor Releases. That is basically what the RAII
+pattern does.
 
 "I am sure there are data races here, the compiler is just not telling me where"
-
 
 ---
 
@@ -440,8 +432,37 @@ Matt doesn't like that acronym very much, so he proposes a new one that I also t
 
 https://dl.acm.org/doi/abs/10.1145/3591278
 
-The Rust type system guarantees memory safety and data-race freedom. However, to satisfy Rust's type rules, many familiar implementation patterns must be adapted substantially. These necessary adaptations complicate programming and might hinder language adoption. In this paper, we demonstrate that, in contrast to manual programming, automatic synthesis is not complicated by Rust's type system, but rather benefits in two major ways. First, a Rust synthesizer can get away with significantly simpler specifications. While in more traditional imperative languages, synthesizers often require lengthy annotations in a complex logic to describe the shape of data structures, aliasing, and potential side effects, in Rust, all this information can be inferred from the types, letting the user focus on specifying functional properties using a slight extension of Rust expressions. Second, the Rust type system reduces the search space for synthesis, which improves performance.
-In this work, we present the first approach to automatically synthesizing correct-by-construction programs in safe Rust. The key ingredient of our synthesis procedure is Synthetic Ownership Logic, a new program logic for deriving programs that are guaranteed to satisfy both a user-provided functional specification and, importantly, Rust's intricate type system. We implement this logic in a new tool called RusSOL. Our evaluation shows the effectiveness of RusSOL, both in terms of annotation burden and performance, in synthesizing provably correct solutions to common problems faced by new Rust developers.
+The Rust type system guarantees memory safety and data-race freedom. However, to
+satisfy Rust's type rules, many familiar implementation patterns must be adapted
+substantially. These necessary adaptations complicate programming and might
+hinder language adoption. In this paper, we demonstrate that, in contrast to
+manual programming, automatic synthesis is not complicated by Rust's type
+system, but rather benefits in two major ways. First, a Rust synthesizer can get
+away with significantly simpler specifications. While in more traditional
+imperative languages, synthesizers often require lengthy annotations in a
+complex logic to describe the shape of data structures, aliasing, and potential
+side effects, in Rust, all this information can be inferred from the types,
+letting the user focus on specifying functional properties using a slight
+extension of Rust expressions. Second, the Rust type system reduces the search
+space for synthesis, which improves performance. In this work, we present the
+first approach to automatically synthesizing correct-by-construction programs in
+safe Rust. The key ingredient of our synthesis procedure is Synthetic Ownership
+Logic, a new program logic for deriving programs that are guaranteed to satisfy
+both a user-provided functional specification and, importantly, Rust's intricate
+type system. We implement this logic in a new tool called RusSOL. Our evaluation
+shows the effectiveness of RusSOL, both in terms of annotation burden and
+performance, in synthesizing provably correct solutions to common problems faced
+by new Rust developers.
+
+---
+
+## Codegen your problems away - device-driver toolkit - Dion Dokter by RustNL
+
+https://www.youtube.com/watch?v=xt1vcL5rF1c
+
+---
+
+---
 
 # Comments on Bluesky
 
@@ -457,7 +478,14 @@ In this work, we present the first approach to automatically synthesizing correc
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rqm4qgf6jdmb35mxatuzi6cq/app.bsky.feed.post/3loj4hyzjj22n" data-bluesky-cid="bafyreigtz73thusmo3b4pwrphcww5nmvxs65f5y3tlfskodvtdph66pcca" data-bluesky-embed-color-mode="system"><p lang="en">joke explainer/well actually:
 
-Practically, external crates DO beat the std collections pretty regularly, for a while. However whenever practical, the stdlib will adopt the same techniques used to beat it, meaning that picking `std::collections` is usually a pretty smart choice over a long timescale</p>&mdash; James Munns (<a href="https://bsky.app/profile/did:plc:rqm4qgf6jdmb35mxatuzi6cq?ref_src=embed">@jamesmunns.com</a>) <a href="https://bsky.app/profile/did:plc:rqm4qgf6jdmb35mxatuzi6cq/post/3loj4hyzjj22n?ref_src=embed">May 6, 2025 at 8:11 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+Practically, external crates DO beat the std collections pretty regularly, for a
+while. However whenever practical, the stdlib will adopt the same techniques
+used to beat it, meaning that picking `std::collections` is usually a pretty
+smart choice over a long timescale</p>&mdash; James Munns
+(<a href="https://bsky.app/profile/did:plc:rqm4qgf6jdmb35mxatuzi6cq?ref_src=embed">@jamesmunns.com</a>)
+<a href="https://bsky.app/profile/did:plc:rqm4qgf6jdmb35mxatuzi6cq/post/3loj4hyzjj22n?ref_src=embed">May
+6, 2025 at 8:11
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3loj5qfchhc2a" data-bluesky-cid="bafyreif3itwfz2bwul5rpgh7p6gtmz3kqxa3sqrc4htb3iimgodekuncze" data-bluesky-embed-color-mode="system"><p lang="en">i still feel like &quot;better defaults&quot; should be in rust&#x27;s sales pitch somewhere</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3loj5qfchhc2a?ref_src=embed">May 6, 2025 at 8:33 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
@@ -465,13 +493,22 @@ Practically, external crates DO beat the std collections pretty regularly, for a
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:4e5r66uzwealg3tbidn44qcp/app.bsky.feed.post/3loxx4m5ge22s" data-bluesky-cid="bafyreibibw6kncmhhu6xppdiqbinr4orqtsk37bd5mlbclbvkyf6flsfma" data-bluesky-embed-color-mode="system"><p lang="en">using rust has made me care too much about stack vs heap, and indirection cost
 
-I cry every time I can&#x27;t declare a const array or const struct in C# :(</p>&mdash; monaco (<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp?ref_src=embed">@blandsoft.net</a>) <a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp/post/3loxx4m5ge22s?ref_src=embed">May 12, 2025 at 5:45 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+I cry every time I can&#x27;t declare a const array or const struct in C#
+:(</p>&mdash; monaco
+(<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp?ref_src=embed">@blandsoft.net</a>)
+<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp/post/3loxx4m5ge22s?ref_src=embed">May
+12, 2025 at 5:45
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:4e5r66uzwealg3tbidn44qcp/app.bsky.feed.post/3loxx5wrloc2s" data-bluesky-cid="bafyreiarksiftgrdx7qilifwbfiph4rf3isi3x6h33bdstivm74qskk2im" data-bluesky-embed-color-mode="system"><p lang="en">they should let me have a 32GB stack :)</p>&mdash; monaco (<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp?ref_src=embed">@blandsoft.net</a>) <a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp/post/3loxx5wrloc2s?ref_src=embed">May 12, 2025 at 5:46 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:4e5r66uzwealg3tbidn44qcp/app.bsky.feed.post/3loy4pyf47k2s" data-bluesky-cid="bafyreihjzo6ryvgklthlnc7omux7s37nr3njndwptfi3byhiqe4qmamiga" data-bluesky-embed-color-mode="system"><p lang="en">I know that C# has value semantics for structs as arguments, but are they truly pass-by-value, or does CLR treat them as references behind the scenes?
 
-please help C# girlies xoxo</p>&mdash; monaco (<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp?ref_src=embed">@blandsoft.net</a>) <a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp/post/3loy4pyf47k2s?ref_src=embed">May 12, 2025 at 7:25 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+please help C# girlies xoxo</p>&mdash; monaco
+(<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp?ref_src=embed">@blandsoft.net</a>)
+<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp/post/3loy4pyf47k2s?ref_src=embed">May
+12, 2025 at 7:25
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 ---
 
@@ -479,27 +516,43 @@ please help C# girlies xoxo</p>&mdash; monaco (<a href="https://bsky.app/profile
 
 Rusting Everything...
 
-#rustlang #esp32 #bevy<br><br><a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq/post/3lolw5vqo722z?ref_src=embed">[image or embed]</a></p>&mdash; AstraKernel 💫 (<a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq?ref_src=embed">@astrakernel.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq/post/3lolw5vqo722z?ref_src=embed">May 7, 2025 at 10:56 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+#rustlang #esp32
+#bevy<br><br><a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq/post/3lolw5vqo722z?ref_src=embed">[image
+or embed]</a></p>&mdash; AstraKernel 💫
+(<a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq?ref_src=embed">@astrakernel.bsky.social</a>)
+<a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq/post/3lolw5vqo722z?ref_src=embed">May
+7, 2025 at 10:56
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:r57wr33osex4c325lfjt5jeq/app.bsky.feed.post/3loobqse2m22c" data-bluesky-cid="bafyreicc47jpo3n5olxlg7lxaewpl56lugtwig7dxqnpeguhkawekkh42m" data-bluesky-embed-color-mode="system"><p lang="en">🎮 Breakout Game for ESP32 with OLED Display - Built in Rust Using the Bevy Engine
 
 Thanks to bevy for introducing no_std support
 
-I am not a game dev and this is my first attempt using Bevy(so, I may not have utilised it properly)
+I am not a game dev and this is my first attempt using Bevy(so, I may not have
+utilised it properly)
 
 github.com/ImplFerris/e...
 
-#rustlang<br><br><a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq/post/3loobqse2m22c?ref_src=embed">[image or embed]</a></p>&mdash; AstraKernel 💫 (<a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq?ref_src=embed">@astrakernel.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq/post/3loobqse2m22c?ref_src=embed">May 8, 2025 at 9:29 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+#rustlang<br><br><a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq/post/3loobqse2m22c?ref_src=embed">[image
+or embed]</a></p>&mdash; AstraKernel 💫
+(<a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq?ref_src=embed">@astrakernel.bsky.social</a>)
+<a href="https://bsky.app/profile/did:plc:r57wr33osex4c325lfjt5jeq/post/3loobqse2m22c?ref_src=embed">May
+8, 2025 at 9:29
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 ---
 
-
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:3danwc67lo7obz2fmdg6jxcr/app.bsky.feed.post/3lom3vosajs25" data-bluesky-cid="bafyreibzkzb6b7fs6rfo4zou4sjrynonllwea7wofgvp4ucbn2duyb5qwa" data-bluesky-embed-color-mode="system"><p lang="en">&quot;Implement your language twice&quot;
 
-futhark-lang.org/blog/2025-05...<br><br><a href="https://bsky.app/profile/did:plc:3danwc67lo7obz2fmdg6jxcr/post/3lom3vosajs25?ref_src=embed">[image or embed]</a></p>&mdash; Steve Klabnik (<a href="https://bsky.app/profile/did:plc:3danwc67lo7obz2fmdg6jxcr?ref_src=embed">@steveklabnik.com</a>) <a href="https://bsky.app/profile/did:plc:3danwc67lo7obz2fmdg6jxcr/post/3lom3vosajs25?ref_src=embed">May 8, 2025 at 12:39 AM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+futhark-lang.org/blog/2025-05...<br><br><a href="https://bsky.app/profile/did:plc:3danwc67lo7obz2fmdg6jxcr/post/3lom3vosajs25?ref_src=embed">[image
+or embed]</a></p>&mdash; Steve Klabnik
+(<a href="https://bsky.app/profile/did:plc:3danwc67lo7obz2fmdg6jxcr?ref_src=embed">@steveklabnik.com</a>)
+<a href="https://bsky.app/profile/did:plc:3danwc67lo7obz2fmdg6jxcr/post/3lom3vosajs25?ref_src=embed">May
+8, 2025 at 12:39
+AM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
-<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lomfwg6bsc2e" data-bluesky-cid="bafyreidvohn77meqfzcp2btzipdr42blnvp5c62tmop6q4iaqgpl5dkla4" data-bluesky-embed-color-mode="system"><p lang="en">futhark is cool. 
-rust did the &quot;the compiler should know when to clean up memory&quot; 
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lomfwg6bsc2e" data-bluesky-cid="bafyreidvohn77meqfzcp2btzipdr42blnvp5c62tmop6q4iaqgpl5dkla4" data-bluesky-embed-color-mode="system"><p lang="en">futhark is cool.
+rust did the &quot;the compiler should know when to clean up memory&quot;
 and from what I&#x27;ve seen futhark did &quot;the compiler should automatically run things in parallel, it knows the function graph&quot;</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lomfwg6bsc2e?ref_src=embed">May 8, 2025 at 3:38 AM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 ---
@@ -510,17 +563,33 @@ https://www.youtube.com/watch?v=SOz66dcsuT8
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3lnngbg3ljk2i" data-bluesky-cid="bafyreicvub4r7zsxytgfgdorvvb4t3kholrmvnst7iez3xuqpbln6735oa" data-bluesky-embed-color-mode="system"><p lang="en">fun, covers all the reasons I prefer strongly typed languages.
 
-another benefit is reducing cognitive load, which Kris hinted at but didn&#x27;t explicitly say during the “Describing context” section.</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lnngbg3ljk2i?ref_src=embed">April 25, 2025 at 7:51 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+another benefit is reducing cognitive load, which Kris hinted at but didn&#x27;t
+explicitly say during the “Describing context” section.</p>&mdash;
+Kathryn&lt;&#x27;u1f338&gt;
+(<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>)
+<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3lnngbg3ljk2i?ref_src=embed">April
+25, 2025 at 7:51
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 ---
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:762gyjqhdzhlqi4re62po37o/app.bsky.feed.post/3lp3235bthk2k" data-bluesky-cid="bafyreiant77bp7esz2qxlopokv5tf256zaaerjqgn7pvqxmbdel5klvqtm" data-bluesky-embed-color-mode="system"><p lang="en">i really appreciate rust actually doing interesting things with syntax instead of just &quot;yeah we&#x27;ll just copy C verbatim ig&quot;
 
-&quot;everything is an expression&quot; is very cool imo.</p>&mdash; soweli Neko (<a href="https://bsky.app/profile/did:plc:762gyjqhdzhlqi4re62po37o?ref_src=embed">@nekotachi.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:762gyjqhdzhlqi4re62po37o/post/3lp3235bthk2k?ref_src=embed">May 13, 2025 at 11:16 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+&quot;everything is an expression&quot; is very cool imo.</p>&mdash; soweli Neko
+(<a href="https://bsky.app/profile/did:plc:762gyjqhdzhlqi4re62po37o?ref_src=embed">@nekotachi.bsky.social</a>)
+<a href="https://bsky.app/profile/did:plc:762gyjqhdzhlqi4re62po37o/post/3lp3235bthk2k?ref_src=embed">May
+13, 2025 at 11:16
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:dkkwkim76zeobziul5eaxjm6/app.bsky.feed.post/3lp33byqedk2g" data-bluesky-cid="bafyreih547a2ntdym7paiq3utvaonyxnyrm6rspexmziwlvutsqzsvif5y" data-bluesky-embed-color-mode="system"><p lang="en">Rust also feels like it has struck the perfect balance between: a bunch of hyperspecific syntax for things, and defining things &#x27;in-language&#x27;
 
-like how the ? operator isnt out of place despite optionals being actual enums, or PhantomData being a struct and not an annotation on the generic bound.</p>&mdash; sopwithpuppy.bsky.social (<a href="https://bsky.app/profile/did:plc:dkkwkim76zeobziul5eaxjm6?ref_src=embed">@sopwithpuppy.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:dkkwkim76zeobziul5eaxjm6/post/3lp33byqedk2g?ref_src=embed">May 13, 2025 at 11:37 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+like how the ? operator isnt out of place despite optionals being actual enums,
+or PhantomData being a struct and not an annotation on the generic
+bound.</p>&mdash; sopwithpuppy.bsky.social
+(<a href="https://bsky.app/profile/did:plc:dkkwkim76zeobziul5eaxjm6?ref_src=embed">@sopwithpuppy.bsky.social</a>)
+<a href="https://bsky.app/profile/did:plc:dkkwkim76zeobziul5eaxjm6/post/3lp33byqedk2g?ref_src=embed">May
+13, 2025 at 11:37
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 ---
 
@@ -534,9 +603,15 @@ like how the ? operator isnt out of place despite optionals being actual enums, 
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:mm7qndperhx2oacoo5edf3f2/app.bsky.feed.post/3lpd54o4k5m42" data-bluesky-cid="bafyreidtzz4i7v5ycq3j2klpje4txytvdc6esjxaz6xvpmwjuvnennjuwa" data-bluesky-embed-color-mode="system"><p lang="en">the more i learn rust, the more i want to use it for everything.
 
-i like the errors, i like clippy, i like the language features, but most of all: I like the way it makes you think.
+i like the errors, i like clippy, i like the language features, but most of all:
+I like the way it makes you think.
 
-i think “rust is just for systems programming” is more meme than truth.</p>&mdash; mirrorless gamera (<a href="https://bsky.app/profile/did:plc:mm7qndperhx2oacoo5edf3f2?ref_src=embed">@r.bdr.sh</a>) <a href="https://bsky.app/profile/did:plc:mm7qndperhx2oacoo5edf3f2/post/3lpd54o4k5m42?ref_src=embed">May 17, 2025 at 4:35 AM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+i think “rust is just for systems programming” is more meme than
+truth.</p>&mdash; mirrorless gamera
+(<a href="https://bsky.app/profile/did:plc:mm7qndperhx2oacoo5edf3f2?ref_src=embed">@r.bdr.sh</a>)
+<a href="https://bsky.app/profile/did:plc:mm7qndperhx2oacoo5edf3f2/post/3lpd54o4k5m42?ref_src=embed">May
+17, 2025 at 4:35
+AM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 ---
 
@@ -546,7 +621,13 @@ i think “rust is just for systems programming” is more meme than truth.</p>&
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:wamidydbgu3u6fk3yckaglnz/app.bsky.feed.post/3lplvgetxmk25" data-bluesky-cid="bafyreifcqha2uhhaoid3y37odhxvpnmxqbc7zzeogk5gpm5zbekv6blkoy" data-bluesky-embed-color-mode="system"><p lang="en">languages and linters that make unused variables a fatal error: it&#x27;s on sight
 
-once again, the glorious Rust programming language has charted the correct path here in making it a warning that you can make fatal *if you want*</p>&mdash; philpax (<a href="https://bsky.app/profile/did:plc:wamidydbgu3u6fk3yckaglnz?ref_src=embed">@philpax.me</a>) <a href="https://bsky.app/profile/did:plc:wamidydbgu3u6fk3yckaglnz/post/3lplvgetxmk25?ref_src=embed">May 20, 2025 at 4:08 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+once again, the glorious Rust programming language has charted the correct path
+here in making it a warning that you can make fatal _if you want_</p>&mdash;
+philpax
+(<a href="https://bsky.app/profile/did:plc:wamidydbgu3u6fk3yckaglnz?ref_src=embed">@philpax.me</a>)
+<a href="https://bsky.app/profile/did:plc:wamidydbgu3u6fk3yckaglnz/post/3lplvgetxmk25?ref_src=embed">May
+20, 2025 at 4:08
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:7mnpet2pvof2llhpcwattscf/app.bsky.feed.post/3lpmz47d7z22n" data-bluesky-cid="bafyreif4s4hwkct3gxfhzqzx5gjz6ax6fbps5ckpvklpqn4ks2664oelo4" data-bluesky-embed-color-mode="system"><p lang="en">you should enable it though</p>&mdash; 🖤stellz🖤 (<a href="https://bsky.app/profile/did:plc:7mnpet2pvof2llhpcwattscf?ref_src=embed">@piss.beauty</a>) <a href="https://bsky.app/profile/did:plc:7mnpet2pvof2llhpcwattscf/post/3lpmz47d7z22n?ref_src=embed">May 21, 2025 at 2:46 AM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
@@ -556,9 +637,15 @@ once again, the glorious Rust programming language has charted the correct path 
 
 ---
 
-<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:klhtmrnregub7we7h6jwiljm/app.bsky.feed.post/3lpormlhwgk2f" data-bluesky-cid="bafyreidmmwz2j4tarll32jllwpe524etlprli6nicf5jgx5u2hopit63zi" data-bluesky-embed-color-mode="system"><p lang="en">bluesky is the place where I help perpetuate stereotypes of trans women being rust programmers and argue with gay men that they have &gt;20% responsibility for Trump, did you look at all that gold leaf, and somehow I am not canceled 
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:klhtmrnregub7we7h6jwiljm/app.bsky.feed.post/3lpormlhwgk2f" data-bluesky-cid="bafyreidmmwz2j4tarll32jllwpe524etlprli6nicf5jgx5u2hopit63zi" data-bluesky-embed-color-mode="system"><p lang="en">bluesky is the place where I help perpetuate stereotypes of trans women being rust programmers and argue with gay men that they have &gt;20% responsibility for Trump, did you look at all that gold leaf, and somehow I am not canceled
 
-maybe because those are actual jokes, though, I dunno<br><br><a href="https://bsky.app/profile/did:plc:klhtmrnregub7we7h6jwiljm/post/3lpormlhwgk2f?ref_src=embed">[image or embed]</a></p>&mdash; Ed (<a href="https://bsky.app/profile/did:plc:klhtmrnregub7we7h6jwiljm?ref_src=embed">@ed3d.net</a>) <a href="https://bsky.app/profile/did:plc:klhtmrnregub7we7h6jwiljm/post/3lpormlhwgk2f?ref_src=embed">May 21, 2025 at 7:38 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+maybe because those are actual jokes, though, I
+dunno<br><br><a href="https://bsky.app/profile/did:plc:klhtmrnregub7we7h6jwiljm/post/3lpormlhwgk2f?ref_src=embed">[image
+or embed]</a></p>&mdash; Ed
+(<a href="https://bsky.app/profile/did:plc:klhtmrnregub7we7h6jwiljm?ref_src=embed">@ed3d.net</a>)
+<a href="https://bsky.app/profile/did:plc:klhtmrnregub7we7h6jwiljm/post/3lpormlhwgk2f?ref_src=embed">May
+21, 2025 at 7:38
+PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:ouofdzq4ht6oe3vdr4wn6jxg/app.bsky.feed.post/3lporu5ijlc2g" data-bluesky-cid="bafyreib2jha7eybaajelatcckkfqzre2j7m3nzgikcqhfuua3bmbzwcqbe" data-bluesky-embed-color-mode="system"><p lang="en">Jokes aside, trans women really are wildly overrepresented relative to baseline demographics in the rust community and I&#x27;d love to know the backstory behind that.</p>&mdash; Ben Cates (<a href="https://bsky.app/profile/did:plc:ouofdzq4ht6oe3vdr4wn6jxg?ref_src=embed">@bencates.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:ouofdzq4ht6oe3vdr4wn6jxg/post/3lporu5ijlc2g?ref_src=embed">May 21, 2025 at 7:42 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
@@ -568,54 +655,40 @@ maybe because those are actual jokes, though, I dunno<br><br><a href="https://bs
 
 ---
 
-i get mental damage everytime i hear about a GC language having data races and memory leaks
+i get mental damage everytime i hear about a GC language having data races and
+memory leaks
 
-maybe I'm just too rustpilled but I just feel like the language should know if a variable is being across threads and it should just use atomic counting instead of normal counting
+maybe I'm just too rustpilled but I just feel like the language should know if a
+variable is being across threads and it should just use atomic counting instead
+of normal counting
 
-Kathryn<'u1f338>[MEOW]
-— 22/05/2025 12:45 PM
-i get mental damage everytime i hear about a GC language having race conditions and memory leaks
-mlem-chan — 22/05/2025 12:55 PM
-race condition is not something prevented with GC
-memory leaks, however, are supposed to be, by the virtue of eliminating manual memory management
-Kathryn<'u1f338>[MEOW]
-— 22/05/2025 12:56 PM
-language level construct
-mlem-chan — 22/05/2025 12:56 PM
-now, I'm referring to "true" memory leaks
-Kathryn<'u1f338>[MEOW]
-— 22/05/2025 12:56 PM
-like how rust has Send + Sync
-mlem-chan — 22/05/2025 12:56 PM
-a.k.a. "I lost all my handles and can't free it"
-Kathryn<'u1f338>[MEOW]
-— 22/05/2025 12:57 PM
-also if the language is interpreted, shouldnt it have all the knowledge required to detect if something is crossing thread boundary?
-mlem-chan — 22/05/2025 12:57 PM
-communities of GC'd languages usually call "I kept the handle to a large object for way too long" a memory leak
-Kathryn<'u1f338>[MEOW]
-— 22/05/2025 12:57 PM
-or am i overestimating what the languages know
-Kathryn<'u1f338>[MEOW]
-— 22/05/2025 12:57 PM
-thats fine, thats a skill issue
-ive done a leak like that in godot
-it could be a warning but i feel like thats too hard to implement
-mlem-chan — 22/05/2025 01:00 PM
-if the language sandboxes away the thread launching capability, then yes, it is possible to prevent data races
-race conditions are more general
-Kathryn<'u1f338>[MEOW]
-— 22/05/2025 01:01 PM
-ah yes, i meant data race
-mlem-chan — 22/05/2025 01:01 PM
-and there's no easy way to prevent race conditions in general
+Kathryn<'u1f338>[MEOW] — 22/05/2025 12:45 PM i get mental damage everytime i
+hear about a GC language having race conditions and memory leaks mlem-chan —
+22/05/2025 12:55 PM race condition is not something prevented with GC memory
+leaks, however, are supposed to be, by the virtue of eliminating manual memory
+management Kathryn<'u1f338>[MEOW] — 22/05/2025 12:56 PM language level construct
+mlem-chan — 22/05/2025 12:56 PM now, I'm referring to "true" memory leaks
+Kathryn<'u1f338>[MEOW] — 22/05/2025 12:56 PM like how rust has Send + Sync
+mlem-chan — 22/05/2025 12:56 PM a.k.a. "I lost all my handles and can't free it"
+Kathryn<'u1f338>[MEOW] — 22/05/2025 12:57 PM also if the language is
+interpreted, shouldnt it have all the knowledge required to detect if something
+is crossing thread boundary? mlem-chan — 22/05/2025 12:57 PM communities of GC'd
+languages usually call "I kept the handle to a large object for way too long" a
+memory leak Kathryn<'u1f338>[MEOW] — 22/05/2025 12:57 PM or am i overestimating
+what the languages know Kathryn<'u1f338>[MEOW] — 22/05/2025 12:57 PM thats fine,
+thats a skill issue ive done a leak like that in godot it could be a warning but
+i feel like thats too hard to implement mlem-chan — 22/05/2025 01:00 PM if the
+language sandboxes away the thread launching capability, then yes, it is
+possible to prevent data races race conditions are more general
+Kathryn<'u1f338>[MEOW] — 22/05/2025 01:01 PM ah yes, i meant data race mlem-chan
+— 22/05/2025 01:01 PM and there's no easy way to prevent race conditions in
+general
 
 ---
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:ff4yuuckbzzpuw4guxvuzgpt/app.bsky.feed.post/3lq5xeu2ikk23" data-bluesky-cid="bafyreigtoonol2sryuhqiaq2es32r5dxrc224uyqye6myfcdhxchxw4zni" data-bluesky-embed-color-mode="system"><p lang="en">Rust rewires your brain. What once seemed simple unfolds into elegant, intricate patterns. As you embrace async, lifetimes, and ownership, you begin to see the world as a web of safe, concurrent, and purposeful flows. Problem-solving becomes art. Complexity becomes clarity.</p>&mdash; Ibrahim (<a href="https://bsky.app/profile/did:plc:ff4yuuckbzzpuw4guxvuzgpt?ref_src=embed">@ibrahim0708.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:ff4yuuckbzzpuw4guxvuzgpt/post/3lq5xeu2ikk23?ref_src=embed">May 27, 2025 at 8:31 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 ---
-
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:3eqnxy3kk2bwmtcmcl5gt7fv/app.bsky.feed.post/3lqmii3nel22o" data-bluesky-cid="bafyreifldhow7dipvr3bly5b6avo53xer25ihdrlcexibkac57ea2rddfm" data-bluesky-embed-color-mode="system"><p lang="en">i still love how friendly the rust compiler is, dropping hints on how to fix buggy code. Ferris 🦀 really is the bestest &lt;3</p>&mdash; Lani (<a href="https://bsky.app/profile/did:plc:3eqnxy3kk2bwmtcmcl5gt7fv?ref_src=embed">@laniakita.com</a>) <a href="https://bsky.app/profile/did:plc:3eqnxy3kk2bwmtcmcl5gt7fv/post/3lqmii3nel22o?ref_src=embed">June 2, 2025 at 3:14 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 

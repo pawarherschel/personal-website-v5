@@ -31,26 +31,25 @@ as [No Boilerplate](https://noboilerplate.org/) put it,
 ["Fast, Reliable, Productive,
 pick THREE"](https://youtu.be/Z3xPIYHKSoI?list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP&t=68)).
 
-I don't need to worry about memory safety, and performance is great. People are
-noticing the advantages, and the industry adoption for Rust is increasing.
+You don't need to worry about memory safety, and performance is great. People
+are noticing the advantages, and the industry adoption for Rust is increasing.
 
 While that's a good hook to get people into starting Rust, those aren't the
-reason people stick with rust and try to use it everywhere.
+reason people stick with Rust.
 
 Performance isn't the only factor that matters for industry adoption (see: all
-the applications written in Python, and Electron+JS). Memory safety doesn't
-matter that much either (see: Zig, a more ergonomic C with practically the same
-footguns as far as I can see to C. Or godforbid Go with all the concurrency
-hazards, which is praised for easy to use concurrent features, AND it decided to
-bring back null pointers).
+the applications written in Python, and Electron+JS).
+
+Memory safety doesn't matter that much either (see: Zig, a more ergonomic C with
+practically the same footguns as far as I can see to C. Or godforbid Go with all
+the concurrency hazards, which is praised for easy to use concurrent features,
+AND it decided to bring back null pointers).
 
 IMHO, what ended up making a difference is more social than pragmatic. Rust has
 great tooling, the community is inclusive. It takes the best parts of functional
 programming, and brings it to the masses.
 
-And, coming from Python, the biggest factor for me was _predictability_.
-
-Rust enables my hubris.
+And, for me, coming from Python, the biggest factor was _predictability_.
 
 # Predictability
 
@@ -74,7 +73,7 @@ them. You can say you don't care about it, or you know it won't happen by doing
 `.unwrap()`, but that's you making a choice. In Go, and C, you can ignore the
 result. In JS, and Python, you don't even know if the function can error. Zig
 saw the benefit and requires you to declare the function can error, but adding
-context for _why_ (as a payload) it failed requires works.
+context for _why_ it failed as a payload requires works.
 
 Just knowing if the function can fail, or not return anything reduces cognitive
 load. I know when a function is going to fail, and I can react to it.
@@ -109,7 +108,7 @@ I'm done with a variable and automatically free it. Most variables are temporary
 and limited to the scope anyway. Why can't the compiler "just" see that?
 
 When I first heard about how Rust cleans up memory automatically, I was like
-"fucking finally". Then I heard about how it forces you to either, multiple
+"fucking finally". Then I heard about how it forces you to either have, multiple
 readers, or a single writer. If you think about it, it's the same thing
 databases enforce internally, so it clicked almost instantaneously for me. I
 went, "Oh, that's just like a database, that's cool". So I never got why people
@@ -171,7 +170,7 @@ browser.
 
 ## Rust-analyzer -- LSP
 
-Rust-analyzer is the default LSP for rust.
+Rust-analyzer is the default LSP for Rust.
 
 ## Clippy -- More advanced linter
 
@@ -249,8 +248,8 @@ Rust doesn't just have good tooling.
   - [Hindley-Milner Type System](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system)
   - Type inference
   - Iterators
-  - Immutable by default
-  - Everything is an expression
+  - Immutable variables
+  - Expression based
 - It strikes a good balance between language features, and additional syntax.
   - Operators like `+` can be implemented for any type by implementing the
     appropriate trait.
@@ -264,10 +263,13 @@ But the people also need to be good, it won't matter how good the language is if
 the environment is toxic.
 
 And I'm happy to say that the community is welcoming and has DEI as one of their
-core values. It's hard to spend one day in the rust ecosystem without running
+core values. It's hard to spend one day in the Rust ecosystem without running
 into queer people.
 
+See:
 https://blog.rust-lang.org/2025/02/13/2024-State-Of-Rust-Survey-results/#community
+
+![](https://r2.sakurakat.systems/why-rust--dei.png)
 
 But, again, why does it matter?
 
@@ -279,12 +281,11 @@ it's an accessibility feature.
 IMO, the number of queer people in a community is a good sniff test for
 toxicity.
 
-Diversity, equitability, and inclusivity are hard metrics to meet as it's not
-something any particular individual can meet. DEI needs to be met as a while
-community, and it's a community wide effort. It's one thing to have a good
-product, it's another thing to have a friendly and inclusive community.
-Likewise, it takes a monumental amount of coordination and energy to make sure
-people feel safe.
+Diversity, equitability, and inclusivity are hard metrics to meet as it's not a
+single individual's responsibility. DEI needs to be met as a community wide
+effort. It's one thing to have a good product, it's another thing to have a
+friendly and inclusive community. Likewise, it takes a monumental amount of
+coordination and energy to make sure people feel safe.
 
 It's only political if you think different people are... well... not people.
 
@@ -318,15 +319,13 @@ Take immutable by default for example. In other languages, immutability is an
 add-on state. Which signals that it's idiomatic to have mutable variables, and
 that mutability is better.
 
-Good practices in other languages, mandatory in rust.
-
 You don't need to constantly remind yourself to do the better thing, the
 compiler reminds you.
 
 Rust rewired my brain, when I need to write JS/TS, I get anxious. It feels like
 walking in a minefield. I know something is going to blow-up, I just don't know
 where. The computer has access to where the mines are, but it won't tell me
-where. It's not something I should remember. It's not a feasible ask.
+where. It's not something I should remember, that's not a feasible ask.
 
 While it's possible to learn where the mines are in the standard library, it's
 not possible to learn it for every library.
@@ -339,15 +338,19 @@ Let the computer do what it's best at, and use the limited time and resources we
 have to fill in the rest.
 
 While dealing with the borrow checker and Option/Result can be annoying, it made
-me realize how much better predictability is in the long run. While those
-feature make it more complex in the short term, the fact that people use them
-properly helps reduce the overall complexity.
+me realize how much better predictability is in the long run. The features that
+make it more complex in the short term, helps reduce the overall complexity,
+especially in the long term.
+
+I think [corrode](https://corrode.dev/blog/foundational-software/) put it the
+best,
+"[Rust is a day-2-language](https://corrode.dev/blog/foundational-software/#:~:text=Rust%20is%20a%20day%2D2%2Dlanguage)".
 
 I'm not saying Rust is the perfect language, or Rust has everything I've ever
 wanted from a programming language; but it's good enough.
 
-Life is all about tradeoffs, and I'm saying that Rust's tradeoffs are good
-enough for me.
+Life is all about trade-offs, and I'm saying that Rust's trade-offs are
+acceptable for me.
 
 # Case Studies
 
@@ -368,12 +371,10 @@ But, in the end, the architecture she ended up making turned out to have more
 features like cancellation, and better concurrency.
 
 So, it just made the VM better, and now there's a reason to use it over other
-VMs.
+VMs. It's their "killed feature".
 
 Borrow checker doesn't just prevent memory safety bugs, it also forces you to
-design the program in a better way. I'd even say that the complexity borrow
-checker brings is a good tradeoff if you consider the amount of brain power it
-saves. The upfront investment is worth the long-term returns.
+design the program in a better way.
 
 ---
 
@@ -391,8 +392,8 @@ C++ had decades to learn, but it didn't matter.
 
 From my personal experience, when I was following
 [Learn OpenGL](https://learnopengl.com/), I kept shooting myself in the foot
-because C++ has a feature, but MSVC doesn't support it. I tried to use smart
-pointers, but the way I couldn't use them instead of normal pointers.
+because C++ is supposed to have a feature, but MSVC doesn't support it. I tried
+to use smart pointers, but I couldn't use them instead of normal pointers.
 
 Also, it doesn't mesh with the way I learn. Initially when I have to learn
 something, I go with spoonfeeding. Once I'm done getting spoonfed, I jump
@@ -500,7 +501,7 @@ PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" ch
 https://medium.com/@gustavokov/constructor-acquires-destructor-releases-e1455b63289c
 
 I think just the quote "I am sure there are data races here, the compiler is
-just not telling me where" is enough :P
+just not telling me where" is enough \:P
 
 ---
 
@@ -521,8 +522,8 @@ intrigued you, you should read this paper.
 https://www.youtube.com/watch?v=xt1vcL5rF1c
 
 I found the "HOLD ON! You can run `cargo run` AND `cargo doc` AND `cargo fmt`
-AND `rustup update`And it just works?" slide hilarious, it also highlights how
-good the tools are for rust, especially when it comes to embedded development.
+AND `rustup update` And it just works?" slide hilarious, it also highlights how
+good the tools are for Rust, especially when it comes to embedded development.
 You don't need to install anything different for embedded development, and I
 think that's a huge benefit.
 
@@ -553,8 +554,8 @@ in Rust embedded since before Rust Embedded Working Group was a thing.
 https://scp-iota.github.io/software/2025/06/11/rust-for-beginners.html
 
 Hazel says that one of the biggest problem with learning Rust coming from
-another language is that you need to quote "Forget Everything You Know", so it's
-easier for beginners to learn Rust, since its just like learning any other
+another language is that you need to, quote, "Forget Everything You Know", so
+it's easier for beginners to learn Rust, since its just like learning any other
 language.
 
 ---
@@ -573,7 +574,7 @@ These are just some of the posts I found on Bluesky (and one on Mastodon)
 
 ---
 
-## jamesmunns.com on the ever evolving standard library
+## jamesmunns.com on the ever improving standard library
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:denuvqodvvnzxtuitumle4vs/app.bsky.feed.post/3loirmuk6is2q" data-bluesky-cid="bafyreih6574owizr2m3rsyi2phb2fvg3x2j7ohkp7j6bnnx53dqc5dfh44" data-bluesky-embed-color-mode="system"><p lang="en">please do not attempt to fight the collections (you will lose)</p>&mdash; The Museum of English Rural Life (<a href="https://bsky.app/profile/did:plc:denuvqodvvnzxtuitumle4vs?ref_src=embed">@themerl.bsky.social</a>) <a href="https://bsky.app/profile/did:plc:denuvqodvvnzxtuitumle4vs/post/3loirmuk6is2q?ref_src=embed">May 6, 2025 at 4:57 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
@@ -689,7 +690,7 @@ PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" ch
 
 ---
 
-## rustnl@fosstodon.org talking about how Martin Larralde's research was accelerated by SIMD (because it's easier than in C)
+## rustnl on fosstodon.org talking about how Martin Larralde's research was accelerated by SIMD (because it's easier than in C)
 
 https://youtu.be/ZtmrfRMZNps
 
@@ -703,7 +704,7 @@ https://youtu.be/ZtmrfRMZNps
 
 ---
 
-## r.bdr.sh talking about wanting to use Rust's developer experience
+## r.bdr.sh talking about Rust's developer experience
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:mm7qndperhx2oacoo5edf3f2/app.bsky.feed.post/3lpd54o4k5m42" data-bluesky-cid="bafyreidtzz4i7v5ycq3j2klpje4txytvdc6esjxaz6xvpmwjuvnennjuwa" data-bluesky-embed-color-mode="system"><p lang="en">the more i learn rust, the more i want to use it for everything.
 

@@ -352,10 +352,43 @@ wanted from a programming language; but it's good enough.
 Life is all about trade-offs, and I'm saying that Rust's trade-offs are
 acceptable for me.
 
+---
+
+# Proofreaders
+
+> Divyesh Patil
+>
+> - https://www.linkedin.com/in/divyesh-patil-525808257/
+
+---
+
 # Case Studies
 
 While preparing to write this blog post I collected a bunch of other articles
 and I want to "react" to them / recommend them.
+
+## Multiple GCP products are experiencing Service issues (2025-06-12)
+
+https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW
+
+"Without the appropriate error handling, the null pointer caused the binary to
+crash."
+
+lol, lmao
+
+![meme of Garfield saying "You are not immune to nullptr"](https://r2.sakurakat.systems/why-rust--nullptr.png)
+
+<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:3ohd5nodgvayjdegkhzayr6q/app.bsky.feed.post/3lrl6qqcry222" data-bluesky-cid="bafyreicafv7clnjaorvumrurpbge3ps4x3f2wr3pczua7no2jnr3ej5ogq" data-bluesky-embed-color-mode="system"><p lang="en">on type safety<br><br><a href="https://bsky.app/profile/did:plc:3ohd5nodgvayjdegkhzayr6q/post/3lrl6qqcry222?ref_src=embed">[image or embed]</a></p>&mdash; Adam Chalmers (<a href="https://bsky.app/profile/did:plc:3ohd5nodgvayjdegkhzayr6q?ref_src=embed">@adamchalmers.com</a>) <a href="https://bsky.app/profile/did:plc:3ohd5nodgvayjdegkhzayr6q/post/3lrl6qqcry222?ref_src=embed">June 14, 2025 at 8:12 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
+
+> Frog put the value in a option. "There," he said. "Now we will not deref any
+> more null pointers." "But we can unwrap the option," said Toad. "That is
+> true," said Frog.
+
+Yes, but, `.unwrap()` would've raised flags. Also, wrapping the pointer in
+`Option` would be a pretty big signal that "hey, you want to be more careful
+here". In Golang/C++, you don't even know if the value can be null.
+
+---
 
 ## Piccolo - A Stackless Lua Interpreter by kyren (Catherine West)
 

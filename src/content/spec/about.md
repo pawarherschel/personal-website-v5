@@ -303,7 +303,7 @@ Get better than communication
 
 1. [x] April [Hyper-V shenanigans with `nixos-generators`](/posts/hyperv-shenanigans/)
 2. [x] May [How Jujutsu VCS helps lowers the barrier to perfect git history](/posts/jj-my-beloved/)
-3. [ ] June TODO: Why Rust?
+3. [x] June [Why Rust?](/posts/why-rust/)
 
 ## GitHub contributions (2024)
 
@@ -764,7 +764,7 @@ It's truly bittersweet anime.
 As one of the [reviews](https://anilist.co/review/24028) put it,
 "What it means to be human, as taught by an elf.".
 
-# 2024-06-13 (Anime) Delicious in Dungeon (Dungeon Meshi)
+## 2024-06-13 (Anime) Delicious in Dungeon (Dungeon Meshi)
 
 https://anilist.co/anime/153518/Delicious-in-Dungeon/
 

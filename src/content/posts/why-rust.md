@@ -10,7 +10,7 @@ This blog post is laden with emotions, feelings, and opinions, read
 [Rust For Foundational Software | corrode Rust Consulting](https://corrode.dev/blog/foundational-software/)
 if you want a more neutral and objective take, and not the kat experience.
 
-:::caution[ASSUMED AUDIENCE]
+:::note[ASSUMED AUDIENCE]
 
 Anyone who wants to know why I like Rust so much (duh).
 
@@ -41,15 +41,20 @@ Performance isn't the only factor that matters for industry adoption (see: all
 the applications written in Python, and Electron+JS).
 
 Memory safety doesn't matter that much either (see: Zig, a more ergonomic C with
-practically the same footguns as far as I can see to C. Or godforbid Go with all
-the concurrency hazards, which is praised for easy to use concurrent features,
-AND it decided to bring back null pointers).
+practically the same foot guns as far as I can see to C. Or god forbid Go with
+all the concurrency hazards, which is praised for easy to use concurrent
+features, AND it decided to bring back null pointers).
 
 IMHO, what ended up making a difference is more social than pragmatic. Rust has
 great tooling, the community is inclusive. It takes the best parts of functional
 programming, and brings it to the masses.
 
 And, for me, coming from Python, the biggest factor was _predictability_.
+
+Rust also has better defaults, good practices in other languages are enforced in
+Rust.
+
+Another thing is the dreaded borrow checker, which deserves its own section.
 
 # Predictability
 
@@ -58,8 +63,12 @@ So, what do I mean when I say predictability?
 The first thing which comes to my mind for explaining is that Rust doesn't have
 exceptions or implicitly nullable objects.
 
-Rust has `Result<T, E>` which explicitly signals that "This function can fail in
-ways that you might be able to recover from".
+Rust has `Result<T, E>` which signals to the human that "This function can fail
+in ways that you might be able to recover from". `Result` isn't anything
+special, it's just a widespread convention. From what I gathered, in C, the
+convention is to take pointers as arguments for where to store the data, and the
+function itself returns a `0` to signal success, and some other integer as error
+code.
 
 There are multiple ways to say "null" which signals a different kind of "null".
 The most common being `Option<T>` that signals "This function might, or might
@@ -77,29 +86,6 @@ context for _why_ it failed as a payload requires works.
 
 Just knowing if the function can fail, or not return anything reduces cognitive
 load. I know when a function is going to fail, and I can react to it.
-
-Next thing, Rust has `Send`, and `Sync` markers. `Send` signals that the object
-can safely be sent to another thread. `Sync` signals that the object can safely
-be shared with another thread. I think `Send` is pretty easy to understand, it's
-just moving an object from one thread to another. `Sync` on the other hand felt
-confusing to me, what does it mean for an object to be shared? "Shared" here
-means that even if you send a pointer to the object to another thread, when the
-other thread dereferences the pointer, the pointer is still valid, and the data
-is in "sync" with what the original thread sees.
-
-For example, take the
-[Producer–consumer problem](https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem).
-In this case, the data we send, well, needs to be marked `Send`. The queue on
-the other hand needs to be marked `Send`, and `Sync`. At any time, the data is
-owned by one thread only, but the queue needs to be accessed from both, the
-consumer, and the producer. The producer will send the data to the queue, and
-the consumer will consume the data from the queue. So, it is important that both
-see the same data.
-
-Rust also has better defaults, good practices in other languages are enforced in
-Rust.
-
-Another thing is the dreaded borrow checker, which deserves its own section.
 
 # Borrow checker
 
@@ -127,6 +113,154 @@ How does it tie back to predictability?\
 Borrow checker makes it so you know if a function is going to delete a value,
 modify a variable, or if it just needs to read it. It also removes the confusion
 of "does this function modify the value or does it return a new value".
+
+# `Send` and `Sync`
+
+Next thing, Rust has `Send`, and `Sync` markers. `Send` signals that the object
+can safely be sent to another thread. `Sync` signals that the object can safely
+be shared with another thread. I think `Send` is pretty easy to understand, it's
+just moving an object from one thread to another. `Sync` on the other hand felt
+confusing to me, what does it mean for an object to be shared? "Shared" here
+means that even if you send a pointer to the object to another thread, when the
+other thread dereferences the pointer, the pointer is still valid, and the data
+is in "sync" with what the original thread sees.
+
+![Send/Sync Diagram](https://r2.sakurakat.systems/why-rust--send-sync.svg)
+
+In the above diagram, the envelope represents packing up the data, and sending
+it to another thread. Which means the ownership is being transferred from
+`Thread-2` to `Thread-1`. On the other hand, while `Thread-2` owns `meow`,
+`Thread-1` can still read it, so, `Thread-2` has the ownership of `meow`, but
+`Thread-1` has read-only access to it.
+
+Enough yapping, let's see an example.
+
+## [Producer–Consumer problem](https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem)
+
+In this case, the data we send, well, needs to be marked `Send`. The queue on
+the other hand needs to be marked `Send`, and `Sync`. At any time, the data is
+owned by one thread only, but the queue needs to be accessed from both, the
+consumer, and the producer. The producer will send the data to the queue, and
+the consumer will consume the data from the queue. So, it is important that both
+see the same data.
+
+Here's one way to write the producer-consumer program
+
+```rust
+fn main() {
+    let queue/*: Vec<&str> */ = Vec::new();
+    let queue/*: RwLock<Vec<&str>> */ = std::sync::RwLock::new(queue);
+    let queue/*: Arc<RwLock<Vec<&str>>> */ = std::sync::Arc::new(queue);
+
+    let producer/*: JoinHandle<_> */ = {
+        let queue/*: Arc<RwLock<Vec<&str>>> */  = queue.clone();
+        std::thread::spawn(move || {
+            loop {
+                std::thread::sleep(std::time::Duration::from_millis(193));
+                let Ok(()) = queue.write().map(|mut x| x.push("meow")) else {
+                    println!("Poison detected in producer");
+                    return;
+                };
+            }
+        })
+    };
+
+    let consumer/*: JoinHandle<_> */ = {
+        let queue/*: Arc<RwLock<Vec<&str>>> */  = queue.clone();
+        std::thread::spawn(move || {
+            loop {
+                std::thread::sleep(std::time::Duration::from_millis(211));
+                let Ok(mut queue) = queue.write() else {
+                    println!("Poison detected in consumer");
+                    return;
+                };
+                if queue.is_empty() {
+                    println!("Queue empty");
+                    continue;
+                }
+                let data = unsafe {
+                    // Safety: We checked if the queue is empty above.
+                    queue.pop().unwrap_unchecked()
+                };
+
+                // Do something with it
+                _ = data;
+            }
+        })
+    };
+
+    let handles/*: [JoinHandle<_>; 2] */ = [producer, consumer];
+
+    let Ok(mut prev/*: usize */) = queue.read().map(|x| x.len()) else {
+        println!("Poison detected before loop!");
+        return;
+    };
+
+    while handles.iter().any(|x| !x.is_finished()) {
+        let Ok(curr/*: usize */) = queue.read().map(|x| x.len()) else {
+            println!("Poison detected while in loop!");
+            return;
+        };
+        if prev != curr {
+            println!("{}{curr}", if prev > curr { '📉' } else { '📈' });
+            prev = curr;
+        }
+    }
+}
+```
+
+See it run on rust playground:
+[Link to playground](https://play.rust-lang.org/?version=nightly&edition=2024&gist=422279f464190d7a1d3860e2e62c7162)
+
+![Producer-Consumer Problem](https://r2.sakurakat.systems/why-rust--producer-comsumer.svg)
+
+As you see in the above diagram, `queue` is on the heap, and it has 3 owners:
+
+1. The `queue` in `main` thread.
+2. The `queue` in `producer` thread.
+3. The `queue` in `consumer` thread.
+
+But, at any point, either one thread is modifying the queue, or it's being read
+from multiple threads, which is being enforced by the `RwLock`. So, here, the
+queue needs to be `Send + Sync`.
+
+The easiest way to make sure there's no data race while accessing data from
+other threads is to make it immutable. Wrapping the data in `Arc` does that.
+But, in our case, we also need to modify the data. To do so, Rust has an escape
+hatch with "interior mutability". `Mutex` is one example of that. However,
+`Mutex` only allows for one reader or one writer. `RwLock` allows you to have
+either a single writer, or multiple concurrent readers. In our case, the
+performance difference won't be that apparent. However, it should be fine.
+
+But how does the compiler know that the queue is `Send` and `Sync`? I didn't
+explicitly mark anything as `Send` or `Sync`. The rust compiler automatically
+marks `struct`s as `Send` if everything inside the struct is `Send`. Similarly,
+if everything inside the struct is `Sync`, the struct is also `Sync`. So, unless
+you're implementing your own synchronization primitives, you won't need to
+explicitly mark stuff as `Send` and `Sync`.
+
+In this case, `Vec<T>` is `Sync` if `T` is `Sync`, and `Vec<T>` is `Send` if `T`
+is `Send`. Our payload is `"meow"`, which is of type `&'static str'`, which
+stored in the data section of our binary, so it is `Send`, and `Sync`. Next,
+`RwLock<T>` is `Send` if `T` is `Send`, and `Sync` if `T` is `Send + Sync`,
+which it is. Finally, `Arc<T>` is `Send + Sync` if `T` is `Send + Sync`, so, our
+queue can be safely accessed from multiple threads, and it can be manipulated
+safely from multiple threads as well.
+
+But, since `Vec<T>` is `Send + Sync`, why did I still wrap it in `RwLock` and
+`Arc`?
+
+It's because `Vec<T>` can only have one owner, if I refer it in another thread,
+`rustc` complains that I need to move the ownership. Once it moves, I cannot
+access it in the main thread. If I try to use a reference instead, then `rustc`
+complains that the reference might not live long enough. One solution can be
+using `std::thread::scope` instead since rust will join the handles
+automatically once the scoped handles reach end of scope. But, `rustc` still
+complains about the lifetime of the reference. Thus, I need something which
+allows for shared ownership. In single threaded scenarios, `Rc<T>` is used,
+however, since I'm using multiple threads, I have to use `Arc<T>`. But, `Arc`
+makes the data immutable, so I need interior mutability, and thus, I have to
+wrap the data in `RwLock`, and the lock inside `Arc`.
 
 # Tooling
 
@@ -362,6 +496,14 @@ acceptable for me.
 
 ---
 
+# Typst files
+
+[Typst file for the Send/Sync diagram](/why-rust/send-sync.typ)
+
+[Typst file for the producer/consumer diagram](/why-rust/producer-consumer.typ)
+
+---
+
 # Case Studies
 
 While preparing to write this blog post I collected a bunch of other articles
@@ -374,7 +516,7 @@ https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW
 "Without the appropriate error handling, the null pointer caused the binary to
 crash."
 
-lol, lmao
+lol, lmao ~ 🦂
 
 ![meme of Garfield saying "You are not immune to nullptr"](https://r2.sakurakat.systems/why-rust--nullptr.png)
 
@@ -595,7 +737,7 @@ language.
 
 # Comments on Bluesky
 
-These are just some of the posts I found on Bluesky (and one on Mastodon)
+These are just some of the posts I found on Bluesky
 
 ---
 
@@ -625,29 +767,6 @@ smart choice over a long timescale</p>&mdash; James Munns
 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 <blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:rwi65xn77uzhgyewkfbuuziz/app.bsky.feed.post/3loj5qfchhc2a" data-bluesky-cid="bafyreif3itwfz2bwul5rpgh7p6gtmz3kqxa3sqrc4htb3iimgodekuncze" data-bluesky-embed-color-mode="system"><p lang="en">i still feel like &quot;better defaults&quot; should be in rust&#x27;s sales pitch somewhere</p>&mdash; Kathryn&lt;&#x27;u1f338&gt; (<a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz?ref_src=embed">@sakurakat.systems</a>) <a href="https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3loj5qfchhc2a?ref_src=embed">May 6, 2025 at 8:33 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
-
----
-
-## blandsoft.net on how Rust makes them care about indirection cost now
-
-<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:4e5r66uzwealg3tbidn44qcp/app.bsky.feed.post/3loxx4m5ge22s" data-bluesky-cid="bafyreibibw6kncmhhu6xppdiqbinr4orqtsk37bd5mlbclbvkyf6flsfma" data-bluesky-embed-color-mode="system"><p lang="en">using rust has made me care too much about stack vs heap, and indirection cost
-
-I cry every time I can&#x27;t declare a const array or const struct in C#
-:(</p>&mdash; monaco
-(<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp?ref_src=embed">@blandsoft.net</a>)
-<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp/post/3loxx4m5ge22s?ref_src=embed">May
-12, 2025 at 5:45
-PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
-
-<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:4e5r66uzwealg3tbidn44qcp/app.bsky.feed.post/3loxx5wrloc2s" data-bluesky-cid="bafyreiarksiftgrdx7qilifwbfiph4rf3isi3x6h33bdstivm74qskk2im" data-bluesky-embed-color-mode="system"><p lang="en">they should let me have a 32GB stack :)</p>&mdash; monaco (<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp?ref_src=embed">@blandsoft.net</a>) <a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp/post/3loxx5wrloc2s?ref_src=embed">May 12, 2025 at 5:46 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
-
-<blockquote class="bluesky-embed" data-bluesky-uri="at://did:plc:4e5r66uzwealg3tbidn44qcp/app.bsky.feed.post/3loy4pyf47k2s" data-bluesky-cid="bafyreihjzo6ryvgklthlnc7omux7s37nr3njndwptfi3byhiqe4qmamiga" data-bluesky-embed-color-mode="system"><p lang="en">I know that C# has value semantics for structs as arguments, but are they truly pass-by-value, or does CLR treat them as references behind the scenes?
-
-please help C# girlies xoxo</p>&mdash; monaco
-(<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp?ref_src=embed">@blandsoft.net</a>)
-<a href="https://bsky.app/profile/did:plc:4e5r66uzwealg3tbidn44qcp/post/3loy4pyf47k2s?ref_src=embed">May
-12, 2025 at 7:25
-PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
 
 ---
 
@@ -720,14 +839,6 @@ bound.</p>&mdash; sopwithpuppy.bsky.social
 <a href="https://bsky.app/profile/did:plc:dkkwkim76zeobziul5eaxjm6/post/3lp33byqedk2g?ref_src=embed">May
 13, 2025 at 11:37
 PM</a></blockquote><script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script>
-
----
-
-## rustnl on fosstodon.org talking about how Martin Larralde's research was accelerated by SIMD (because it's easier than in C)
-
-https://youtu.be/ZtmrfRMZNps
-
-<blockquote class="mastodon-embed" data-embed-url="https://fosstodon.org/@rustnl/114505776215440277/embed" style="background: #FCF8FF; border-radius: 8px; border: 1px solid #C9C4DA; margin: 0; max-width: 540px; min-width: 270px; overflow: hidden; padding: 0;"> <a href="https://fosstodon.org/@rustnl/114505776215440277" target="_blank" style="align-items: center; color: #1C1A25; display: flex; flex-direction: column; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Roboto, sans-serif; font-size: 14px; justify-content: center; letter-spacing: 0.25px; line-height: 20px; padding: 24px; text-decoration: none;"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 79 75"><path d="M74.7135 16.6043C73.6199 8.54587 66.5351 2.19527 58.1366 0.964691C56.7196 0.756754 51.351 0 38.9148 0H38.822C26.3824 0 23.7135 0.756754 22.2966 0.964691C14.1319 2.16118 6.67571 7.86752 4.86669 16.0214C3.99657 20.0369 3.90371 24.4888 4.06535 28.5726C4.29578 34.4289 4.34049 40.275 4.877 46.1075C5.24791 49.9817 5.89495 53.8251 6.81328 57.6088C8.53288 64.5968 15.4938 70.4122 22.3138 72.7848C29.6155 75.259 37.468 75.6697 44.9919 73.971C45.8196 73.7801 46.6381 73.5586 47.4475 73.3063C49.2737 72.7302 51.4164 72.086 52.9915 70.9542C53.0131 70.9384 53.0308 70.9178 53.0433 70.8942C53.0558 70.8706 53.0628 70.8445 53.0637 70.8179V65.1661C53.0634 65.1412 53.0574 65.1167 53.0462 65.0944C53.035 65.0721 53.0189 65.0525 52.9992 65.0371C52.9794 65.0218 52.9564 65.011 52.9318 65.0056C52.9073 65.0002 52.8819 65.0003 52.8574 65.0059C48.0369 66.1472 43.0971 66.7193 38.141 66.7103C29.6118 66.7103 27.3178 62.6981 26.6609 61.0278C26.1329 59.5842 25.7976 58.0784 25.6636 56.5486C25.6622 56.5229 25.667 56.4973 25.6775 56.4738C25.688 56.4502 25.7039 56.4295 25.724 56.4132C25.7441 56.397 25.7678 56.3856 25.7931 56.3801C25.8185 56.3746 25.8448 56.3751 25.8699 56.3816C30.6101 57.5151 35.4693 58.0873 40.3455 58.086C41.5183 58.086 42.6876 58.086 43.8604 58.0553C48.7647 57.919 53.9339 57.6701 58.7591 56.7361C58.8794 56.7123 58.9998 56.6918 59.103 56.6611C66.7139 55.2124 73.9569 50.665 74.6929 39.1501C74.7204 38.6967 74.7892 34.4016 74.7892 33.9312C74.7926 32.3325 75.3085 22.5901 74.7135 16.6043ZM62.9996 45.3371H54.9966V25.9069C54.9966 21.8163 53.277 19.7302 49.7793 19.7302C45.9343 19.7302 44.0083 22.1981 44.0083 27.0727V37.7082H36.0534V27.0727C36.0534 22.1981 34.124 19.7302 30.279 19.7302C26.8019 19.7302 25.0651 21.8163 25.0617 25.9069V45.3371H17.0656V25.3172C17.0656 21.2266 18.1191 17.9769 20.2262 15.568C22.3998 13.1648 25.2509 11.9308 28.7898 11.9308C32.8859 11.9308 35.9812 13.492 38.0447 16.6111L40.036 19.9245L42.0308 16.6111C44.0943 13.492 47.1896 11.9308 51.2788 11.9308C54.8143 11.9308 57.6654 13.1648 59.8459 15.568C61.9529 17.9746 63.0065 21.2243 63.0065 25.3172L62.9996 45.3371Z" fill="currentColor"/></svg> <div style="color: #787588; margin-top: 16px;">Post by @rustnl@fosstodon.org</div> <div style="font-weight: 500;">View on Mastodon</div> </a> </blockquote> <script data-allowed-prefixes="https://fosstodon.org/" async src="https://fosstodon.org/embed.js"></script>
 
 ---
 

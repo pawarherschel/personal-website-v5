@@ -68,6 +68,8 @@ for i in range(10):
 
 ### An h3 header
 
+#### An h4 header
+
 Now a nested list:
 
 1. First, get these ingredients:

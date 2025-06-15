@@ -1,10 +1,59 @@
+@counter-style upper-roman {
+    system: additive;
+    range: 1 3999;
+    additive-symbols: 1000 '\4D', 900 '\43\4D', 500 '\44', 400 '\43\44', 100 '\43', 90 '\58\43', 50 '\4C', 40 '\58\4C', 10 '\58', 9 '\49\58', 5 '\56', 4 '\49\56', 1 '\49';
+    /* additive-symbols: 1000 'M', 900 'CM', 500 'D', 400 'CD', 100 'C', 90 'XC', 50 'L', 40 'XL', 10 'X', 9 'IX', 5 'V', 4 'IV', 1 'I'; */
+}
+
+@counter-style lower-roman {
+    system: additive;
+    range: 1 3999;
+    additive-symbols: 1000 '\6D', 900 '\63\6D', 500 '\64', 400 '\63\64', 100 '\63', 90 '\78\63', 50 '\6C', 40 '\78\6C', 10 '\78', 9 '\69\78', 5 '\76', 4 '\69\76', 1 '\69';
+    /* additive-symbols: 1000 'm', 900 'cm', 500 'd', 400 'cd', 100 'c', 90 'xc', 50 'l', 40 'xl', 10 'x', 9 'ix', 5 'v', 4 'iv', 1 'i'; */
+}
+
+@counter-style devanagari {
+    system: numeric;
+    symbols: '\966' '\967' '\968' '\969' '\96A' '\96B' '\96C' '\96D' '\96E' '\96F';
+    /* symbols: '०' '१' '२' '३' '४' '५' '६' '७' '८' '९'; */
+}
+
 .custom-md {
+    counter-reset:section1st;
+    
     h1 {
+        counter-reset: section2nd;
         @apply text-3xl;
     }
 
+    h2 {
+        counter-reset: section3rd;
+    }
+
     h3 {
-        @apply underline;
+        counter-reset: section4th;
+    }
+
+    h1:before
+    {
+        counter-increment: section1st;
+        content: "Section " counter(section1st, upper-roman) ". ";
+    }
+
+    h2:before
+    {
+        counter-increment: section2nd;
+        content: counter(section1st, upper-roman)  "." counter(section2nd) ". ";
+    }
+
+    h3:before {
+        counter-increment: section3rd;
+        content: counter(section1st, upper-roman)  "." counter(section2nd) "." counter(section3rd, lower-roman) ". ";
+    }
+
+    h4:before {
+        counter-increment: section4th;
+        content: counter(section1st, upper-roman)  "." counter(section2nd) "." counter(section3rd, lower-roman) "." counter(section3rd, devanagari) ". ";
     }
 
     h1, h2, h3, h4, h5, h6 {

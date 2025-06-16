@@ -19,7 +19,6 @@ import { defaultFavicons } from "../constants/icon";
 import type { Favicon } from "../types/config";
 import { url, pathsEqual } from "../utils/url-utils";
 import "katex/dist/katex.css";
-import { name } from "tailwindcss";
 import PostHog from "../components/Posthog.astro";
 
 interface Props {
@@ -72,6 +71,10 @@ const bannerOffsetByPosition = {
 };
 const bannerOffset =
 	bannerOffsetByPosition[siteConfig.banner.position || "center"];
+
+let pathname1 = Astro.url.pathname;
+let pathname2 = pathname1.split("/");
+let pathname = pathname2[pathname2.length - 2];
 ---
 
 <!DOCTYPE html>
@@ -90,7 +93,11 @@ const bannerOffset =
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description || pageTitle} />
-		<meta property="og:image" content={Astro.url.origin + `/open-graph/${title || ""}.svg`}/>
+		<meta
+			property="og:image"
+			content={Astro.url.origin +
+				`/open-graph/${pathname}.svg`}
+		/>
 		{
 			setOGTypeArticle ? (
 				<meta property="og:type" content="article" />

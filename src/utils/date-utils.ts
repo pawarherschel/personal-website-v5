@@ -1,3 +1,9 @@
 export function formatDateToYYYYMMDD(date: Date): string {
-	return date.toISOString().substring(0, 10);
+	return (() => {
+		if (date === null || date === undefined || isNaN(date.getTime())) {
+			return new Date();
+		} else {
+			return date;
+		}
+	})().toISOString().substring(0, 10);
 }

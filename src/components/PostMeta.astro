@@ -6,9 +6,8 @@ import { Icon } from "astro-icon/components";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { formatDateToYYYYMMDD } from "../utils/date-utils";
+import { getUpdatedAndPublishedForFilePath } from "../utils/updated-and-published-utils";
 import { url } from "../utils/url-utils";
-const exec = util.promisify(execCb);
-
 interface Props {
 	class: string;
 	published?: Date;
@@ -31,113 +30,10 @@ const {
 const className = Astro.props.class;
 let { published, updated } = Astro.props;
 
-async function isDir(path: string) {
-	try {
-		const s = await stat(path);
-		return s.isDirectory();
-	} catch {
-		return false;
-	}
-}
-function minDate(date1: Date, date2: Date | undefined) {
-	if (date2 === undefined) {
-		return date1;
-	}
-	if (date2.getTime() < date1.getTime()) {
-		return date2;
-	}
-	if (`${date1.toDateString()}` !== `${date2.toDateString()}`) {
-		// console.log(`PRETTY BOY LIES: ${path}`);
-		// console.log(`from ${date2.toDateString()} to ${date1.toDateString()}`);
-	}
-	return date1;
-}
-function maxDate(date1: Date, updated: Date | undefined) {
-	if (updated === undefined) {
-		return date1;
-	}
-	if (updated.getTime() < date1.getTime()) {
-		if (`${date1.toDateString()}` !== `${updated.toDateString()}`) {
-			// console.log(`BEAUTIFUL WOMAN LIES: ${path}`);
-			// console.log(`from ${updated.toDateString()} to ${date1.toDateString()}`);
-		}
-		return updated;
-	}
-	return date1;
-}
-let path = file;
-if (path.startsWith("/")) {
-	path = path.slice(1);
-}
-if (path.endsWith("/")) {
-	path = path.slice(0, path.length - 1);
-}
-path = `./src/content/${path}`;
-if (await isDir(path)) {
-	path = `${path}/index.md`;
-} else {
-	path = `${path}.md`;
-}
-// console.log(`path: ${path}`);
+const x = await getUpdatedAndPublishedForFilePath(file, updated, published);
 
-{
-	const command = `git log -1 --pretty="format:%ad" --date=short LICENSE`;
-	console.debug(`${command}`);
-	const { stdout: output, stderr: err } = await exec(`${command}`);
-	if (err.trim() !== "") {
-		console.error(`${command} failed with error:\n${err}`);
-		console.error(`${command} failed and produced:\n${output}`);
-		throw undefined;
-	}
-	// console.log(`output: ${output}`);
-	// console.log(`new Date().toUTCString(): ${new Date().toUTCString()}`);
-	// console.log(
-	// 	`new Date(output.split(/\\s/)[0]).toUTCString(): ${new Date(output.split(/\s/)[0]).toUTCString()}`,
-	// );
-	// const needsUnshallowing =
-	// 	new Date(output.split(/\s/)[0]).toUTCString() === new Date().toUTCString();
-	// console.log(`Needs unshallowing?: ${needsUnshallowing}`);
-	// if (needsUnshallowing)
-	{
-		const command = "git fetch --unshallow";
-		console.debug(`${command}`);
-		try {
-			const { stdout: output, stderr: err } = await exec(`${command}`);
-			if (err.trim() !== "") {
-				console.error(`${command} failed with error:\n${err}`);
-				console.error(`${command} failed and produced:\n${output}`);
-			}
-		} catch {
-			console.error("\n'lol, lmao' ~ 🦂");
-		}
-	}
-}
-{
-	const command = `git log -1 --pretty="format:%ad" --date=short`;
-	// console.debug(`${command} ${path}`);
-	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
-	if (err.trim() !== "") {
-		// console.error(`${command} ${path} failed with error:\n${err}`);
-	} else {
-		// console.log(`${output.split(/\s/)[0]}`);
-		// console.log(`${updated?.toDateString()}`);
-		updated = maxDate(new Date(output.split(/\s/)[0]), updated);
-		// console.log(`updated: ${updated.toDateString()}`);
-	}
-}
-{
-	const command = 'git log --date=short --pretty="format:%ad" --reverse';
-	// console.debug(`${command} ${path}`);
-	const { stdout: output, stderr: err } = await exec(`${command} ${path}`);
-	if (err.trim() !== "") {
-		// console.error(`${command} ${path} failed with error:\n${err}`);
-	} else {
-		// console.log(`${output.split(/\s/)[0]}`);
-		// console.log(`${published?.toDateString()}`);
-		published = minDate(new Date(output.split(/\s/)[0]), published);
-		// console.log(`published: ${published.toDateString()}`);
-	}
-}
+updated = x.updated;
+published = x.published;
 ---
 
 <div class:list={["flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2", className]}>

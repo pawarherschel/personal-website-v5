@@ -1,11 +1,18 @@
 import { getCollection } from "astro:content";
-import { $typst } from "@myriaddreamin/typst.ts";
-import type { SweetRenderOptions } from "@myriaddreamin/typst.ts/dist/esm/contrib/snippet.mjs";
-import type { RenderSvgOptions } from "@myriaddreamin/typst.ts/dist/esm/options.render.mjs";
+import {
+	type CompileDocArgs,
+	type NodeAddFontPaths,
+	NodeCompiler,
+	type NodeTypstDocument,
+} from "@myriaddreamin/typst-ts-node-compiler";
+import type { CompileArgs } from "@myriaddreamin/typst-ts-node-compiler/index-napi";
 import { Resvg, type ResvgRenderOptions } from "@resvg/resvg-js";
+import { failable } from "@utils/result-type.ts";
 import { getUpdatedAndPublishedForFilePath } from "@utils/updated-and-published-utils.ts";
 import getReadingTime from "reading-time";
 import template from "../../../public/template.typ?raw";
+
+const oklab = /=\s*"[^"]*?oklab\([\d.%,\s-]+\)[^"]*?"/; // sorry
 
 export async function GET({ params }: { params: { slug: string } }) {
 	const post = (await getCollection("posts")).find(
@@ -15,9 +22,6 @@ export async function GET({ params }: { params: { slug: string } }) {
 	if (!post) {
 		return new Response("Not Found", { status: 404 });
 	}
-
-	// Define your Typst template for the Open Graph image
-	const typstTemplate = template;
 
 	const readingTime = getReadingTime(post.body ?? "");
 	const time = Math.max(1, Math.round(readingTime.minutes));
@@ -30,15 +34,15 @@ export async function GET({ params }: { params: { slug: string } }) {
 		post.data.published,
 	);
 
-	// Compile the Typst template to an SVG image
+	const compilerArg = {
+		workspace: "./public",
+		fontArgs: [{ fontPaths: ["./public/fonts"] } satisfies NodeAddFontPaths],
+	} satisfies CompileArgs;
+
+	const typstCompiler = NodeCompiler.create(compilerArg);
+
 	const o = {
-		mainContent: typstTemplate,
-		data_selection: {
-			body: true,
-			defs: true,
-			css: false,
-			js: false,
-		},
+		mainFileContent: template,
 		inputs: {
 			data: JSON.stringify({
 				data: post.data,
@@ -50,15 +54,42 @@ export async function GET({ params }: { params: { slug: string } }) {
 				},
 			}),
 		},
-	} satisfies SweetRenderOptions & RenderSvgOptions;
+	} satisfies NodeTypstDocument | CompileDocArgs;
 
-	const svgContent = await $typst.svg(o);
+	const svgContentResult = failable(() => typstCompiler.plainSvg(o));
+
+	if (svgContentResult.tag === "err") {
+		return new Response(
+			`Error generating SVG image: Error: ${JSON.stringify(svgContentResult)}`,
+			{
+				status: 500,
+			},
+		);
+	}
+
+	const svgContent = svgContentResult.data;
 
 	if (!svgContent) {
 		return new Response("Error generating SVG image: Content is undefined", {
 			status: 500,
 		});
 	}
+
+	if (svgContent.match(oklab)) {
+		throw new Error(
+			// biome-ignore lint/style/useTemplate: <explanation>
+			'The svg string includes something similar to `="oklab(l% a b)"`,\n' +
+				"resvg doesn't support oklab colorspace (as of 2025-06-18),\n" +
+				"see: https://github.com/typst/typst/issues/3654\n" +
+				"hint: check if you're using oklab colors anywhere in the typst template, " +
+				"and convert them to rgb using `oklab-color.rgb()`\n" +
+				`post.id: ${JSON.stringify(post.id, null, 2)}\n` +
+				`post.filePath: ${JSON.stringify(post.filePath, null, 2)}\n` +
+				`post.slug: ${JSON.stringify(post.slug, null, 2)}\n` +
+				`post.data: ${JSON.stringify(post.data, null, 2)}\n`,
+		);
+	}
+
 	const opts = {
 		fitTo: { mode: "width", value: 1500 },
 		shapeRendering: 2,

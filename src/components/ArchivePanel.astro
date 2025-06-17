@@ -33,7 +33,7 @@ if (Array.isArray(categories) && categories.length > 0) {
 const groups: { year: number; posts: typeof posts }[] = (() => {
 	const groupedPosts = posts.reduce(
 		(grouped: { [year: number]: typeof posts }, post) => {
-			const year = post.data.published.getFullYear();
+			const year = (post.data.published?? new Date()).getFullYear();
 			if (!grouped[year]) {
 				grouped[year] = [];
 			}
@@ -55,8 +55,8 @@ const groups: { year: number; posts: typeof posts }[] = (() => {
 })();
 
 function formatDate(date: Date) {
-	const month = (date.getMonth() + 1).toString().padStart(2, "0");
-	const day = date.getDate().toString().padStart(2, "0");
+	const month = ((date ?? new Date()).getMonth() + 1).toString().padStart(2, "0");
+	const day =  (date ?? new Date()).getDate().toString().padStart(2, "0");
 	return `${month}-${day}`;
 }
 

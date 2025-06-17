@@ -60,10 +60,10 @@ export async function GET({ params }: { params: { slug: string } }) {
 		});
 	}
 	const opts = {
-		// shapeRendering: 2,
-		// textRendering: 2,
-		// imageRendering: 0,
-		background: "rgb(255,255,255)",
+		fitTo: { mode: "width", value: 1500 },
+		shapeRendering: 2,
+		textRendering: 2,
+		imageRendering: 0,
 	} satisfies ResvgRenderOptions;
 	const resvg = new Resvg(svgContent, opts);
 	const pngData = resvg.render();

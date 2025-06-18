@@ -56,12 +56,6 @@ importers:
       '@myriaddreamin/typst-ts-node-compiler':
         specifier: 0.6.1-rc1
         version: 0.6.1-rc1
-      '@myriaddreamin/typst-ts-renderer':
-        specifier: 0.6.1-rc1
-        version: 0.6.1-rc1
-      '@myriaddreamin/typst-ts-web-compiler':
-        specifier: 0.6.1-rc1
-        version: 0.6.1-rc1
       '@myriaddreamin/typst.ts':
         specifier: 0.6.1-rc1
         version: 0.6.1-rc1(@myriaddreamin/typst-ts-renderer@0.6.1-rc1)(@myriaddreamin/typst-ts-web-compiler@0.6.1-rc1)
@@ -6946,9 +6940,11 @@ snapshots:
       '@myriaddreamin/typst-ts-node-compiler-win32-arm64-msvc': 0.6.1-rc1
       '@myriaddreamin/typst-ts-node-compiler-win32-x64-msvc': 0.6.1-rc1
 
-  '@myriaddreamin/typst-ts-renderer@0.6.1-rc1': {}
+  '@myriaddreamin/typst-ts-renderer@0.6.1-rc1':
+    optional: true
 
-  '@myriaddreamin/typst-ts-web-compiler@0.6.1-rc1': {}
+  '@myriaddreamin/typst-ts-web-compiler@0.6.1-rc1':
+    optional: true
 
   '@myriaddreamin/typst.ts@0.6.1-rc1(@myriaddreamin/typst-ts-renderer@0.6.1-rc1)(@myriaddreamin/typst-ts-web-compiler@0.6.1-rc1)':
     dependencies:

@@ -1,106 +1,5 @@
-#let parse-iso-datetime(s) = {
-  if type(s) != str {
-    return datetime.today()
-  }
-
-  if s.len() < "YYYY-MM-DD".len() or s.at(5) != "-" or s.at(8) != "-" {
-    return datetime.today()
-  }
-
-  let year-str = s.slice(0, 4)
-  let month-str = s.slice(5, 7)
-  let day-str = s.slice(8, 10)
-
-  let year = int(year-str)
-  let month = int(month-str)
-  let day = int(day-str)
-
-  datetime(
-    year: year,
-    month: month,
-    day: day,
-  )
-}
-
-#let row-with-equal-spaces(items, in-rect: true) = {
-  box(
-    width: 100%,
-    grid(
-      rows: 1,
-      columns: items.len(),
-      column-gutter: 1fr,
-      ..items.map(item => if in-rect {
-        rect(item)
-      } else {
-        item
-      })
-    ),
-  )
-}
-
-#let json_str = sys.inputs.at(
-  "data",
-  default: "{
-	\"data\": {
-		\"title\": \"title\",
-		\"description\": \"description\",
-		\"tags\": [\"tag1\", \"tag2\", \"tag3\"],
-		\"category\": \"category\"
-	},
-	\"payload\": {
-		\"time\": 1,
-		\"words\": 5,
-		\"published\": \"2025-06-15\",
-		\"updated\": \"2025-06-17\"
-	}
-}",
-)
-
-#let data = json(bytes(json_str))
-
-#let (
-  data: (
-    title,
-    description,
-    tags,
-    category,
-  ),
-  payload: (
-    time,
-    words,
-    published,
-    updated,
-  ),
-) = data
-
-#let published = parse-iso-datetime(published)
-#let updated = parse-iso-datetime(updated)
-
-#let page-height = 1572pt
-#let page-width = 3000pt
-
-#set page(
-  height: page-height,
-  width: page-width,
-)
-
-#let highlight-color(c, ratio: 20%) = {
-  let (l, a, b, alpha) = c.oklab().components()
-  let remaining_l = 100% - l
-  let highlight = ratio * remaining_l
-
-  oklab(l + highlight, a, b, alpha)
-}
-
-#let highlighted-pair(content, display, color) = {
-  highlight(
-    extent: 0.2em,
-    radius: 0.3em,
-    fill: highlight-color(color),
-  )[#content]
-  [ ]
-  display
-}
+#import "@preview/fontawesome:0.5.0": *
+#import "utils.typ": *
 
 #let fg-color = rgb("#e1bad0")
 #let bg-color = rgb("#130d13")
@@ -121,74 +20,39 @@
     })
     .map(c => c * 0.5)
 
-  oklab(l, a, b, 70%)
+  oklab(l, a, b, 70%).rgb()
 }
+
+#let page-height = 1572pt
+#let page-width = 3000pt
+
+#set page(
+  height: page-height,
+  width: page-width,
+)
 
 #set page(
   background: [
-    #rect(
-      stroke: none,
-      radius: 0%,
-      width: 100%,
-      height: 100%,
-      fill: tiling(
-        size: {
-          let x = 5%
-          (page-width * x, page-height * x)
-        },
-      )[
-        // Background Color
-        #place[
-          #rect(
-            width: 100%,
-            height: 100%,
-            fill: bg-color,
-          )
-        ]
-
-        // Subgrid
-        #place[
-          #let thresholds = (25%, 50%, 75%)
-          #let s = (
-            thickness: 1pt,
-            paint: bg-color-accent,
-            dash: "dashed",
-          )
-
-          #for x in thresholds {
-            place[
-              #line(
-                start: (0%, x),
-                end: (100%, x),
-                stroke: s,
-              )
-            ]
-          }
-          #for y in thresholds {
-            place[
-              #line(
-                start: (y, 0%),
-                end: (y, 100%),
-                stroke: s,
-              )
-            ]
-          }
-        ]
-
-        // Grid
-        #place[
-          #rect(
-            width: 100%,
-            height: 100%,
-            stroke: (
-              thickness: 2pt,
-              paint: bg-color-accent-accent,
-            ),
-            fill: none,
-          )
-        ]
-
-      ],
+    #cetz.canvas(
+      background: bg-color,
+      {
+        import cetz.draw: *
+        grid(
+          (-page-width / 2 + 3em, page-height * 90%),
+          (page-width / 2 + 3em, -page-height * 10% - 1em),
+          stroke: (thickness: 1pt, paint: bg-color-accent, dash: "dashed"),
+          step: 0.5em,
+        )
+        grid(
+          (-page-width / 2 + 3em, page-height * 90%),
+          (page-width / 2 + 3em, -page-height * 10% - 1em),
+          stroke: (
+            thickness: 3pt,
+            paint: bg-color-accent-accent,
+          ),
+          step: 2em,
+        )
+      },
     )
   ],
 )
@@ -196,66 +60,104 @@
 #set text(
   size: page-height * 4%,
   fill: fg-color,
-  stroke: fg-color,
+  font: "Jetbrains Mono",
+  hyphenate: true,
 )
 #set rect(
-  fill: rect-color,
+  fill: thatched(
+    rect-color,
+    highlight-color(rect-color),
+    thickness: 1.5pt,
+  ),
   inset: 0.5em,
   radius: 0.5em,
   stroke: 5pt + fg-color,
 )
 #set line(stroke: fg-color)
-#show heading.where(depth: 1): set heading(numbering: (..n) => "=" * 1)
+#show heading.where(depth: 1): set heading(numbering: (..n) => "=")
 
-#let sep = rect(
-  height: 0.01em,
-  width: 100%,
+#show: rect.with(fill: rect-color)
+
+#grid(
+  row-gutter: 0.5em,
+  columns: 100%,
+  rect(width: 100%)[
+    #align(left + horizon)[
+      = #if title.len() == 0 {
+        lorem(12)
+      } else { title }
+    ]
+  ],
+
+  {
+    set text(size: 0.75em)
+    row-with-equal-spaces(
+      (
+        (0xf53e, [#category]),
+        (0xe935, [#published.display()]),
+        (0xe742, [#updated.display()]),
+        (0xe26c, [#words words]),
+        (0xe8b5, [#time #[minute]#if time != 1 { [s] }]),
+      )
+        .map(((codepoint, c)) => {
+          box[
+            #material(codepoint)
+            #box(height: 1em)[#align(center + horizon, c)]
+          ]
+        })
+        .map(it => box(width: 1fr, it)),
+    )
+  },
+
+  sep,
 )
 
-#rect(height: 100%, width: 100%)[
-  #grid(
+#block(
+  breakable: false,
+  height: 1fr,
+  width: 100%,
+  clip: true,
+  above: 0.5em,
+  below: 0.5em,
+  par(
+    justify: true,
+    linebreaks: "optimized",
+    if description.len() == 0 {
+      lorem(100)
+    } else { description },
+  ),
+)
+
+#if tags.len() > 0 {
+  grid(
     row-gutter: 0.5em,
-    rect[
-      #box(width: 1fr)[
-        #align(left + horizon)[= #title]
-      ]
-    ]
-    , row-with-equal-spaces((
-      box[Published #box[#published.display()]],
-      box[Updated #box[#updated.display()]],
-      box[Words #box[#words]],
-      box[Time #box[#time #[minute]#if time != 1 { [s] }]],
-      [[#category]],
-    ))
-  )
+    columns: 100%,
+    sep,
+    block(
+      width: 100%,
+      {
+        set text(size: 0.6em)
 
-  #sep
+        let tags = tags
+          .map(it => (0xe9ef, it))
+          .map(((codepoint, c)) => {
+            box[
+              #material(codepoint)
+              #box(height: 1em)[#align(center + horizon, c)]
+            ]
+          })
 
-  #par(justify: true, linebreaks: "optimized")[
-    #{
-      description
-    }
-  ]
-
-  #{
-    if tags.len() > 0 {
-      align(bottom + center)[
-        #let total_tags_width = tags.map(t => t.len()).sum()
-
-        #sep
-
-        #if tags.len() > 4 {
-          row-with-equal-spaces(tags)
-        } else {
-          align(
-            left + horizon,
-
-            for c in tags.map(tag => box(rect(tag))).intersperse(h(1em)) {
-              c
+        if tags.len() <= 4 {
+          block(
+            width: 100%,
+            for tag in tags.map(it => box(rect(it))).intersperse(h(2em)) {
+              tag
             },
           )
+        } else {
+          row-with-equal-spaces(tags, col-gutter: 1fr)
         }
-      ]
-    }
-  }
-]
+      },
+    ),
+  )
+}

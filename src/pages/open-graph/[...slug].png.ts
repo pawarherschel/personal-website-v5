@@ -80,7 +80,7 @@ export async function GET({ params }: { params: { slug: string } }) {
 			// biome-ignore lint/style/useTemplate: <explanation>
 			'The svg string includes something similar to `="oklab(l% a b)"`,\n' +
 				"resvg doesn't support oklab colorspace (as of 2025-06-18),\n" +
-				"see: https://github.com/typst/typst/issues/3654\n" +
+				"see: https://github.com/linebender/resvg/issues/514\n" +
 				"hint: check if you're using oklab colors anywhere in the typst template, " +
 				"and convert them to rgb using `oklab-color.rgb()`\n" +
 				`post.id: ${JSON.stringify(post.id, null, 2)}\n` +

@@ -1,5 +1,24 @@
 #import "@preview/fontawesome:0.5.0": *
-#import "utils.typ": *
+#import "@preview/cetz:0.4.0"
+#import "utils.typ": data, highlight-color, material, parse-date, row-with-equal-spaces, sep, thatched
+
+#let (
+  data: (
+    title,
+    description,
+    tags,
+    category,
+  ),
+  payload: (
+    time,
+    words,
+    published,
+    updated,
+  ),
+) = data("post")
+
+#let published = parse-date(published)
+#let updated = parse-date(updated)
 
 #let fg-color = rgb("#e1bad0")
 #let bg-color = rgb("#130d13")

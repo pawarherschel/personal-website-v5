@@ -92,27 +92,16 @@
   ))
 }
 
-#let json_str = sys.inputs.at("data", default: read("dummy_data.json"))
+#let data(tag) = {
+  let json_tag = sys.inputs.at("tag", default: tag)
+  let json_str = sys.inputs.at("data", default: read(if json_tag == "post" {
+    "dummy_post_data.json"
+  } else if json_tag == "other" {
+    "dummy_other_data.json"
+  } else { panic(repr(sys.inputs)) }))
 
-#let data = json(bytes(json_str))
-
-#let (
-  data: (
-    title,
-    description,
-    tags,
-    category,
-  ),
-  payload: (
-    time,
-    words,
-    published,
-    updated,
-  ),
-) = data
-
-#let published = parse-date(published)
-#let updated = parse-date(updated)
+  json(bytes(json_str))
+}
 
 #let highlight-color(c, ratio: 20%) = {
   let (l, a, b, alpha) = c.oklab().components()
@@ -216,7 +205,11 @@
 
 #let divider = {
   //<div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>
-  html.elem("div", attrs: (class: "border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"))
+  context {
+    if target() == "html" {
+      html.elem("div", attrs: (class: "border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"))
+    }
+  }
 }
 
 ///
@@ -419,18 +412,30 @@
   }
 }
 
-#let section = html.elem.with("section")
-#let checkbox(completed, active: false) = box(html.elem("input", attrs: (
-  type: "checkbox",
-  ..if completed { (checked: "true") },
-  ..if not active { (disabled: "true") },
-)))
-#let img(src, alt: "") = html.elem("img", attrs: (
-  src: src,
-  ..if alt != "" { (alt: alt) },
-  class: "max-width: 100%; height: auto;",
-  loading: "lazy",
-))
+// #let section(content) = context {
+//   if target() == "html" {
+//     html.elem.with("section", content)
+//   } else { content }
+// }
+#let checkbox(completed, active: false) = context {
+  if target() == "html" {
+    box(html.elem("input", attrs: (
+      type: "checkbox",
+      ..if completed { (checked: "true") },
+      ..if not active { (disabled: "true") },
+    )))
+  }
+}
+#let img(src, alt: "") = context {
+  if target() == "html" {
+    html.elem("img", attrs: (
+      src: src,
+      ..if alt != "" { (alt: alt) },
+      class: "max-width: 100%; height: auto;",
+      loading: "lazy",
+    ))
+  }
+}
 #let bluesky-embed(
   author-did,
   post-id,
@@ -440,25 +445,29 @@
   time,
   content,
 ) = {
-  html.elem(
-    "div",
-    attrs: (
-      class: "bluesky-embed",
-      data-bluesky-uri: "at://" + author-did + "/app.bsky.feed.post/" + post-id,
-      data-bluesky-cid: data-bluesky-cid,
-      data-bluesky-embed-color-mode: "system",
-    ),
-    quote(
-      block: true,
-      attribution: [
-        #author (#link("https://bsky.app/profile/" + author-did + "?ref_src=embed", handle))
-        #link(
-          "https://bsky.app/profile/" + author-did + "/post/" + post-id + "?ref_src=embed",
-          time,
-        )
-      ],
-      content,
-    ),
-  )
-  html.elem("script", attrs: (async: "true", src: "https://embed.bsky.app/static/embed.js", charset: "utf-8"))
+  context {
+    if target() == "html" {
+      html.elem(
+        "div",
+        attrs: (
+          class: "bluesky-embed",
+          data-bluesky-uri: "at://" + author-did + "/app.bsky.feed.post/" + post-id,
+          data-bluesky-cid: data-bluesky-cid,
+          data-bluesky-embed-color-mode: "system",
+        ),
+        quote(
+          block: true,
+          attribution: [
+            #author (#link("https://bsky.app/profile/" + author-did + "?ref_src=embed", handle))
+            #link(
+              "https://bsky.app/profile/" + author-did + "/post/" + post-id + "?ref_src=embed",
+              time,
+            )
+          ],
+          content,
+        ),
+      )
+      html.elem("script", attrs: (async: "true", src: "https://embed.bsky.app/static/embed.js", charset: "utf-8"))
+    }
+  }
 }

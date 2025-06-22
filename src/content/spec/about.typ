@@ -10,37 +10,13 @@
 
 #import "../../../public/utils.typ": (
   argon, atkinson, atkinson-mono, blog-post, bluesky-embed, checkbox, faculty-glyphic, fraunces, img, jetbrains-mono,
-  kalnia, krypton, nanum-myeongjo, neon, radon, section, xenon,
+  kalnia, krypton, nanum-myeongjo, neon, radon, xenon,
 )
 
 #show: blog-post.with(
   "About",
   description: [The page chronicles kat's journey through different programming languages and fields, driven by a goal to leave a lasting impact by reducing technical barriers and inspiring others through public speaking and writing.],
 )
-
-#{
-  let weight = "bold"
-  table(
-    columns: 3,
-    table.header([Normal Font], [Italic Font], [Font weight: #weight]),
-    ..for f in (
-      argon,
-      krypton,
-      neon,
-      radon,
-      xenon,
-      jetbrains-mono,
-      atkinson,
-      atkinson-mono,
-      kalnia,
-      nanum-myeongjo,
-      faculty-glyphic,
-      fraunces,
-    ) {
-      (f[], f(italic: true)[], f(weight: weight)[])
-    },
-  )
-}
 
 = Vainglory (or "Who am I?")
 
@@ -81,7 +57,6 @@ everything is connected and will help in someway or another.
 
 Lessons learned in one field will help in others.
 
-#show: section
 == A chronological telling of my journey
 
 === Java Era
@@ -863,6 +838,9 @@ She's the character who's closest to me.
 
 ::github{repo="saicaca/fuwari"}
 
+== Typesetting / Content Authoring / Figures / Open Graph Image Generation
+#link("https://typst.app/")[Typst]
+
 == Hosting
 #link("https://pages.cloudflare.com/")[Cloudflare Pages]
 
@@ -881,3 +859,28 @@ https://github.com/flo-bit/blog-template
 https://github.com/silent1mezzo/astro-social-share
 
 ::github{repo="silent1mezzo/astro-social-share"}
+
+== Font testing
+#{
+  let weight = "bold"
+  table(
+    columns: 3,
+    table.header([Normal Font], [Italic Font], [Font weight: #weight]),
+    ..for f in (
+      argon,
+      krypton,
+      neon,
+      radon,
+      xenon,
+      jetbrains-mono,
+      atkinson,
+      atkinson-mono,
+      kalnia,
+      nanum-myeongjo,
+      faculty-glyphic,
+      fraunces,
+    ) {
+      (f[], f(italic: true)[], f(weight: weight)[])
+    },
+  )
+}

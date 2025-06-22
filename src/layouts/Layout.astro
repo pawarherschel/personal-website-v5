@@ -88,6 +88,7 @@ let pathname = pathname2[pathname2.length - 2];
 		<meta charset="UTF-8" />
 		<meta name="description" content={description || pageTitle}>
 		<meta name="author" content={profileConfig.name}>
+		<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 
 		<meta property="og:site_name" content={siteConfig.title} />
 		<meta property="og:url" content={Astro.url} />
@@ -95,7 +96,7 @@ let pathname = pathname2[pathname2.length - 2];
 		<meta property="og:description" content={description || pageTitle} />
 		<meta
 			property="og:image"
-			content={`/open-graph/${pathname}.png`}
+			content={`/open-graph/${pathname == "" ? "home" : pathname}.png`}
 		/>
 		{
 			setOGTypeArticle ? (

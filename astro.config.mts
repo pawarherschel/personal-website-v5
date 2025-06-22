@@ -14,19 +14,21 @@ import remarkGithubAdmonitionsToDirectives from "remark-github-admonitions-to-di
 import remarkMath from "remark-math";
 import remarkSectionize from "remark-sectionize";
 import Sonda from "sonda/astro";
-import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
-import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
-import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
-import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
-import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
+import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mts";
+import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mts";
+import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.ts";
+import { remarkExcerpt } from "./src/plugins/remark-excerpt.ts";
+import { remarkReadingTime } from "./src/plugins/remark-reading-time.mts";
 import metaTags from "astro-meta-tags";
 import pageInsight from "astro-page-insight";
+import svgPassthrough from './src/plugins/remark-svg-passthrough.mjs';
+
 
 // https://astro.build/config
 export default defineConfig({
     site: "https://sakurakat.systems/",
     base: "/",
-    trailingSlash: "always",
+    trailingSlash: "ignore",
     // prefetch: {
     // 	prefetchAll: true,
     // 	defaultStrategy: "viewport",
@@ -35,16 +37,18 @@ export default defineConfig({
         // clientPrerender: true,
     },
     image: {
-        // Used for all Markdown images; not configurable per-image
-        // Used for all `<Image />` and `<Picture />` components unless overridden with a prop
-        // experimentalLayout: "responsive",
-        // experimentalObjectFit: "cover",
         domains: ["r2.sakurakat.systems"],
-        // responsiveStyles: true,
-        // layout: "constrained",
+        responsiveStyles: true,
+        layout: "constrained",
+        service: {
+            entrypoint: 'astro/assets/services/sharp',
+            config: {
+                limitInputPixels: false,
+            },
+        },
     },
     integrations: [
-        Sonda(),
+        // Sonda( ),
         tailwind({
             nesting: true,
         }),
@@ -84,6 +88,7 @@ export default defineConfig({
     ],
     markdown: {
         remarkPlugins: [
+            svgPassthrough,
             remarkMath,
             remarkReadingTime,
             remarkExcerpt,
@@ -100,11 +105,11 @@ export default defineConfig({
                 {
                     components: {
                         github: GithubCardComponent,
-                        note: (x, y) => AdmonitionComponent(x, y, "note"),
-                        tip: (x, y) => AdmonitionComponent(x, y, "tip"),
-                        important: (x, y) => AdmonitionComponent(x, y, "important"),
-                        caution: (x, y) => AdmonitionComponent(x, y, "caution"),
-                        warning: (x, y) => AdmonitionComponent(x, y, "warning"),
+                        note: (x: any, y: any) => AdmonitionComponent(x, y, "note"),
+                        tip: (x: any, y: any) => AdmonitionComponent(x, y, "tip"),
+                        important: (x: any, y: any) => AdmonitionComponent(x, y, "important"),
+                        caution: (x: any, y: any) => AdmonitionComponent(x, y, "caution"),
+                        warning: (x: any, y: any) => AdmonitionComponent(x, y, "warning"),
                     },
                 },
             ],
@@ -134,23 +139,24 @@ export default defineConfig({
         ],
     },
     vite: {
-        build: {
-            sourcemap: true,
-            rollupOptions: {
-                onwarn(warning, warn) {
-                    // temporarily suppress this warning
-                    if (
-                        warning.message.includes("is dynamically imported by") &&
-                        warning.message.includes("but also statically imported by")
-                    ) {
-                        return;
-                    }
-                    warn(warning);
-                },
-            },
-        },
-        server: {
-            allowedHosts: [".sakurakat.systems"],
-        },
+      build: {
+          sourcemap: true,
+          rollupOptions: {
+              onwarn(warning, warn) {
+                  // temporarily suppress this warning
+                  if (
+                      warning.message.includes("is dynamically imported by") &&
+                      warning.message.includes("but also statically imported by")
+                  ) {
+                      return;
+                  }
+                  warn(warning);
+              },
+          },
+      },
+
+      server: {
+          allowedHosts: [".sakurakat.systems"],
+      },
     },
 });

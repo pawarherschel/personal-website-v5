@@ -36,7 +36,7 @@ public/favicon/*.png
 /public/**/*.jpg
 /public/**/*.jpeg
 
-/vendored/
-/src/components/social-share
-!/src/components/social-share/src
-!/src/components/social-share/SOURCE.toml
+/vendored
+
+/src/public/**.json
+!/src/public/dummy_data.json

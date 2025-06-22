@@ -38,5 +38,5 @@ public/favicon/*.png
 
 /vendored
 
-/src/public/*.json
-!/src/public/dummy_data.json
+/public/*.json
+!/public/dummy_data.json

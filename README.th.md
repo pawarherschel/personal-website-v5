@@ -27,7 +27,7 @@
    - ติดตั้ง [pnpm](https://pnpm.io) ด้วยคำสั่ง `npm install -g pnpm` ถ้ายังไม่เคยติดตั้ง
 3. แก้ไขไฟล์การตั้งค่า `src/config.ts` เพื่อปรับแต่งบล็อกของคุณ
 4. รันคำสั่ง `pnpm new-post <filename>` เพื่อสร้างโพสต์ใหม่ใน `src/content/posts/` และแก้ไขไฟล์โพสต์นั้นๆ ให้สมบูรณ์
-5. Deploy เว็บบล็อกของคุณไปยัง Vercel, Netlify, GitHub Pages หรือบริการอื่นๆ โดยอ้างอิงวิธีการจาก[คู่มือนี้](https://docs.astro.build/en/guides/deploy/) อย่าลืมแก้ไขการตั้งค่าเว็บไซต์ในไฟล์ `astro.config.mjs` ก่อนที่คุณจะ deploy เว็บ
+5. Deploy เว็บบล็อกของคุณไปยัง Vercel, Netlify, GitHub Pages หรือบริการอื่นๆ โดยอ้างอิงวิธีการจาก[คู่มือนี้](https://docs.astro.build/en/guides/deploy/) อย่าลืมแก้ไขการตั้งค่าเว็บไซต์ในไฟล์ `astro.config.mts` ก่อนที่คุณจะ deploy เว็บ
 
 ## ⚙️ Frontmatter ของโพสต์
 

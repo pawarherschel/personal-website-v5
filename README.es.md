@@ -27,7 +27,7 @@ Un tema estático para blogs construido con [Astro](https://astro.build).
    - Instala [pnpm](https://pnpm.io) `npm install -g pnpm` si aún no lo tienes.
 3. Edita el archivo de configuración `src/config.ts` para personalizar tu blog.
 4. Ejecuta `pnpm new-post <nombre-de-archivo>` para crear una nueva entrada y edítala en `src/content/posts/`.
-5. Despliega tu blog en Vercel, Netlify, GitHub Pages, etc., siguiendo [las guías](https://docs.astro.build/en/guides/deploy/). Necesitas editar la configuración del sitio en `astro.config.mjs` antes del despliegue.
+5. Despliega tu blog en Vercel, Netlify, GitHub Pages, etc., siguiendo [las guías](https://docs.astro.build/en/guides/deploy/). Necesitas editar la configuración del sitio en `astro.config.mts` antes del despliegue.
 
 ## ⚙️ Cabecera de las Entradas
 

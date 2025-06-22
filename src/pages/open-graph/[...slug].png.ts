@@ -41,18 +41,20 @@ export async function GET({ params }: { params: { slug: string } }) {
 
 	const typstCompiler = NodeCompiler.create(compilerArg);
 
+	const inputs = {
+		data: post.data,
+		payload: {
+			time: time,
+			words: words,
+			updated: updated,
+			published: published,
+		},
+	};
+
 	const o = {
 		mainFileContent: template,
 		inputs: {
-			data: JSON.stringify({
-				data: post.data,
-				payload: {
-					time: time,
-					words: words,
-					updated: updated,
-					published: published,
-				},
-			}),
+			data: JSON.stringify(inputs),
 		},
 	} satisfies NodeTypstDocument | CompileDocArgs;
 
@@ -60,7 +62,7 @@ export async function GET({ params }: { params: { slug: string } }) {
 
 	if (svgContentResult.tag === "err") {
 		return new Response(
-			`Error generating SVG image: Error: ${JSON.stringify(svgContentResult)}`,
+			`Error generating SVG image: Error: ${JSON.stringify(svgContentResult)}\n${JSON.stringify(inputs, null, 3)}`,
 			{
 				status: 500,
 			},

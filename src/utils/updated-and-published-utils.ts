@@ -1,5 +1,5 @@
 import { exec as execCb } from "node:child_process";
-import { stat } from "node:fs/promises";
+import { stat, access } from "node:fs/promises";
 import util from "node:util";
 const exec = util.promisify(execCb);
 
@@ -48,8 +48,12 @@ export async function getUpdatedAndPublishedForFilePath(
 	updated: Date | undefined,
 	published: Date | undefined,
 ): Promise<{ updated: Date; published: Date }> {
-	const mapKey = JSON.stringify({ updated, published });
+	const mapKey = file;
 	if (cache.has(mapKey)) {
+		// const { updated, published } = cache.get(mapKey)
+
+		// console.log(`(cached) mapKey: ${mapKey}, { updated: ${updated}, published: ${published} }`)
+
 		// @ts-ignore
 		return cache.get(mapKey);
 	}
@@ -71,28 +75,24 @@ export async function getUpdatedAndPublishedForFilePath(
 	if (await isDir(path)) {
 		path = `${path}/index.md`;
 	} else if (path.endsWith(".md")) {
+	} else if (path.endsWith(".typ")) {
 	} else {
-		path = `${path}.md`;
+		const exts = [".typ", ".md"]
+
+		let ext
+		for (const e of exts) {
+			try {
+				await access(path + e)
+				ext = e
+			} catch {
+				continue
+			}
+		}
+
+		path = `${path}${ext}`;
 	}
 
 	if (!expanded) {
-		const command = `git log -1 --pretty="format:%ad" --date=short LICENSE`;
-		console.debug(`\n${command}`);
-		const { stdout: output, stderr: err } = await exec(`${command}`);
-		if (err.trim() !== "") {
-			console.error(`${command} failed with error:\n${err}`);
-			console.error(`${command} failed and produced:\n${output}`);
-			throw undefined;
-		}
-		// console.log(`output: ${output}`);
-		// console.log(`new Date().toUTCString(): ${new Date().toUTCString()}`);
-		// console.log(
-		// 	`new Date(output.split(/\\s/)[0]).toUTCString(): ${new Date(output.split(/\s/)[0]).toUTCString()}`,
-		// );
-		// const needsUnshallowing =
-		// 	new Date(output.split(/\s/)[0]).toUTCString() === new Date().toUTCString();
-		// console.log(`Needs unshallowing?: ${needsUnshallowing}`);
-		// if (needsUnshallowing)
 		{
 			const command = "git fetch --unshallow";
 			console.debug(`${command}`);
@@ -136,10 +136,12 @@ export async function getUpdatedAndPublishedForFilePath(
 		}
 	}
 
-	myUpdated = myUpdated ?? new Date();
-	myPublished = myPublished ?? new Date();
+	myUpdated = !myUpdated || Number.isNaN(myUpdated.getDate()) ? new Date() : myUpdated;
+	myPublished = !myPublished || Number.isNaN(myPublished.getDate()) ? new Date() : myPublished;
 
 	cache.set(mapKey, { updated: myUpdated, published: myPublished });
+
+	// console.log(`mapKey: ${mapKey}, { updated: ${myUpdated}, published: ${myPublished} }`)
 
 	return { updated: myUpdated, published: myPublished };
 }

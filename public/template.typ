@@ -31,31 +31,26 @@
   width: page-width,
 )
 
-#set page(
-  background: [
-    #cetz.canvas(
-      background: bg-color,
-      {
-        import cetz.draw: *
-        grid(
-          (-page-width / 2 + 3em, page-height * 90%),
-          (page-width / 2 + 3em, -page-height * 10% - 1em),
-          stroke: (thickness: 1pt, paint: bg-color-accent, dash: "dashed"),
-          step: 0.5em,
-        )
-        grid(
-          (-page-width / 2 + 3em, page-height * 90%),
-          (page-width / 2 + 3em, -page-height * 10% - 1em),
-          stroke: (
-            thickness: 3pt,
-            paint: bg-color-accent-accent,
-          ),
-          step: 2em,
-        )
-      },
+#set page(background: [
+  #cetz.canvas(background: bg-color, {
+    import cetz.draw: *
+    grid(
+      (-page-width / 2 + 3em, page-height * 90%),
+      (page-width / 2 + 3em, -page-height * 10% - 1em),
+      stroke: (thickness: 1pt, paint: bg-color-accent, dash: "dashed"),
+      step: 0.5em,
     )
-  ],
-)
+    grid(
+      (-page-width / 2 + 3em, page-height * 90%),
+      (page-width / 2 + 3em, -page-height * 10% - 1em),
+      stroke: (
+        thickness: 3pt,
+        paint: bg-color-accent-accent,
+      ),
+      step: 2em,
+    )
+  })
+])
 
 #set text(
   size: page-height * 4%,
@@ -63,6 +58,7 @@
   font: "Jetbrains Mono",
   hyphenate: true,
 )
+
 #set rect(
   fill: thatched(
     rect-color,
@@ -71,6 +67,7 @@
   ),
   inset: 0.5em,
   radius: 0.5em,
+  // stroke: 5pt + fg-color,
   stroke: 5pt + fg-color,
 )
 #set line(stroke: fg-color)
@@ -91,73 +88,57 @@
 
   {
     set text(size: 0.75em)
-    row-with-equal-spaces(
-      (
-        (0xf53e, [#category]),
-        (0xe935, [#published.display()]),
-        (0xe742, [#updated.display()]),
-        (0xe26c, [#words words]),
-        (0xe8b5, [#time #[minute]#if time != 1 { [s] }]),
-      )
-        .map(((codepoint, c)) => {
-          box[
-            #material(codepoint)
-            #box(height: 1em)[#align(center + horizon, c)]
-          ]
-        })
-        .map(it => box(width: 1fr, it)),
+    row-with-equal-spaces((
+      (0xf53e, [#category]),
+      (0xe935, [#published.display()]),
+      (0xe742, [#updated.display()]),
+      (0xe26c, [#words words]),
+      (0xe8b5, [#time #[minute]#if time != 1 { [s] }]),
     )
+      .map(((codepoint, c)) => {
+        box[
+          #material(codepoint)
+          #box(height: 1em)[#align(center + horizon, c)]
+        ]
+      })
+      .map(it => box(width: 1fr, it)))
   },
 
   sep,
 )
 
-#block(
-  breakable: false,
-  height: 1fr,
-  width: 100%,
-  clip: true,
-  above: 0.5em,
-  below: 0.5em,
-  par(
-    justify: true,
-    linebreaks: "optimized",
-    if description.len() == 0 {
-      lorem(100)
-    } else { description },
-  ),
-)
+#block(breakable: false, height: 1fr, width: 100%, clip: true, above: 0.5em, below: 0.5em, par(
+  justify: true,
+  linebreaks: "optimized",
+  if description.len() == 0 {
+    lorem(100)
+  } else { description },
+))
 
 #if tags.len() > 0 {
   grid(
     row-gutter: 0.5em,
     columns: 100%,
     sep,
-    block(
-      width: 100%,
-      {
-        set text(size: 0.6em)
+    block(width: 100%, {
+      set text(size: 0.6em)
 
-        let tags = tags
-          .map(it => (0xe9ef, it))
-          .map(((codepoint, c)) => {
-            box[
-              #material(codepoint)
-              #box(height: 1em)[#align(center + horizon, c)]
-            ]
-          })
+      let tags = tags
+        .map(it => (0xe9ef, it))
+        .map(((codepoint, c)) => {
+          box[
+            #material(codepoint)
+            #box(height: 1em)[#align(center + horizon, c)]
+          ]
+        })
 
-        if tags.len() <= 4 {
-          block(
-            width: 100%,
-            for tag in tags.map(it => box(rect(it))).intersperse(h(2em)) {
-              tag
-            },
-          )
-        } else {
-          row-with-equal-spaces(tags, col-gutter: 1fr)
-        }
-      },
-    ),
+      if tags.len() <= 4 {
+        block(width: 100%, for tag in tags.map(it => box(rect(it))).intersperse(h(2em)) {
+          tag
+        })
+      } else {
+        row-with-equal-spaces(tags, col-gutter: 1fr)
+      }
+    }),
   )
 }

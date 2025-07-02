@@ -14,7 +14,10 @@ if (!aboutPost) {
 	throw new Error("About page content not found");
 }
 
-const { Content, headings, remarkPluginFrontmatter } = await render(aboutPost);
+const { Content, remarkPluginFrontmatter } = await render(aboutPost);
+
+// console.log(JSON.stringify(remarkPluginFrontmatter, null, 3))
+const headings = remarkPluginFrontmatter.headings
 ---
 <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)} headings={headings}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">

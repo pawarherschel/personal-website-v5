@@ -9,14 +9,26 @@
 // [x] Wrath)
 
 #import "../../../public/utils.typ": (
-  argon, atkinson, atkinson-mono, blog-post, bluesky-embed, checkbox, faculty-glyphic, fraunces, img, jetbrains-mono,
-  kalnia, krypton, nanum-myeongjo, neon, radon, xenon,
+  argon, atkinson, atkinson-mono, blog-post, bluesky-embed, checkbox, faculty-glyphic, fraunces, github-card, img,
+  jetbrains-mono, kalnia, krypton, nanum-myeongjo, neon, note, radon, slugify, to-string, xenon,
 )
 
 #show: blog-post.with(
   "About",
   description: [The page chronicles kat's journey through different programming languages and fields, driven by a goal to leave a lasting impact by reducing technical barriers and inspiring others through public speaking and writing.],
 )
+
+#context {
+  let map = (:)
+  query(heading).map(h => {
+    let (slug, map) = slugify(h.body, map)
+    (
+      depth: h.level,
+      slug: slug,
+      text: to-string(h.body),
+    )
+  })
+}
 
 = Vainglory (or "Who am I?")
 
@@ -502,20 +514,20 @@ instead of trying to perfect it,
 and just publish it.
 It's better to mark it as "complete" and then move on.
 
-:::note
 
-A while ago,
-I came across #link("https://heywriters.tumblr.com/post/171785460111/write-it-badly-write-it-badly-write-it-badly")[this post] on tumblr
-that rewired my brain.
-#img("https://r2.sakurakat.systems/about--write-it-badly.png")
 
-Combined with "Move fast and break things",
-and "Done is better than perfect",
-I feel
-like it's just better to put stuff out
-rather than trying to perfect it and never finishing it.
+#note[
+  A while ago,
+  I came across #link("https://heywriters.tumblr.com/post/171785460111/write-it-badly-write-it-badly-write-it-badly")[this post] on tumblr
+  that rewired my brain.
+  #img("https://r2.sakurakat.systems/about--write-it-badly.png")
 
-:::
+  Combined with "Move fast and break things",
+  and "Done is better than perfect",
+  I feel
+  like it's just better to put stuff out
+  rather than trying to perfect it and never finishing it.
+]
 
 Over time, I've started to recognize hints from my brain when
 I need to explain something better.
@@ -836,7 +848,7 @@ She's the character who's closest to me.
 == Blog Template
 #link("https://github.com/saicaca/fuwari")[fuwari] by saicaca
 
-::github{repo="saicaca/fuwari"}
+#github-card("saicaca/fuwari")
 
 == Typesetting / Content Authoring / Figures / Open Graph Image Generation
 #link("https://typst.app/")[Typst]
@@ -853,12 +865,16 @@ Low Poly Grid by #link("https://haikei.app/")[haikei]
 == Bluesky Comments System
 https://github.com/flo-bit/blog-template
 
-::github{repo="flo-bit/blog-template"}
+#github-card("flo-bit/blog-template")
 
 == Social share buttons
 https://github.com/silent1mezzo/astro-social-share
 
-::github{repo="silent1mezzo/astro-social-share"}
+#github-card("silent1mezzo/astro-social-share")
+
+== MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+#github-card("pawarherschel/personal-website-v5")
 
 == Font testing
 #{

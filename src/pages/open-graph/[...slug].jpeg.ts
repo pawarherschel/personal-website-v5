@@ -8,7 +8,6 @@ import {
 import type {
 	CompileArgs
 } from "@myriaddreamin/typst-ts-node-compiler/index-napi";
-import {Resvg, type ResvgRenderOptions} from "@resvg/resvg-js";
 import {failable} from "@utils/result-type.ts";
 import {
 	getUpdatedAndPublishedForFilePath
@@ -20,6 +19,8 @@ import otherTemplateStr
 import _404TemplateStr from "../../../public/404Template.typ?raw";
 import {LinkPreset} from "@/types/config.ts";
 import assert from "node:assert";
+import sharp, { type SharpOptions} from "sharp";
+
 
 const postTemplate = {tag: "post", data: postTemplateStr}
 const otherTemplate = {tag: "other", data: otherTemplateStr}
@@ -43,7 +44,7 @@ export async function GET({ params }: { params: { slug: string } }) {
 		template = otherTemplate
 	}
 
-	const {inputs, oklabCtx} = await (async () => {
+	const {inputs, oklabCtx} = await (async (): Promise<{inputs: any, oklabCtx: string }> => {
 		switch(template.tag){
 			case "post": {
 				assert(post !== undefined);
@@ -83,7 +84,7 @@ export async function GET({ params }: { params: { slug: string } }) {
 			case "other": {
 				return {inputs: {tag: template.tag, data: params.slug}, oklabCtx: ""}
 			}
-			case "404": {
+			default: {
 				return {inputs: {tag: template.tag}, oklabCtx: ""}
 			}
 		}
@@ -134,17 +135,30 @@ export async function GET({ params }: { params: { slug: string } }) {
 		);
 	}
 
-	const opts = {
-		fitTo: { mode: "width", value: 1500 },
-		shapeRendering: 2,
-		textRendering: 2,
-		imageRendering: 0,
-	} satisfies ResvgRenderOptions;
-	const resvg = new Resvg(svgContent, opts);
-	const pngData = resvg.render();
-	const pngBuffer = pngData.asPng();
-	return new Response(pngBuffer, {
-		headers: { "Content-Type": "image/png" },
+	const sharpInput:  sharp.SharpInput = Buffer.from(svgContent,"utf-8")
+	const sharpOpts = {} satisfies SharpOptions;
+	const jpegOpts = {
+		mozjpeg:true,
+	} satisfies sharp.JpegOptions;
+
+	const jpegBuffer = await sharp(
+		sharpInput,
+		sharpOpts
+	).jpeg(
+		jpegOpts
+	).toBuffer()
+
+	// const opts = {
+	// 	fitTo: { mode: "width", value: 1500 },
+	// 	shapeRendering: 2,
+	// 	textRendering: 2,
+	// 	imageRendering: 0,
+	// } satisfies ResvgRenderOptions;
+	// const resvg = new Resvg(svgContent, opts);
+	// const pngData = resvg.render();
+	// const pngBuffer = pngData.asPng();
+	return new Response(jpegBuffer, {
+		headers: { "Content-Type": "image/jpeg" },
 	});
 }
 

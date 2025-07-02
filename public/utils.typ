@@ -166,6 +166,8 @@
 
   if type(it) == str {
     it
+  } else if it == none {
+    ""
   } else if type(it) != content {
     str(it)
   } else if it.has("text") {
@@ -343,15 +345,26 @@
   let words = to-string(content).split(" ").len()
   let minutes = int(reading-time(words))
 
-  [
+  context [
     #metadata((
       title: title,
       description: description,
       tags: tags,
-      category: category,
+      category: if category == none { "Category" } else { category },
       ..if image != none { (image: image) } else { (:) },
       words: words,
       minutes: minutes,
+      headings: {
+        let map = (:)
+        query(heading).map(h => {
+          let (slug, map) = slugify(h.body, map)
+          (
+            depth: h.level,
+            slug: slug,
+            text: to-string(h.body),
+          )
+        })
+      },
       ..args,
     ))<frontmatter>
   ]
@@ -386,6 +399,33 @@
           },
         )
       }
+      let charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+      let hash(s, pos) = {
+        let s = repr(s) + repr(pos)
+        let max = repr(s).len()
+        repr(s)
+          .codepoints()
+          .map(it => it.to-unicode())
+          .map(it => int(it))
+          .windows(16)
+          .reduce((a, b) => a.zip(b).map(((a, b)) => calc.rem(a + a.bit-xor(b), charset.len())))
+          .map(c => charset.at(c))
+          .join()
+      }
+
+      show math.equation.where(block: false): it => context {
+        html.elem(
+          "span",
+          attrs: (
+            id: hash(it, here().position()),
+            style: "display: inline-block;",
+          ),
+          html.frame(it),
+        )
+      }
+      show math.equation.where(block: true): it => context {
+        html.elem("div", attrs: (id: hash(it, here().position())), html.frame(it))
+      }
 
       show: html.elem.with("article", attrs: (style: "text-align: justify; hyphens: manual;"))
 
@@ -412,11 +452,12 @@
   }
 }
 
-// #let section(content) = context {
-//   if target() == "html" {
-//     html.elem.with("section", content)
-//   } else { content }
-// }
+#let section(content) = {
+  context if target() = "html" {
+    panic()
+  }
+  html.elem.with("section", content)
+}
 #let checkbox(completed, active: false) = context {
   if target() == "html" {
     box(html.elem("input", attrs: (
@@ -470,4 +511,170 @@
       html.elem("script", attrs: (async: "true", src: "https://embed.bsky.app/static/embed.js", charset: "utf-8"))
     }
   }
+}
+
+#let admonition(type, title, content) = {
+  if type not in ("tip", "note", "important", "caution", "warning") {
+    panic("invalid type: ", type)
+  }
+
+  context if target() != "html" {
+    panic("unimplemented")
+  }
+
+  html.elem("blockquote", attrs: (class: "admonition bdm-" + type), {
+    html.elem("span", attrs: (class: "bdm-title"), title)
+    parbreak()
+    content
+  })
+}
+#let note(title: "note", content) = admonition("note", title, content)
+#let tip(title: "tip", content) = admonition("tip", title, content)
+#let important(title: "important", content) = admonition("important", title, content)
+#let caution(title: "caution", content) = admonition("caution", title, content)
+#let warning(title: "warning", content) = admonition("warning", title, content)
+
+#let script(script, data: (:), i-have-read-the-panic-and-i-know-what-im-doing: false, manual-delete: false) = {
+  if not script.has("text") {
+    panic()
+  }
+  if not script.has("lang") {
+    panic()
+  }
+  if not (script.at("lang") == "javascript" or script.at("lang") == "js") {
+    panic()
+  }
+
+  if script.text.contains("\"") {
+    panic(
+      "Script contains \" which isn't allowed, if you're sure you know what you're doing then set `i-have-read-the-panic-and-i-know-what-im-doing` to true",
+    )
+  }
+
+  let data-loading = ""
+  for (var, value) in data {
+    if type(value) == str {
+      value = "'" + value + "'"
+    }
+    data-loading += (
+      "const " + var + " = " + value + ";"
+    )
+  }
+
+
+  html.elem("iframe", attrs: (
+    width: "0",
+    height: "0",
+    src: "about:blank",
+    onload: data-loading + script.text + if not manual-delete { "this.parentNode.removeChild(this);" } else { "" },
+  ))
+}
+
+#let github-card(repo) = {
+  if repo.find("/") == none {
+    panic("Invalid repository. 'repo' attribute must be in the format 'owner/repo'")
+  }
+
+  let owner = repo.split("/").at(0)
+  let repo-name = repo.split("/").at(1)
+  let card-uuid = "GC-" + slugify(repo, (:)).at(0)
+
+  let script = script(
+    ```javascript
+    fetch(`https://api.github.com/repos/${repo}`, { referrerPolicy: 'no-referrer' })
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then(errorData => {
+          const errorMessage = errorData.message || `HTTP Error: ${response.status} ${response.statusText || ''}`;
+          throw new Error(errorMessage);
+        });
+      }
+      return response.json();
+    }).then(data => {
+      document.getElementById(`${cardUuid}-description`).innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || 'Description not set';
+      document.getElementById(`${cardUuid}-language`).innerText = data.language;
+      document.getElementById(`${cardUuid}-forks`).innerText = Intl.NumberFormat('en-us', { notation: 'compact', maximumFractionDigits: 1 }).format(data.forks).replaceAll('\u202f', '');
+      document.getElementById(`${cardUuid}-stars`).innerText = Intl.NumberFormat('en-us', { notation: 'compact', maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll('\u202f', '');
+      const avatarEl = document.getElementById(`${cardUuid}-avatar`);
+      avatarEl.style.backgroundImage = 'url(' + data.owner.avatar_url + ')';
+      avatarEl.style.backgroundColor = 'transparent';
+      document.getElementById(`${cardUuid}-license`).innerText = data.license?.spdx_id || 'no-license';
+      document.getElementById(`${cardUuid}-card`).classList.remove('fetch-waiting');
+      console.log(`[GITHUB-CARD] Loaded card for ${repo} | ${cardUuid}.`)
+    }).catch(err => {
+      const c = document.getElementById(`${cardUuid}-card`);
+      c?.classList.add('fetch-error');
+      c?.classList.remove('fetch-waiting');
+      document.getElementById(`${cardUuid}-description`).innerText = err.message;
+      /* document.getElementById(`${cardUuid}-description`).innerText = `Error: ${err.name || '?'}: ${err.message || 'Unknown error occurred'}. Repo: ${repo}`; */
+      console.warn(`[GITHUB-CARD] (Error) Loading card for ${repo} | ${cardUuid}.`)
+    }).finally(() => {
+      this.parentNode.removeChild(this);
+    })
+    ```,
+    data: (repo: repo, cardUuid: card-uuid),
+    manual-delete: true,
+  )
+
+  context if target() != "html" {
+    panic("GitHub Card is only available in HTML exports.")
+  }
+
+  html.elem("div", {
+    script
+    html.elem("div", {
+      html.elem(
+        "a",
+        attrs: (
+          id: card-uuid + "-card",
+          class: "card-github no-styling fetch-waiting",
+          href: "https://github.com/" + repo,
+          target: "_blank",
+          repo: repo,
+        ),
+        {
+          html.elem("div", attrs: (class: "gc-titlebar"), {
+            html.elem("div", attrs: (class: "gc-titlebar-left"), {
+              html.elem("div", attrs: (class: "gc-owner"), {
+                html.elem("div", attrs: (
+                  id: card-uuid + "-avatar",
+                  class: "gc-avatar",
+                  style: "background-image: url(\"https://github.com/"
+                    + owner
+                    + ".png\"); background-color: transparent;",
+                ))
+                html.elem("div", attrs: (class: "gc-user"), {
+                  owner
+                })
+              })
+              html.elem("div", attrs: (class: "gc-divider"), {
+                [/]
+              })
+              html.elem("div", attrs: (class: "gc-repo"), {
+                repo-name
+              })
+            })
+            html.elem("div", attrs: (class: "github-logo"), [])
+          })
+          html.elem("div", attrs: (id: card-uuid + "-description", class: "gc-description"), {
+            [unimplemented]
+          })
+          html.elem("div", attrs: (class: "gc-infobar"), {
+            html.elem("div", attrs: (id: card-uuid + "-stars", class: "gc-stars"), {
+              [unimplemented]
+            })
+            html.elem("div", attrs: (id: card-uuid + "-forks", class: "gc-forks"), {
+              [unimplemented]
+            })
+            html.elem("div", attrs: (id: card-uuid + "-license", class: "gc-license"), {
+              [unimplemented]
+            })
+            html.elem("span", attrs: (id: card-uuid + "-language", class: "gc-language"), {
+              [unimplemented]
+            })
+          })
+        },
+      )
+    })
+  })
 }

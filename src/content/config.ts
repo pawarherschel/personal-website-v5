@@ -19,6 +19,11 @@ const blogCollection = defineCollection({
 		prevSlug: z.string().default(""),
 		nextTitle: z.string().default(""),
 		nextSlug: z.string().default(""),
+		headings: z.array(z.object({
+			text: z.string(),
+			depth: z.number().int().min(1).max(6),
+			slug: z.string().min(1),
+		})).default([]),
 	}),
 });
 

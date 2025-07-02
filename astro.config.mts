@@ -13,7 +13,6 @@ import remarkDirective from "remark-directive";/* Handle directives */
 import remarkGithubAdmonitionsToDirectives from "remark-github-admonitions-to-directives";
 import remarkMath from "remark-math";
 import remarkSectionize from "remark-sectionize";
-import Sonda from "sonda/astro";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mts";
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mts";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.ts";
@@ -22,6 +21,9 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time.mts";
 import metaTags from "astro-meta-tags";
 import pageInsight from "astro-page-insight";
 import svgPassthrough from './src/plugins/remark-svg-passthrough.mjs';
+
+
+import linkPreview from "astro-link-preview";
 
 
 // https://astro.build/config
@@ -47,45 +49,36 @@ export default defineConfig({
             },
         },
     },
-    integrations: [
-        // Sonda( ),
-        tailwind({
-            nesting: true,
-        }),
-        swup({
-            theme: false,
-            animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
-            // the default value `transition-` cause transition delay
-            // when the Tailwind class `transition-all` is used
-            containers: ["main", "#toc"],
-            smoothScrolling: true,
-            cache: true,
-            preload: {
-                hover: true,
-                visible: true,
-            },
-            accessibility: true,
-            updateHead: true,
-            updateBodyClass: false,
-            globalInstance: true,
-        }),
-        icon({
-            include: {
-                "preprocess: vitePreprocess(),": ["*"],
-                "fa6-brands": ["*"],
-                "fa6-regular": ["*"],
-                "fa6-solid": ["*"],
-            },
-        }),
-        svelte(),
-        sitemap(),
-        typst({
-            options: {},
-            target: "html",
-        }),
-        metaTags(),
-        pageInsight()
-    ],
+    integrations: [// Sonda( ),
+    tailwind({
+        nesting: true,
+    }), swup({
+        theme: false,
+        animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
+        // the default value `transition-` cause transition delay
+        // when the Tailwind class `transition-all` is used
+        containers: ["main", "#toc"],
+        smoothScrolling: true,
+        cache: true,
+        preload: {
+            hover: true,
+            visible: true,
+        },
+        accessibility: true,
+        updateHead: true,
+        updateBodyClass: false,
+        globalInstance: true,
+    }), icon({
+        include: {
+            "preprocess: vitePreprocess(),": ["*"],
+            "fa6-brands": ["*"],
+            "fa6-regular": ["*"],
+            "fa6-solid": ["*"],
+        },
+    }), svelte(), sitemap(), typst({
+        options: {},
+        target: "html",
+    }), metaTags(), pageInsight(), linkPreview()],
     markdown: {
         remarkPlugins: [
             svgPassthrough,

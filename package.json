@@ -50,6 +50,7 @@
 		"@tailwindcss/typography": "^0.5.16",
 		"astro": "5.10.1",
 		"astro-icon": "^1.1.5",
+		"astro-link-preview": "^0.3.4",
 		"astro-meta-tags": "^0.3.2",
 		"astro-page-insight": "^0.10.2",
 		"astro-typst": "^0.9.2",
@@ -90,8 +91,7 @@
 		"@types/mdast": "^4.0.4",
 		"@types/sanitize-html": "^2.16.0",
 		"postcss-import": "^16.1.1",
-		"postcss-nesting": "^13.0.2",
-		"sonda": "^0.8.2"
+		"postcss-nesting": "^13.0.2"
 	},
 	"packageManager": "pnpm@9.14.4"
 }

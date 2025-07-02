@@ -1,5 +1,3 @@
-import { NodeError } from "@myriaddreamin/typst-ts-node-compiler/index-napi";
-
 export type Result<T> =
 	| {
 			tag: "ok";

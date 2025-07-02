@@ -9,7 +9,7 @@ export function parseDirectiveNode() {
 				node.type === "leafDirective" ||
 				node.type === "textDirective"
 			) {
-				// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+				// biome-ignore lint/suspicious/noAssignInExpressions: <check later>
 				const data = node.data || (node.data = {});
 				node.attributes = node.attributes || {};
 				if (

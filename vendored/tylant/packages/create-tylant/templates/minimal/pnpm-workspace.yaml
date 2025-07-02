@@ -1,4 +1,0 @@
-packages:
-  - "."
-  - "packages/tylant/packages/*"
-  - "!**/test/**"

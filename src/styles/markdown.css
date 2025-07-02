@@ -296,28 +296,13 @@
         }
     }
 
-    .typst-doc use {
-        fill: #000000;
-    }
-
-
-    .dark .typst-doc use {
-        fill: #FFFFFF;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :not(.light) .typst-doc use {
-            fill: #FFFFFF;
-        }
-    }
-
     .katex-display-container {
         max-width: 100%;
         overflow-x: auto;
         margin: 1em 0;
     }
 
-    .typst-doc {
+    .math, .math * {
         max-width: 100%;
         height: auto;
         display: block;

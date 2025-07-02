@@ -1,4 +1,4 @@
-#import "../../../public/utils.typ": blog-post, img, to-string
+#import "../../../public/utils.typ": blog-post, divider, img, to-string
 
 #show: blog-post.with("Typst Showcase", args: (draft: false))
 
@@ -16,11 +16,13 @@ look like:
 Note that --- not considering the asterisk --- the actual text
 content starts at 4-columns in.
 
-> Block quotes are
-> written like so.
->
-> They can span multiple paragraphs,
-> if you like.
+#quote(block: true)[
+  Block quotes are
+  written like so.
+
+  They can span multiple paragraphs,
+  if you like.
+]
 
 Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
 in chapters 12--14"). Three dots ... will be converted to an ellipsis.
@@ -37,15 +39,15 @@ Here's a numbered list:
 Note again how the actual text starts at 4 columns in (4 characters
 from the left side). Here's a code sample:
 
-= Let me re-iterate ...
-for i in 1 .. 10 { do-something(i) }
+= Let me re-iterate...
+```for i in 1..10 { do-something(i) }```
 
 As you probably guessed, indented 4 spaces. By the way, instead of
 indenting the block, you can use delimited blocks, if you like:
 
-```
-define foobar() {
-    print "Welcome to flavor country!";
+```rust
+fn main() {
+  println!("Welcome to flavor country!");
 }
 ```
 
@@ -90,6 +92,13 @@ that last line which continues item 3 above).
 
 Here's a link to #link("http://foo.bar")[a website], to a #link("local-doc.html")[local doc], and to a #link("#an-h2-header")[section heading in the current doc]. Here's a footnote #footnote[Footnote text goes here.].
 
+#footnote[#lorem(2)]
+#footnote[#lorem(3)]
+#footnote[#lorem(4)]
+#footnote[#lorem(5)]
+#footnote[#lorem(6)]
+#footnote[#lorem(7)]
+
 Tables look like this:
 
 #figure(
@@ -102,8 +111,6 @@ Tables look like this:
   ),
   caption: [Shoes, their sizes, and what they're made of],
 )
-
-(The above is the caption for the table.)
 
 Typst also supports multi-line tables:
 
@@ -120,7 +127,7 @@ Typst also supports multi-line tables:
 
 A horizontal rule follows.
 
-(being worked on)
+#divider
 
 Here's a definition list:
 
@@ -134,19 +141,20 @@ and images can be specified like so:
 
 Inline math equations go in like so: $omega = d phi slash d t$ or $omega = frac(d phi, d t)$. Display
 math should get its own line and be put in in triple-dollar signs:
-
-$$$I = integral rho R^2 d V$$$
-
-$$$pi = 3.1415926535 space
-8979323846 space 2643383279 space 5028841971 space 6939937510 space 5820974944
-5923078164 space 0628620899 space 8628034825 space 3421170679 space ...$$$
-
-$
+$$$
+  I = integral rho R^2 d V
+$$$
+$$$
+  pi = 3.1415926535 space
+  8979323846 space 2643383279 space 5028841971 space 6939937510 space 5820974944
+  5923078164 space 0628620899 space 8628034825 space 3421170679 space ...
+$$$
+$$$
   (3x + y) / 7 & = 9        &                 & "given"      \
         3x + y & = 63       & "multiply by 7"                \
             3x & = 63 - y   &                 & "subtract y" \
              x & = 21 - y/3 &   "divide by 3"
-$
+$$$
 
 box: #box[meow]
 

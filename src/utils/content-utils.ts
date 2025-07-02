@@ -9,8 +9,8 @@ export async function getSortedPosts() {
 	});
 
 	const sorted = allBlogPosts.sort((a, b) => {
-		const dateA = new Date(a.data.published);
-		const dateB = new Date(b.data.published);
+		const dateA = new Date(a.data.published ?? new Date());
+		const dateB = new Date(b.data.published ?? new Date());
 		return dateA > dateB ? -1 : 1;
 	});
 

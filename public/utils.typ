@@ -117,7 +117,7 @@
   cap: "round",
 ))
 
-#let stringify-by-func(it) = {
+#let stringify-by-func(it, strict) = {
   let func = it.func()
   return if func in (parbreak, pagebreak, linebreak) {
     "\n"
@@ -129,29 +129,8 @@
   } else if it.has("tag") {
     // ignore html.elem without body
     ""
-  } else {
+  } else if strict {
     panic("Not sure how to handle type `" + repr(func) + "`")
-  }
-}
-
-#let plain-text(it) = {
-  return if type(it) == str {
-    it
-  } else if it == [ ] {
-    " "
-  } else if it.has("children") {
-    it.children.map(plain-text).join()
-  } else if it.has("body") {
-    plain-text(it.body)
-  } else if it.has("text") {
-    if type(it.text) == str {
-      it.text
-    } else {
-      plain-text(it.text)
-    }
-  } else {
-    // remove this to ignore all other non-text elements
-    stringify-by-func(it)
   }
 }
 
@@ -160,24 +139,22 @@
 /// - it (any):
 /// -> str
 #let to-string(it, strict: false) = {
-  if strict {
-    return plain-text(it)
-  }
-
-  if type(it) == str {
+  return if type(it) == str {
     it
-  } else if it == none {
-    ""
-  } else if type(it) != content {
-    str(it)
-  } else if it.has("text") {
-    it.text
-  } else if it.has("children") {
-    it.children.map(to-string).join()
-  } else if it.has("body") {
-    to-string(it.body)
   } else if it == [ ] {
     " "
+  } else if it.has("children") {
+    it.children.map(to-string.with(strict: strict)).join()
+  } else if it.has("body") {
+    to-string(it.body, strict: strict)
+  } else if it.has("text") {
+    if type(it.text) == str {
+      it.text
+    } else {
+      to-string(it.text, strict: strict)
+    }
+  } else {
+    stringify-by-func(it, strict)
   }
 }
 
@@ -199,19 +176,56 @@
   return (text, map)
 }
 
+#let script(script, data: (:), i-have-read-the-panic-and-i-know-what-im-doing: false, manual-delete: false) = {
+  if not script.has("text") {
+    panic()
+  }
+  if not script.has("lang") {
+    panic()
+  }
+  if not (script.at("lang") == "javascript" or script.at("lang") == "js") {
+    panic()
+  }
+  if script.text.len() == 0 {
+    panic()
+  }
+
+  if script.text.contains("\"") {
+    panic(
+      "Script contains \" which isn't allowed, if you're sure you know what you're doing then set `i-have-read-the-panic-and-i-know-what-im-doing` to true",
+    )
+  }
+
+  let data-loading = ""
+  for (var, value) in data {
+    if type(value) == str {
+      value = "'" + value + "'"
+    }
+    data-loading += (
+      "const " + var + " = " + value + ";"
+    )
+  }
+
+
+  html.elem("iframe", attrs: (
+    width: "0",
+    height: "0",
+    src: "about:blank",
+    onload: data-loading + script.text + if not manual-delete { "this.parentNode.removeChild(this);" } else { "" },
+  ))
+}
+
 #let slugify-map = state("slugify-map", (:))
 
 #let reading-time(words, wpm: 200) = {
   return words / wpm
 }
 
-#let divider = {
-  //<div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>
-  context {
-    if target() == "html" {
-      html.elem("div", attrs: (class: "border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"))
-    }
-  }
+//<div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>
+#let divider = context {
+  if target() == "html" {
+    html.elem("div", attrs: (class: "border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"))
+  } else { panic("unimplemented divider") }
 }
 
 ///
@@ -341,10 +355,9 @@
   content,
 )
 
-#let blog-post(title, description: lorem(20), image: none, tags: (), category: none, args: (:), content) = {
-  let words = to-string(content).split(" ").len()
-  let minutes = int(reading-time(words))
 
+#let blog-post(title, description: lorem(20), image: none, tags: (), category: none, args: (:), content) = {
+  import "@preview/wordometer:0.1.4": total-words, word-count
   context [
     #metadata((
       title: title,
@@ -352,8 +365,8 @@
       tags: tags,
       category: if category == none { "Category" } else { category },
       ..if image != none { (image: image) } else { (:) },
-      words: words,
-      minutes: minutes,
+      words: state("total-words").final(),
+      minutes: int(reading-time(state("total-words").final())),
       headings: {
         let map = (:)
         query(heading).map(h => {
@@ -419,12 +432,17 @@
           attrs: (
             id: hash(it, here().position()),
             style: "display: inline-block;",
+            class: "math dark:invert",
           ),
-          html.frame(it),
+          {
+            html.frame(it)
+          },
         )
       }
       show math.equation.where(block: true): it => context {
-        html.elem("div", attrs: (id: hash(it, here().position())), html.frame(it))
+        html.elem("div", attrs: (id: hash(it, here().position()), class: "math dark:invert"), {
+          html.frame(it)
+        })
       }
 
       show: html.elem.with("article", attrs: (style: "text-align: justify; hyphens: manual;"))
@@ -437,7 +455,55 @@
         ]
       }
 
-      content
+      show: word-count
+
+      show footnote: it => {
+        show super: it2 => {
+          [~]
+          html.elem(
+            "span",
+            attrs: (
+              class: "footnote-container group",
+            ),
+            {
+              html.elem(
+                "a",
+                attrs: (
+                  class: "footnote-tooltip font-index text-iris cursor-pointer select-none",
+                  onclick: "this.parentElement.classList.toggle('show-tooltip')",
+                  role: "button",
+                  aria-label: "Toggle footnote",
+                ),
+                [[#it2.body]],
+              )
+              html.elem(
+                "span",
+                attrs: (
+                  class: "sr-only group-[.show-tooltip]:hidden",
+                  aria-label: "Footnote content",
+                ),
+                it.body,
+              )
+              html.elem(
+                "span",
+                attrs: (
+                  class: "hidden group-[.show-tooltip]:block min-w-full footnote-body",
+                ),
+                {
+                  it.body
+                },
+              )
+            },
+          )
+        }
+        it
+      }
+
+      [
+        #content
+
+        #divider
+      ]
     } else {
       if description != "" or description != [] {
         [
@@ -453,10 +519,10 @@
 }
 
 #let section(content) = {
-  context if target() = "html" {
+  context if target() != "html" {
     panic()
   }
-  html.elem.with("section", content)
+  html.elem("section", content)
 }
 #let checkbox(completed, active: false) = context {
   if target() == "html" {
@@ -465,7 +531,7 @@
       ..if completed { (checked: "true") },
       ..if not active { (disabled: "true") },
     )))
-  }
+  } else { panic("unimplemented checkbox") }
 }
 #let img(src, alt: "") = context {
   if target() == "html" {
@@ -475,7 +541,7 @@
       class: "max-width: 100%; height: auto;",
       loading: "lazy",
     ))
-  }
+  } else { panic("unimplemented img") }
 }
 #let bluesky-embed(
   author-did,
@@ -509,7 +575,7 @@
         ),
       )
       html.elem("script", attrs: (async: "true", src: "https://embed.bsky.app/static/embed.js", charset: "utf-8"))
-    }
+    } else { panic("unimplemented bluesky-embed") }
   }
 }
 
@@ -533,42 +599,6 @@
 #let important(title: "important", content) = admonition("important", title, content)
 #let caution(title: "caution", content) = admonition("caution", title, content)
 #let warning(title: "warning", content) = admonition("warning", title, content)
-
-#let script(script, data: (:), i-have-read-the-panic-and-i-know-what-im-doing: false, manual-delete: false) = {
-  if not script.has("text") {
-    panic()
-  }
-  if not script.has("lang") {
-    panic()
-  }
-  if not (script.at("lang") == "javascript" or script.at("lang") == "js") {
-    panic()
-  }
-
-  if script.text.contains("\"") {
-    panic(
-      "Script contains \" which isn't allowed, if you're sure you know what you're doing then set `i-have-read-the-panic-and-i-know-what-im-doing` to true",
-    )
-  }
-
-  let data-loading = ""
-  for (var, value) in data {
-    if type(value) == str {
-      value = "'" + value + "'"
-    }
-    data-loading += (
-      "const " + var + " = " + value + ";"
-    )
-  }
-
-
-  html.elem("iframe", attrs: (
-    width: "0",
-    height: "0",
-    src: "about:blank",
-    onload: data-loading + script.text + if not manual-delete { "this.parentNode.removeChild(this);" } else { "" },
-  ))
-}
 
 #let github-card(repo) = {
   if repo.find("/") == none {

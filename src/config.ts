@@ -1,6 +1,6 @@
 import type {
-	ExpressiveCodeConfig,
 	BlueskyConfig,
+	ExpressiveCodeConfig,
 	LicenseConfig,
 	NavBarConfig,
 	ProfileConfig,
@@ -46,11 +46,12 @@ export const siteConfig: SiteConfig = {
 export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
+		LinkPreset.Archive,
 		LinkPreset.About,
 		LinkPreset.Portfolio,
 		{
 			name: "GitHub",
-			url: "https://github.com/pawarherschel",
+			url: "https://github.com/pawarherschel/personal-website-v5",
 			external: true,
 		},
 	],
@@ -100,8 +101,8 @@ export const blueskyConfig: BlueskyConfig = {
 
 export const licenseConfig: LicenseConfig = {
 	enable: true,
-	name: "CC BY 4.0",
-	url: "https://creativecommons.org/licenses/by/4.0/",
+	name: "CC BY-ND 4.0",
+	url: "https://creativecommons.org/licenses/by-nd/4.0/",
 };
 
 export const expressiveCodeConfig: ExpressiveCodeConfig = {

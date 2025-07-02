@@ -18,18 +18,6 @@
   description: [The page chronicles kat's journey through different programming languages and fields, driven by a goal to leave a lasting impact by reducing technical barriers and inspiring others through public speaking and writing.],
 )
 
-#context {
-  let map = (:)
-  query(heading).map(h => {
-    let (slug, map) = slugify(h.body, map)
-    (
-      depth: h.level,
-      slug: slug,
-      text: to-string(h.body),
-    )
-  })
-}
-
 = Vainglory (or "Who am I?")
 
 //  = (Boasting)

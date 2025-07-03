@@ -1,51 +1,47 @@
-import {getCollection} from "astro:content";
+import { getCollection } from "astro:content";
+import assert from "node:assert";
 import {
 	type CompileDocArgs,
 	type NodeAddFontPaths,
 	NodeCompiler,
 	type NodeTypstDocument,
 } from "@myriaddreamin/typst-ts-node-compiler";
-import type {
-	CompileArgs
-} from "@myriaddreamin/typst-ts-node-compiler/index-napi";
-import {failable} from "@utils/result-type.ts";
-import {
-	getUpdatedAndPublishedForFilePath
-} from "@utils/updated-and-published-utils.ts";
+import type { CompileArgs } from "@myriaddreamin/typst-ts-node-compiler/index-napi";
+import { failable } from "@utils/result-type.ts";
+import { getUpdatedAndPublishedForFilePath } from "@utils/updated-and-published-utils.ts";
 import getReadingTime from "reading-time";
-import postTemplateStr from "../../../public/template.typ?raw";
-import otherTemplateStr
-	from "../../../public/catchAllTemplate.typ?raw";
+import sharp, { type SharpOptions } from "sharp";
+import { LinkPreset } from "@/types/config.ts";
 import _404TemplateStr from "../../../public/404Template.typ?raw";
-import {LinkPreset} from "@/types/config.ts";
-import assert from "node:assert";
-import sharp, { type SharpOptions} from "sharp";
+import otherTemplateStr from "../../../public/catchAllTemplate.typ?raw";
+import postTemplateStr from "../../../public/template.typ?raw";
 
-
-const postTemplate = {tag: "post", data: postTemplateStr}
-const otherTemplate = {tag: "other", data: otherTemplateStr}
-const _404Template = {tag: "404", data: _404TemplateStr}
+const postTemplate = { tag: "post", data: postTemplateStr };
+const otherTemplate = { tag: "other", data: otherTemplateStr };
+const _404Template = { tag: "404", data: _404TemplateStr };
 
 const others = Object.values(LinkPreset)
-	.filter((value): value is string => typeof value === 'string')
-	.map((it) => it.toLowerCase())
-	.map((it) => (it === "home" ? "" : it));
+	.filter((value): value is string => typeof value === "string")
+	.map((it) => it.toLowerCase());
 
-const oklab = /=\s*"[^"]*?oklab\([\d.%,\s-]+\)[^"]*?"/; // sorry
+// const oklab = /=\s*"[^"]*?oklab\([\d.%,\s-]+\)[^"]*?"/; // sorry
 
 export async function GET({ params }: { params: { slug: string } }) {
 	const post = (await getCollection("posts")).find(
 		(post) => post.slug === params.slug,
 	);
 
-	let template = postTemplate
+	let template = postTemplate;
 
 	if (!post) {
-		template = otherTemplate
+		template = otherTemplate;
 	}
 
-	const {inputs, oklabCtx} = await (async (): Promise<{inputs: any, oklabCtx: string }> => {
-		switch(template.tag){
+	const { inputs, oklabCtx } = await (async (): Promise<{
+		inputs: any;
+		oklabCtx: string;
+	}> => {
+		switch (template.tag) {
 			case "post": {
 				assert(post !== undefined);
 
@@ -53,10 +49,7 @@ export async function GET({ params }: { params: { slug: string } }) {
 				const time = Math.max(1, Math.round(readingTime.minutes));
 				const words = readingTime.words;
 
-				const {
-					published,
-					updated
-				} = await getUpdatedAndPublishedForFilePath(
+				const { published, updated } = await getUpdatedAndPublishedForFilePath(
 					// @ts-ignore
 					post.filePath,
 					post.data.updated,
@@ -74,23 +67,25 @@ export async function GET({ params }: { params: { slug: string } }) {
 					},
 				};
 
-				const oklabCtx = `post.id: ${JSON.stringify(post.id, null, 2)}\n` +
-						`post.filePath: ${JSON.stringify(post.filePath, null, 2)}\n` +
-						`post.slug: ${JSON.stringify(post.slug, null, 2)}\n` +
-						`post.data: ${JSON.stringify(post.data, null, 2)}\n`
+				const oklabCtx =
+					`post.id: ${JSON.stringify(post.id, null, 2)}\n` +
+					`post.filePath: ${JSON.stringify(post.filePath, null, 2)}\n` +
+					`post.slug: ${JSON.stringify(post.slug, null, 2)}\n` +
+					`post.data: ${JSON.stringify(post.data, null, 2)}\n`;
 
-				return {inputs: inputs, oklabCtx: oklabCtx}
+				return { inputs: inputs, oklabCtx: oklabCtx };
 			}
 			case "other": {
-				return {inputs: {tag: template.tag, data: params.slug}, oklabCtx: ""}
+				return {
+					inputs: { tag: template.tag, data: params.slug },
+					oklabCtx: "",
+				};
 			}
 			default: {
-				return {inputs: {tag: template.tag}, oklabCtx: ""}
+				return { inputs: { tag: template.tag }, oklabCtx: "" };
 			}
 		}
 	})();
-
-
 
 	const compilerArg = {
 		workspace: "./public",
@@ -125,28 +120,26 @@ export async function GET({ params }: { params: { slug: string } }) {
 		});
 	}
 
-	if (svgContent.match(oklab)) {
-		throw new Error(
-			'The svg string includes something similar to `="oklab(l% a b)"`,\n' +
-				"resvg doesn't support oklab colorspace (as of 2025-06-18),\n" +
-				"see: https://github.com/linebender/resvg/issues/514\n" +
-				"hint: check if you're using oklab colors anywhere in the typst template, " +
-				"and convert them to rgb using `oklab-color.rgb()`\n" + oklabCtx
-		);
-	}
+	// if (svgContent.match(oklab)) {
+	// 	throw new Error(
+	// 		'The svg string includes something similar to `="oklab(l% a b)"`,\n' +
+	// 			"resvg doesn't support oklab colorspace (as of 2025-06-18),\n" +
+	// 			"see: https://github.com/linebender/resvg/issues/514\n" +
+	// 			"hint: check if you're using oklab colors anywhere in the typst template, " +
+	// 			"and convert them to rgb using `oklab-color.rgb()`\n" +
+	// 			oklabCtx,
+	// 	);
+	// }
 
-	const sharpInput:  sharp.SharpInput = Buffer.from(svgContent,"utf-8")
+	const sharpInput: sharp.SharpInput = Buffer.from(svgContent, "utf-8");
 	const sharpOpts = {} satisfies SharpOptions;
 	const jpegOpts = {
-		mozjpeg:true,
+		mozjpeg: true,
 	} satisfies sharp.JpegOptions;
 
-	const jpegBuffer = await sharp(
-		sharpInput,
-		sharpOpts
-	).jpeg(
-		jpegOpts
-	).toBuffer()
+	const jpegBuffer = await sharp(sharpInput, sharpOpts)
+		.jpeg(jpegOpts)
+		.toBuffer();
 
 	// const opts = {
 	// 	fitTo: { mode: "width", value: 1500 },
@@ -164,13 +157,10 @@ export async function GET({ params }: { params: { slug: string } }) {
 
 export const getStaticPaths = async () =>
 	[
-		(await getCollection("posts"))
-			.map((it) => ({
-				data: it.slug,
-			})),
-		others
-			.map((it) => it === "" ? "home" : it)
-			.map((it) => ({data: it}))
+		(await getCollection("posts")).map((it) => ({
+			data: it.slug,
+		})),
+		others.map((it) => ({ data: it })),
 	]
 		.flat()
 		.map(({ data }) => ({

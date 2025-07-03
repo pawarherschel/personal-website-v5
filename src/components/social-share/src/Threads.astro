@@ -12,7 +12,7 @@ const {
 
 let URL = `https://www.threads.net/intent/post?url=${url}`;
 
-if (description) URL += `&text=${description}`;
+if (description) URL += `&text=${encodeURIComponent(description)}`;
 ---
 <a  target="_blank" href={URL} rel="noopener noreferrer" class:list={[classList]}>
   <slot>

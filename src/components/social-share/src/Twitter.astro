@@ -12,7 +12,7 @@ const {
 
 let URL = `https://x.com/intent/tweet?url=${url}`;
 
-if (description) URL += `&text=${description}`;
+if (description) URL += `&text=${encodeURIComponent(description)}`;
 if (via) URL += `&via=${via}`;
 ---
 <a  target="_blank" href={URL} rel="noopener noreferrer" class:list={[classList]}>

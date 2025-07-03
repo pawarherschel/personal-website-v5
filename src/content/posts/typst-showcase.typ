@@ -160,3 +160,11 @@ box: #box[meow]
 
 And note that you can backslash-escape any punctuation characters
 which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
+
+```css
+@counter-style devanagari {
+    system: numeric;
+    symbols: '\966' '\967' '\968' '\969' '\96A' '\96B' '\96C' '\96D' '\96E' '\96F';
+    /* symbols: '०' '१' '२' '३' '४' '५' '६' '७' '८' '९'; */
+}
+```

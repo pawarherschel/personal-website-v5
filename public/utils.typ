@@ -1,16 +1,19 @@
 #import "@preview/cetz:0.4.0"
 
-#let thatched(bg, fg, thickness: 0.3pt) = tiling(size: (20pt, 20pt), cetz.canvas(background: bg, {
-  import cetz.draw: *
+#let thatched(bg, fg, thickness: 0.3pt) = tiling(
+  size: (20pt, 20pt),
+  cetz.canvas(background: bg, {
+    import cetz.draw: *
 
-  rotate(z: 45deg)
-  let x = calc.sin(45deg) * 20pt
-  rect((-x / 2, -x / 2), (x / 2, x / 2), stroke: (
-    thickness: thickness,
-    paint: fg,
-    dash: "dashed",
-  ))
-}))
+    rotate(z: 45deg)
+    let x = calc.sin(45deg) * 20pt
+    rect((-x / 2, -x / 2), (x / 2, x / 2), stroke: (
+      thickness: thickness,
+      paint: fg,
+      dash: "dashed",
+    ))
+  }),
+)
 
 /// https://fonts.google.com/icons
 ///
@@ -158,6 +161,11 @@
   }
 }
 
+#let rust-btw(
+  pre: [],
+  post: [],
+) = [(#if pre != [] { [#pre ] }Rust btw#sym.trademark#if post != [] { [#post ] })]
+
 #let slugify(text, map) = {
   text = to-string(text, strict: true)
   text = lower(text)
@@ -176,7 +184,12 @@
   return (text, map)
 }
 
-#let script(script, data: (:), i-have-read-the-panic-and-i-know-what-im-doing: false, manual-delete: false) = {
+#let script(
+  script,
+  data: (:),
+  i-have-read-the-panic-and-i-know-what-im-doing: false,
+  manual-delete: false,
+) = {
   if not script.has("text") {
     panic()
   }
@@ -211,7 +224,11 @@
     width: "0",
     height: "0",
     src: "about:blank",
-    onload: data-loading + script.text + if not manual-delete { "this.parentNode.removeChild(this);" } else { "" },
+    onload: data-loading
+      + script.text
+      + if not manual-delete { "this.parentNode.removeChild(this);" } else {
+        ""
+      },
   ))
 }
 
@@ -224,8 +241,12 @@
 //<div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>
 #let divider = context {
   if target() == "html" {
-    html.elem("div", attrs: (class: "border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"))
-  } else { panic("unimplemented divider") }
+    html.elem("div", attrs: (
+      class: "border-[var(--line-divider)] border-dashed border-b-[1px] mb-5",
+    ))
+  } else {
+    line(length: 100%)
+  }
 }
 
 ///
@@ -234,9 +255,17 @@
 /// - fallback-type: "serif" | "sans-serif" | "monospace" | "cursive" | "fantasy" | "system-ui" | "ui-serif" | "ui-sans-serif" | "ui-monospace" | "ui-rounded" | "emoji" | "math" | "fangsong"
 /// - content (content): content... duh
 /// -> context
-#let font(font, fallback-type, italic: false, weight: "regular", content) = context {
+#let font(
+  font,
+  fallback-type,
+  italic: false,
+  weight: "regular",
+  content,
+) = context {
   let c = if content == none or content == [] or content == "" {
-    [#to-string(font) #if weight != "regular" [weight: #weight] #if italic [(italic)]]
+    [#to-string(font) #if (
+        weight != "regular"
+      ) [weight: #weight] #if italic [(italic)]]
   } else {
     content
   }
@@ -314,7 +343,13 @@
 
 
 #let jetbrains-mono(content, weight: "regular", italic: false) = if italic {
-  font("Jetbrains Mono Italic", "monospace", weight: weight, italic: italic, content)
+  font(
+    "Jetbrains Mono Italic",
+    "monospace",
+    weight: weight,
+    italic: italic,
+    content,
+  )
 } else {
   font("Jetbrains Mono", "monospace", weight: weight, italic: italic, content)
 }
@@ -356,17 +391,89 @@
 )
 
 
-#let blog-post(title, description: lorem(20), image: none, tags: (), category: none, args: (:), content) = {
+
+#let admonition(type, title, content) = {
+  if type not in ("tip", "note", "important", "caution", "warning") {
+    panic("invalid type: ", type)
+  }
+
+  context if target() != "html" {
+    let color = if type == "tip" {
+      oklch(70%, 0.14, 180deg)
+    } else if type == "note" {
+      oklch(70%, 0.14, 250deg)
+    } else if type == "important" {
+      oklch(70%, 0.14, 310deg)
+    } else if type == "caution" {
+      oklch(70%, 0.14, 60deg)
+    } else if type == "warning" {
+      oklch(60%, 0.2, 25deg)
+    } else {
+      panic(color)
+    }
+
+    block(
+      above: 2em,
+      stroke: 0.5pt + color,
+      width: 100%,
+      inset: 14pt,
+    )[
+      #place(
+        top + left,
+        dy: -6pt - 14pt, // Account for inset of block
+        dx: 6pt - 14pt,
+        block(fill: white, inset: 2pt)[*#text(title, fill: color)*],
+      )
+      #content
+    ]
+  } else {
+    html.elem("blockquote", attrs: (class: "admonition bdm-" + type), {
+      html.elem("span", attrs: (class: "bdm-title"), title)
+      parbreak()
+      content
+    })
+  }
+}
+#let note(title: "Note", content) = admonition("note", title, content)
+#let tip(title: "Tip", content) = admonition("tip", title, content)
+#let important(title: "Important", content) = admonition(
+  "important",
+  title,
+  content,
+)
+#let caution(title: "Caution", content) = admonition("caution", title, content)
+#let warning(title: "Warning", content) = admonition("warning", title, content)
+
+#let pdf-rem = 12pt
+
+#let blog-post(
+  title,
+  description: lorem(20),
+  image: none,
+  tags: lorem(4).split(" "),
+  category: none,
+  args: (:),
+  assumed-audience: lorem(6).split(" "),
+  content,
+) = {
   import "@preview/wordometer:0.1.4": total-words, word-count
+  set document(description: description, title: title, keywords: tags)
   context [
+    #let manual-words = (
+      to-string(content).split(regex("\s")).filter(it => it.trim() != "").len()
+    )
+    #let words = if state("total-words").final() > manual-words {
+      state("total-words").final()
+    } else { manual-words }
+    #let minutes = int(reading-time(words))
     #metadata((
       title: title,
-      description: description,
+      description: to-string(description),
       tags: tags,
       category: if category == none { "Category" } else { category },
       ..if image != none { (image: image) } else { (:) },
-      words: state("total-words").final(),
-      minutes: int(reading-time(state("total-words").final())),
+      words: words,
+      minutes: minutes,
       headings: {
         let map = (:)
         query(heading).map(h => {
@@ -382,6 +489,8 @@
     ))<frontmatter>
   ]
 
+
+  show: word-count
   context {
     if target() == "html" {
       show heading: it => context {
@@ -421,7 +530,9 @@
           .map(it => it.to-unicode())
           .map(it => int(it))
           .windows(16)
-          .reduce((a, b) => a.zip(b).map(((a, b)) => calc.rem(a + a.bit-xor(b), charset.len())))
+          .reduce((a, b) => a
+            .zip(b)
+            .map(((a, b)) => calc.rem(a + a.bit-xor(b), charset.len())))
           .map(c => charset.at(c))
           .join()
       }
@@ -440,26 +551,36 @@
         )
       }
       show math.equation.where(block: true): it => context {
-        html.elem("div", attrs: (id: hash(it, here().position()), class: "math dark:invert"), {
-          html.frame(it)
-        })
+        html.elem(
+          "div",
+          attrs: (id: hash(it, here().position()), class: "math dark:invert"),
+          {
+            html.frame(it)
+          },
+        )
       }
 
-      show: html.elem.with("article", attrs: (style: "text-align: justify; hyphens: manual;"))
+      show sub: it => html.elem("sub", it)
+      show super: it => html.elem("sup", it)
+
+      show: html.elem.with("article", attrs: (
+        style: "text-align: justify; hyphens: manual;",
+      ))
 
       if description != "" or description != [] {
         [
           Description:
           #description
           #divider
+          #note(
+            title: "Assumed Audience",
+            list(..assumed-audience),
+          )
         ]
       }
 
-      show: word-count
-
       show footnote: it => {
         show super: it2 => {
-          [~]
           html.elem(
             "span",
             attrs: (
@@ -505,6 +626,31 @@
         #divider
       ]
     } else {
+      set page(header: [#title])
+      set par(justify: true, linebreaks: "optimized")
+      set text(
+        font: "Fraunces 72pt",
+        size: pdf-rem * 1.15,
+        features: (
+          "SOFT",
+          "WONK",
+          "opsz",
+          "wght",
+        ),
+        fallback: false,
+      )
+      show link: set text(font: "Atkinson Hyperlegible Mono")
+      set heading(numbering: (..nums) => if nums.pos().len() == 1 {
+        "Section " + upper(numbering("I", ..nums)) + "."
+      } else {
+        numbering("I.1.a.१.", ..nums)
+      })
+
+      show heading.where(depth: 1): set text(size: 2.4 * pdf-rem)
+      show heading.where(depth: 2): set text(size: 2 * pdf-rem)
+      show heading.where(depth: 3): set text(size: 1.6 * pdf-rem)
+      show heading.where(depth: 4): set text(size: 1.82 * pdf-rem)
+
       if description != "" or description != [] {
         [
           Description:
@@ -541,7 +687,9 @@
       class: "max-width: 100%; height: auto;",
       loading: "lazy",
     ))
-  } else { panic("unimplemented img") }
+  } else {
+    [img: unimplemented, please go to #link("src") to checkout the image]
+  }
 }
 #let bluesky-embed(
   author-did,
@@ -558,7 +706,10 @@
         "div",
         attrs: (
           class: "bluesky-embed",
-          data-bluesky-uri: "at://" + author-did + "/app.bsky.feed.post/" + post-id,
+          data-bluesky-uri: "at://"
+            + author-did
+            + "/app.bsky.feed.post/"
+            + post-id,
           data-bluesky-cid: data-bluesky-cid,
           data-bluesky-embed-color-mode: "system",
         ),
@@ -567,42 +718,31 @@
           attribution: [
             #author (#link("https://bsky.app/profile/" + author-did + "?ref_src=embed", handle))
             #link(
-              "https://bsky.app/profile/" + author-did + "/post/" + post-id + "?ref_src=embed",
+              "https://bsky.app/profile/"
+                + author-did
+                + "/post/"
+                + post-id
+                + "?ref_src=embed",
               time,
             )
           ],
           content,
         ),
       )
-      html.elem("script", attrs: (async: "true", src: "https://embed.bsky.app/static/embed.js", charset: "utf-8"))
+      html.elem("script", attrs: (
+        async: "true",
+        src: "https://embed.bsky.app/static/embed.js",
+        charset: "utf-8",
+      ))
     } else { panic("unimplemented bluesky-embed") }
   }
 }
 
-#let admonition(type, title, content) = {
-  if type not in ("tip", "note", "important", "caution", "warning") {
-    panic("invalid type: ", type)
-  }
-
-  context if target() != "html" {
-    panic("unimplemented")
-  }
-
-  html.elem("blockquote", attrs: (class: "admonition bdm-" + type), {
-    html.elem("span", attrs: (class: "bdm-title"), title)
-    parbreak()
-    content
-  })
-}
-#let note(title: "note", content) = admonition("note", title, content)
-#let tip(title: "tip", content) = admonition("tip", title, content)
-#let important(title: "important", content) = admonition("important", title, content)
-#let caution(title: "caution", content) = admonition("caution", title, content)
-#let warning(title: "warning", content) = admonition("warning", title, content)
-
 #let github-card(repo) = {
   if repo.find("/") == none {
-    panic("Invalid repository. 'repo' attribute must be in the format 'owner/repo'")
+    panic(
+      "Invalid repository. 'repo' attribute must be in the format 'owner/repo'",
+    )
   }
 
   let owner = repo.split("/").at(0)
@@ -686,22 +826,42 @@
             })
             html.elem("div", attrs: (class: "github-logo"), [])
           })
-          html.elem("div", attrs: (id: card-uuid + "-description", class: "gc-description"), {
-            [unimplemented]
-          })
+          html.elem(
+            "div",
+            attrs: (id: card-uuid + "-description", class: "gc-description"),
+            {
+              [unimplemented]
+            },
+          )
           html.elem("div", attrs: (class: "gc-infobar"), {
-            html.elem("div", attrs: (id: card-uuid + "-stars", class: "gc-stars"), {
-              [unimplemented]
-            })
-            html.elem("div", attrs: (id: card-uuid + "-forks", class: "gc-forks"), {
-              [unimplemented]
-            })
-            html.elem("div", attrs: (id: card-uuid + "-license", class: "gc-license"), {
-              [unimplemented]
-            })
-            html.elem("span", attrs: (id: card-uuid + "-language", class: "gc-language"), {
-              [unimplemented]
-            })
+            html.elem(
+              "div",
+              attrs: (id: card-uuid + "-stars", class: "gc-stars"),
+              {
+                [unimplemented]
+              },
+            )
+            html.elem(
+              "div",
+              attrs: (id: card-uuid + "-forks", class: "gc-forks"),
+              {
+                [unimplemented]
+              },
+            )
+            html.elem(
+              "div",
+              attrs: (id: card-uuid + "-license", class: "gc-license"),
+              {
+                [unimplemented]
+              },
+            )
+            html.elem(
+              "span",
+              attrs: (id: card-uuid + "-language", class: "gc-language"),
+              {
+                [unimplemented]
+              },
+            )
           })
         },
       )

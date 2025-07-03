@@ -7,6 +7,12 @@
     /* additive-symbols: 1000 'M', 900 'CM', 500 'D', 400 'CD', 100 'C', 90 'XC', 50 'L', 40 'XL', 10 'X', 9 'IX', 5 'V', 4 'IV', 1 'I'; */
 }
 
+@counter-style lower-alpha {
+    system: alphabetic;
+    symbols: '\61' '\62' '\63' '\64' '\65' '\66' '\67' '\68' '\69' '\6A' '\6B' '\6C' '\6D' '\6E' '\6F' '\70' '\71' '\72' '\73' '\74' '\75' '\76' '\77' '\78' '\79' '\7A';
+    /* symbols: 'a' 'b' 'c' 'd' 'e' 'f' 'g' 'h' 'i' 'j' 'k' 'l' 'm' 'n' 'o' 'p' 'q' 'r' 's' 't' 'u' 'v' 'w' 'x' 'y' 'z'; */
+}
+
 @counter-style lower-roman {
     system: additive;
     range: 1 3999;
@@ -75,7 +81,7 @@
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
         line-height: 1.4em;
     }
 
@@ -102,7 +108,6 @@
 
     h1 {
         counter-reset: section2nd;
-        @apply text-3xl;
     }
 
     h2 {
@@ -134,7 +139,7 @@
         word-spacing: 0.1em;
         margin-right: 1em;
         counter-increment: section3rd;
-        content: counter(section1st, upper-roman) "." counter(section2nd) "." counter(section3rd, lower-roman) ". ";
+        content: counter(section1st, upper-roman) "." counter(section2nd) "." counter(section3rd, lower-alpha) ". ";
     }
 
     h4:before {
@@ -142,7 +147,7 @@
         word-spacing: 0.1em;
         margin-right: 1em;
         counter-increment: section4th;
-        content: counter(section1st, upper-roman) "." counter(section2nd) "." counter(section3rd, lower-roman) "." counter(section3rd, devanagari) ". ";
+        content: counter(section1st, upper-roman) "." counter(section2nd) "." counter(section3rd, lower-alpha) "." counter(section3rd, devanagari) ". ";
     }
 
     h1,

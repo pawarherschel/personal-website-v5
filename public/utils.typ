@@ -456,6 +456,7 @@
   assumed-audience: lorem(6).split(" "),
   content,
 ) = {
+  let description = to-string(description).trim()
   import "@preview/wordometer:0.1.4": total-words, word-count
   set document(description: description, title: title, keywords: tags)
   context [

@@ -1,19 +1,16 @@
 #import "@preview/cetz:0.4.0"
 
-#let thatched(bg, fg, thickness: 0.3pt) = tiling(
-  size: (20pt, 20pt),
-  cetz.canvas(background: bg, {
-    import cetz.draw: *
+#let thatched(bg, fg, thickness: 0.3pt) = tiling(size: (20pt, 20pt), cetz.canvas(background: bg, {
+  import cetz.draw: *
 
-    rotate(z: 45deg)
-    let x = calc.sin(45deg) * 20pt
-    rect((-x / 2, -x / 2), (x / 2, x / 2), stroke: (
-      thickness: thickness,
-      paint: fg,
-      dash: "dashed",
-    ))
-  }),
-)
+  rotate(z: 45deg)
+  let x = calc.sin(45deg) * 20pt
+  rect((-x / 2, -x / 2), (x / 2, x / 2), stroke: (
+    thickness: thickness,
+    paint: fg,
+    dash: "dashed",
+  ))
+}))
 
 /// https://fonts.google.com/icons
 ///
@@ -459,6 +456,7 @@
   let description = to-string(description).trim()
   import "@preview/wordometer:0.1.4": total-words, word-count
   set document(description: description, title: title, keywords: tags)
+  set cite(form: "full")
   context [
     #let manual-words = (
       to-string(content).split(regex("\s")).filter(it => it.trim() != "").len()
@@ -531,9 +529,7 @@
           .map(it => it.to-unicode())
           .map(it => int(it))
           .windows(16)
-          .reduce((a, b) => a
-            .zip(b)
-            .map(((a, b)) => calc.rem(a + a.bit-xor(b), charset.len())))
+          .reduce((a, b) => a.zip(b).map(((a, b)) => calc.rem(a + a.bit-xor(b), charset.len())))
           .map(c => charset.at(c))
           .join()
       }
@@ -552,13 +548,9 @@
         )
       }
       show math.equation.where(block: true): it => context {
-        html.elem(
-          "div",
-          attrs: (id: hash(it, here().position()), class: "math dark:invert"),
-          {
-            html.frame(it)
-          },
-        )
+        html.elem("div", attrs: (id: hash(it, here().position()), class: "math dark:invert"), {
+          html.frame(it)
+        })
       }
 
       show sub: it => html.elem("sub", it)
@@ -573,10 +565,7 @@
           Description:
           #description
           #divider
-          #note(
-            title: "Assumed Audience",
-            list(..assumed-audience),
-          )
+          #note(title: "Assumed Audience", list(..assumed-audience))
         ]
       }
 
@@ -660,6 +649,8 @@
         ]
       }
 
+      note(title: "Assumed Audience", list(..assumed-audience))
+
       content
     }
   }
@@ -678,7 +669,9 @@
       ..if completed { (checked: "true") },
       ..if not active { (disabled: "true") },
     )))
-  } else { panic("unimplemented checkbox") }
+  } else {
+    if active { sym.checkmark } else { sym.crossmark }
+  }
 }
 #let img(src, alt: "") = context {
   if target() == "html" {
@@ -707,10 +700,7 @@
         "div",
         attrs: (
           class: "bluesky-embed",
-          data-bluesky-uri: "at://"
-            + author-did
-            + "/app.bsky.feed.post/"
-            + post-id,
+          data-bluesky-uri: "at://" + author-did + "/app.bsky.feed.post/" + post-id,
           data-bluesky-cid: data-bluesky-cid,
           data-bluesky-embed-color-mode: "system",
         ),
@@ -719,11 +709,7 @@
           attribution: [
             #author (#link("https://bsky.app/profile/" + author-did + "?ref_src=embed", handle))
             #link(
-              "https://bsky.app/profile/"
-                + author-did
-                + "/post/"
-                + post-id
-                + "?ref_src=embed",
+              "https://bsky.app/profile/" + author-did + "/post/" + post-id + "?ref_src=embed",
               time,
             )
           ],
@@ -735,7 +721,12 @@
         src: "https://embed.bsky.app/static/embed.js",
         charset: "utf-8",
       ))
-    } else { panic("unimplemented bluesky-embed") }
+    } else {
+      link("https://bsky.app/profile/" + author-did + "/post/" + post-id, quote(
+        attribution: link("https://bsky.app/profile/" + author-did)[#author (#handle) at #time],
+        block: true,
+      )[#content])
+    }
   }
 }
 
@@ -788,84 +779,64 @@
   )
 
   context if target() != "html" {
-    panic("GitHub Card is only available in HTML exports.")
-  }
-
-  html.elem("div", {
-    script
+    link("https://github.com/" + repo)[GitHub:#repo]
+  } else {
     html.elem("div", {
-      html.elem(
-        "a",
-        attrs: (
-          id: card-uuid + "-card",
-          class: "card-github no-styling fetch-waiting",
-          href: "https://github.com/" + repo,
-          target: "_blank",
-          repo: repo,
-        ),
-        {
-          html.elem("div", attrs: (class: "gc-titlebar"), {
-            html.elem("div", attrs: (class: "gc-titlebar-left"), {
-              html.elem("div", attrs: (class: "gc-owner"), {
-                html.elem("div", attrs: (
-                  id: card-uuid + "-avatar",
-                  class: "gc-avatar",
-                  style: "background-image: url(\"https://github.com/"
-                    + owner
-                    + ".png\"); background-color: transparent;",
-                ))
-                html.elem("div", attrs: (class: "gc-user"), {
-                  owner
+      script
+      html.elem("div", {
+        html.elem(
+          "a",
+          attrs: (
+            id: card-uuid + "-card",
+            class: "card-github no-styling fetch-waiting",
+            href: "https://github.com/" + repo,
+            target: "_blank",
+            repo: repo,
+          ),
+          {
+            html.elem("div", attrs: (class: "gc-titlebar"), {
+              html.elem("div", attrs: (class: "gc-titlebar-left"), {
+                html.elem("div", attrs: (class: "gc-owner"), {
+                  html.elem("div", attrs: (
+                    id: card-uuid + "-avatar",
+                    class: "gc-avatar",
+                    style: "background-image: url(\"https://github.com/"
+                      + owner
+                      + ".png\"); background-color: transparent;",
+                  ))
+                  html.elem("div", attrs: (class: "gc-user"), {
+                    owner
+                  })
+                })
+                html.elem("div", attrs: (class: "gc-divider"), {
+                  [/]
+                })
+                html.elem("div", attrs: (class: "gc-repo"), {
+                  repo-name
                 })
               })
-              html.elem("div", attrs: (class: "gc-divider"), {
-                [/]
+              html.elem("div", attrs: (class: "github-logo"), [])
+            })
+            html.elem("div", attrs: (id: card-uuid + "-description", class: "gc-description"), {
+              [unimplemented]
+            })
+            html.elem("div", attrs: (class: "gc-infobar"), {
+              html.elem("div", attrs: (id: card-uuid + "-stars", class: "gc-stars"), {
+                [unimplemented]
               })
-              html.elem("div", attrs: (class: "gc-repo"), {
-                repo-name
+              html.elem("div", attrs: (id: card-uuid + "-forks", class: "gc-forks"), {
+                [unimplemented]
+              })
+              html.elem("div", attrs: (id: card-uuid + "-license", class: "gc-license"), {
+                [unimplemented]
+              })
+              html.elem("span", attrs: (id: card-uuid + "-language", class: "gc-language"), {
+                [unimplemented]
               })
             })
-            html.elem("div", attrs: (class: "github-logo"), [])
-          })
-          html.elem(
-            "div",
-            attrs: (id: card-uuid + "-description", class: "gc-description"),
-            {
-              [unimplemented]
-            },
-          )
-          html.elem("div", attrs: (class: "gc-infobar"), {
-            html.elem(
-              "div",
-              attrs: (id: card-uuid + "-stars", class: "gc-stars"),
-              {
-                [unimplemented]
-              },
-            )
-            html.elem(
-              "div",
-              attrs: (id: card-uuid + "-forks", class: "gc-forks"),
-              {
-                [unimplemented]
-              },
-            )
-            html.elem(
-              "div",
-              attrs: (id: card-uuid + "-license", class: "gc-license"),
-              {
-                [unimplemented]
-              },
-            )
-            html.elem(
-              "span",
-              attrs: (id: card-uuid + "-language", class: "gc-language"),
-              {
-                [unimplemented]
-              },
-            )
-          })
-        },
-      )
+          },
+        )
+      })
     })
-  })
+  }
 }

@@ -1,6 +1,9 @@
 #import "@preview/fontawesome:0.5.0": *
 #import "@preview/cetz:0.4.0"
-#import "utils.typ": data, highlight-color, material, parse-date, row-with-equal-spaces, sep, thatched
+#import "utils.typ": (
+  data, highlight-color, material, parse-date, row-with-equal-spaces, sep,
+  thatched,
+)
 
 #let (
   data: (
@@ -16,6 +19,8 @@
     updated,
   ),
 ) = data("post")
+
+#let description = description.trim()
 
 #let published = parse-date(published)
 #let updated = parse-date(updated)
@@ -107,32 +112,42 @@
 
   {
     set text(size: 0.75em)
-    row-with-equal-spaces((
-      (0xf53e, [#category]),
-      (0xe935, [#published.display()]),
-      (0xe742, [#updated.display()]),
-      (0xe26c, [#words words]),
-      (0xe8b5, [#time #[minute]#if time != 1 { [s] }]),
+    row-with-equal-spaces(
+      (
+        (0xf53e, [#category]),
+        (0xe935, [#published.display()]),
+        (0xe742, [#updated.display()]),
+        (0xe26c, [#words words]),
+        (0xe8b5, [#time #[minute]#if time != 1 { [s] }]),
+      )
+        .map(((codepoint, c)) => {
+          box[
+            #material(codepoint)
+            #box(height: 1em)[#align(center + horizon, c)]
+          ]
+        })
+        .map(it => box(width: 1fr, it)),
     )
-      .map(((codepoint, c)) => {
-        box[
-          #material(codepoint)
-          #box(height: 1em)[#align(center + horizon, c)]
-        ]
-      })
-      .map(it => box(width: 1fr, it)))
   },
 
   sep,
 )
 
-#block(breakable: false, height: 1fr, width: 100%, clip: true, above: 0.5em, below: 0.5em, par(
-  justify: true,
-  linebreaks: "optimized",
-  if description.len() == 0 {
-    lorem(100)
-  } else { description },
-))
+#block(
+  breakable: false,
+  height: 1fr,
+  width: 100%,
+  clip: true,
+  above: 0.5em,
+  below: 0.5em,
+  par(
+    justify: true,
+    linebreaks: "optimized",
+    if description.len() == 0 {
+      lorem(100)
+    } else { description },
+  ),
+)
 
 #if tags.len() > 0 {
   grid(
@@ -152,7 +167,9 @@
         })
 
       if tags.len() <= 4 {
-        block(width: 100%, for tag in tags.map(it => box(rect(it))).intersperse(h(2em)) {
+        block(width: 100%, for tag in tags
+          .map(it => box(rect(it)))
+          .intersperse(h(2em)) {
           tag
         })
       } else {

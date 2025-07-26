@@ -9,13 +9,18 @@
 // [x] Wrath)
 
 #import "../../../public/utils.typ": (
-  argon, atkinson, atkinson-mono, blog-post, bluesky-embed, checkbox, faculty-glyphic, fraunces, github-card, img,
-  jetbrains-mono, kalnia, krypton, nanum-myeongjo, neon, note, radon, slugify, to-string, xenon,
+  argon, atkinson, atkinson-mono, blog-post, bluesky-embed, checkbox,
+  faculty-glyphic, fraunces, github-card, img, jetbrains-mono, kalnia, krypton,
+  nanum-myeongjo, neon, note, radon, slugify, to-string, xenon,
 )
 
 #show: blog-post.with(
   "About",
-  description: [The page chronicles kat's journey through different programming languages and fields, driven by a goal to leave a lasting impact by reducing technical barriers and inspiring others through public speaking and writing.],
+  description: [I'm Herschel Pravin Pawar, known as kat. I have a diverse range of interests, including 3D modeling, programming, writing, and exploring technical topics. My journey has taken me through various fields, from Java and system administration to game development with Godot and Rust. I am passionate about a lot of things but specifically reducing barriers to creating performant software, and making complex technologies accessible. My goal is to leave a lasting impact by inspiring others and contributing to the tech community. I am always eager to learn and grow, both personally and professionally.],
+  assumed-audience: (
+    [People who want to more about me],
+    [People who want to see what I'm upto],
+  ),
 )
 
 = Vainglory (or "Who am I?")
@@ -75,7 +80,7 @@ tried to make a discord bot,
 did some canvas stuff in #link("https://processing.org/")[Processing for Java],
 but nothing really stuck.
 
-...And then I saw proper Java code and gave up lmao.\
+... And then I saw proper Java code and gave up lmao.\
 I got so discouraged I still avoid touching Java.
 
 === RedHat Era
@@ -131,7 +136,7 @@ I decided to specialize in Python.
 === Python Era
 
 One of my first proper Python projects was a web-scrapper.
-It was nice to not constantly write the datatypes.
+It was nice to not constantly write the data types.
 I have always thought to myself,
 "The computer surely knows what type the variable has,
 why do I have to keep typing it?"
@@ -188,7 +193,7 @@ So,
 I started looking for ways to increase it.
 I also started
 looking for better algorithms to add connections between people.
-But by then, I had to fucus on not failing my exams,
+But by then, I had to focus on not failing my exams,
 and I decided to put the project on hold.
 
 Between all the academic stuff,
@@ -314,7 +319,8 @@ Get better than communication
 + #checkbox(true) April #link("/posts/hyperv-shenanigans/")[Hyper-V shenanigans with `nixos-generators`]
 + #checkbox(true) May #link("/posts/jj-my-beloved/")[How Jujutsu VCS helps lowers the barrier to perfect git history]
 + #checkbox(true) June #link("/posts/why-rust/")[Why Rust?]
-+ #checkbox(false)July
++ #checkbox(true) July #link("/posts/typst-in-astro/")[Creating Open Graph images using Typst]
++ #checkbox(false) August
 
 == GitHub contributions (2024)
 
@@ -412,30 +418,30 @@ https://github.com/pawarherschel/vrcx-insights
 == "Oh, I've done something like that!"
 
 I initially started writing
-because I wanted to put out my experience out in the internet.
+because I wanted to put out my experience out on the internet.
 Simple as that.
 
 == "I have feelings, and I must express them."
 
 Every so often, I find quotes that resonate deeply with me.
 Lemme give you some examples.
-1. Progress happens one funeral at a time
++ Progress happens one funeral at a time
   - Maybe #link("https://en.wikipedia.org/wiki/Planck%27s_principle")[Planck's principle]?
   - Pretty sure I just saw this in someone's twitch chat.
-2. #link(
++ #link(
     "https://www.goodreads.com/work/quotes/68554383-our-violent-ends",
   )[In this life and the next, for however long our souls remain, mine will always find yours.]
   - #link("https://thechloegong.com/ove/")[Our Violent Ends] by #link("https://en.wikipedia.org/wiki/Chloe_Gong")[Chloe Gong]
   - I haven't read the book; I don't think I will ever read the book.
     But the quote still rests in my heart.
-3. #link(
++ #link(
     "https://viridianmasquerade.tumblr.com/post/634434560565936128/smokeinsilence-have-you-ever-noticed-you-pick-up",
   )[I am a mosaic of everyone I've ever loved, even for a heartbeat.]
   - A tumblr post that I saw in a #link("https://x.com/caffeinana/status/1791572955941720195")[tweet]
     #img("https://r2.sakurakat.systems/about--everyone-ive-loved.png")
   - And the #link("https://viridianmasquerade.tumblr.com/post/634434560565936128/smokeinsilence-have-you-ever-noticed-you-pick-up")[original post] is even more beautiful
     #img("https://r2.sakurakat.systems/about--viridianmasquerade-original.png")
-4. Creativity is just connecting things.\
++ Creativity is just connecting things.\
   #quote(
     [
       Creativity is just connecting things.
@@ -501,8 +507,6 @@ it's better to just leave it as is,
 instead of trying to perfect it,
 and just publish it.
 It's better to mark it as "complete" and then move on.
-
-
 
 #note[
   A while ago,
@@ -592,12 +596,64 @@ so I will be able to perform during high stakes situations.
 People also say "practice makes perfect", but I disagree.\
 Practice makes habits, so practice good habits.
 
+== The youngins need a safe environment
+
+When I say "youngins", I don't mean younger people.\
+Youngins refer to people who are new to anything.
+
+The individual can be 8 or 80, it doesn't matter.
+
+Everyone deserves to have a safe environment to experiment and learn new things.
+
 = Intemperance (or "Things close to my heart")
 
 //  = (Gluttony)
 
 Think of this section as media I like to recommend.\
 Sorted in reverse chronological order.
+
+== 2025-07-20: (Live Action) (Series) Moon Knight
+
+#let wikipedia(slug) = link(
+  "https://wikipedia.org/wiki/" + slug,
+)[wikipedia:#slug]
+
+#wikipedia("Moon_Knight_(miniseries)")
+
+Moon Knight has to be the best depiction of DID I've seen.
+While it is in the Marvel franchise, it has very little Marvel-isms which turn me off and make the content boring.
+
+The only part I didn't like was the giant fight at the end, but then -- at least for me -- they salvaged the situation by not ending after the fight. They left me confused and wanting more!
+
+The hospital scene sent shivers down my spine, I was actually scared and immersed for once. While they had to take some creative liberties for the superhero part, it didn't take away from the DID part, and in fact -- in my opinion -- the creative liberties they took only served to push forward the narrative in a good way.
+
+== 2025-07-20: (Bluesky) Evil Gary the cat fucks around>finds out>doesn't fuck around>finds out> by Blerrmeister
+
+#bluesky-embed(
+  "did:plc:ebcmbl3srqllmoedfrsmf7gn",
+  "3ludqbwchzk24",
+  "bafyreig4j6hrkux5jryqf2jk5bntxnwqllgjtz6y5c7cggumt7nm4vn5hy",
+  "Blerrmeister",
+  "@blerrycat1.bsky.social",
+  "July 20, 2025 at 1:21 AM",
+  link(
+    "https://bsky.app/profile/did:plc:ebcmbl3srqllmoedfrsmf7gn/post/3ludqbwchzk24?ref_src=embed",
+  )[[image or embed]],
+)
+
+== 2025-06-26: (Quote) (YouTube) How I would learn to cook if I could start over. by Ethan Chlebowski
+
+https://youtu.be/T8CK9aIqy20
+
+I can't start from scratch, but I can start from today
+
+== 2025-06-24: (Quote) The Who Cares Era by Dan Sinker
+
+https://dansinker.com/posts/2025-05-23-who-cares/
+
+In the Who Cares Era, the most radical thing you can do is care.
+
+In a moment where machines churn out mediocrity, make something yourself. Make it imperfect. Make it rough. Just make it.
 
 == 2025-06-09: (YouTube) [WotG] ENNWAY ft. Heart Plus Up! - TWISTED GARDEN (Nameless Deity) by ENNWAY!
 
@@ -626,7 +682,7 @@ I'm not yet sure why it resonates with me.
 There are a lot of things I can feel,
 but I don't understand _what_ I'm feeling.
 I will eventually find out.
-I just hope its before _I_ wither and die.
+I just hope it's before _I_ wither and die.
 
 == 2025-05-28: (Bluesky) "I think about this every time I make music." by John Scalzi (\@scalzi.com)
 
@@ -660,9 +716,9 @@ than to wait eons to perfect it.
 
 https://bsky.app/profile/trans.bsky.social/post/3lphxus4di22n
 
-I won't just stay alive,
-I will thrive to sprite on the people who want me dead.
-I will grow old and watch them mald.
+I won't just stay alive,\
+I will thrive to sprite on the people who want me dead.\
+I will grow old and watch them mald.\
 
 == 2025-05-28: (YouTube) Burn after watching by a_lilian
 
@@ -739,12 +795,12 @@ but they're the reason I am who I am.
 https://anilist.co/anime/154587/Frieren-Beyond-Journeys-End/
 
 There are a lot of anime that follow the basic plot of:
-1. A brat (the hero, who's human) forms a party of powerful people
-2. One of the people is an elf girl
-3. They both fall in love with each other
-4. The party kills the demon king
-5. The hero and the elf get married
-6. Anime ends
++ A brat (the hero, who's human) forms a party of powerful people
++ One of the people is an elf girl
++ They both fall in love with each other
++ The party kills the demon king
++ The hero and the elf get married
++ Anime ends
 
 `Frieren: Beyond Journey's End` (hereby `Frieren`) is different.
 
@@ -820,12 +876,12 @@ Anime has "kemonomimi"
 / kemono: animal
 / mimi: ear
 Humans who have animal traits.
-has Izutsumi the Beast-man who is an animal with human traits.
+Izutsumi the Beast-man who is an animal with human traits.
 She's selfish and cold, but she's not a bad person by any means.
 
 Izutsumi was treated cruelly by her original found family,
 and as a result she acts the way she is.
-She warms up to her new found family and slowly turns more "human".
+She warms up to her new-found family and slowly turns more "human".
 
 She's the character who's closest to me.
 
@@ -864,27 +920,27 @@ https://github.com/silent1mezzo/astro-social-share
 
 #github-card("pawarherschel/personal-website-v5")
 
-== Font testing
-#{
-  let weight = "bold"
-  table(
-    columns: 3,
-    table.header([Normal Font], [Italic Font], [Font weight: #weight]),
-    ..for f in (
-      argon,
-      krypton,
-      neon,
-      radon,
-      xenon,
-      jetbrains-mono,
-      atkinson,
-      atkinson-mono,
-      kalnia,
-      nanum-myeongjo,
-      faculty-glyphic,
-      fraunces,
-    ) {
-      (f[], f(italic: true)[], f(weight: weight)[])
-    },
-  )
-}
+// == Font testing
+// #{
+//   let weight = "bold"
+//   table(
+//     columns: 3,
+//     table.header([Normal Font], [Italic Font], [Font weight: #weight]),
+//     ..for f in (
+//       argon,
+//       krypton,
+//       neon,
+//       radon,
+//       xenon,
+//       jetbrains-mono,
+//       atkinson,
+//       atkinson-mono,
+//       kalnia,
+//       nanum-myeongjo,
+//       faculty-glyphic,
+//       fraunces,
+//     ) {
+//       (f[], f(italic: true)[], f(weight: weight)[])
+//     },
+//   )
+// }

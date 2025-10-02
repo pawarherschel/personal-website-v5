@@ -2,7 +2,6 @@
   admonition, blog-post, bluesky-embed, github-card, github-gist, img, note,
   rust-btw, section, todo, typst, youtube-channel,
 )
-
 #show: blog-post.with(
   "Build Rust app in Nix",
   description: [
@@ -21,8 +20,11 @@
   category: "Programming",
 )
 
-= What is "Tanim"?
+#todo[add description]
 
+#outline(target: figure.where(kind: "todo"), title: none)
+
+= What is "Tanim"?
 If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown") then you probably know what Manim is.
 #github-card("manimCommunity/manim")
 
@@ -44,19 +46,21 @@ And, since there's no flake for it yet, I might as well learn how to make one my
 
 = Building the program
 
-I started by asking gemini what I need to do to build a rust package from source.
+Alright, SO, bear with me, usually, I ask a human, but this is a specific enough request that I can use an LLM for starting out.
 
-Usually, I ask a human, but this is a specific enough request that I can use an LLM for starting out.
+I started by asking gemini what I need to do to build a rust package from source in nix.
 
 Gemini started by saying that I need to add `flake.nix` to the root of the project, but in my case I want to download the source code from GitHub. When I said that I want to download the source code, it mentioned `pkgs.fetchFromGitHub`.
 
-Alright, that's my first step then ig.
+Alright, that's my first step then.
 
 I search for `fetchFromGitHub` and found out
 #link("https://ryantm.github.io/nixpkgs/builders/fetchers/")[Fetchers | nixpkgs].
 
 I'm not sure why the official repo doesn't have it deployed, but sure, I'll just use this version I found.
 It's very useful.
+
+`fetchFromGitHub` is a function which downloads a repo from GitHub.
 
 Now that I have the source code, I need to build it. There's a section on language frameworks in the sidebar, so I just used that. That is, #link("https://ryantm.github.io/nixpkgs/languages-frameworks/rust/#compiling-rust-applications-with-cargo")[Rust | nixpkgs > buildRustPackage: Compiling Rust applications with Cargo].
 
@@ -68,20 +72,26 @@ Now that I have the source code, I need to build it. There's a section on langua
 }:
 rustPlatform.buildRustPackage rec {
   pname = "tanim"; # Name of the package
-  version = "unstable"; # Version of the package
-  # I just used `unstable` as tanim itself isn't being tagged and released on GitHub with versions
+  version = "unstable";
 
-  src = fetchFromGitHub { # Download the source code from GitHub
+  src = fetchFromGitHub {
     owner = "liquidhelium";
     repo = "tanim";
-    rev = "d78c52dbc611ebb9c574e55dc6a4a6bef69e7a17"; # SHA for the commit we want to build
-    # Using a specific commit makes the process reproducible and removes surprises
-    hash = "sha256-X4toMLTPNtaxQQBDGNvnTrmReMGzNbjuFXgG318Z53s="; # See the next section
+    rev = "d78c52dbc611ebb9c574e55dc6a4a6bef69e7a17";
+    hash = "sha256-X4toMLTPNtaxQQBDGNvnTrmReMGzNbjuFXgG318Z53s=";
   };
 
-  cargoHash = "sha256-55eYNoUcUZ4EoEVM6j8urFHq+XXXEy97gXWPRArscxw="; # See the next section
+  cargoHash = "sha256-55eYNoUcUZ4EoEVM6j8urFHq+XXXEy97gXWPRArscxw=";
 }
 ```
+
+Some points for the code about:
+
+I just used `unstable` as tanim itself isn't being tagged and released on GitHub with versions
+
+`rev` is the specific commit we want to download. It's used to make the process reproducible, which removes (or at the very least reduces) surprises.
+
+`hash` and `cargoHash` are sha-256 hashes. As I understand it, they're used as keys to check if nix has already done the task, and if it is, then use the cached output. This allows nix to avoid duplicating work as you might imagine. How to find the hash is the next section.
 
 == Finding the hash
 
@@ -97,17 +107,29 @@ The usual procedure is to use a fake hash, run the file, and then use the correc
 
 I didn't know how to run the file, so, again, I asked Gemini since it's a specific thing.
 
+#let nix-expr-build(ctr) = {
+  ctr.step()
+  context raw(
+    lang: "bash",
+    block: true,
+    ctr.display(both: true, (..nums) => (
+      "# attempt " + nums.pos().map(str).join("/") + "\n"
+    ))
+      + ```bash nix-build -E 'with import <nixpkgs> {}; callPackage ./tanim.nix {}'```.text,
+  )
+}
+#let nix-build-ctr = counter("nix-build-ctr")
+
+#nix-expr-build(nix-build-ctr)
+
 It gave me the command
-```bash
-nix-build -E 'with import <nixpkgs> {}; callPackage ./tanim.nix {}'
-```
 Which tracks with #link("https://dmarcoux.com/posts/hash-in-nix-packages/#:~:text=NixOS%20configuration%20with-,callPackage%20./your_package_file.nix%20%7B%7D,-.%20The%20build")[`callPackage ./your_package_file.nix {}` on Dany Marcoux | Use lib.fakeHash as a Placeholder for Hashes in Nix Packages], so I ran the command, and waited.
 
 = Error: failed to run custom build command for `ffmpeg-sys-next v7.1.3`
 
 Ono
 
-Lets read the stack trace!
+Let's read the stack trace!
 
 ```
   thread 'main' panicked at /build/tanim-unstable-vendor/ffmpeg-sys-next-7.1.3/build.rs:1035:14:
@@ -127,6 +149,8 @@ Lets read the stack trace!
 Hmm, seems like it needs `pkg-config`.
 
 After searching around for a bit I found #link("https://discourse.nixos.org/t/how-to-add-pkg-config-file-to-a-nix-package/8264/3")[How to Add pkg-config file to a Nix Package? on NixOS Discourse].
+
+It seems like they just added `pkg-config` to the `nativeBuildInputs`, so let's try that.
 
 Add `pkg-config` to the inputs to "import" it
 
@@ -150,6 +174,8 @@ and then, add it to `nativeBuildInputs`
 }
 ```
 
+#nix-expr-build(nix-build-ctr)
+
 = The system library `libavutil` required by crate `ffmpeg-sys-next` was not found.
 
 Error, again.
@@ -164,7 +190,7 @@ Reading the stack trace again,
 
 It needs `libavutil`
 
-I searched for how to add it to buildInputs but couldn't find anything via duckduckgo, so I switched to google and found this #link("https://github.com/NixOS/nixpkgs/issues/322768#issuecomment-2192812214")[Package request: libavutil \#322768 on GitHub]
+I searched for how to add it to `buildInputs` but couldn't find anything via duckduckgo, so I switched to google and found this #link("https://github.com/NixOS/nixpkgs/issues/322768#issuecomment-2192812214")[Package request: libavutil \#322768 on GitHub]
 
 ```diff
   pkg-config,
@@ -181,6 +207,8 @@ I searched for how to add it to buildInputs but couldn't find anything via duckd
 + ];
 }
 ```
+
+#nix-expr-build(nix-build-ctr)
 
 = Unable to find libclang
 
@@ -221,7 +249,7 @@ Next, I tried #link("https://hoverbear.org/blog/rust-bindgen-in-nix/")[Using rus
   LIBCLANG_PATH = "${llvmPackages.libclang}/lib";
 ```
 
-didnt work
+didn't work
 
 Onto the next result.
 I found #link("https://gist.github.com/yihuang/b874efb97e99d4b6d12bf039f98ae31e?permalink_comment_id=4311076#gistcomment-4311076")[build rust project using bindgen with nix]
@@ -236,9 +264,12 @@ Which finally worked.
 }
 ```
 
+#nix-expr-build(nix-build-ctr)
+
 = Success!!!
 
 #todo[add the screenshot here]
+#todo[add autism creature yippie gif]
 
 = Flake-ifying
 
@@ -247,7 +278,7 @@ Flakes are unofficially the official way to package stuff.
 So lets turn the expression into a flake and use Naersk to build the rust application.
 #github-card("nix-community/naersk")
 
-I avoided using Naersk since less moving parts = less complications.
+I avoided using Naersk since less moving parts = fewer complications.
 
 There's an official template, so initializing the template is easy.
 
@@ -423,7 +454,7 @@ it complains that there's no hash, and then says that the correct hash is `sha25
 
 and it builds!
 
-To test if the memory leak is fixed, lets do the stupid bee movie meme.
+To test if the memory leak is fixed, let's do the stupid bee movie meme.
 
 #raw(
   "#let script = ```

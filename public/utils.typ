@@ -1,16 +1,19 @@
 #import "@preview/cetz:0.4.0"
 
-#let thatched(bg, fg, thickness: 0.3pt) = tiling(size: (20pt, 20pt), cetz.canvas(background: bg, {
-  import cetz.draw: *
+#let thatched(bg, fg, thickness: 0.3pt) = tiling(
+  size: (20pt, 20pt),
+  cetz.canvas(background: bg, {
+    import cetz.draw: *
 
-  rotate(z: 45deg)
-  let x = calc.sin(45deg) * 20pt
-  rect((-x / 2, -x / 2), (x / 2, x / 2), stroke: (
-    thickness: thickness,
-    paint: fg,
-    dash: "dashed",
-  ))
-}))
+    rotate(z: 45deg)
+    let x = calc.sin(45deg) * 20pt
+    rect((-x / 2, -x / 2), (x / 2, x / 2), stroke: (
+      thickness: thickness,
+      paint: fg,
+      dash: "dashed",
+    ))
+  }),
+)
 
 /// https://fonts.google.com/icons
 ///
@@ -162,6 +165,14 @@
   pre: [],
   post: [],
 ) = [(#if pre != [] { [#pre ] }Rust btw#sym.trademark#if post != [] { [#post ] })]
+
+#let typst(
+  pre: [],
+  post: [],
+) = [#if pre != [] { [#pre ] }#link("https://typst.app/")[Typst]#if post != [] {
+    [#post ]
+  }]
+
 
 #let slugify(text, map) = {
   text = to-string(text, strict: true)
@@ -441,6 +452,10 @@
 #let caution(title: "Caution", content) = admonition("caution", title, content)
 #let warning(title: "Warning", content) = admonition("warning", title, content)
 
+#let todo(c) = caution(title: "TODO", if c == none {
+  panic("didn't pass where the todo is")
+} else { c })
+
 #let pdf-rem = 12pt
 
 #let blog-post(
@@ -529,7 +544,9 @@
           .map(it => it.to-unicode())
           .map(it => int(it))
           .windows(16)
-          .reduce((a, b) => a.zip(b).map(((a, b)) => calc.rem(a + a.bit-xor(b), charset.len())))
+          .reduce((a, b) => a
+            .zip(b)
+            .map(((a, b)) => calc.rem(a + a.bit-xor(b), charset.len())))
           .map(c => charset.at(c))
           .join()
       }
@@ -548,9 +565,13 @@
         )
       }
       show math.equation.where(block: true): it => context {
-        html.elem("div", attrs: (id: hash(it, here().position()), class: "math dark:invert"), {
-          html.frame(it)
-        })
+        html.elem(
+          "div",
+          attrs: (id: hash(it, here().position()), class: "math dark:invert"),
+          {
+            html.frame(it)
+          },
+        )
       }
 
       show sub: it => html.elem("sub", it)
@@ -700,7 +721,10 @@
         "div",
         attrs: (
           class: "bluesky-embed",
-          data-bluesky-uri: "at://" + author-did + "/app.bsky.feed.post/" + post-id,
+          data-bluesky-uri: "at://"
+            + author-did
+            + "/app.bsky.feed.post/"
+            + post-id,
           data-bluesky-cid: data-bluesky-cid,
           data-bluesky-embed-color-mode: "system",
         ),
@@ -709,7 +733,11 @@
           attribution: [
             #author (#link("https://bsky.app/profile/" + author-did + "?ref_src=embed", handle))
             #link(
-              "https://bsky.app/profile/" + author-did + "/post/" + post-id + "?ref_src=embed",
+              "https://bsky.app/profile/"
+                + author-did
+                + "/post/"
+                + post-id
+                + "?ref_src=embed",
               time,
             )
           ],
@@ -723,7 +751,9 @@
       ))
     } else {
       link("https://bsky.app/profile/" + author-did + "/post/" + post-id, quote(
-        attribution: link("https://bsky.app/profile/" + author-did)[#author (#handle) at #time],
+        attribution: link(
+          "https://bsky.app/profile/" + author-did,
+        )[#author (#handle) at #time],
         block: true,
       )[#content])
     }
@@ -817,22 +847,42 @@
               })
               html.elem("div", attrs: (class: "github-logo"), [])
             })
-            html.elem("div", attrs: (id: card-uuid + "-description", class: "gc-description"), {
-              [unimplemented]
-            })
+            html.elem(
+              "div",
+              attrs: (id: card-uuid + "-description", class: "gc-description"),
+              {
+                [unimplemented]
+              },
+            )
             html.elem("div", attrs: (class: "gc-infobar"), {
-              html.elem("div", attrs: (id: card-uuid + "-stars", class: "gc-stars"), {
-                [unimplemented]
-              })
-              html.elem("div", attrs: (id: card-uuid + "-forks", class: "gc-forks"), {
-                [unimplemented]
-              })
-              html.elem("div", attrs: (id: card-uuid + "-license", class: "gc-license"), {
-                [unimplemented]
-              })
-              html.elem("span", attrs: (id: card-uuid + "-language", class: "gc-language"), {
-                [unimplemented]
-              })
+              html.elem(
+                "div",
+                attrs: (id: card-uuid + "-stars", class: "gc-stars"),
+                {
+                  [unimplemented]
+                },
+              )
+              html.elem(
+                "div",
+                attrs: (id: card-uuid + "-forks", class: "gc-forks"),
+                {
+                  [unimplemented]
+                },
+              )
+              html.elem(
+                "div",
+                attrs: (id: card-uuid + "-license", class: "gc-license"),
+                {
+                  [unimplemented]
+                },
+              )
+              html.elem(
+                "span",
+                attrs: (id: card-uuid + "-language", class: "gc-language"),
+                {
+                  [unimplemented]
+                },
+              )
             })
           },
         )
@@ -840,3 +890,32 @@
     })
   }
 }
+
+#let github-gist(repo: "") = {
+  if repo.find("/") == none {
+    panic(
+      "Invalid repository. 'repo' attribute must be in the format 'owner/gist'",
+    )
+  }
+
+  let owner = repo.split("/").at(0)
+  let gist = repo.split("/").at(1)
+
+
+  context if target() != "html" {
+    link("https://github.com/" + repo)[GitHubGist:#repo]
+  } else {
+    html.elem("script", attrs: (
+      src: "https://gist.github.com/" + owner + "/" + gist + ".js",
+    ))
+  }
+}
+
+#let youtube-video-embed() = {
+  todo()
+}
+
+#let youtube-channel(name, channel-slug) = {
+  link(channel-slug)[#name on YouTube]
+}
+

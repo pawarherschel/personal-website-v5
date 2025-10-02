@@ -452,9 +452,22 @@
 #let caution(title: "Caution", content) = admonition("caution", title, content)
 #let warning(title: "Warning", content) = admonition("warning", title, content)
 
-#let todo(c) = caution(title: "TODO", if c == none {
-  panic("didn't pass where the todo is")
-} else { c })
+#let todo(c, completed: none, plain: false) = if completed == none {
+  show figure.caption: none
+  figure(
+    kind: "todo",
+    caption: c,
+    supplement: "todo",
+    if plain { c } else {
+      caution(
+        title: "TODO",
+        c,
+      )
+    },
+  )
+} else {
+  completed
+}
 
 #let pdf-rem = 12pt
 
@@ -916,6 +929,6 @@
 }
 
 #let youtube-channel(name, channel-slug) = {
-  link(channel-slug)[#name on YouTube]
+  link("https://www.youtube.com/@" + channel-slug)[#name on YouTube]
 }
 

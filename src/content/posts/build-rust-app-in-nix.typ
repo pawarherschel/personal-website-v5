@@ -1,28 +1,19 @@
 #import "../../../public/utils.typ": (
   admonition, blog-post, bluesky-embed, github-card, github-gist, img, note,
-  rust-btw, section, todo, typst, youtube-channel,
+  rust-btw, section, tenor-gif, todo, typst, video, youtube-channel,
 )
 #show: blog-post.with(
   "Build Rust app in Nix",
   description: [
   ],
-  assumed-audience: (
-    // "People who want to use Typst beyond PDF generation",
-    // "Developers with Astro knowledge",
-    // "Those wanting to programmatically generate images without Satori",
-  ),
-  tags: (
-    // "Typst",
-    // "Image Generation",
-    // "Web Development",
-    // "Astro",
-  ),
+  assumed-audience: (),
+  tags: (),
   category: "Programming",
 )
 
 #todo[add description]
-
-#outline(target: figure.where(kind: "todo"), title: none)
+#todo[add assumed audiences]
+#todo[add tags]
 
 = What is "Tanim"?
 If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown") then you probably know what Manim is.
@@ -268,8 +259,25 @@ Which finally worked.
 
 = Success!!!
 
-#todo[add the screenshot here]
-#todo[add autism creature yippie gif]
+#todo(completed: [The nix-build expression builds, and stores the result in the nix-store, and creates a symlink to the result as `result` and the output of the expression was a runnable binary, so, as per convention, the binary will be in `./result/bin` with whatever name we gave to the binary. In this case, `tanim-cli`.])[explain how to use the thing after building]
+
+So, to test the binary we can do ```bash ./result/bin/tanim-cli --help```
+
+#todo(
+  completed: img(
+    "https://r2.sakurakat.systems/build-rust-app-in-nix--run-tanim-cli-success.png",
+    alt: "Screenshot of me running \"tanim-cli\" in terminal",
+  ),
+)[add the screenshot here]
+
+#todo(
+  completed: tenor-gif(
+    [Autism Creature Yippee Creature GIF],
+    "https://tenor.com/view/autism-creature-yippee-creature-yippee-autism-woo-gif-10988973615622974862",
+    dims: (480, 476),
+    width: 80%,
+  ),
+)[add autism creature yippie gif]
 
 = Flake-ifying
 
@@ -278,7 +286,9 @@ Flakes are unofficially the official way to package stuff.
 So lets turn the expression into a flake and use Naersk to build the rust application.
 #github-card("nix-community/naersk")
 
+#todo(completed: [As I understand it, the benefit of using naersk is that it caches dependencies.])[explain what naersk is]
 I avoided using Naersk since less moving parts = fewer complications.
+However, now that I have figured out how to compile the application, I'll do it the proper way, by using naersk.
 
 There's an official template, so initializing the template is easy.
 
@@ -398,6 +408,8 @@ The proper way to add packages to the development environment is via `packages`.
 
 = Testing the package
 
+#todo[explain that I'm using the newly packaged application here]
+
 Let's write an example typst file to use the cli
 
 ```typ
@@ -419,7 +431,12 @@ use the command
 tanim-cli --frames 0..=120 --output animation.mp4 animation.typ
 ```
 
-#todo("add the video here")
+#todo("add the video here", completed: video(
+  "https://r2.sakurakat.systems/build-rust-app-in-nix--animation.mp4",
+  height: 1754,
+  width: 1240,
+  loop: false,
+))
 
 = Updating the flake to the latest version
 
@@ -439,7 +456,8 @@ If you don't update the hash, it'll assume nothing has changed and use the old s
 
 ```
 
-it complains that there's no hash, and then says that the correct hash is `sha256-EJoNVbp6k1o0KUlIRhr3bdrtDAETwSOqu516EYBA6RA=`.
+It complains that there's no hash, and then says that the correct hash is `sha256-EJoNVbp6k1o0KUlIRhr3bdrtDAETwSOqu516EYBA6RA=`.
+This way I got the new hash.
 
 ```diff
         tanimSrc = pkgs.fetchFromGitHub {
@@ -500,7 +518,22 @@ what humans think is impossible.
   block: true,
 )
 
-#todo("put the bee movie script here")
+#todo(completed: [The script takes the input `t` from the cli as the frame number and renders the frame. The cli then stitches the frames together using ffmpeg. Each frame a one word is added to the frame and if it's full (calculated to be at 905 words) it'll remove one word from the start and the words will adjust to fill the rest of the space. My aim was to give the illusion that words are coming and going, kinda like the Star Wars preamble.])[explain what the script is doing]
+
+== Resulting video
+
+The video was sped up in post to fit 10 seconds since I didn't want to calculate how to do it in the typst file.
+
+#todo("put the bee movie script here", completed: video(
+  "https://r2.sakurakat.systems/build-rust-app-in-nix--bee-movie-script.mp4",
+  width: 1240,
+  height: 1754,
+  loop: true,
+))
+
+= Toolchain
+
+#todo[builds aren't deterministic yet, specify the toolchain]
 
 = Final flake
 
@@ -567,3 +600,6 @@ what humans think is impossible.
   lang: "nix",
 )
 
+#todo[explain what the new things are and test them]
+
+#todo[make the typix into ffmpeg pipeline]

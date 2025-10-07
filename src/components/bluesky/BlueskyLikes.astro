@@ -6,6 +6,7 @@ import WidgetLayout from "../widget/WidgetLayout.astro";
 import Comments from "./Comments.svelte";
 import Likes from "./Likes.svelte";
 import { atUriToPostUri, getComments, getLikes } from "./utils";
+
 const { blueskyIdentifier } = blueskyConfig;
 
 let bsky = await getCollection("bsky");

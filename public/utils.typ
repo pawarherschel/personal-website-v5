@@ -473,15 +473,18 @@
 
 #let blog-post(
   title,
-  description: lorem(20),
+  description: [],
   image: none,
   tags: lorem(4).split(" "),
   category: none,
   args: (:),
   assumed-audience: lorem(6).split(" "),
+  proofreaders: (),
   content,
 ) = {
-  let description = to-string(description).trim()
+  let description = to-string(if description == [] { "" } else {
+    description
+  }).trim()
   import "@preview/wordometer:0.1.4": total-words, word-count
   set document(description: description, title: title, keywords: tags)
   set cite(form: "full")
@@ -496,6 +499,7 @@
     #metadata((
       title: title,
       description: to-string(description),
+      // draft: "false",
       tags: tags,
       category: if category == none { "Category" } else { category },
       ..if image != none { (image: image) } else { (:) },
@@ -594,12 +598,22 @@
         style: "text-align: justify; hyphens: manual;",
       ))
 
-      if description != "" or description != [] {
+      if description != "" or description != [] or description.len() != 0 {
         [
           Description:
           #description
           #divider
           #note(title: "Assumed Audience", list(..assumed-audience))
+          #divider
+          #context if query(figure.where(kind: "todo")).len() > 0 {
+            caution[THIS IS A WORKING DRAFT]
+            warning(title: "Todos")[
+              #context enum(
+                ..query(figure.where(kind: "todo")).map(it => it.caption.body),
+              )
+            ]
+            divider
+          }
         ]
       }
 
@@ -648,6 +662,8 @@
         #content
 
         #divider
+        #todo[add proofreaders section to the template]
+        #divider
       ]
     } else {
       set page(header: [#title])
@@ -680,12 +696,22 @@
           Description:
           #description
           #divider
+          #note(title: "Assumed Audience", list(..assumed-audience))
+          #divider
+          #context if query(figure.where(kind: "todo")).len() > 0 {
+            warning(title: "Todos")[
+              #context enum(
+                ..query(figure.where(kind: "todo")).map(it => it.caption.body),
+              )
+            ]
+            divider
+          }
         ]
       }
 
-      note(title: "Assumed Audience", list(..assumed-audience))
 
       content
+      todo[add proofreaders section to the template]
     }
   }
 }
@@ -696,6 +722,7 @@
   }
   html.elem("section", content)
 }
+
 #let checkbox(completed, active: false) = context {
   if target() == "html" {
     box(html.elem("input", attrs: (
@@ -707,6 +734,7 @@
     if active { sym.checkmark } else { sym.crossmark }
   }
 }
+
 #let img(src, alt: "") = context {
   if target() == "html" {
     html.elem("img", attrs: (
@@ -719,6 +747,42 @@
     [img: unimplemented, please go to #link("src") to checkout the image]
   }
 }
+
+#let video(
+  src,
+  width: 1920,
+  height: 1080,
+  type: "video/mp4",
+  loop: true,
+  preload: "auto",
+) = context {
+  if target() == "html" {
+    html.elem(
+      "video",
+      attrs: (
+        width: str(width),
+        height: str(height),
+        controls: "true",
+        ..if loop { (loop: "true") },
+        preload: preload,
+      ),
+      {
+        html.elem("source", attrs: (
+          src: src,
+          type: type,
+        ))
+        [
+          Your browser does not support the video tag or the video type(#type).
+
+          You can use #link(src)[this link] to view the video.
+        ]
+      },
+    )
+  } else {
+    [video: unimplemented, please go to #link("src") to checkout the video]
+  }
+}
+
 #let bluesky-embed(
   author-did,
   post-id,
@@ -932,3 +996,36 @@
   link("https://www.youtube.com/@" + channel-slug)[#name on YouTube]
 }
 
+#let tenor-gif(title, link, dims: (1, 1), width: 100%) = {
+  let slug = none
+  if link.starts-with("https://") {
+    slug = link.split("/").last()
+  } else { slug = link }
+
+  let postid = slug.split("-").last()
+
+  html.elem(
+    "div",
+    attrs: (
+      class: "tenor-gif-embed",
+      data-postid: str(postid),
+      data-share-method: "host",
+      data-aspect-ratio: str(float(dims.at(0)) / float(dims.at(1))),
+      data-width: str(float(width * 100)) + "%",
+    ),
+    {
+      html.elem(
+        "a",
+        attrs: (
+          href: "https://tenor.com/view/" + slug,
+        ),
+        title,
+      )
+      html.elem("script", attrs: (
+        type: "text/javascript",
+        async: "true",
+        src: "https://tenor.com/embed.js",
+      ))
+    },
+  )
+}

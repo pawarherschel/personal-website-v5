@@ -1,6 +1,6 @@
 #import "../../../public/utils.typ": blog-post, divider, img, to-string
 
-#show: blog-post.with("Typst Showcase", args: (draft: false))
+#show: blog-post.with("Typst Showcase")
 
 = An h1 header
 

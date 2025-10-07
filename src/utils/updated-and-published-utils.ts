@@ -1,6 +1,7 @@
 import { exec as execCb } from "node:child_process";
-import { stat, access } from "node:fs/promises";
+import { access, stat } from "node:fs/promises";
 import util from "node:util";
+
 const exec = util.promisify(execCb);
 
 async function isDir(path: string) {
@@ -77,16 +78,14 @@ export async function getUpdatedAndPublishedForFilePath(
 	} else if (path.endsWith(".md")) {
 	} else if (path.endsWith(".typ")) {
 	} else {
-		const exts = [".typ", ".md"]
+		const exts = [".typ", ".md"];
 
-		let ext
+		let ext;
 		for (const e of exts) {
 			try {
-				await access(path + e)
-				ext = e
-			} catch {
-				continue
-			}
+				await access(path + e);
+				ext = e;
+			} catch {}
 		}
 
 		path = `${path}${ext}`;
@@ -136,8 +135,12 @@ export async function getUpdatedAndPublishedForFilePath(
 		}
 	}
 
-	myUpdated = !myUpdated || Number.isNaN(myUpdated.getDate()) ? new Date() : myUpdated;
-	myPublished = !myPublished || Number.isNaN(myPublished.getDate()) ? new Date() : myPublished;
+	myUpdated =
+		!myUpdated || Number.isNaN(myUpdated.getDate()) ? new Date() : myUpdated;
+	myPublished =
+		!myPublished || Number.isNaN(myPublished.getDate())
+			? new Date()
+			: myPublished;
 
 	cache.set(mapKey, { updated: myUpdated, published: myPublished });
 

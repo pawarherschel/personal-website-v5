@@ -11,8 +11,8 @@ import { Icon } from "astro-icon/components";
 import { licenseConfig } from "src/config";
 import BlueskyLikes from "../../components/bluesky/BlueskyLikes.astro";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
-import SocialShare from "../../components/widget/SocialShare.astro";
 import PostMetadata from "../../components/PostMeta.astro";
+import SocialShare from "../../components/widget/SocialShare.astro";
 import { profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
 
@@ -26,12 +26,12 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const o = await entry.render();
-const { Content, remarkPluginFrontmatter } = o
+const { Content, remarkPluginFrontmatter } = o;
 let headings;
 if (o.headings.length === 0) {
-    headings = remarkPluginFrontmatter.headings ?? []
+	headings = remarkPluginFrontmatter.headings ?? [];
 } else {
-    headings = o.headings;
+	headings = o.headings;
 }
 
 const jsonLd = {

@@ -5,5 +5,7 @@ export function formatDateToYYYYMMDD(date?: Date): string {
 		}
 
 		return date;
-	})().toISOString().substring(0, 10);
+	})()
+		.toISOString()
+		.substring(0, 10);
 }

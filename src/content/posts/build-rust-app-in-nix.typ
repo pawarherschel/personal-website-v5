@@ -13,6 +13,7 @@
 #todo[add description]
 #todo[add assumed audiences]
 #todo[add tags]
+#todo[fix getting date for \*.typ files in Archive]
 
 = What is "Tanim"?
 If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown") then you probably know what Manim is.

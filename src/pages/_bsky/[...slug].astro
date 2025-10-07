@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { AtUri } from "@atproto/api";
 import type { ThreadViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
 import { blueskyConfig } from "../../config";
+
 const { blueskyIdentifier } = blueskyConfig;
 
 export async function getStaticPaths() {
@@ -82,7 +83,7 @@ async function uriToHtml(uri: string): Promise<string> {
 		const createdAt = new Date(thread.post.record.createdAt as string);
 		const uri = new AtUri(thread.post.uri);
 		const text = thread.post.record.text as string;
-		let children = undefined;
+		let children;
 		if (thread.replies !== undefined) {
 			children = [];
 			for (const child of thread.replies) {

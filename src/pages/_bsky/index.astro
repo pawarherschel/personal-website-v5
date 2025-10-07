@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { blueskyConfig } from "../../config";
+
 let bsky = await getCollection("bsky");
 
 const { blueskyIdentifier } = blueskyConfig;

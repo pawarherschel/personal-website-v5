@@ -4,8 +4,7 @@
 )
 #show: blog-post.with(
   "Build Rust app in Nix",
-  description: [
-  ],
+  description: [],
   assumed-audience: (),
   tags: (),
   category: "Programming",

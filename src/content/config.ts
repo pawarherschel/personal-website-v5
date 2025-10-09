@@ -1,5 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { authorFeedLoader } from "@ascorbic/bluesky-loader";
+import { file, glob } from "astro/loaders";
+import toml from "toml";
 import { blueskyConfig } from "../config.ts";
 
 const blogCollection = defineCollection({
@@ -41,8 +43,32 @@ const specCollection = defineCollection({
 	schema: z.object({}),
 });
 
+const friendsCollection = defineCollection({
+	loader: file("src/content/friends/friends.toml", {
+		parser: (it) => {
+			try {
+				toml.parse(it.toString());
+			} catch (e) {
+				console.error(
+					`Parsing error on line ${e.line}, column ${e.column}: ${e.message}`,
+				);
+			}
+			return toml.parse(it.toString());
+		},
+	}),
+	schema: z.object({
+		title: z.string(),
+		desc: z.string(),
+		url: z.string().url(),
+		icon: z.string().url().optional(),
+		button: z.string().url().optional(),
+		bsky: z.string().optional(),
+	}),
+});
+
 export const collections = {
 	posts: blogCollection,
 	bsky: bskyCollection,
 	spec: specCollection,
+	friends: friendsCollection,
 };

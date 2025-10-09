@@ -66,13 +66,13 @@ const sourceOfTruth = await readFile(
 	"utf-8",
 );
 try {
-	toml.parse(sourceOfTruth);
+	toml.parse(sourceOfTruth.toString());
 } catch (e) {
 	console.error(
 		`Parsing error on line ${e.line}, column ${e.column}: ${e.message}`,
 	);
 }
-const parsedSOT: CVData = toml.parse(sourceOfTruth);
+const parsedSOT: CVData = toml.parse(sourceOfTruth.toString());
 
 const {
 	metadata,

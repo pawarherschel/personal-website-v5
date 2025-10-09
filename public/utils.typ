@@ -471,15 +471,40 @@
 
 #let pdf-rem = 12pt
 
+#let proofreaders-list = (
+  dummy: (
+    name: "None TODO",
+  ),
+  divyesh: (
+    id: "dpatil",
+    name: "Divyesh Patil",
+    shills: (
+      link("https://www.linkedin.com/in/divyesh-patil-525808257/")[LinkedIn],
+    ),
+    comments: (
+      [I met Divyesh during college while volunteering for out college's chapter of IEEE. Ever since then we've been collaborating and teaching each other whatever we come across.],
+      [Divyesh likes to read complicated -- at least for me -- books, and is into a lot of niche music.],
+    ),
+  ),
+  andrew: (
+    name: "Andrew",
+    shills: (
+      link("https://codeberg.org/Andrew15-5")[Codeberg],
+    ),
+  ),
+)
+
+// #let friends = read("../src/content/friends/friends.toml")
+
 #let blog-post(
   title,
-  description: [],
+  description: lorem(20),
   image: none,
   tags: lorem(4).split(" "),
-  category: none,
+  category: "Uncategorized",
   args: (:),
   assumed-audience: lorem(6).split(" "),
-  proofreaders: (),
+  proofreaders: (proofreaders-list.dummy,),
   content,
 ) = {
   let description = to-string(if description == [] { "" } else {
@@ -662,7 +687,25 @@
         #content
 
         #divider
-        #todo[add proofreaders section to the template]
+        = Proofreaders
+        #if (
+          proofreaders == ()
+            or proofreaders == none
+            or proofreaders == (proofreaders-list.dummy,)
+        ) {
+          todo[Find and add proofreaders]
+        } else {
+          for entry in proofreaders [
+            #let name = entry.at("name")
+            #let shills = entry.at("shills", default: ())
+            #let comments = entry.at("comments", default: ())
+
+            == #name
+            #for comment in comments [#comment]
+            === Links
+            #for shill in shills [- #shill]
+          ]
+        }
         #divider
       ]
     } else {
@@ -711,7 +754,27 @@
 
 
       content
-      todo[add proofreaders section to the template]
+
+      divider
+      [= Proofreaders]
+      if (
+        proofreaders == ()
+          or proofreaders == none
+          or proofreaders == (proofreaders-list.dummy,)
+      ) {
+        todo[Find and add proofreaders]
+      } else {
+        for entry in proofreaders [
+          #let name = entry.at("name")
+          #let shills = entry.at("shills", default: ())
+          #let comments = entry.at("comments", default: ())
+
+          == #name
+          #for comment in comments [#comment]
+          === Links
+          #for shill in shills [- #shill]
+        ]
+      }
     }
   }
 }

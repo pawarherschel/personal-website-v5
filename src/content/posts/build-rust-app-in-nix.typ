@@ -1,6 +1,7 @@
 #import "../../../public/utils.typ": (
   admonition, blog-post, bluesky-embed, github-card, github-gist, img, note,
-  rust-btw, section, tenor-gif, todo, typst, video, youtube-channel,
+  proofreaders-list, rust-btw, section, tenor-gif, todo, typst, video,
+  youtube-channel,
 )
 #show: blog-post.with(
   "Build Rust app in Nix",
@@ -8,6 +9,7 @@
   assumed-audience: (),
   tags: (),
   category: "Programming",
+  proofreaders: (proofreaders-list.divyesh,),
 )
 
 #todo[add description]

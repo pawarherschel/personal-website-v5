@@ -1,0 +1,19 @@
+[lenooby]
+title = "LeNooby09's site"
+desc = "I am a caffeine-fueled developer who codes mainly in Kotlin and has an interest in Cybersecurity. My computers all run Arch Linux(btw)"
+url = "https://lenooby09.tech/"
+button = "https://lenooby09.tech/88x31.png"
+bsky = "did:plc:xocoka6dmx74ciqskczoh6ci"
+
+[jampants]
+title = "The Jamzone"
+desc = "I live in my mind fortress thinking about stuff. Male.\n\nPFP: Jerry Gonzalez"
+url = "https://jampants.net/"
+bsky = "did:plc:stm6fnm6otunfwpnfkfxtr2n"
+
+[xanlol]
+title = "Xan Surnamehere"
+button = "https://xan.lol/img/btn/meta.gif"
+desc = "My name's Xan! ✨ I'm a lover of swaggy software & technology based in the U.S. (oh no). I normally speak in a monotone, but I love making people laugh."
+url = "https://xan.lol/"
+bsky = "did:plc:q7suwaz53ztc4mbiqyygbn43"

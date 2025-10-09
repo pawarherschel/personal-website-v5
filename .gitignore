@@ -42,3 +42,7 @@ public/*.json
 !public/dummy_data.json
 
 .github
+
+# ide
+.idea
+*.iml

@@ -37,7 +37,9 @@ const bskyCollection = defineCollection({
 	}),
 });
 
-const specCollection = defineCollection({});
+const specCollection = defineCollection({
+	schema: z.object({}),
+});
 
 export const collections = {
 	posts: blogCollection,

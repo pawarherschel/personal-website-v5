@@ -175,6 +175,7 @@
         @apply relative bg-none link font-medium text-[var(--primary)] underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
+        /*display: inline-block;*/
 
         &:hover,
         &:active {

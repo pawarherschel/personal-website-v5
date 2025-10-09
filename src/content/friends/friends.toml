@@ -17,3 +17,35 @@ button = "https://xan.lol/img/btn/meta.gif"
 desc = "My name's Xan! ✨ I'm a lover of swaggy software & technology based in the U.S. (oh no). I normally speak in a monotone, but I love making people laugh."
 url = "https://xan.lol/"
 bsky = "did:plc:q7suwaz53ztc4mbiqyygbn43"
+
+[sablesooo]
+title = "Kathryn Moss Portfolio"
+url = "https://sables.ooo/"
+desc = "Amateur St Louis-based Photographer. Kathy does most of her work on film, and a lot of it on medium format"
+bsky = "did:plc:233yvfolrjkgyhe25rgotj6e"
+
+[catra]
+title = "Catra sitting on top of a frowning Adora, her other subs watching while smiling"
+url = "https://catra.top/"
+desc = "Personal account. Trans CatGirl. Rust Programmer. She/it. I like #rustlang"
+bsky = "did:plc:susc6mr26zl3wisqpqvdk33d"
+
+[mlembug]
+title = "mlembug"
+url = "https://mahoushoujobu.com/mlemblog/"
+desc = "A trans woman from Poland. Also known as milleniumbug. Tech witch, amateur translator. Trans translator of \"Magical Trans!\""
+icon = "https://r2.sakurakat.systems/friends--mlembug.png"
+
+[freyja-lynx]
+bsky="did:plc:gormnems4iydljgsojdyvpvt"
+title="freyja-lynx.dev"
+url="https://freyja-lynx.dev/"
+desc="pre-seed transsexual disaster 🇮🇪🏴. wildcat sysadmin. radical self efficacy"
+
+[gardenapple]
+title="gardenapple"
+url="https://appl.garden/"
+desc="For various reasons, my projects are scattered across a few different hosting services. This page serves to organize all the links, so I don't forget what's where."
+
+
+

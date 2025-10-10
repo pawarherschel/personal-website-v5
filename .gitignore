@@ -46,3 +46,5 @@ public/*.json
 # ide
 .idea
 *.iml
+
+!**/SOURCE.toml

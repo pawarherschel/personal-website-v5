@@ -42,4 +42,22 @@ title="freyja-lynx.dev"
 url="https://freyja-lynx.dev/"
 desc="pre-seed transsexual disaster 🇮🇪🏴. wildcat sysadmin. radical self efficacy"
 
+[astra]
+title ="💜 astra's space! 💜"
+url = "https://astrra.space/"
+desc = "i'm 🌟astra!🌟 and this is my home[page]. i like eating computers and touching tasty treats... wait no that's not right"
+icon = "https://astrra.space/home/services-logo-240.png"
 
+[ari]
+title = "Home of Ari"
+url = "https://ari.express/"
+desc = "Part of \"The Digital Coven\". I do art. Stream very occasionally on Twitch. Know a bit about a lot of webdev technologies, but Deno/TS/Svelte is my one true love <3"
+bsky = "did:plc:64uzkaydbwywtrvn7ogol22r"
+button = "https://ari.express/assets/Button.png"
+
+[witchcraft]
+title = "Witchcraft Systems"
+url = "https://witchcraft.systems/"
+desc = "We are a group of entities practicing digital magic, and this host is the primary location for our activities. Brought to you by ari, astra, and casey!"
+bsky = "did:web:witchcraft.systems"
+button = "https://ari.express/assets/PWsbutton.png"

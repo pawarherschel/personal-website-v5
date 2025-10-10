@@ -61,3 +61,9 @@ url = "https://witchcraft.systems/"
 desc = "We are a group of entities practicing digital magic, and this host is the primary location for our activities. Brought to you by ari, astra, and casey!"
 bsky = "did:web:witchcraft.systems"
 button = "https://ari.express/assets/PWsbutton.png"
+
+[bigcheese]
+title = "Sender Silent"
+url = "https://www.sendersilent.com/"
+desc = "Sender Silent is a writing project many years in the making. The writing here is new, but the lore that informs it draws from decades of my own work."
+icon = "https://www.sendersilent.com/static/favicon-192.png"

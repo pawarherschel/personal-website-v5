@@ -619,6 +619,12 @@
       show sub: it => html.elem("sub", it)
       show super: it => html.elem("sup", it)
 
+      import "typst-hypraw/src/lib.typ": html-script, html-style, hypraw
+      show: hypraw
+      html-script(read("typst-hypraw/examples/copy-to-clipboard.js"))
+      html-style(read("typst-hypraw/examples/copy-button-styles.css"))
+      // hypraw-style(read("typst-hypraw/examples/example.css"))
+
       show: html.elem.with("article", attrs: (
         style: "text-align: justify; hyphens: manual;",
       ))

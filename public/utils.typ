@@ -452,6 +452,8 @@
 #let caution(title: "Caution", content) = admonition("caution", title, content)
 #let warning(title: "Warning", content) = admonition("warning", title, content)
 
+#let completed-but-not-removed = state("completed-todo", false)
+
 #let todo(c, completed: none, plain: false) = if completed == none {
   show figure.caption: none
   figure(
@@ -466,6 +468,7 @@
     },
   )
 } else {
+  completed-but-not-removed.update(true)
   completed
 }
 
@@ -638,6 +641,9 @@
           #divider
           #context if query(figure.where(kind: "todo")).len() > 0 {
             caution[THIS IS A WORKING DRAFT]
+            context if completed-but-not-removed.final() {
+              todo[remove completed todos]
+            }
             warning(title: "Todos")[
               #context enum(
                 ..query(figure.where(kind: "todo")).map(it => it.caption.body),

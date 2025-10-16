@@ -82,9 +82,11 @@ export async function getUpdatedAndPublishedForFilePath(
 	if (await isDir(path)) {
 		path = `${path}/index.md`;
 	} else if (path.endsWith(".md")) {
-		path = `${path}.md`;
+		// Path already has the proper extension
+		// Don't do anything
 	} else if (path.endsWith(".typ")) {
-		path = `${path}.typ`;
+		// Path already has the proper extension
+		// Don't do anything
 	} else {
 		const exts = [".typ", ".md"];
 

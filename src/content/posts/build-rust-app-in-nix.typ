@@ -15,7 +15,6 @@
 #todo[add description]
 #todo[add assumed audiences]
 #todo[add tags]
-#todo[fix getting date for \*.typ files in Archive]
 
 = What is "Tanim"?
 If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown") then you probably know what Manim is.
@@ -410,9 +409,8 @@ The proper way to add packages to the development environment is via `packages`.
 
 = Testing the package
 
-#todo[explain that I'm using the newly packaged application here]
-
-Let's write an example typst file to use the cli
+Now that we have properly packaged our application,
+let's write an example typst file to use the cli
 
 ```typ
 #let t = sys.inputs.at("t", default: 300)
@@ -533,9 +531,125 @@ The video was sped up in post to fit 10 seconds since I didn't want to calculate
   loop: true,
 ))
 
-= Toolchain
+= Specifying the toolchain
 
-#todo[builds aren't deterministic yet, specify the toolchain]
+Now that I have a working video, there's still one more piece I need to add to make builds reproducible and deterministic.
+
+That piece is the toolchain, which specifies the version of rustc, cargo, etc.
+
+Naersk helped make the build deterministic, but I don't know what version of rustc it used.
+To specify that I have to add `fenix`
+
+Add fenix to the inputs. #github-card("nix-community/fenix")
+
+```diff
+  nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
++ fenix = {
++     url = "github:nix-community/fenix";
++     inputs.nixpkgs.follows = "nixpkgs";
++ };
+```
+
+Get the toolchain
+
+```nix
+        toolchain = fenix.packages.${system}.fromToolchainName {
+          name = "1.90.0";
+          sha256 = "sha256-SJwZ8g0zF2WrKDVmHrVG3pD2RGoQeo24MEXnNx5FyuI=";
+        };
+```
+
+Use the toolchain in naersk
+```diff
+-       naersk' = pkgs.callPackage naersk { };
++       naersk' = pkgs.callPackage naersk {
++         cargo = toolchain.cargo;
++         rustc = toolchain.rustc;
++       };
+```
+
+Naersk also uses fenix, so I should make it follow the fenix I have in my flake and while I'm at it, also make it's nixpkgs follow mine.
+```diff
+-   naersk.url = "github:nix-community/naersk";
++   naersk = {
++     url = "github:nix-community/naersk";
++     inputs.nixpkgs.follows = "nixpkgs";
++     inputs.fenix.follows = "fenix";
++   };
+```
+
+Aaaaaand it should just work? Let's try `bash nix develop`.
+
+It successfully builds, but if I do `bash tanim-cli --help`, it complains `libavutil.so.59` isn't present.
+
+Huh, weird. Let's try executing `ffmpeg`.
+```text
+[kat@nixos:/mnt/d/Sync/Projects/tanim-test]$ ffmpeg
+bash: ffmpeg: command not found
+```
+
+Huh, weird.
+
+Let's search for "nix buildInputs" and see other results.
+
+Looking at #link("https://gist.github.com/CMCDragonkai/45359ee894bc0c7f90d562c4841117b5")[Understanding Nix Inputs \#nix] on GitHub Gists,
+it mentions `propagatedBuildInputs` which keeps the build inputs for runtime as well as build time. Let's try that.
+
+
+```diff
+-         buildInputs = [
++         propagatedBuildInputs = [
+            pkgs.ffmpeg
+          ];
+```
+
+Huh, weird.
+
+I checked a lot of source code on github and I don't see what I'm doing wrong.
+
+I want to check if libavutil is even in path or whatever.
+
+I know `LD_LIBRARY_PATH` is a thing, let's check it's contents
+
+```bash
+nix develop
+echo $LD_LIBRARY_PATH
+```
+
+Huh, weird. It's empty.
+
+I don't know how to check all environment variables in nix shell, but I know how to do it in nushell
+
+```bash
+nu
+```
+```nu
+echo $env
+```
+
+It prints out a lot of stuff, searching from the top, `$NIX_LDFLAGS` seems interesting.
+
+```bash
+echo $NIX_LDFLAGS
+```
+
+Going back to bash, the above command gives
+```text
+-rpath /mnt/d/Sync/Projects/tanim-test/outputs/out/lib -L/nix/store/wxjs6sb18xkfx3dgwrlmg2z77jn98iqa-ffmpeg-7.1.1-lib/lib -L/nix/store/wxjs6sb18xkfx3dgwrlmg2z77jn98iqa-ffmpeg-7.1.1-lib/lib
+```
+
+The fact that the same folder for ffmpeg is passed twice is weird. But it shouldn't be causing a problem like this.
+
+IDK. Let's just ask someone.
+
+I asked #link("https://github.com/OPNA2608")[OPNA2608 (Cosima Neidahl)] about my problem, and she pretty quickly found out the problem.
+
+As of writing, Rust 1.90 was released not so long ago, and with v1.90, they changed the default linker to LLD.
+
+The new linker is the problem. Cosima had been helping with the exact problem I was having and directed me to #link("https://github.com/NixOS/nixpkgs/pull/451179")[rust: 1.89.0 -> 1.90.0 by NyCodeGHG · Pull Request #451179 · NixOS/nixpkgs].
+
+I was just going to go back to 1.89, but this seems more interesting.
+
 
 = Final flake
 

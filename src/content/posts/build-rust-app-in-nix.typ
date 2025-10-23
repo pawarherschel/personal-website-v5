@@ -15,9 +15,10 @@
 #todo[add description]
 #todo[add assumed audiences]
 #todo[add tags]
+#todo[add a section like shoutout or i read these, you can read these as well, "Things I've Liked Since I Last Updated Text (TILISLUT)"]
 
 = What is "Tanim"?
-If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown") then you probably know what Manim is.
+If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown"), then you probably know what Manim is.
 #github-card("manimCommunity/manim")
 
 I had always wished to have something similar for #typst()#rust-btw(pre: "written in ", post: [ -- totally not biased lol]).
@@ -646,19 +647,53 @@ I asked #link("https://github.com/OPNA2608")[OPNA2608 (Cosima Neidahl)] about my
 
 As of writing, Rust 1.90 was released not so long ago, and with v1.90, they changed the default linker to LLD.
 
-The new linker is the problem. Cosima had been helping with the exact problem I was having and directed me to #link("https://github.com/NixOS/nixpkgs/pull/451179")[rust: 1.89.0 -> 1.90.0 by NyCodeGHG · Pull Request #451179 · NixOS/nixpkgs].
+The new linker is the problem. Cosima had been helping with the exact problem I was having and directed me to #link("https://github.com/NixOS/nixpkgs/pull/451179")[rust: 1.89.0 -> 1.90.0 by NyCodeGHG · Pull Request \#451179 · NixOS/nixpkgs].
 
 I was just going to go back to 1.89, but this seems more interesting.
 
+After reading the changed files, I think the change to `RUSTFLAGS` is important
+#link(
+  "https://github.com/NixOS/nixpkgs/pull/451179/files#diff-4e187944d64589b494c60f7d5830369ec133ad88972265734587bab64880c942R105-R110",
+)[rust: 1.89.0 -> 1.90.0 by NyCodeGHG · Pull Request \#451179 · NixOS/nixpkgs]
+
+```diff
+
+          propagatedNativeBuildInputs = [
+            pkgs.pkg-config
+            pkgs.rustPlatform.bindgenHook
+            pkgs.llvmPackages_latest.llvm
+          ];
+
++         RUSTFLAGS = nixpkgs.lib.concatStringsSep " " ([
++           # Increase codegen units to introduce parallelism within the compiler.
++           "-Ccodegen-units=10"
++           # Upstream defaults to lld on x86_64-unknown-linux-gnu, we want to use our linker
++           "-Clinker-features=-lld"
++           "-Clink-self-contained=-linker"
++         ]);
+        };
+```
+
+do ```bash nix develop``` and ```bash tanim-cli --frames 0..=120 --output example.mp4 example.typ```
+
+and it works again! :3
 
 = Final flake
 
-#raw(
-  "{
+```nix
+{
   inputs = {
-    flake-utils.url = \"github:numtide/flake-utils\";
-    naersk.url = \"github:nix-community/naersk\";
-    nixpkgs.url = \"github:NixOS/nixpkgs/nixpkgs-unstable\";
+    flake-utils.url = "github:numtide/flake-utils";
+    naersk = {
+      url = "github:nix-community/naersk";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.fenix.follows = "fenix";
+    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -667,6 +702,7 @@ I was just going to go back to 1.89, but this seems more interesting.
       flake-utils,
       naersk,
       nixpkgs,
+      fenix,
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -675,27 +711,44 @@ I was just going to go back to 1.89, but this seems more interesting.
           inherit system;
         };
 
-        naersk' = pkgs.callPackage naersk { };
+        toolchain = fenix.packages.${system}.fromToolchainName {
+          name = "1.90.0";
+          sha256 = "sha256-SJwZ8g0zF2WrKDVmHrVG3pD2RGoQeo24MEXnNx5FyuI=";
+        };
+
+        naersk' = pkgs.callPackage naersk {
+          cargo = toolchain.cargo;
+          rustc = toolchain.rustc;
+        };
 
         tanimSrc = pkgs.fetchFromGitHub {
-          owner = \"liquidhelium\";
-          repo = \"tanim\";
-          rev = \"06decc2170de01e54511b86a3d657acb0ba9a06e\";
-          hash = \"sha256-EJoNVbp6k1o0KUlIRhr3bdrtDAETwSOqu516EYBA6RA=\";
+          owner = "liquidhelium";
+          repo = "tanim";
+          rev = "06decc2170de01e54511b86a3d657acb0ba9a06e";
+          hash = "sha256-EJoNVbp6k1o0KUlIRhr3bdrtDAETwSOqu516EYBA6RA=";
         };
 
         tanim = naersk'.buildPackage {
           src = tanimSrc;
 
-          buildInputs = [
+          propagatedBuildInputs = [
             pkgs.ffmpeg
           ];
 
-          nativeBuildInputs = [
+          propagatedNativeBuildInputs = [
             pkgs.pkg-config
-            pkgs.llvmPackages_latest.llvm
             pkgs.rustPlatform.bindgenHook
+            pkgs.llvmPackages_latest.llvm
           ];
+
+          # Taken from https://github.com/NixOS/nixpkgs/pull/451179
+          RUSTFLAGS = nixpkgs.lib.concatStringsSep " " ([
+            # Increase codegen units to introduce parallelism within the compiler.
+            "-Ccodegen-units=10"
+            # Upstream defaults to lld on x86_64-unknown-linux-gnu, we want to use our linker
+            "-Clinker-features=-lld"
+            "-Clink-self-contained=-linker"
+          ]);
         };
       in
       rec {
@@ -703,7 +756,7 @@ I was just going to go back to 1.89, but this seems more interesting.
 
         apps.default = flake-utils.lib.mkApp {
           drv = tanim;
-          exePath = \"/bin/tanim-cli\";
+          exePath = "/bin/tanim-cli";
         };
 
         devShells.default = pkgs.mkShell {
@@ -711,11 +764,295 @@ I was just going to go back to 1.89, but this seems more interesting.
         };
       }
     );
-}",
-  block: true,
-  lang: "nix",
+}
+```
+
+= Liar, you added more things!
+
+If you read the above code (firstly, thank you?), you must've noticed that there is an additional export(?), the `apps`.
+
+App is what's run when you do `nix run`, so if you don't feel like downloading the flake, you should be do ```bash nix run github:pawarherschel/tanim-flake``` and it'll run the binary, then you will have to pass the rest of the arguments by adding a `--` and then giving the arguments.
+
+#img(
+  "https://r2.sakurakat.systems/build-rust-app-in-nix--nix-run-remote.png",
+  alt: "output for the command \"nix run github:pawarherschel/tanim-flake/?rev=1498d218e74437039ebd5da5b331284a2d4ff9ed -- --help\"",
 )
 
-#todo[explain what the new things are and test them]
+= Recreating a version of tanim
 
-#todo[make the typix into ffmpeg pipeline]
+Let's have some fun! Since I've already procrastinated so much on this blog post, I'll keep the explanation to minimum.
+
+From what I see, `tanim-cli` doesn't do anything special.
+It adds the convention that `t` is the frame number and the rest is stitching the frames together.
+
+So, I thought, let's do those things via flakes.
+
+== Typix calls
+
+#github-card("loqusion/typix")
+
+I started with the typix template and removed most of what I didn't need.
+
+```nix
+let
+  frameStart = 0;
+  frameEnd = 100;
+
+  build-frame =
+    t:
+    typixLib.buildTypstProject (
+      commonArgs t
+      // {
+        inherit src;
+      }
+    );
+
+  build-frames = builtins.genList (
+    x:
+    let
+      t = framesStart + x;
+    in
+    (build-frame t).out
+  ) (framesEnd - framesStart);
+in { }
+```
+
++ Declare the starting and ending frame.
++ Create a build-frame function which takes in a `t`.
++ Create a list of all frames.
+
+== Save paths for frames
+
+This step is required for ffmpeg as the frames aren't in the usual "frame%03d.png" format.
+
+```nix
+save-frame-paths =
+  let
+    txt = lib.strings.concatStringsSep "\n" (
+      builtins.map (
+        x:
+        lib.strings.concatStrings [
+          "file '"
+          x
+          "'\nduration 0.03333"
+        ]
+      ) built-frames
+    );
+  in
+  pkgs.writeText "meow.txt" txt;
+```
+
++ Concatenates the file paths in the required format along with the frame duration
++ Create a text file called "meow.txt" and stores it in the nix store
+
+== Stitch the video together
+
+```nix
+stitch-frames = pkgs.writeShellApplication {
+  name = "stitch-frames";
+  text =
+    let
+      frames = "-f concat -safe 0 -i ${save-frame-paths}";
+      videoFilter = "-vf scale='trunc(iw/2)*2:trunc(ih/2)*2',fps=30";
+    in
+    "${ffmpeg}/bin/ffmpeg ${frames} ${videoFilter} -c:v libx264 -pix_fmt yuv420p ./output.mp4";
+};
+```
+
+== Run the script
+
+```nix
+build-video = pkgs.stdenvNoCC.mkDerivation {
+  pname = "tanim-as-nix-flake";
+  version = "0.1";
+  frames = built-frames;
+  buildInputs = [
+    ffmpeg
+  ];
+  frameList = save-frame-paths;
+  script = stitch-frames;
+
+  dontUnpack = true;
+
+  installPhase = ''
+    mkdir -p $out
+
+    ${stitch-frames}/bin/stitch-frames
+
+    cp output.mp4 $out/output.mp4
+  '';
+};
+```
+
++ Creates a new derivation which runs the script and copies the output to the store
+
+== Copy the video to current folder
+
+```nix
+video-path = builtins.path { path = build-video; };
+
+copy-video = pkgs.writeShellApplication {
+  name = "copy-output-to-cwd";
+  runtimeInputs = [ pkgs.coreutils ];
+  text = ''
+    cp -LT --no-preserve=mode ${video-path}/output.mp4 output.mp4
+  '';
+};
+```
+
++ Get the nix store path for the derivation
++ Copy the video to current directory
+
+== Final flake
+
+
+```nix
+{
+  description = "A Typst project";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    typix = {
+      url = "github:loqusion/typix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-utils.url = "github:numtide/flake-utils";
+
+    # Example of downloading icons from a non-flake source
+    # font-awesome = {
+    #   url = "github:FortAwesome/Font-Awesome";
+    #   flake = false;
+    # };
+  };
+
+  outputs =
+    inputs@{
+      nixpkgs,
+      typix,
+      flake-utils,
+      ...
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        framesStart = 0;
+        framesEnd = 100;
+
+        pkgs = nixpkgs.legacyPackages.${system};
+        inherit (pkgs) lib;
+
+        typixLib = typix.lib.${system};
+
+        src = typixLib.cleanTypstSource ./.;
+        commonArgs = t: {
+          typstSource = "main.typ";
+
+          typstOpts = {
+            format = "png";
+            input = [
+              (lib.strings.concatStrings [
+                "t="
+                (builtins.toString t)
+              ])
+            ];
+          };
+
+          fontPaths = [
+            # Add paths to fonts here
+            # "${pkgs.roboto}/share/fonts/truetype"
+          ];
+
+          virtualPaths = [
+            # Add paths that must be locally accessible to typst here
+            # {
+            #   dest = "icons";
+            #   src = "${inputs.font-awesome}/svgs/regular";
+            # }
+          ];
+        };
+
+        # Compile a Typst project, *without* copying the result
+        # to the current directory
+        build-frame =
+          t:
+          typixLib.buildTypstProject (
+            commonArgs t
+            // {
+              inherit src;
+            }
+          );
+
+        built-frames = builtins.genList (
+          x:
+          let
+            t = framesStart + x;
+          in
+          (build-frame t).out
+        ) (framesEnd - framesStart);
+
+        ffmpeg = pkgs.ffmpeg-headless;
+
+        save-frame-paths =
+          let
+            txt = lib.strings.concatStringsSep "\n" (
+              builtins.map (
+                x:
+                lib.strings.concatStrings [
+                  "file '"
+                  x
+                  "'\nduration 0.03333"
+                ]
+              ) built-frames
+            );
+          in
+          pkgs.writeText "meow.txt" txt;
+
+        stitch-frames = pkgs.writeShellApplication {
+          name = "stitch-frames";
+          text =
+            let
+              frames = "-f concat -safe 0 -i ${save-frame-paths}";
+              videoFilter = "-vf scale='trunc(iw/2)*2:trunc(ih/2)*2',fps=30";
+            in
+            "${ffmpeg}/bin/ffmpeg ${frames} ${videoFilter} -c:v libx264 -pix_fmt yuv420p ./output.mp4";
+        };
+
+        build-video = pkgs.stdenvNoCC.mkDerivation {
+          pname = "tanim-as-nix-flake";
+          version = "0.1";
+          frames = built-frames;
+          buildInputs = [
+            ffmpeg
+          ];
+          frameList = save-frame-paths;
+          script = stitch-frames;
+
+          dontUnpack = true;
+
+          installPhase = ''
+            mkdir -p $out
+
+            ${stitch-frames}/bin/stitch-frames
+
+            cp output.mp4 $out/output.mp4
+          '';
+        };
+
+        video-path = builtins.path { path = build-video; };
+
+        copy-video = pkgs.writeShellApplication {
+          name = "copy-output-to-cwd";
+          runtimeInputs = [ pkgs.coreutils ];
+          text = ''
+            cp -LT --no-preserve=mode ${video-path}/output.mp4 output.mp4
+          '';
+        };
+      in
+      {
+        packages.default = copy-video;
+      }
+    );
+}
+```

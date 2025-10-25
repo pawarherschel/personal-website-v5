@@ -1,6 +1,6 @@
 #import "../../../public/utils.typ": blog-post, divider, img, to-string
 
-#show: blog-post.with("Typst Showcase")
+#show: blog-post.with("Typst Showcase", args: (draft: true))
 
 = An h1 header
 
@@ -137,7 +137,9 @@ Here's a definition list:
 
 and images can be specified like so:
 
-#img("https://lgtm-images.lgtmeow.com/2023/05/19/11/72fa2727-cd11-49ae-abb8-6e8c49e70f62.webp")
+#img(
+  "https://lgtm-images.lgtmeow.com/2023/05/19/11/72fa2727-cd11-49ae-abb8-6e8c49e70f62.webp",
+)
 
 Inline math equations go in like so: $omega = d phi slash d t$ or $omega = frac(d phi, d t)$. Display
 math should get its own line and be put in in triple-dollar signs:
@@ -150,8 +152,8 @@ $$$
   5923078164 space 0628620899 space 8628034825 space 3421170679 space ...
 $$$
 $$$
-  (3x + y) / 7 & = 9        &                 & "given"      \
-        3x + y & = 63       & "multiply by 7"                \
+  (3x + y) / 7 & = 9        &                 & "given" \
+        3x + y & = 63       & "multiply by 7" \
             3x & = 63 - y   &                 & "subtract y" \
              x & = 21 - y/3 &   "divide by 3"
 $$$

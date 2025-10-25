@@ -5,17 +5,26 @@
 )
 #show: blog-post.with(
   "Build Rust app in Nix",
-  description: [],
-  assumed-audience: (),
-  tags: (),
+  description: [A step-by-step entry on how I packaged and built a rust application which depended on ffmpeg at runtime for nix. I go through the various hurdles I encountered and how I solved them, often with links if you wish to read more. While not written concretely, I also show how and why reproducibility is important and how Nix helps it. The other aim of this blogpost is to show off Tanim, the package I packaged (heh, idk why that sentence is funny to me).],
+  assumed-audience: (
+    "People who're familiar with Typst and want to use it for animations",
+    "People who want Manim but with Typst",
+    "People who want to see how Rust packages with native dependencies are packaged for nix",
+    "Rust developers who want to use a Nix Flake for reproducible environment",
+  ),
+  tags: (
+    "Fighting with Nix",
+    "Image Generation",
+    "Nix flakes",
+    "NixOS",
+    "Typst",
+    "Rust",
+  ),
   category: "Programming",
   proofreaders: (proofreaders-list.divyesh,),
 )
 
-#todo[add description]
-#todo[add assumed audiences]
-#todo[add tags]
-#todo[add a section like shoutout or i read these, you can read these as well, "Things I've Liked Since I Last Updated Text (TILISLUT)"]
+#todo[add a section like shoutout or i read these, you can read these as well, "Things I've Liked Since I Last Updated Text (TILSLUT)"]
 
 = What is "Tanim"?
 If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown"), then you probably know what Manim is.
@@ -261,25 +270,21 @@ Which finally worked.
 
 = Success!!!
 
-#todo(completed: [The nix-build expression builds, and stores the result in the nix-store, and creates a symlink to the result as `result` and the output of the expression was a runnable binary, so, as per convention, the binary will be in `./result/bin` with whatever name we gave to the binary. In this case, `tanim-cli`.])[explain how to use the thing after building]
+The nix-build expression builds, and stores the result in the nix-store, and creates a symlink to the result as `result` and the output of the expression was a runnable binary, so, as per convention, the binary will be in `./result/bin` with whatever name we gave to the binary. In this case, `tanim-cli`.
 
 So, to test the binary we can do ```bash ./result/bin/tanim-cli --help```
 
-#todo(
-  completed: img(
-    "https://r2.sakurakat.systems/build-rust-app-in-nix--run-tanim-cli-success.png",
-    alt: "Screenshot of me running \"tanim-cli\" in terminal",
-  ),
-)[add the screenshot here]
+#img(
+  "https://r2.sakurakat.systems/build-rust-app-in-nix--run-tanim-cli-success.png",
+  alt: "Screenshot of me running \"tanim-cli\" in terminal",
+)
 
-#todo(
-  completed: tenor-gif(
-    [Autism Creature Yippee Creature GIF],
-    "https://tenor.com/view/autism-creature-yippee-creature-yippee-autism-woo-gif-10988973615622974862",
-    dims: (480, 476),
-    width: 80%,
-  ),
-)[add autism creature yippie gif]
+#tenor-gif(
+  [Autism Creature Yippee Creature GIF],
+  "https://tenor.com/view/autism-creature-yippee-creature-yippee-autism-woo-gif-10988973615622974862",
+  dims: (480, 476),
+  width: 80%,
+)
 
 = Flake-ifying
 
@@ -288,7 +293,7 @@ Flakes are unofficially the official way to package stuff.
 So lets turn the expression into a flake and use Naersk to build the rust application.
 #github-card("nix-community/naersk")
 
-#todo(completed: [As I understand it, the benefit of using naersk is that it caches dependencies.])[explain what naersk is]
+As I understand it, the benefit of using naersk is that it caches dependencies.
 I avoided using Naersk since less moving parts = fewer complications.
 However, now that I have figured out how to compile the application, I'll do it the proper way, by using naersk.
 
@@ -432,12 +437,12 @@ use the command
 tanim-cli --frames 0..=120 --output animation.mp4 animation.typ
 ```
 
-#todo("add the video here", completed: video(
+#video(
   "https://r2.sakurakat.systems/build-rust-app-in-nix--animation.mp4",
   height: 1754,
   width: 1240,
   loop: false,
-))
+)
 
 = Updating the flake to the latest version
 
@@ -519,18 +524,18 @@ what humans think is impossible.
   block: true,
 )
 
-#todo(completed: [The script takes the input `t` from the cli as the frame number and renders the frame. The cli then stitches the frames together using ffmpeg. Each frame a one word is added to the frame and if it's full (calculated to be at 905 words) it'll remove one word from the start and the words will adjust to fill the rest of the space. My aim was to give the illusion that words are coming and going, kinda like the Star Wars preamble.])[explain what the script is doing]
+The script takes the input `t` from the cli as the frame number and renders the frame. The cli then stitches the frames together using ffmpeg. Each frame a one word is added to the frame and if it's full (calculated to be at 905 words) it'll remove one word from the start and the words will adjust to fill the rest of the space. My aim was to give the illusion that words are coming and going, kinda like the Star Wars preamble.
 
 == Resulting video
 
 The video was sped up in post to fit 10 seconds since I didn't want to calculate how to do it in the typst file.
 
-#todo("put the bee movie script here", completed: video(
+#video(
   "https://r2.sakurakat.systems/build-rust-app-in-nix--bee-movie-script.mp4",
   width: 1240,
   height: 1754,
   loop: true,
-))
+)
 
 = Specifying the toolchain
 
@@ -787,6 +792,45 @@ It adds the convention that `t` is the frame number and the rest is stitching th
 
 So, I thought, let's do those things via flakes.
 
+== Configure Typst
+
+```nix
+commonArgs = t: {
+  typstSource = "main.typ";
+
+  typstOpts = {
+    format = "png";
+    pages = 1;
+    input = [
+      (lib.strings.concatStrings [
+        "t="
+        (builtins.toString t)
+      ])
+    ];
+  };
+
+  fontPaths = [
+    # Add paths to fonts here
+    # "${pkgs.roboto}/share/fonts/truetype"
+  ];
+
+  virtualPaths = [
+    # Add paths that must be locally accessible to typst here
+    # {
+    #   dest = "icons";
+    #   src = "${inputs.font-awesome}/svgs/regular";
+    # }
+  ];
+};
+
+```
+
++ Make commonArgs a function which takes the frame number as t
++ Set the output format to png
++ Set number of pages to 1
++ Pass the frame number to typst
+
+
 == Typix calls
 
 #github-card("loqusion/typix")
@@ -943,6 +987,7 @@ copy-video = pkgs.writeShellApplication {
         pkgs = nixpkgs.legacyPackages.${system};
         inherit (pkgs) lib;
 
+
         typixLib = typix.lib.${system};
 
         src = typixLib.cleanTypstSource ./.;
@@ -951,6 +996,7 @@ copy-video = pkgs.writeShellApplication {
 
           typstOpts = {
             format = "png";
+            pages = 1;
             input = [
               (lib.strings.concatStrings [
                 "t="
@@ -1056,3 +1102,17 @@ copy-video = pkgs.writeShellApplication {
     );
 }
 ```
+
+== Testing the flake
+
+I made the bee movie demo again, and it's definately slower than Tanim, but at the same time, it should be better at caching across runs.
+
+= New section for things I like
+
+I wanted a place to add "#underline[T]hings #underline[I]'ve #underline[L]iked #underline[S]ince I #underline[L]ast #underline[U]pdated #underline[T]ext". Let's take the first letter of each word and shorten it to "TILSLUT".
+
+As the name suggests, I'm gonna put things I've liked since the last blog post, it's a way to preserve blog posts, articles, Bluesky posts, videos, topics, food, whatever I like.
+
+I'm at a crossroad atm, I can either make a website and author content in typst to save stuff, or create a custom typst to leaflet document compiler. At the rate life seems to move for me, the year is pretty much over. I want to complete my goal of learning blender this year, so I don't want to pick up something which will take a long time. At the same time, typst to leaflet seems feasible enough and fun enough that I'd try it + I won't need to deal with pesky JavaScript.
+
+I guess only time will tell.

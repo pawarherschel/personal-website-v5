@@ -974,6 +974,7 @@
             href: "https://github.com/" + repo,
             target: "_blank",
             repo: repo,
+            aria-label: "GitHub:" + repo,
           ),
           {
             html.elem("div", attrs: (class: "gc-titlebar"), {

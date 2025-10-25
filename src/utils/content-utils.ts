@@ -2,9 +2,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
-import {
-	getUpdatedAndPublishedForFilePath
-} from "@utils/updated-and-published-utils.ts";
+import { getUpdatedAndPublishedForFilePath } from "@utils/updated-and-published-utils.ts";
 
 // // Retrieve posts and sort them by publication date
 async function getRawSortedPosts() {
@@ -41,21 +39,31 @@ export type PostForList = {
 export async function getSortedPostsList(): Promise<PostForList[]> {
 	const sortedFullPosts = await getRawSortedPosts();
 
-	let smfh = new Map<string, {updated: Date, published: Date}>();
+	let smfh = new Map<string, { updated: Date; published: Date }>();
 
 	for (const post of sortedFullPosts) {
-		smfh.set(post.slug, await getUpdatedAndPublishedForFilePath(post.slug, post.data.updated, post.data.published))
+		smfh.set(
+			post.slug,
+			await getUpdatedAndPublishedForFilePath(
+				post.slug,
+				post.data.updated,
+				post.data.published,
+			),
+		);
 	}
 
 	// delete post.body
 	const sortedPostsList = sortedFullPosts.map((post) => ({
 		slug: post.slug,
-		data:(() => {
+		data: (() => {
 			let data = post.data;
 
-			const {updated, published} = smfh.get(post.slug) ?? {updated: new Date(), published: new Date()}
+			const { updated, published } = smfh.get(post.slug) ?? {
+				updated: new Date(),
+				published: new Date(),
+			};
 			data.updated = updated;
-			data.published = published
+			data.published = published;
 
 			return data;
 		})(),

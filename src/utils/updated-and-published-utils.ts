@@ -64,19 +64,19 @@ export async function getUpdatedAndPublishedForFilePath(
 
 	let path = file;
 	if (path.startsWith("/")) {
-		console.debug(`removing "/" from start of "${path}"`)
+		console.debug(`removing "/" from start of "${path}"`);
 		path = path.slice(1);
 	}
 	if (path.endsWith("/")) {
-		console.debug(`removing "/" from end of ${path}`)
+		console.debug(`removing "/" from end of ${path}`);
 		path = path.slice(0, path.length - 1);
 	}
 	if (!path.includes("posts/")) {
-		console.debug(`adding "posts/" to start of ${path}`)
-		path = `posts/${path}`
+		console.debug(`adding "posts/" to start of ${path}`);
+		path = `posts/${path}`;
 	}
 	if (!path.includes("src/content/")) {
-		console.debug(`adding "src/content/" to start of ${path}`)
+		console.debug(`adding "src/content/" to start of ${path}`);
 		path = `./src/content/${path}`;
 	}
 	if (await isDir(path)) {
@@ -99,8 +99,8 @@ export async function getUpdatedAndPublishedForFilePath(
 		}
 
 		if (ext === undefined) {
-			const extsPrint = exts.map(it => `"${it}" `).concat()
-			console.error(`path: ${path} not found with any of these: ${extsPrint}`)
+			const extsPrint = exts.map((it) => `"${it}" `).concat();
+			console.error(`path: ${path} not found with any of these: ${extsPrint}`);
 		}
 
 		path = `${path}${ext}`;

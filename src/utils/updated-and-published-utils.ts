@@ -61,22 +61,31 @@ export async function getUpdatedAndPublishedForFilePath(
 
 	let myUpdated = updated;
 	let myPublished = published;
+	const debug = false;
 
 	let path = file;
 	if (path.startsWith("/")) {
-		console.debug(`removing "/" from start of "${path}"`);
+		if(debug){
+			console.debug(`removing "/" from start of "${path}"`);
+		}
 		path = path.slice(1);
 	}
 	if (path.endsWith("/")) {
-		console.debug(`removing "/" from end of ${path}`);
+		if(debug){
+			console.debug(`removing "/" from end of ${path}`);
+		}
 		path = path.slice(0, path.length - 1);
 	}
 	if (!path.includes("posts/")) {
-		console.debug(`adding "posts/" to start of ${path}`);
+		if(debug){
+			console.debug(`adding "posts/" to start of ${path}`);
+		}
 		path = `posts/${path}`;
 	}
 	if (!path.includes("src/content/")) {
-		console.debug(`adding "src/content/" to start of ${path}`);
+		if(debug){
+			console.debug(`adding "src/content/" to start of ${path}`);
+		}
 		path = `./src/content/${path}`;
 	}
 	if (await isDir(path)) {

@@ -499,6 +499,41 @@
 
 // #let friends = read("../src/content/friends/friends.toml")
 
+#let tilslut-type = (
+  blogpost: "blogpost",
+  no-type: "no type",
+)
+
+#let tilslut-entry(
+  title: "Title",
+  by: "Author",
+  type: "no type",
+  url: "https://example.com/",
+  comment: "No comment " + emoji.face.sad,
+  image-link: none,
+  image-alt: none,
+  links: (),
+) = {
+  if not tilslut-type.values().contains(type) {
+    panic("Type " + type + " has not been registered yet")
+  }
+
+  comment = comment.trim()
+
+  links = links.map(it => (link: it.dest, text: to-string(it.body)))
+
+  (
+    title: title,
+    by: by,
+    type: type,
+    url: url,
+    comment: comment,
+    imageLink: image-link,
+    imageAlt: image-alt,
+    links: links,
+  )
+}
+
 #let blog-post(
   title,
   description: lorem(20),
@@ -508,6 +543,8 @@
   args: (:),
   assumed-audience: lorem(6).split(" "),
   proofreaders: (proofreaders-list.dummy,),
+  draft: false,
+  tilslut: (),
   content,
 ) = {
   let description = to-string(if description == [] { "" } else {
@@ -527,7 +564,7 @@
     #metadata((
       title: title,
       description: to-string(description),
-      // draft: "false",
+      draft: draft,
       tags: tags,
       category: if category == none { "Category" } else { category },
       ..if image != none { (image: image) } else { (:) },
@@ -544,6 +581,7 @@
           )
         })
       },
+      tilslut: tilslut,
       ..args,
     ))<frontmatter>
   ]

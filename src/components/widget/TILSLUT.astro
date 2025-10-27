@@ -1,0 +1,53 @@
+---
+import Markdown from "@components/misc/Markdown.astro";
+import ImageWrapper from "@components/misc/ImageWrapper.astro";
+
+interface Props {
+	tilslut: object;
+}
+
+const {tilslut} = Astro.props;
+
+---
+<div class="card-base p-4 mb-4 relative w-full z-10 px-6 md:px-9 pt-6 pb-4" id="tilslut">
+	<section>
+		<h3 class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">TILSLUT</h3>
+		<div class="h-1 w-20 bg-[var(--primary)] mx-auto rounded-full mb-4 transition"></div>
+		<Markdown class="mb-6 markdown-content onload-animation e-content">
+			{
+				tilslut.map(it =>
+					<section>{<>
+						<h1>{it.title} by {it.by}</h1>
+						<p>Link: <a href={it.url}>{it.url}</a></p>
+						<p>Type: {it.type}</p>
+						<section>
+							<h2>Comment</h2>
+							{
+								it.imageLink && <ImageWrapper src={it.imageLink}
+										  alt={it.imageAlt}></ImageWrapper>
+							}
+							<p>{it.comment}</p>
+						</section>
+
+						{
+							it.links.length > 0 ? <section>
+							<h2>Additional Links</h2>
+							<ol>
+								{
+									it.links.map(l =>
+											<li>{
+												l.text
+											}: <a href={l.link}>{
+												l.link
+											}</a></li>)
+								}
+							</ol>
+						</section>:<></>}
+					</>
+					}
+					</section>
+				)
+			}
+		</Markdown>
+	</section>
+</div>

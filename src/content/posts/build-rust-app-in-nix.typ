@@ -1,7 +1,7 @@
 #import "../../../public/utils.typ": (
   admonition, blog-post, bluesky-embed, github-card, github-gist, img, note,
-  proofreaders-list, rust-btw, section, tenor-gif, todo, typst, video,
-  youtube-channel,
+  proofreaders-list, rust-btw, section, tenor-gif, tilslut-entry, tilslut-type,
+  todo, typst, video, youtube-channel,
 )
 #show: blog-post.with(
   "Build Rust app in Nix",
@@ -22,9 +22,23 @@
   ),
   category: "Programming",
   proofreaders: (proofreaders-list.divyesh,),
+  tilslut: (
+    tilslut-entry(
+      title: "Replacing a running Linux system with NixOS over SSH",
+      by: "crescentrose",
+      url: "https://crescentro.se/posts/ssh-nixos/",
+      type: tilslut-type.blogpost,
+      comment: "
+        Fun read about how to replace a traditional distro with NixOS and it also explains how nixos-anywhere might work.
+      ",
+      links: (
+        link(
+          "https://github.com/nix-community/nixos-anywhere",
+        )[nixos-anywhere on GitHub],
+      ),
+    ),
+  ),
 )
-
-#todo[add a section like shoutout or i read these, you can read these as well, "Things I've Liked Since I Last Updated Text (TILSLUT)"]
 
 = What is "Tanim"?
 If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown"), then you probably know what Manim is.

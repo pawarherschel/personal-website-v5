@@ -1,6 +1,15 @@
-#import "../../../public/utils.typ": blog-post, divider, img, to-string
+#import "../../../public/utils.typ": (
+  blog-post, divider, img, tilslut-entry, to-string,
+)
 
-#show: blog-post.with("Typst Showcase", args: (draft: true))
+#show: blog-post.with(
+  "Typst Showcase",
+  draft: true,
+  tilslut: (
+    tilslut-entry(),
+    tilslut-entry(title: "Title 2: electric boogaloo"),
+  ),
+)
 
 = An h1 header
 

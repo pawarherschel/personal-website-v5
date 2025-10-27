@@ -30,14 +30,29 @@ const blogCollection = defineCollection({
 				}),
 			)
 			.default([]),
+		tilslut: z.array(
+			z.object({
+				title: z.string(),
+				by: z.string(),
+				type: z.string(),
+				url: z.string().url(),
+				comment: z.string(),
+				links: z.array(z.object({
+					link: z.string().url(),
+					text: z.string(),
+				})).default([]),
+				imageLink: z.string().url().nullable(),
+				imageAlt: z.string().nullable(),
+			})
+		).default([]),
 	}),
 });
 
-const bskyCollection = defineCollection({
-	loader: authorFeedLoader({
-		identifier: blueskyConfig.blueskyIdentifier,
-	}),
-});
+// const bskyCollection = defineCollection({
+// 	loader: authorFeedLoader({
+// 		identifier: blueskyConfig.blueskyIdentifier,
+// 	}),
+// });
 
 const specCollection = defineCollection({
 	schema: z.object({}),
@@ -68,7 +83,7 @@ const friendsCollection = defineCollection({
 
 export const collections = {
 	posts: blogCollection,
-	bsky: bskyCollection,
+	// bsky: bskyCollection,
 	spec: specCollection,
 	friends: friendsCollection,
 };

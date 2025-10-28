@@ -1,7 +1,7 @@
 ---
-// src/components/posthog.astro
+
 ---
-<script is:inline>
+<script>
   !function (t, e) {
     var o, n, p, r;
     e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) {
@@ -27,7 +27,10 @@
     'phc_XjLacmwERfhbH4YAs6rUCFUgIFudNibYFHst0g5tsOu',
     {
       api_host: 'https://us.i.posthog.com',
-      persistence: "memory"
-    }
+      persistence: "memory",
+        loaded: () => {
+		  document.documentElement.style.setProperty('--posthog-loaded', 'true');
+	  }
+    },
   )
 </script>

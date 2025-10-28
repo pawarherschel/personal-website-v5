@@ -48,11 +48,12 @@ const blogCollection = defineCollection({
 	}),
 });
 
-// const bskyCollection = defineCollection({
-// 	loader: authorFeedLoader({
-// 		identifier: blueskyConfig.blueskyIdentifier,
-// 	}),
-// });
+const bskyCollection = defineCollection({
+	loader: authorFeedLoader({
+		identifier: blueskyConfig.blueskyIdentifier,
+		filter: "posts_no_replies",
+	}),
+});
 
 const specCollection = defineCollection({
 	schema: z.object({}),
@@ -83,7 +84,7 @@ const friendsCollection = defineCollection({
 
 export const collections = {
 	posts: blogCollection,
-	// bsky: bskyCollection,
+	bsky: bskyCollection,
 	spec: specCollection,
 	friends: friendsCollection,
 };

@@ -67,3 +67,16 @@ title = "Sender Silent"
 url = "https://www.sendersilent.com/"
 desc = "Sender Silent is a writing project many years in the making. The writing here is new, but the lore that informs it draws from decades of my own work."
 icon = "https://www.sendersilent.com/static/favicon-192.png"
+
+[aria]
+title = "Aria"
+url = "https://aria.coffee/"
+desc = "A cyborg witch and somehow also a basic t-girl and a subpar nerd.\nShe/Her 23 🏳️‍⚧️ call me Aria or Mojo~"
+icon = "https://aria.coffee/apple-touch-icon.png"
+button = "https://aria.coffee/static/img/buttons/aria.gif"
+
+[aruio]
+title = "Entropy | AruSahni.net"
+url = "https://arusahni.net/blog/"
+desc = "A hoopy frood, believer in the open web."
+bsky = "did:plc:k6iz3efpj4prqkincrejjkew"

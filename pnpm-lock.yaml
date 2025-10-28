@@ -4,13 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@ascorbic/bluesky-loader@0.1.0':
+    hash: 5aqukcl6724msuubiufanc7lfu
+    path: patches/@ascorbic__bluesky-loader@0.1.0.patch
+
 importers:
 
   .:
     dependencies:
       '@ascorbic/bluesky-loader':
         specifier: ^0.1.0
-        version: 0.1.0(astro@5.10.1(@types/node@24.7.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))
+        version: 0.1.0(patch_hash=5aqukcl6724msuubiufanc7lfu)(astro@5.10.1(@types/node@24.7.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))
       '@astrojs/check':
         specifier: ^0.9.4
         version: 0.9.4(typescript@5.9.3)
@@ -6368,7 +6373,7 @@ snapshots:
 
   '@antfu/utils@8.1.1': {}
 
-  '@ascorbic/bluesky-loader@0.1.0(astro@5.10.1(@types/node@24.7.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))':
+  '@ascorbic/bluesky-loader@0.1.0(patch_hash=5aqukcl6724msuubiufanc7lfu)(astro@5.10.1(@types/node@24.7.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))':
     dependencies:
       '@ascorbic/loader-utils': 1.0.2(astro@5.10.1(@types/node@24.7.0)(jiti@1.21.7)(rollup@2.79.2)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.44.0)(typescript@5.9.3)(yaml@2.8.1))
       '@atproto/api': 0.13.35

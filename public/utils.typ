@@ -486,7 +486,7 @@
     ),
     comments: (
       [I met Divyesh during college while volunteering for out college's chapter of IEEE. Ever since then we've been collaborating and teaching each other whatever we come across.],
-      [Divyesh likes to read complicated -- at least for me -- books, and is into a lot of niche music.],
+      [Divyesh likes to read -- at least for me -- complicated books, and is into a lot of niche music.],
     ),
   ),
   andrew: (
@@ -737,10 +737,10 @@
         #content
 
         #divider
+        #if proofreaders != none [
         = Proofreaders
         #if (
           proofreaders == ()
-            or proofreaders == none
             or proofreaders == (proofreaders-list.dummy,)
         ) {
           todo[Find and add proofreaders]
@@ -751,11 +751,12 @@
             #let comments = entry.at("comments", default: ())
 
             == #name
-            #for comment in comments [#comment]
+            #for comment in comments [#comment\n]
             === Links
             #for shill in shills [- #shill]
           ]
         }
+        ]
         #divider
       ]
     } else {

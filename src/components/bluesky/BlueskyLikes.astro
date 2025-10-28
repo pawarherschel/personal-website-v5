@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
-import { blueskyConfig } from "../../config";
+import { blueskyConfig } from "@/config.ts";
 import WidgetLayout from "../widget/WidgetLayout.astro";
 import Comments from "./Comments.svelte";
 import Likes from "./Likes.svelte";
@@ -15,24 +15,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const url = canonicalURL.toString();
 
-// console.log(`\nsearching for ${url}`);
-// console.log(
-// 	`posts: ${JSON.stringify(
-// 		bsky
-// 			.sort(
-// 				(a, b) =>
-// 					new Date(a.data.indexedAt).getTime() -
-// 					new Date(b.data.indexedAt).getTime(),
-// 			)
-// 			// // @ts-expect-error: weird type fuckery
-// 			.filter((it) =>
-// 				JSON.stringify(it.data).includes("https://sakurakat.systems"),
-// 			)
-// 			.map((it) => it.data),
-// 		null,
-// 		2,
-// 	)}`,
-// );
+console.log(`\nsearching for ${url}`);
+console.log(
+	`posts: ${JSON.stringify(
+		bsky
+			.sort(
+				(a, b) =>
+					new Date(a.data.indexedAt).getTime() -
+					new Date(b.data.indexedAt).getTime(),
+			)
+			// // @ts-expect-error: weird type fuckery
+			.filter((it) =>
+				JSON.stringify(it.data).includes("https://sakurakat.systems"),
+			)
+			.map((it) => it.data),
+		null,
+		2,
+	)}`,
+);
 
 // get first post (sorted by indexedAt) with url in embed.external.uri
 const post = bsky
@@ -44,15 +44,15 @@ const post = bsky
 	// @ts-expect-error: weird type fuckery
 	.find((it) => it.data.embed?.external?.uri === url);
 
-// if (post) {
-// 	console.log(`Found url at ${atUriToPostUri(post.data.uri)}`);
-// }
+if (post) {
+	console.log(`Found url at ${atUriToPostUri(post.data.uri)}`);
+}
 
 let likesData = post ? await getLikes(post.data.uri) : [];
 
 let comments = post ? await getComments(post.data.uri) : [];
 
-// console.log(`number of top level comments found: ${comments.length}`);
+console.log(`number of top level comments found: ${comments.length}`);
 ---
 
 <!--Like or comment button-->

@@ -46,8 +46,10 @@
         In this blogpost itself I mentioned the weird way to get hash, and I don't like relying on \"magic\" like that. Max's blogpost shows how the hash is calculated and removed the mystery. Even if I'm never going to calculate the hash by hand, It's good to know there's something I can refer back to if I ever need to.
       ",
       links: (
-        link("https://sakurakat.systems/posts/build-rust-app-in-nix/#finding-the-hash")[Finding the hash],
-      )
+        link(
+          "https://sakurakat.systems/posts/build-rust-app-in-nix/#finding-the-hash",
+        )[Finding the hash],
+      ),
     ),
   ),
 )
@@ -262,9 +264,7 @@ Error again:
 Now it needs clang.
 
 I searched for it and found
-#link(
-  "https://discourse.nixos.org/t/how-to-correctly-populate-a-clang-and-llvm-development-environment-using-nix-shell/3864/2"
-)[How to correctly populate a clang and llvm development environment using nix-shell? on NixOS Discourse],
+#link("https://discourse.nixos.org/t/how-to-correctly-populate-a-clang-and-llvm-development-environment-using-nix-shell/3864/2")[How to correctly populate a clang and llvm development environment using nix-shell? on NixOS Discourse],
 
 which had
 #link(

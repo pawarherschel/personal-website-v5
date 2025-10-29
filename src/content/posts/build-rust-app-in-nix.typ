@@ -5,7 +5,7 @@
 )
 #show: blog-post.with(
   "Build Rust app in Nix",
-  description: [A step-by-step entry on how I packaged and built a rust application which depended on ffmpeg at runtime for nix. I go through the various hurdles I encountered and how I solved them, often with links if you wish to read more. While not written concretely, I also show how and why reproducibility is important and how Nix helps it. The other aim of this blogpost is to show off Tanim, the package I packaged (heh, idk why that sentence is funny to me).],
+  description: [A step-by-step post on how I packaged and built a Rust application that depends on ffmpeg at runtime for Nix. I walk through the hurdles I ran into and how I solved them, often with links if you want to read more. While not written explicitly, I also show why reproducibility matters and how Nix helps with it. Another goal of this blog post is to show off Tanim, the package I packaged (heh, idk why that sentence is funny to me).],
   assumed-audience: (
     "People who're familiar with Typst and want to use it for animations",
     "People who want Manim but with Typst",

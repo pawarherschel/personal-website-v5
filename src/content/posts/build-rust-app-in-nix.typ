@@ -4,7 +4,7 @@
   todo, typst, video, youtube-channel,
 )
 #show: blog-post.with(
-  "Build Rust app in Nix",
+  "Nix Flakifying a Native Rust App",
   description: [A step-by-step post on how I packaged and built a Rust application that depends on ffmpeg at runtime for Nix. I walk through the hurdles I ran into and how I solved them, often with links if you want to read more. While not written explicitly, I also show why reproducibility matters and how Nix helps with it. Another goal of this blog post is to show off Tanim, the package I packaged (heh, idk why that sentence is funny to me).],
   assumed-audience: (
     "People who're familiar with Typst and want to use it for animations",

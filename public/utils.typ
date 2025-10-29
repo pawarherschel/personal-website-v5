@@ -192,11 +192,11 @@
   return (text, map)
 }
 
+
 #let script(
   script,
   data: (:),
-  i-have-read-the-panic-and-i-know-what-im-doing: false,
-  manual-delete: false,
+  scoped: true,
 ) = {
   if not script.has("text") {
     panic()
@@ -211,12 +211,6 @@
     panic()
   }
 
-  if script.text.contains("\"") {
-    panic(
-      "Script contains \" which isn't allowed, if you're sure you know what you're doing then set `i-have-read-the-panic-and-i-know-what-im-doing` to true",
-    )
-  }
-
   let data-loading = ""
   for (var, value) in data {
     if type(value) == str {
@@ -227,17 +221,14 @@
     )
   }
 
-
-  html.elem("iframe", attrs: (
-    width: "0",
-    height: "0",
-    src: "about:blank",
-    onload: data-loading
+  let script-text = (
+    if scoped { "(function (){" } else { "" }
+      + data-loading
       + script.text
-      + if not manual-delete { "this.parentNode.removeChild(this);" } else {
-        ""
-      },
-  ))
+      + if scoped { "})();" } else { "" }
+  )
+
+  html.elem("script", script-text)
 }
 
 #let slugify-map = state("slugify-map", (:))
@@ -738,24 +729,23 @@
 
         #divider
         #if proofreaders != none [
-        = Proofreaders
-        #if (
-          proofreaders == ()
-            or proofreaders == (proofreaders-list.dummy,)
-        ) {
-          todo[Find and add proofreaders]
-        } else {
-          for entry in proofreaders [
-            #let name = entry.at("name")
-            #let shills = entry.at("shills", default: ())
-            #let comments = entry.at("comments", default: ())
+          = Proofreaders
+          #if (
+            proofreaders == () or proofreaders == (proofreaders-list.dummy,)
+          ) {
+            todo[Find and add proofreaders]
+          } else {
+            for entry in proofreaders [
+              #let name = entry.at("name")
+              #let shills = entry.at("shills", default: ())
+              #let comments = entry.at("comments", default: ())
 
-            == #name
-            #for comment in comments [#comment\n]
-            === Links
-            #for shill in shills [- #shill]
-          ]
-        }
+              == #name
+              #for comment in comments [#comment\n]
+              === Links
+              #for shill in shills [- #shill]
+            ]
+          }
         ]
         #divider
       ]
@@ -991,95 +981,90 @@
       document.getElementById(`${cardUuid}-description`).innerText = err.message;
       /* document.getElementById(`${cardUuid}-description`).innerText = `Error: ${err.name || '?'}: ${err.message || 'Unknown error occurred'}. Repo: ${repo}`; */
       console.warn(`[GITHUB-CARD] (Error) Loading card for ${repo} | ${cardUuid}.`)
-    }).finally(() => {
-      this.parentNode.removeChild(this);
     })
     ```,
     data: (repo: repo, cardUuid: card-uuid),
-    manual-delete: true,
   )
 
   context if target() != "html" {
     link("https://github.com/" + repo)[GitHub:#repo]
   } else {
-    html.elem("div", {
-      script
-      html.elem("div", {
-        html.elem(
-          "a",
-          attrs: (
-            id: card-uuid + "-card",
-            class: "card-github no-styling fetch-waiting",
-            href: "https://github.com/" + repo,
-            target: "_blank",
-            repo: repo,
-            aria-label: "GitHub:" + repo,
-          ),
-          {
-            html.elem("div", attrs: (class: "gc-titlebar"), {
-              html.elem("div", attrs: (class: "gc-titlebar-left"), {
-                html.elem("div", attrs: (class: "gc-owner"), {
-                  html.elem("div", attrs: (
-                    id: card-uuid + "-avatar",
-                    class: "gc-avatar",
-                    style: "background-image: url(\"https://github.com/"
-                      + owner
-                      + ".png\"); background-color: transparent;",
-                  ))
-                  html.elem("div", attrs: (class: "gc-user"), {
-                    owner
-                  })
-                })
-                html.elem("div", attrs: (class: "gc-divider"), {
-                  [/]
-                })
-                html.elem("div", attrs: (class: "gc-repo"), {
-                  repo-name
+    section(html.elem(
+      "a",
+      attrs: (
+        id: card-uuid + "-card",
+        class: "card-github no-styling fetch-waiting",
+        href: "https://github.com/" + repo,
+        target: "_blank",
+        repo: repo,
+        aria-label: "GitHub:" + repo,
+      ),
+      (
+        {
+          html.elem("div", attrs: (class: "gc-titlebar"), {
+            html.elem("div", attrs: (class: "gc-titlebar-left"), {
+              html.elem("div", attrs: (class: "gc-owner"), {
+                html.elem("div", attrs: (
+                  id: card-uuid + "-avatar",
+                  class: "gc-avatar",
+                  style: "background-image: url(\"https://github.com/"
+                    + owner
+                    + ".png\"); background-color: transparent;",
+                ))
+                html.elem("div", attrs: (class: "gc-user"), {
+                  owner
                 })
               })
-              html.elem("div", attrs: (class: "github-logo"), [])
+              html.elem("div", attrs: (class: "gc-divider"), {
+                [/]
+              })
+              html.elem("div", attrs: (class: "gc-repo"), {
+                repo-name
+              })
             })
+            html.elem("div", attrs: (class: "github-logo"), [])
+          })
+          html.elem(
+            "div",
+            attrs: (id: card-uuid + "-description", class: "gc-description"),
+            {
+              [unimplemented]
+            },
+          )
+          html.elem("div", attrs: (class: "gc-infobar"), {
             html.elem(
               "div",
-              attrs: (id: card-uuid + "-description", class: "gc-description"),
+              attrs: (id: card-uuid + "-stars", class: "gc-stars"),
               {
                 [unimplemented]
               },
             )
-            html.elem("div", attrs: (class: "gc-infobar"), {
-              html.elem(
-                "div",
-                attrs: (id: card-uuid + "-stars", class: "gc-stars"),
-                {
-                  [unimplemented]
-                },
-              )
-              html.elem(
-                "div",
-                attrs: (id: card-uuid + "-forks", class: "gc-forks"),
-                {
-                  [unimplemented]
-                },
-              )
-              html.elem(
-                "div",
-                attrs: (id: card-uuid + "-license", class: "gc-license"),
-                {
-                  [unimplemented]
-                },
-              )
-              html.elem(
-                "span",
-                attrs: (id: card-uuid + "-language", class: "gc-language"),
-                {
-                  [unimplemented]
-                },
-              )
-            })
-          },
-        )
-      })
-    })
+            html.elem(
+              "div",
+              attrs: (id: card-uuid + "-forks", class: "gc-forks"),
+              {
+                [unimplemented]
+              },
+            )
+            html.elem(
+              "div",
+              attrs: (id: card-uuid + "-license", class: "gc-license"),
+              {
+                [unimplemented]
+              },
+            )
+            html.elem(
+              "span",
+              attrs: (id: card-uuid + "-language", class: "gc-language"),
+              {
+                [unimplemented]
+              },
+            )
+          })
+          script
+        }
+      ),
+    ))
   }
 }
 

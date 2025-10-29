@@ -56,6 +56,7 @@
 
 = What is "Tanim"?
 If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown"), then you probably know what Manim is.
+
 #github-card("manimCommunity/manim")
 
 I had always wished for something similar for #typst()#rust-btw(pre: "written in ", post: [ -- totally not biased lol]).

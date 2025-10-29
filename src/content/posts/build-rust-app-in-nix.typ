@@ -867,10 +867,10 @@ commonArgs = t: {
 };
 ```
 
-+ Make `commonArgs` a function that takes the frame number as `t`
-+ Set the output format to png
-+ Set the number of pages to 1
-+ Pass the frame number to Typst
+- Make `commonArgs` a function that takes the frame number as `t`
+- Set the output format to png
+- Set the number of pages to 1
+- Pass the frame number to Typst
 
 == Typix calls
 
@@ -902,9 +902,9 @@ let
 in { }
 ```
 
-+ Declare the starting and ending frame
-+ Create a `build-frame` function that takes `t`
-+ Create a list of all frames
+- Declare the starting and ending frame
+- Create a `build-frame` function that takes `t`
+- Create a list of all frames
 
 == Save paths for frames
 
@@ -927,8 +927,8 @@ save-frame-paths =
   pkgs.writeText "meow.txt" txt;
 ```
 
-+ Concatenate file paths in the required format with the frame duration
-+ Create a text file called "meow.txt" and store it in the Nix store
+- Concatenate file paths in the required format with the frame duration
+- Create a text file called "meow.txt" and store it in the Nix store
 
 == Stitch the video together
 
@@ -969,7 +969,7 @@ build-video = pkgs.stdenvNoCC.mkDerivation {
 };
 ```
 
-+ Create a derivation that runs the script and copies the output to the store
+- Create a derivation that runs the script and copies the output to the store
 
 == Copy the video to current folder
 
@@ -985,8 +985,8 @@ copy-video = pkgs.writeShellApplication {
 };
 ```
 
-+ Get the Nix store path for the derivation
-+ Copy the video to the current directory
+- Get the Nix store path for the derivation
+- Copy the video to the current directory
 
 == Final flake
 

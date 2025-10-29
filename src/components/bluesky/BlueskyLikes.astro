@@ -15,24 +15,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const url = canonicalURL.toString();
 
-console.log(`\nsearching for ${url}`);
-console.log(
-	`posts: ${JSON.stringify(
-		bsky
-			.sort(
-				(a, b) =>
-					new Date(a.data.indexedAt).getTime() -
-					new Date(b.data.indexedAt).getTime(),
-			)
-			// // @ts-expect-error: weird type fuckery
-			.filter((it) =>
-				JSON.stringify(it.data).includes("https://sakurakat.systems"),
-			)
-			.map((it) => it.data),
-		null,
-		2,
-	)}`,
-);
+// console.log(`\nsearching for ${url}`);
+// console.log(
+// 	`posts: ${JSON.stringify(
+// 		bsky
+// 			.sort(
+// 				(a, b) =>
+// 					new Date(a.data.indexedAt).getTime() -
+// 					new Date(b.data.indexedAt).getTime(),
+// 			)
+// 			// // @ts-expect-error: weird type fuckery
+// 			.filter((it) =>
+// 				JSON.stringify(it.data).includes("https://sakurakat.systems"),
+// 			)
+// 			.map((it) => it.data),
+// 		null,
+// 		2,
+// 	)}`,
+// );
 
 // get first post (sorted by indexedAt) with url in embed.external.uri
 const post = bsky

@@ -880,8 +880,8 @@ I started with the Typix template and removed most of what I didn't need.
 
 ```nix
 let
-  frameStart = 0;
-  frameEnd = 100;
+  framesStart = 0;
+  framesEnd = 100;
 
   build-frame =
     t:

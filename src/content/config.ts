@@ -4,6 +4,21 @@ import { file, glob } from "astro/loaders";
 import toml from "toml";
 import { blueskyConfig } from "../config.ts";
 
+export const Tilslut = z.array(
+	z.object({
+		title: z.string(),
+		by: z.string(),
+		type: z.string(),
+		url: z.string().url(),
+		comment: z.string(),
+		links: z.array(z.object({
+			link: z.string().url(),
+			text: z.string(),
+		})).default([]),
+		imageLink: z.string().url().nullable(),
+		imageAlt: z.string().nullable(),
+	}));
+
 const blogCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
@@ -30,21 +45,7 @@ const blogCollection = defineCollection({
 				}),
 			)
 			.default([]),
-		tilslut: z.array(
-			z.object({
-				title: z.string(),
-				by: z.string(),
-				type: z.string(),
-				url: z.string().url(),
-				comment: z.string(),
-				links: z.array(z.object({
-					link: z.string().url(),
-					text: z.string(),
-				})).default([]),
-				imageLink: z.string().url().nullable(),
-				imageAlt: z.string().nullable(),
-			})
-		).default([]),
+		tilslut: Tilslut.default([]),
 	}),
 });
 

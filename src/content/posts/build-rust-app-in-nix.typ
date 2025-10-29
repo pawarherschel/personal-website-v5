@@ -81,7 +81,7 @@ Alright, so bear with me. Usually I ask a human, but this is a specific enough r
 
 I started by asking Gemini what I need to do to build a Rust package from source in Nix.
 
-Gemini said I need to add `flake.nix` to the root of the project, but in my case I want to download the source code from GitHub. When I said that, it mentioned `pkgs.fetchFromGitHub`.
+Gemini said I need to add `flake.nix` to the root of the project, but in my case I want to download the source code from GitHub. When I said that, it mentioned ```nix pkgs.fetchFromGitHub```.
 
 Alright, that's my first step then.
 
@@ -164,7 +164,7 @@ I didn't know how to run the file, so I asked Gemini because it's a specific thi
 
 It gave me the command
 Which tracks with
-#link("https://dmarcoux.com/posts/hash-in-nix-packages/#:~:text=NixOS%20configuration%20with-,callPackage%20./your_package_file.nix%20%7B%7D,-.%20The%20build")[`callPackage ./your_package_file.nix {}` on Dany Marcoux | Use lib.fakeHash as a Placeholder for Hashes in Nix Packages],
+#link("https://dmarcoux.com/posts/hash-in-nix-packages/#:~:text=NixOS%20configuration%20with-,callPackage%20./your_package_file.nix%20%7B%7D,-.%20The%20build")[```nix callPackage ./your_package_file.nix {}```  on Dany Marcoux | Use lib.fakeHash as a Placeholder for Hashes in Nix Packages],
 so I ran the command and waited.
 
 = Error: failed to run custom build command for `ffmpeg-sys-next v7.1.3`
@@ -173,7 +173,7 @@ Ono
 
 Let's read the stack trace!
 
-```
+```typc
   thread 'main' panicked at /build/tanim-unstable-vendor/ffmpeg-sys-next-7.1.3/build.rs:1035:14:
   called `Result::unwrap()` on an `Err` value: Could not run `PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags libavutil`
   The pkg-config command could not be found.
@@ -186,9 +186,8 @@ Let's read the stack trace!
   directories in the PATH environment variable.
 ```
 
->Try `apt install pkg-config`
-
-Hmm, it seems to need `pkg-config`.
+>Try ```bash apt install pkg-config```
+I'm gonna assume it means `pkg-config` is missing.
 
 After searching around for a bit I found #link("https://discourse.nixos.org/t/how-to-add-pkg-config-file-to-a-nix-package/8264/3")[How to Add pkg-config file to a Nix Package? on NixOS Discourse].
 
@@ -256,7 +255,7 @@ I searched for how to add it to `buildInputs` but couldn't find anything via Duc
 
 Error again:
 
-```
+```typc
   thread 'main' panicked at /build/tanim-unstable-vendor/bindgen-0.70.1/lib.rs:622:27:
   Unable to find libclang: "couldn't find any valid shared libraries matching: ['libclang.so', 'libclang-*.so', 'libclang.so.*', 'libclang-*.so.*'], set the `LIBCLANG_PATH` environment variable to a path where one of these files can be found (invalid: [])"
   note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
@@ -277,7 +276,7 @@ which itself had the comment #link("https://github.com/NixOS/nixpkgs/pull/67725#
 Then #link("https://github.com/NixOS/nixpkgs/pull/85489")[LIBCLANG_PATH hook [updated] \#85489 on GitHub] finally had something:
 
 ```nix
-buildInputs = [ libclang ];
+bulidInputs = [ libclang ];
 ```
 
 but that didn't work.
@@ -403,9 +402,9 @@ Add package to dev shell
         };
 ```
 
-Do `nix develop` and wait for the first error.
+Do ```bash nix develop``` and wait for the first error.
 
-... ... and we get it
+...... and we get it
 
 Let's try this for now
 
@@ -428,7 +427,7 @@ Let's try this for now
 
 Now it can't find `libclang`, so I'm making progress.
 
-If I use `rustPlatform.bindgenHook` directly, it can't find it, so let's use `pkgs.rustPlatform.bindgenHook`
+If I use ```nix rustPlatform.bindgenHook``` directly, it can't find it, so let's use ```nix pkgs.rustPlatform.bindgenHook```
 
 ```diff
              pkgs.llvmPackages_latest.llvm
@@ -438,7 +437,7 @@ If I use `rustPlatform.bindgenHook` directly, it can't find it, so let's use `pk
            ];
 ```
 
-and we successfully have it in our `$PATH` now 🎉🎉🎉
+and we successfully have it in our ```bash $PATH``` now 🎉🎉🎉
 
 = Proper way to add packages to dev shell
 
@@ -624,9 +623,9 @@ Naersk also uses fenix, so I should make it follow the fenix I have in my flake 
 +   };
 ```
 
-Aaaaaand it should just work? Let's try `bash nix develop`.
+Aaaaaand it should just work? Let's try ```bash nix develop```.
 
-It successfully builds, but if I run `bash tanim-cli --help`, it complains that `libavutil.so.59` isn't present.
+It successfully builds, but if I run ```bash tanim-cli --help```, it complains that `libavutil.so.59` isn't present.
 
 Huh, weird. Let's try executing `ffmpeg`.
 ```text
@@ -672,7 +671,7 @@ nu
 echo $env
 ```
 
-It prints out a lot of stuff; reading from the top, `$NIX_LDFLAGS` seems interesting.
+It prints out a lot of stuff; reading from the top, ```bash $NIX_LDFLAGS``` seems interesting.
 
 Going back to bash
 ```bash
@@ -719,7 +718,7 @@ After reading the changed files, I think the change to `RUSTFLAGS` is important
         };
 ```
 
-Run `bash nix develop` and `bash tanim-cli --frames 0..=120 --output example.mp4 example.typ`
+Run ```bash nix develop``` and ```bash tanim-cli --frames 0..=120 --output example.mp4 example.typ```
 
 and it works again! :3
 
@@ -816,7 +815,7 @@ and it works again! :3
 
 If you read the code above (first off, thank you?), you probably noticed an extra export: `apps`.
 
-The app is what runs when you do `nix run`. If you don't feel like cloning the flake, you can just run:
+The app is what runs when you do ```bash nix run```. If you don't feel like cloning the flake, you can just run:
 ```bash
 nix run github:pawarherschel/tanim-flake
 ```

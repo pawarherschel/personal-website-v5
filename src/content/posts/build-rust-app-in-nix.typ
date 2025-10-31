@@ -21,7 +21,7 @@
     "Rust",
   ),
   category: "Programming",
-  proofreaders: (proofreaders-list.divyesh,),
+  proofreaders: (proofreaders-list.divyesh, proofreaders-list.ash),
   tilslut: (
     tilslut-entry(
       title: "Replacing a running Linux system with NixOS over SSH",
@@ -29,7 +29,7 @@
       url: "https://crescentro.se/posts/ssh-nixos/",
       type: tilslut-type.blogpost,
       comment: "
-        Fun read about how to replace a traditional distro with NixOS and it also explains how nixos-anywhere might work.
+        Fun read about how to replace a traditional distro with NixOS and it also explains how nixos-anywhere [1] might work.
       ",
       links: (
         link(
@@ -43,13 +43,34 @@
       url: "https://bernsteinbear.com/blog/nix-by-hand/",
       type: tilslut-type.blogpost,
       comment: "
-        In this blogpost itself I mentioned the weird way to get hash, and I don't like relying on \"magic\" like that. Max's blogpost shows how the hash is calculated and removed the mystery. Even if I'm never going to calculate the hash by hand, It's good to know there's something I can refer back to if I ever need to.
+        In this blogpost itself [1] I mentioned the weird way to get hash, and I don't like relying on \"magic\" like that. Max's blogpost shows how the hash is calculated and removed the mystery. Even if I'm never going to calculate the hash by hand, It's good to know there's something I can refer back to if I ever need to.
       ",
       links: (
         link(
           "https://sakurakat.systems/posts/build-rust-app-in-nix/#finding-the-hash",
         )[Finding the hash],
       ),
+    ),
+    tilslut-entry(
+      title: "I got rescued while filming a TV show",
+      by: "Beau Miles",
+      url: "https://www.youtube.com/watch?v=qwymos8oDrI",
+      type: tilslut-type.youtube,
+      comment: "I originally found Beau via a (admittedly) stupid video [1] where he ate canned beans for over a month, and his cinematography captivated me. His voice, the narration, videography -- everything. It tickles a part of my brain I didn't even know existed. In this video, he shows some behind the scenes of a TV series for Red Bull which is very different from his usual style of making videos. I personally think this video helps show how professional extreme sports athletes are able to do what they do. After he fucks up, Nouria Newman, the woman he was interviewing, not only command him what NOT to do, she also grabs the kayak and the paddle and brings everything back to safety while staying calm and collected. Nouria shows how mastery allows you to handle so much shit going wrong, and how Beau's instincts were completely wrong.",
+      links: (
+        link("https://www.youtube.com/watch?v=RYsTlfhDSDY")[
+          40 days eating only canned beans (191 tins) by Beau Miles on YouTube
+        ]
+      ),
+    ),
+    tilsut-entry(
+      url: "https://www.youtube.com/watch?v=a8mRGkGlLJA",
+      title: "7 Techniques to INSTANTLY Upgrade Your Vegetables",
+      by: "Brian Lagerstrom",
+      type: tilslut-type.youtube,
+      comment: "
+
+      ",
     ),
   ),
 )
@@ -59,7 +80,7 @@ If you've seen #youtube-channel([3Blue1Brown on YouTube], "3Blue1Brown"), then y
 
 #github-card("manimCommunity/manim")
 
-I had always wished for something similar for #typst()#rust-btw(pre: "written in ", post: [ -- totally not biased lol]).
+I had always wished for something similar for #typst() #rust-btw(pre: "written in ", post: [ -- totally not biased lol]).
 
 So when I saw that LiquidHelium had created a thread in the Typst Discord channel titled "tanim: animation, but with typst," I got very excited.
 
@@ -88,7 +109,7 @@ Alright, that's my first step then.
 I searched for `fetchFromGitHub` and found
 #link("https://ryantm.github.io/nixpkgs/builders/fetchers/")[Fetchers | nixpkgs].
 
-I'm not sure why the official repo doesn't have it deployed, but sure-I'll just use this version I found. It's very useful.
+I'm not sure why the official repo doesn't have it deployed, but sure -- I'll just use this version I found. It's very useful.
 
 `fetchFromGitHub` is a function that downloads a repo from GitHub.
 

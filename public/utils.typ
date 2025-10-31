@@ -477,13 +477,21 @@
     ),
     comments: (
       [I met Divyesh during college while volunteering for out college's chapter of IEEE. Ever since then we've been collaborating and teaching each other whatever we come across.],
-      [Divyesh likes to read -- at least for me -- complicated books, and is into a lot of niche music.],
+      [Divyesh likes to read complicated (at least for me) books, and is into a lot of niche music.],
     ),
   ),
   andrew: (
     name: "Andrew",
     shills: (
       link("https://codeberg.org/Andrew15-5")[Codeberg],
+    ),
+  ),
+  ash: (
+    name: "Ash",
+    comments: (
+      [I met Ash during one of the FOSS Mumbai meetups and we yapped about game dev.],
+      [Funnily enough, Ash isn't a compsci student, they know a lot about computers as they're cursed with bad technology. They are used to low end computers and had to learn more about them just to use them. When I met them, they were running Arch.],
+      [They're into motorcycles, racing (iirc their favorite is rally car racing), they also take part in mapping for #link("https://www.openstreetmap.org/")[OpenStreetMap].],
     ),
   ),
 )
@@ -493,6 +501,7 @@
 #let tilslut-type = (
   blogpost: "blogpost",
   no-type: "no type",
+  youtube: "youtube",
 )
 
 #let tilslut-entry(
@@ -741,9 +750,13 @@
               #let comments = entry.at("comments", default: ())
 
               == #name
-              #for comment in comments [#comment\n]
+              #for comment in comments [
+                - #comment
+              ]
               === Links
-              #for shill in shills [- #shill]
+              #for shill in shills [
+                - #shill
+              ]
             ]
           }
         ]

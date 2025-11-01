@@ -60,10 +60,10 @@
       links: (
         link("https://www.youtube.com/watch?v=RYsTlfhDSDY")[
           40 days eating only canned beans (191 tins) by Beau Miles on YouTube
-        ]
+        ],
       ),
     ),
-    tilsut-entry(
+    tilslut-entry(
       url: "https://www.youtube.com/watch?v=a8mRGkGlLJA",
       title: "7 Techniques to INSTANTLY Upgrade Your Vegetables",
       by: "Brian Lagerstrom",

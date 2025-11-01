@@ -56,7 +56,7 @@
       by: "Beau Miles",
       url: "https://www.youtube.com/watch?v=qwymos8oDrI",
       type: tilslut-type.youtube,
-      comment: "I originally found Beau via a (admittedly) stupid video [1] where he ate canned beans for over a month, and his cinematography captivated me. His voice, the narration, videography -- everything. It tickles a part of my brain I didn't even know existed. In this video, he shows some behind the scenes of a TV series for Red Bull which is very different from his usual style of making videos. I personally think this video helps show how professional extreme sports athletes are able to do what they do. After he fucks up, Nouria Newman, the woman he was interviewing, not only command him what NOT to do, she also grabs the kayak and the paddle and brings everything back to safety while staying calm and collected. Nouria shows how mastery allows you to handle so much shit going wrong, and how Beau's instincts were completely wrong.",
+      comment: "I originally found Beau through an admittedly stupid video [1] where he ate canned beans for over a month, and his cinematography captivated me -- his voice, the narration, the videography -- everything. It tickles a part of my brain I didn't even know existed. In this video, he shows some behind-the-scenes of a TV series for Red Bull, which is very different from his usual style. I think this video shows how professional extreme sports athletes do what they do. After he messes up, Nouria Newman, the woman he was interviewing, not only commands him on what to do, what not to do, but she also grabs the kayak and the paddle and brings everything back to safety while staying calm and collected. Nouria shows how mastery lets you handle so much going wrong, and how Beau's instincts were completely off.",
       links: (
         link("https://www.youtube.com/watch?v=RYsTlfhDSDY")[
           40 days eating only canned beans (191 tins) by Beau Miles on YouTube
@@ -69,8 +69,22 @@
       by: "Brian Lagerstrom",
       type: tilslut-type.youtube,
       comment: "
+        I love how he's teaching how to make individual veggies taste good. I don't want to rely on meat to make food taste good. I like veggies. If you follow me on Bluesky, you've probably seen me post the soups I make and then how I use the soup for pasta or noodles or whatever later on. I'm also a fan of how Ethan Chlebowski talks about food [1]. Brian's video shows how to make the individual components taste good so you don't need to rely on recipes.
 
+        I feel recipes are too restrictive. They're great when you're starting out and getting a feel for cooking so you build good instincts, but I don't think they're great for the long term. I've seen people complain about buying a whole cabbage for a specific recipe and then having to throw out 3/4th of it because no other recipe uses it. There are apps that help you plan a whole week's worth of meals upfront, and I think they're great, but I don't want to rely on a service that might go down anytime.
+
+        I want to be able to go to the veggie market, see what vibes with me that day, buy the veggies, and use them. My mom often complains that I don't have recipes for what I want; I think it's better this way. It would be better if I planned the meal upfront and didn't make stuff up based on what I want at that moment, but it's fine. I feel like this style of cooking is just how my brain works. Maybe this is why I like programming. Recipes feel like strict top-to-bottom checklists and procedures, like a preflight checklist for airplanes. I want to use what I have on hand. I'm not working in the food industry; I'm cooking for myself.
+
+        I know there's something like \"complementary protein\", or \"complete food\", with pairings that make it hard to end up with nutritional imbalances-similar to [2]. I should have something like that for myself for a week's worth of meals, but I'm too lazy to set it up.
       ",
+      links: (
+        link(
+          "https://www.youtube.com/watch?v=srMEoe_5y6g",
+        )[Why Recipes are holding you back from learning how to cook by Ethan Chlebowski on YouTube],
+        link(
+          "https://www.health.harvard.edu/nutrition/nutritional-power-couples",
+        )[Nutritional power couples - Harvard Health],
+      ),
     ),
   ),
 )
@@ -854,7 +868,7 @@ Let's have some fun! Since I've already procrastinated on this post, I'll keep t
 From what I can tell, `tanim-cli` doesn't do anything too special.
 It uses the convention that `t` is the frame number and stitches the frames together.
 
-So I figured, let's do that with flakes.
+So I figured, let's remake it with nix flakes!
 
 == Configure Typst
 

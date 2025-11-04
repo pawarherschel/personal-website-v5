@@ -11,10 +11,11 @@ import { Icon } from "astro-icon/components";
 import { licenseConfig } from "src/config";
 import BlueskyLikes from "../../components/bluesky/BlueskyLikes.astro";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
-import SocialShare from "../../components/widget/SocialShare.astro";
 import PostMetadata from "../../components/PostMeta.astro";
-import { profileConfig, siteConfig } from "../../config";
-import { formatDateToYYYYMMDD } from "../../utils/date-utils";
+import SocialShare from "../../components/widget/SocialShare.astro";
+import { profileConfig, siteConfig } from "@/config.ts";
+import { formatDateToYYYYMMDD } from "@utils/date-utils.ts";
+import TILSLUT from "../../components/widget/TILSLUT.astro";
 
 export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();
@@ -26,13 +27,14 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const o = await entry.render();
-const { Content, remarkPluginFrontmatter } = o
+const { Content, remarkPluginFrontmatter } = o;
 let headings;
 if (o.headings.length === 0) {
-    headings = remarkPluginFrontmatter.headings ?? []
+	headings = remarkPluginFrontmatter.headings ?? [];
 } else {
-    headings = o.headings;
+	headings = o.headings;
 }
+const tilslut = entry.data.tilslut;
 
 const jsonLd = {
 	"@context": "https://schema.org",
@@ -121,6 +123,8 @@ const jsonLd = {
 
     <SocialShare description={entry.data.description} title={entry.data.title + ` by "${profileConfig.name}" (${licenseConfig.name})`}/>
 
+	<TILSLUT tilslut={tilslut}></TILSLUT>
+
     <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
         <a href={entry.data.nextSlug ? getPostUrlBySlug(entry.data.nextSlug) : "#"}
            class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !entry.data.nextSlug}]}>
@@ -142,7 +146,5 @@ const jsonLd = {
             </div>}
         </a>
     </div>
-
     <BlueskyLikes/>
-
 </MainGridLayout>

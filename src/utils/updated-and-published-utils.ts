@@ -1,6 +1,7 @@
 import { exec as execCb } from "node:child_process";
-import { stat, access } from "node:fs/promises";
+import { access, stat } from "node:fs/promises";
 import util from "node:util";
+
 const exec = util.promisify(execCb);
 
 async function isDir(path: string) {
@@ -60,33 +61,55 @@ export async function getUpdatedAndPublishedForFilePath(
 
 	let myUpdated = updated;
 	let myPublished = published;
+	const debug = false;
 
 	let path = file;
 	if (path.startsWith("/")) {
+		if(debug){
+			console.debug(`removing "/" from start of "${path}"`);
+		}
 		path = path.slice(1);
 	}
 	if (path.endsWith("/")) {
+		if(debug){
+			console.debug(`removing "/" from end of ${path}`);
+		}
 		path = path.slice(0, path.length - 1);
 	}
-
+	if (!path.includes("posts/")) {
+		if(debug){
+			console.debug(`adding "posts/" to start of ${path}`);
+		}
+		path = `posts/${path}`;
+	}
 	if (!path.includes("src/content/")) {
+		if(debug){
+			console.debug(`adding "src/content/" to start of ${path}`);
+		}
 		path = `./src/content/${path}`;
 	}
 	if (await isDir(path)) {
 		path = `${path}/index.md`;
 	} else if (path.endsWith(".md")) {
+		// Path already has the proper extension
+		// Don't do anything
 	} else if (path.endsWith(".typ")) {
+		// Path already has the proper extension
+		// Don't do anything
 	} else {
-		const exts = [".typ", ".md"]
+		const exts = [".typ", ".md"];
 
-		let ext
+		let ext;
 		for (const e of exts) {
 			try {
-				await access(path + e)
-				ext = e
-			} catch {
-				continue
-			}
+				await access(path + e);
+				ext = e;
+			} catch {}
+		}
+
+		if (ext === undefined) {
+			const extsPrint = exts.map((it) => `"${it}" `).concat();
+			console.error(`path: ${path} not found with any of these: ${extsPrint}`);
 		}
 
 		path = `${path}${ext}`;
@@ -136,8 +159,12 @@ export async function getUpdatedAndPublishedForFilePath(
 		}
 	}
 
-	myUpdated = !myUpdated || Number.isNaN(myUpdated.getDate()) ? new Date() : myUpdated;
-	myPublished = !myPublished || Number.isNaN(myPublished.getDate()) ? new Date() : myPublished;
+	myUpdated =
+		!myUpdated || Number.isNaN(myUpdated.getDate()) ? new Date() : myUpdated;
+	myPublished =
+		!myPublished || Number.isNaN(myPublished.getDate())
+			? new Date()
+			: myPublished;
 
 	cache.set(mapKey, { updated: myUpdated, published: myPublished });
 

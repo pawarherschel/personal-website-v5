@@ -1,0 +1,89 @@
+[lenooby]
+title = "LeNooby09's site"
+desc = "I am a caffeine-fueled developer who codes mainly in Kotlin and has an interest in Cybersecurity. My computers all run Arch Linux(btw)"
+url = "https://lenooby09.tech/"
+button = "https://lenooby09.tech/88x31.png"
+bsky = "did:plc:xocoka6dmx74ciqskczoh6ci"
+
+[jampants]
+title = "The Jamzone"
+desc = "I live in my mind fortress thinking about stuff. Male.\n\nPFP: Jerry Gonzalez"
+url = "https://jampants.net/"
+bsky = "did:plc:stm6fnm6otunfwpnfkfxtr2n"
+
+[xanlol]
+title = "Xan Surnamehere"
+button = "https://xan.lol/img/btn/meta.gif"
+desc = "My name's Xan! ✨ I'm a lover of swaggy software & technology based in the U.S. (oh no). I normally speak in a monotone, but I love making people laugh."
+url = "https://xan.lol/"
+bsky = "did:plc:q7suwaz53ztc4mbiqyygbn43"
+
+[sablesooo]
+title = "Kathryn Moss Portfolio"
+url = "https://sables.ooo/"
+desc = "Amateur St Louis-based Photographer. Kathy does most of her work on film, and a lot of it on medium format"
+bsky = "did:plc:233yvfolrjkgyhe25rgotj6e"
+
+[catra]
+title = "Catra sitting on top of a frowning Adora, her other subs watching while smiling"
+url = "https://catra.top/"
+desc = "Personal account. Trans CatGirl. Rust Programmer. She/it. I like #rustlang"
+bsky = "did:plc:susc6mr26zl3wisqpqvdk33d"
+
+[mlembug]
+title = "mlembug"
+url = "https://mahoushoujobu.com/mlemblog/"
+desc = "A trans woman from Poland. Also known as milleniumbug. Tech witch, amateur translator. Trans translator of \"Magical Trans!\""
+icon = "https://r2.sakurakat.systems/friends--mlembug.png"
+
+[freyja-lynx]
+bsky = "did:plc:gormnems4iydljgsojdyvpvt"
+title = "freyja-lynx.dev"
+url = "https://freyja-lynx.dev/"
+desc = "pre-seed transsexual disaster 🇮🇪🏴. wildcat sysadmin. radical self efficacy"
+
+[astra]
+title = "💜 astra's space! 💜"
+url = "https://astrra.space/"
+desc = "i'm 🌟astra!🌟 and this is my home[page]. i like eating computers and touching tasty treats... wait no that's not right"
+icon = "https://astrra.space/home/services-logo-240.png"
+
+[ari]
+title = "Home of Ari"
+url = "https://ari.express/"
+desc = "Part of \"The Digital Coven\". I do art. Stream very occasionally on Twitch. Know a bit about a lot of webdev technologies, but Deno/TS/Svelte is my one true love <3"
+bsky = "did:plc:64uzkaydbwywtrvn7ogol22r"
+button = "https://ari.express/assets/Button.png"
+
+[witchcraft]
+title = "Witchcraft Systems"
+url = "https://witchcraft.systems/"
+desc = "We are a group of entities practicing digital magic, and this host is the primary location for our activities. Brought to you by ari, astra, and casey!"
+bsky = "did:web:witchcraft.systems"
+button = "https://ari.express/assets/PWsbutton.png"
+
+[bigcheese]
+title = "Sender Silent"
+url = "https://www.sendersilent.com/"
+desc = "Sender Silent is a writing project many years in the making. The writing here is new, but the lore that informs it draws from decades of my own work."
+icon = "https://www.sendersilent.com/static/favicon-192.png"
+
+[aria]
+title = "Aria"
+url = "https://aria.coffee/"
+desc = "A cyborg witch and somehow also a basic t-girl and a subpar nerd.\nShe/Her 23 🏳️‍⚧️ call me Aria or Mojo~"
+icon = "https://aria.coffee/apple-touch-icon.png"
+button = "https://aria.coffee/static/img/buttons/aria.gif"
+
+[aruio]
+title = "Entropy | AruSahni.net"
+url = "https://arusahni.net/blog/"
+desc = "A hoopy frood, believer in the open web."
+bsky = "did:plc:k6iz3efpj4prqkincrejjkew"
+
+[isabel]
+title = "isabel"
+url = "https://isabelroses.com/"
+bsky = "did:plc:qxichs7jsycphrsmbujwqbfb"
+button = "https://isabelroses.com/badges/me.gif"
+desc = "black magic-practitioning nix witch"

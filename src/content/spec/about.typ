@@ -641,11 +641,39 @@ The hospital scene sent shivers down my spine, I was actually scared and immerse
   )[[image or embed]],
 )
 
+I fuck around, I find out.\
+I don't fuck around, I still find out.
+
+Might as well just fuck around which requires initiative from my side, which makes me feel more in control and in touch with reality.
+
+
 == 2025-06-26: (Quote) (YouTube) How I would learn to cook if I could start over. by Ethan Chlebowski
 
 https://youtu.be/T8CK9aIqy20
 
-I can't start from scratch, but I can start from today
+#quote[I can't start from scratch, but I can start from today"]
+
+I've always thought that the topics "What I would do if I started X today" made sense.
+While yes, hindsight gives a lot of lessons,
+but I wouldn't be me without all those mistakes.
+
+On the other hand, the way Ethan phrased it makes complete sense to me.
+
+It's never too late to pick up a new hobby,\
+it's never late to start doing the right thing,\
+
+The only time it'll be too late, is when I'm dead.
+
+So might as well just start today,\
+Who cares?\
+Gatekeeping is for chuds.
+
+Be kind.
+
+For what it's worth; the only line from #link("https://letterboxd.com/film/superman-2025/")[Superman (2025) Directed by James Gunn] which hit me was something similar to "kindness is the new punk rock".\
+And I hope it is.
+
+I want people to become kinder to everyone, including themselves.
 
 == 2025-06-24: (Quote) The Who Cares Era by Dan Sinker
 
@@ -722,7 +750,7 @@ I will grow old and watch them mald.\
 
 == 2025-05-28: (YouTube) Burn after watching by a_lilian
 
-https://www.youtube.com/watch?v=7UYL1ggFSmY
+https://www.youtube.com/watch?v=-IargH0hL-s
 
 "Bear with me"
 "Burn to stay alive"
@@ -739,7 +767,7 @@ It's a reminder to myself; to do whatever it takes,
 just to survive one more day on this dying planet.
 
 You might've noticed my interests seem to be all over the place,
-I just from one topic to another,
+I jump from one topic to another,
 it feeds me.
 It gives me a reason to live,
 and not just survive by staying alive.

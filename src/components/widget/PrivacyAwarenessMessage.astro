@@ -1,0 +1,28 @@
+---
+
+interface Props {
+	classList?: string;
+
+}
+
+const  {classList} = Astro.props;
+
+---
+
+<div id="tracking-awareness-message" class:list={["font-bold text-90 text-[var(--text-color)]", classList]}>
+	<p>This website uses anonymous, non-persistent tracking out of sheer curiosity. If you see this message, look into adblockers and privacy blockers.</p>
+</div>
+
+<style>
+    #tracking-awareness-message {
+        display: none;
+        line-height: 1.4em;
+        margin-top: 1.1em;
+        margin-bottom: 1.1em;
+        text-align: justify;
+        hyphens: auto;
+    }
+    :root[style*="--posthog-loaded: true"] #tracking-awareness-message {
+        display: block;
+    }
+</style>

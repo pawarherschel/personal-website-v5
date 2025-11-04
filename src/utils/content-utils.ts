@@ -1,9 +1,11 @@
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
+import { getUpdatedAndPublishedForFilePath } from "@utils/updated-and-published-utils.ts";
 
-export async function getSortedPosts() {
+// // Retrieve posts and sort them by publication date
+async function getRawSortedPosts() {
 	const allBlogPosts = await getCollection("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
@@ -13,6 +15,11 @@ export async function getSortedPosts() {
 		const dateB = new Date(b.data.published ?? new Date());
 		return dateA > dateB ? -1 : 1;
 	});
+	return sorted;
+}
+
+export async function getSortedPosts() {
+	const sorted = await getRawSortedPosts();
 
 	for (let i = 1; i < sorted.length; i++) {
 		sorted[i].data.nextSlug = sorted[i - 1].slug;
@@ -25,7 +32,45 @@ export async function getSortedPosts() {
 
 	return sorted;
 }
+export type PostForList = {
+	slug: string;
+	data: CollectionEntry<"posts">["data"];
+};
+export async function getSortedPostsList(): Promise<PostForList[]> {
+	const sortedFullPosts = await getRawSortedPosts();
 
+	let smfh = new Map<string, { updated: Date; published: Date }>();
+
+	for (const post of sortedFullPosts) {
+		smfh.set(
+			post.slug,
+			await getUpdatedAndPublishedForFilePath(
+				post.slug,
+				post.data.updated,
+				post.data.published,
+			),
+		);
+	}
+
+	// delete post.body
+	const sortedPostsList = sortedFullPosts.map((post) => ({
+		slug: post.slug,
+		data: (() => {
+			let data = post.data;
+
+			const { updated, published } = smfh.get(post.slug) ?? {
+				updated: new Date(),
+				published: new Date(),
+			};
+			data.updated = updated;
+			data.published = published;
+
+			return data;
+		})(),
+	}));
+
+	return sortedPostsList;
+}
 export type Tag = {
 	name: string;
 	count: number;
@@ -37,8 +82,8 @@ export async function getTagList(): Promise<Tag[]> {
 	});
 
 	const countMap: { [key: string]: number } = {};
-	allBlogPosts.map((post: { data: { tags: string[] } }) => {
-		post.data.tags.map((tag: string) => {
+	allBlogPosts.forEach((post: { data: { tags: string[] } }) => {
+		post.data.tags.forEach((tag: string) => {
 			if (!countMap[tag]) countMap[tag] = 0;
 			countMap[tag]++;
 		});
@@ -63,7 +108,7 @@ export async function getCategoryList(): Promise<Category[]> {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
 	const count: { [key: string]: number } = {};
-	allBlogPosts.map((post: { data: { category: string | null } }) => {
+	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
 		if (!post.data.category) {
 			const ucKey = i18n(I18nKey.uncategorized);
 			count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;

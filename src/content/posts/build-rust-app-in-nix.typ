@@ -21,7 +21,13 @@
     "Rust",
   ),
   category: "Programming",
-  proofreaders: (proofreaders-list.divyesh, proofreaders-list.ash),
+  proofreaders: (
+    proofreaders-list.divyesh,
+    proofreaders-list.ash,
+    proofreaders-list.isabel,
+    proofreaders-list.nelind,
+    proofreaders-list.luna,
+  ),
   tilslut: (
     tilslut-entry(
       title: "Replacing a running Linux system with NixOS over SSH",
@@ -120,8 +126,22 @@ Gemini said I need to add `flake.nix` to the root of the project, but in my case
 
 Alright, that's my first step then.
 
+#let isabel-comment(content) = note(title: "isabel's comment", content)
+
 I searched for `fetchFromGitHub` and found
 #link("https://ryantm.github.io/nixpkgs/builders/fetchers/")[Fetchers | nixpkgs].
+#isabel-comment[
+  I appreciate that ryantm's documentation is there. It was created as an experiment for multipage layouts, so it will eventually become a dead link. It's also 2 years out of date, so you should probably link to
+  #link(
+    "https://nixos.org/manual/nixpkgs/stable/#chap-pkgs-fetchers",
+  )[Nixpkgs Reference Manual > fetchers]
+  instead.
+]
+#footnote[
+  One day I'll have a cute conversation-style thingy for comments, not too dissimilar to what fasterthanli.me has here
+  #link("https://fasterthanli.me/articles/engineering-a-rust-optimization-quiz#:~:text=On%20stage%2C%20I%20wore%20a,the%20recording%20like%20a%20trophy.")[Engineering a Rust optimization quiz],
+  but it's going to be a while before I do that.
+]
 
 I'm not sure why the official repo doesn't have it deployed, but sure -- I'll just use this version I found. It's very useful.
 
@@ -152,6 +172,13 @@ rustPlatform.buildRustPackage rec {
 
 Some points for the above code:
 
+#isabel-comment[
+  Your first package has an unused `rec`. IMO `rec` is bad practice, but you can read more about it here:
+  #link("https://github.com/NixOS/nixpkgs/issues/315337")[
+    Documentation: guide for using \`let in\` vs \`rec\` vs \`finalAttrs\` · Issue \#315337 · NixOS/nixpkgs
+  ]
+]
+
 I used `unstable` because tanim itself is not being tagged and released on GitHub with versions.
 
 `rev` is the specific commit I want to download.
@@ -165,6 +192,12 @@ and if so, use the cached output.
 This allows Nix to avoid duplicating work as you might imagine.
 How to find the hash is described in the next section.
 
+#isabel-comment[
+  "hash and cargoHash are SHA-256 hashes" - nitpick here, but they're SRI SHA-256 hashes. You're still right, but, um...
+  #emoji.face.nerd
+  #link("https://www.w3.org/TR/sri/")[Subresource Integrity]
+]
+
 == Finding the hash
 
 There is a convenience function described in a post I found.
@@ -177,6 +210,8 @@ I searched for it and found this resource.
 The usual procedure is to use a fake hash,
 run the file,
 and then replace it with the correct hash given by the command.
+
+#isabel-comment[`lib.fakeHash` is deprecated. You can just use a blank string, i.e., "", to find the hash.]
 
 == Running the file
 
@@ -196,6 +231,16 @@ I didn't know how to run the file, so I asked Gemini because it's a specific thi
 #let nix-build-ctr = counter("nix-build-ctr")
 
 #nix-expr-build(nix-build-ctr)
+
+#isabel-comment[
+  ```bash nix-build -E 'with import <nixpkgs> {}; callPackage ./tanim.nix {}'``` this is cursed on so many levels lol. `nix-build` for legacy, or `nix build` if you have a flake setup, would have worked
+
+  #note(title: "kat's comment")[
+    I think it's pretty common for LLMs to give overly complicated answers, which is why official documentation is still important.
+
+    In this case, it was meant as a stopgap, so I didn't worry about it. It worked well enough. And for me, it really is a stopgap -- it's not the final solution.
+  ]
+]
 
 It gave me the command
 Which tracks with
@@ -249,6 +294,18 @@ Then add it to `nativeBuildInputs`
 +  ];
 }
 ```
+
+#html.elem("section", attrs: (id: "point-6"))[
+  #isabel-comment[
+    Might be worth briefly mentioning nativeBuildInputs usage and dependency propagation.
+    #link(
+      "https://github.com/NixOS/nixpkgs/blob/27e8cfedd302e771e5c3167e100600d656de0f99/doc/stdenv/stdenv.chapter.md?plain=1#L330-L337",
+    )[nixpkgs/doc/stdenv/stdenv.chapter.md at 27e8cfedd302e771e5c3167e100600d656de0f99 · NixOS/nixpkgs]
+    (These files get turned into the nixpkgs manual, but it's hard to refer to the specific lines otherwise.)
+  ]
+]
+
+From what I understand, ```nix nativeBuildInputs``` adds executables needed to build the derivation but not at runtime-for example, cmake, cargo, etc.
 
 #nix-expr-build(nix-build-ctr)
 
@@ -370,6 +427,10 @@ So let's turn the expression into a flake and use Naersk to build the Rust appli
 As I understand it, the benefit of using naersk is that it caches dependencies.
 I avoided using Naersk since fewer moving parts mean fewer complications.
 However, now that I have figured out how to compile the application, I'll do it the proper way by using naersk.
+
+#isabel-comment[
+  "I'll do it the proper way by using naersk." I'd strongly disagree that this is the proper way. naersk only makes sense for really large projects that build a lot in CI -- where your build could take two hours, for example -- and naersk would let you cache parts of the build. Otherwise, I'd stick with the nixpkgs builders.
+]
 
 There's an official template, so initializing the template is easy.
 
@@ -753,6 +814,14 @@ After reading the changed files, I think the change to `RUSTFLAGS` is important
         };
 ```
 
+#isabel-comment[
+  concatMapStringsSep,
+  #link("https://noogle.dev/f/lib/concatMapStringsSep")[
+    lib.concatMapStringsSep - Nix function reference
+  ],
+  is basically the same as using concatStringsSep + map. I'd say it might look a little nicer, too.
+]
+
 Run ```bash nix develop``` and ```bash tanim-cli --frames 0..=120 --output example.mp4 example.typ```
 
 and it works again! :3
@@ -846,6 +915,32 @@ and it works again! :3
 }
 ```
 
+#isabel-comment[
+  I'd also argue for removing flake-utils from the flake. Self-plug:
+  #link(
+    "https://isabelroses.com/blog/im-not-mad-im-disappointed/",
+  )[I'm not mad, I'm disappointed]
+  This also addresses other issues, like `import nixpkgs`, which you do because of the flake template.
+]
+
+== Addendum
+
+#isabel-comment[
+  jump back to
+  #link("#point-6")[previous comment]
+  when you use `propagatedBuildInputs`. Since that's a pretty strong way to pull ffmpeg in, we’d rather use makeWrapper.
+]
+
+So, from what I see, instead of ```nix propagatedBuildInputs```, I should've added something like
+```nix
+nativeBuildInputs = [ pkgs.makeWrapper ];
+
+postInstall = ''
+  wrapProgram "$out/bin/tanim-cli" --prefix PATH : ${lib.makeBinPath [ pkgs.ffmpeg ]}
+''
+```
+to the derivation to make ffmpeg available in ```bash $PATH```.
+
 = Liar, you added more things!
 
 If you read the code above (first off, thank you?), you probably noticed an extra export: `apps`.
@@ -863,7 +958,7 @@ It'll run the binary. Then you can have to pass the rest of the arguments by add
 
 = Recreating a version of tanim
 
-Let's have some fun! Since I've already procrastinated on this post, I'll keep the explanation to a minimum.
+Let's have some fun! Since I haven't been able to work on this post for so long, I'll keep the explanation to a minimum. This section might be confusing.
 
 From what I can tell, `tanim-cli` doesn't do anything too special.
 It uses the convention that `t` is the frame number and stitches the frames together.
@@ -978,6 +1073,10 @@ stitch-frames = pkgs.writeShellApplication {
     "${ffmpeg}/bin/ffmpeg ${frames} ${videoFilter} -c:v libx264 -pix_fmt yuv420p ./output.mp4";
 };
 ```
+
+#isabel-comment[
+  Instead of ```nix ${ffmpeg}/bin/ffmpeg```, you can use ```nix lib.getExe```. But even better, since you're using ```nix pkgs.writeShellApplication```, you can specify the `runtimeInputs`, which is a list of packages used by the shell script.
+]
 
 == Run the script
 

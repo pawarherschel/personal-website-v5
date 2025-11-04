@@ -470,7 +470,6 @@
     name: "None TODO",
   ),
   divyesh: (
-    id: "dpatil",
     name: "Divyesh Patil",
     shills: (
       link("https://www.linkedin.com/in/divyesh-patil-525808257/")[LinkedIn],
@@ -494,9 +493,36 @@
       [They're into motorcycles, racing (iirc their favorite is rally car racing), they also take part in mapping for #link("https://www.openstreetmap.org/")[OpenStreetMap].],
     ),
   ),
+  nelind: (
+    name: "nel",
+    shills: (
+      link("https://www.nel.pet/")[Personal Website],
+      link("https://github.com/nelind3")[GitHub],
+      link("https://tangled.org/@nel.pet")[Tangled],
+      link(
+        "https://bsky.social/profile/did:plc:h5wsnqetncv6lu2weom35lg2",
+      )[BlueSky],
+      link("https://modrinth.com/user/nelind")[modrinth],
+    ),
+  ),
+  isabel: (
+    name: "isabel roses",
+    shills: (
+      link("https://isabelroses.com/")[Personal Website],
+    ),
+    id: "isabel",
+  ),
+  luna: (
+    name: "Luna Perroni",
+    shills: (
+      link("https://github.com/lpchaim")[GitHub],
+      link("https://www.linkedin.com/in/lpchaim")[LinkedIn],
+      link("https://bsky.app/profile/trustmeim.gay")[BlueSky],
+    ),
+  ),
 )
 
-// #let friends = read("../src/content/friends/friends.toml")
+#let friends-toml = toml("../src/content/friends/friends.toml")
 
 #let tilslut-type = (
   blogpost: "blogpost",
@@ -748,14 +774,32 @@
               #let name = entry.at("name")
               #let shills = entry.at("shills", default: ())
               #let comments = entry.at("comments", default: ())
+              #let friends-id = entry.at("id", default: none)
 
               == #name
+              #if friends-id != none [
+                #link(
+                  friends-toml.at(friends-id).at("url"),
+                  friends-toml.at(friends-id).at("desc"),
+                )
+                --
+                (
+                #footnote[
+                  from
+                  #link(
+                    "https://sakurakat.systems/friends/#" + friends-id,
+                  )[Friends' entry]
+                ]
+                )
+              ]
               #for comment in comments [
                 - #comment
               ]
-              === Links
-              #for shill in shills [
-                - #shill
+              #if shills != () [
+                === Links
+                #for shill in shills [
+                  - #shill
+                ]
               ]
             ]
           }
@@ -822,11 +866,18 @@
           #let name = entry.at("name")
           #let shills = entry.at("shills", default: ())
           #let comments = entry.at("comments", default: ())
+          #let friends-id = entry.at("id", default: none)
 
           == #name
+          #if friends-id != none [
+            #let data = friends-toml.at(friends-id)
+            #data
+          ]
           #for comment in comments [#comment]
-          === Links
-          #for shill in shills [- #shill]
+          #if shills != () [
+            === Links
+            #for shill in shills [- #shill]
+          ]
         ]
       }
     }

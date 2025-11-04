@@ -43,7 +43,7 @@ const items = friendsItems.sort((a, b) => a.id < b.id ? -1 : 1);
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 my-4">
                 {items.map((item) => (
-                    <div class="relative group overflow-hidden aspect-[88/31]">
+                    <div class="relative group overflow-hidden aspect-[88/31]" id={item.id}>
                         {
                             !!item.data.button && <Image
                                 loading="lazy"

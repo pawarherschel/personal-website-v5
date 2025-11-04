@@ -37,13 +37,13 @@ desc = "A trans woman from Poland. Also known as milleniumbug. Tech witch, amate
 icon = "https://r2.sakurakat.systems/friends--mlembug.png"
 
 [freyja-lynx]
-bsky="did:plc:gormnems4iydljgsojdyvpvt"
-title="freyja-lynx.dev"
-url="https://freyja-lynx.dev/"
-desc="pre-seed transsexual disaster 🇮🇪🏴. wildcat sysadmin. radical self efficacy"
+bsky = "did:plc:gormnems4iydljgsojdyvpvt"
+title = "freyja-lynx.dev"
+url = "https://freyja-lynx.dev/"
+desc = "pre-seed transsexual disaster 🇮🇪🏴. wildcat sysadmin. radical self efficacy"
 
 [astra]
-title ="💜 astra's space! 💜"
+title = "💜 astra's space! 💜"
 url = "https://astrra.space/"
 desc = "i'm 🌟astra!🌟 and this is my home[page]. i like eating computers and touching tasty treats... wait no that's not right"
 icon = "https://astrra.space/home/services-logo-240.png"
@@ -80,3 +80,10 @@ title = "Entropy | AruSahni.net"
 url = "https://arusahni.net/blog/"
 desc = "A hoopy frood, believer in the open web."
 bsky = "did:plc:k6iz3efpj4prqkincrejjkew"
+
+[isabel]
+title = "isabel"
+url = "https://isabelroses.com/"
+bsky = "did:plc:qxichs7jsycphrsmbujwqbfb"
+button = "https://isabelroses.com/badges/me.gif"
+desc = "black magic-practitioning nix witch"

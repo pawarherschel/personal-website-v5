@@ -1,6 +1,6 @@
 #let page-height = 1572pt
 #let page-width = 3000pt
-#import "utils.typ": data
+#import "./public/utils.typ": data
 
 #set page(
   height: page-height,
@@ -9,7 +9,12 @@
 
 #let (data: slug) = data("other")
 
-#set page(background: [#image("bg.svg", fit: "cover", height: 1fr, width: 100%)])
+#set page(background: [#image(
+    "./public/bg.svg",
+    fit: "cover",
+    height: 1fr,
+    width: 100%,
+  )])
 
 #let fit-text(body, err: 10, max-attempts: 20) = context {
   layout(size => {
@@ -62,4 +67,6 @@
   })
 }
 
-#align(center + horizon, box(height: 50%, width: 50%, fit-text(text(upper(slug)))))
+#align(center + horizon, box(height: 50%, width: 50%, fit-text(text(
+  upper(slug),
+))))

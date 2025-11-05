@@ -88,7 +88,7 @@ export async function GET({ params }: { params: { slug: string } }) {
 	})();
 
 	const compilerArg = {
-		workspace: "./public",
+		workspace: ".",
 		fontArgs: [{ fontPaths: ["./public/fonts"] } satisfies NodeAddFontPaths],
 	} satisfies CompileArgs;
 
@@ -104,20 +104,15 @@ export async function GET({ params }: { params: { slug: string } }) {
 	const svgContentResult = failable(() => typstCompiler.plainSvg(o));
 
 	if (svgContentResult.tag === "err") {
-		return new Response(
+		throw new Error(
 			`Error generating SVG image: Error: ${JSON.stringify(svgContentResult)}\n${JSON.stringify(inputs, null, 3)}`,
-			{
-				status: 500,
-			},
 		);
 	}
 
 	const svgContent = svgContentResult.data;
 
 	if (!svgContent) {
-		return new Response("Error generating SVG image: Content is undefined", {
-			status: 500,
-		});
+		throw new Error("Error generating SVG image: Content is undefined");
 	}
 
 	// if (svgContent.match(oklab)) {
@@ -150,6 +145,8 @@ export async function GET({ params }: { params: { slug: string } }) {
 	// const resvg = new Resvg(svgContent, opts);
 	// const pngData = resvg.render();
 	// const pngBuffer = pngData.asPng();
+
+	// console.log(jpegBuffer)
 	return new Response(jpegBuffer, {
 		headers: { "Content-Type": "image/jpeg" },
 	});

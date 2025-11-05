@@ -1,6 +1,6 @@
 #import "@preview/fontawesome:0.5.0": *
 #import "@preview/cetz:0.4.0"
-#import "utils.typ": (
+#import "./public/utils.typ": (
   data, highlight-color, material, parse-date, row-with-equal-spaces, sep,
   thatched,
 )

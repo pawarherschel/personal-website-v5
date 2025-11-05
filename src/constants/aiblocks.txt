@@ -173,7 +173,6 @@ User-agent: Keyword Density AI
 User-agent: Knowledge
 User-agent: KomoBot
 User-agent: LinerBot
-User-agent: LinkedInBot
 User-agent: LLaMA
 User-agent: LLMs
 User-agent: magpie-crawler

@@ -6,7 +6,6 @@ User-agent: *
 Disallow: /_astro/
 
 ${aiblocks}
-Disallow: /
 
 Sitemap: ${new URL("sitemap-index.xml", import.meta.env.SITE).href}
 `.trim();

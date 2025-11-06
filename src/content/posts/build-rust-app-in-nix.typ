@@ -814,14 +814,6 @@ After reading the changed files, I think the change to `RUSTFLAGS` is important
         };
 ```
 
-#isabel-comment[
-  concatMapStringsSep,
-  #link("https://noogle.dev/f/lib/concatMapStringsSep")[
-    lib.concatMapStringsSep - Nix function reference
-  ],
-  is basically the same as using concatStringsSep + map. I'd say it might look a little nicer, too.
-]
-
 Run ```bash nix develop``` and ```bash tanim-cli --frames 0..=120 --output example.mp4 example.typ```
 
 and it works again! :3
@@ -1056,6 +1048,14 @@ save-frame-paths =
   in
   pkgs.writeText "meow.txt" txt;
 ```
+
+#isabel-comment[
+  concatMapStringsSep,
+  #link("https://noogle.dev/f/lib/concatMapStringsSep")[
+    lib.concatMapStringsSep - Nix function reference
+  ],
+  is basically the same as using concatStringsSep + map. I'd say it might look a little nicer, too.
+]
 
 - Concatenate file paths in the required format with the frame duration
 - Create a text file called "meow.txt" and store it in the Nix store

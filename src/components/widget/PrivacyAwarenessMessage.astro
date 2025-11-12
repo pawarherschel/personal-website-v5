@@ -2,11 +2,9 @@
 
 interface Props {
 	classList?: string;
-
 }
 
-const  {classList} = Astro.props;
-
+const { classList } = Astro.props;
 ---
 
 <div id="tracking-awareness-message" class:list={["font-bold text-90 text-[var(--text-color)]", classList]}>

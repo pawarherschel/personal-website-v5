@@ -21,6 +21,7 @@
     [People who want to more about me],
     [People who want to see what I'm upto],
   ),
+  proofreaders: none,
 )
 
 = Vainglory (or "Who am I?")
@@ -321,6 +322,9 @@ Get better than communication
 + #checkbox(true) June #link("/posts/why-rust/")[Why Rust?]
 + #checkbox(true) July #link("/posts/typst-in-astro/")[Creating Open Graph images using Typst]
 + #checkbox(false) August
++ #checkbox(false) September
++ #checkbox(false) October
++ #checkbox(true) November #link("/posts/build-rust-app-in-nix/")[Nix Flakifying a Native Rust App]
 
 == GitHub contributions (2024)
 
@@ -611,6 +615,30 @@ Everyone deserves to have a safe environment to experiment and learn new things.
 
 Think of this section as media I like to recommend.\
 Sorted in reverse chronological order.
+
+// tilslut-entry(
+//   url: "https://www.youtube.com/watch?v=a8mRGkGlLJA",
+//   title: "7 Techniques to INSTANTLY Upgrade Your Vegetables",
+//   by: "Brian Lagerstrom",
+//   type: tilslut-type.youtube,
+//   comment: "
+//     I love how he's teaching how to make individual veggies taste good. I don't want to rely on meat to make food taste good. I like veggies. If you follow me on Bluesky, you've probably seen me post the soups I make and then how I use the soup for pasta or noodles or whatever later on. I'm also a fan of how Ethan Chlebowski talks about food [1]. Brian's video shows how to make the individual components taste good so you don't need to rely on recipes.
+
+//     I feel recipes are too restrictive. They're great when you're starting out and getting a feel for cooking so you build good instincts, but I don't think they're great for the long term. I've seen people complain about buying a whole cabbage for a specific recipe and then having to throw out 3/4th of it because no other recipe uses it. There are apps that help you plan a whole week's worth of meals upfront, and I think they're great, but I don't want to rely on a service that might go down anytime.
+
+//     I want to be able to go to the veggie market, see what vibes with me that day, buy the veggies, and use them. My mom often complains that I don't have recipes for what I want; I think it's better this way. It would be better if I planned the meal upfront and didn't make stuff up based on what I want at that moment, but it's fine. I feel like this style of cooking is just how my brain works. Maybe this is why I like programming. Recipes feel like strict top-to-bottom checklists and procedures, like a preflight checklist for airplanes. I want to use what I have on hand. I'm not working in the food industry; I'm cooking for myself.
+
+//     I know there's something like \"complementary protein\", or \"complete food\", with pairings that make it hard to end up with nutritional imbalances-similar to [2]. I should have something like that for myself for a week's worth of meals, but I'm too lazy to set it up.
+//   ",
+//   links: (
+//     link(
+//       "https://www.youtube.com/watch?v=srMEoe_5y6g",
+//     )[Why Recipes are holding you back from learning how to cook by Ethan Chlebowski on YouTube],
+//     link(
+//       "https://www.health.harvard.edu/nutrition/nutritional-power-couples",
+//     )[Nutritional power couples - Harvard Health],
+//   ),
+// )
 
 == 2025-07-20: (Live Action) (Series) Moon Knight
 

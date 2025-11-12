@@ -61,9 +61,9 @@ title = "Secondary School Certificate"
 [[projects]]
 date = "April 2024 - Present"
 description = [
-    "A static blog built with Astro that hosts technical posts, tutorials, and write-ups on Rust, Nix, Typst, game-dev postmortems, and site/tooling notes.",
-    "Technical deep-dives and personal retrospectives that mix detailed implementation breakdowns with honest reflections -- long-form, process-oriented posts documenting learning journeys, tool explorations, and creative projects.",
-    "My contribution: Added the ability to author in Typst while being backwards compatible. Wrote blogposts.",
+  "A static blog built with Astro that hosts technical posts, tutorials, and write-ups on Rust, Nix, Typst, game-dev postmortems, and site/tooling notes.",
+  "Technical deep-dives and personal retrospectives that mix detailed implementation breakdowns with honest reflections -- long-form, process-oriented posts documenting learning journeys, tool explorations, and creative projects.",
+  "My contribution: Added the ability to author in Typst while being backwards compatible. Wrote blogposts.",
 ]
 location = "https://sakurakat.systems/posts/"
 society = "Personal"
@@ -74,10 +74,10 @@ visible = true
 [[projects]]
 date = "July 2024"
 description = [
-    "\"Fractured Elements\" is a 2D platformer developed for Coventry University's Summer School Game Jam.",
-    "The main character changes form every few seconds and each form has a unique associated attack.",
-    "Available to play on itch.io (https://pawarherschel.itch.io/fractured-elements)",
-    "My contribution: Worked on game mechanics, character transitions, and attack implementations using Unity and CSharp. Placed 2nd out of 4.",
+  "\"Fractured Elements\" is a 2D platformer developed for Coventry University's Summer School Game Jam.",
+  "The main character changes form every few seconds and each form has a unique associated attack.",
+  "Available to play on itch.io (https://pawarherschel.itch.io/fractured-elements)",
+  "My contribution: Worked on game mechanics, character transitions, and attack implementations using Unity and CSharp. Placed 2nd out of 4.",
 ]
 preview = "https://r2.sakurakat.systems/covuni-experience-banner.jpg"
 society = "Coventry University Summer School '24 Game Jam"
@@ -89,10 +89,10 @@ location = { github = "pawarherschel/CovUniGJ2024" }
 [[projects]]
 date = "2023"
 description = [
-    "A game made for the GMTK Game Jam 2023, the theme was 'Roles Reverse'.",
-    "This is a simple game where the roles from the game Space Invaders are reversed.",
-    "Available to play on itch.io (https://pawarherschel.itch.io/cosmos-conquerors)",
-    "My contribution: Solo developer. Placed 4612nd out of 6703",
+  "A game made for the GMTK Game Jam 2023, the theme was 'Roles Reverse'.",
+  "This is a simple game where the roles from the game Space Invaders are reversed.",
+  "Available to play on itch.io (https://pawarherschel.itch.io/cosmos-conquerors)",
+  "My contribution: Solo developer. Placed 4612nd out of 6703",
 ]
 preview = "https://r2.sakurakat.systems/preview--cosmos-conquerors.png"
 society = "GMTK2023 Game Jam"
@@ -104,8 +104,8 @@ location = { github = "pawarherschel/GMTK2023" }
 [[projects]]
 date = "October 2024"
 description = [
-    "A simple Pong game made with Bevy. It's being used as playground for networking.",
-    "My contribution: Solo developer.",
+  "A simple Pong game made with Bevy. It's being used as playground for networking.",
+  "My contribution: Solo developer.",
 ]
 preview = "https://r2.sakurakat.systems/preview--bevy-pong.png"
 society = "Personal Project"
@@ -117,10 +117,10 @@ location = { github = "pawarherschel/bevy-pong" }
 [[projects]]
 date = "2021"
 description = [
-    "Various simple games made in Godot as Proof of Concepts for learning purposes",
-    "Includes Jump Cat, Meme Invaders, Maze Generation, Pop The Lock, Magical Marshmellow, Game Of Life, Minesweeper, Pong, Snake",
-    "Available at https://github.com/SakuraKat",
-    "My contribution: Developed all the games in Godot",
+  "Various simple games made in Godot as Proof of Concepts for learning purposes",
+  "Includes Jump Cat, Meme Invaders, Maze Generation, Pop The Lock, Magical Marshmellow, Game Of Life, Minesweeper, Pong, Snake",
+  "Available at https://github.com/SakuraKat",
+  "My contribution: Developed all the games in Godot",
 ]
 preview = "https://r2.sakurakat.systems/preview--sakurakat.png"
 society = "Personal Projects"
@@ -132,9 +132,9 @@ location = { github = "SakuraKat" }
 [[projects]]
 date = "2023 - Present"
 description = [
-    "A simple program to find out the various friend circles which might exist via the data collected by VRCX",
-    "Written in Rust, it uses the SQLite database created by VRCX to find out the friend circles",
-    "My contribution: Implemented data-mining algorithms in Rust",
+  "A simple program to find out the various friend circles which might exist via the data collected by VRCX",
+  "Written in Rust, it uses the SQLite database created by VRCX to find out the friend circles",
+  "My contribution: Implemented data-mining algorithms in Rust",
 ]
 preview = "https://r2.sakurakat.systems/preview--vrcx-insights-resized-0.15.jpg"
 society = "Personal Project"
@@ -146,8 +146,8 @@ location = { github = "pawarherschel/vrcx-insights" }
 [[projects]]
 date = "2023 - Present"
 description = [
-    "A simple CLI tool to archive the contents of your booth wishlist. It scrapes the data and compiles it into an Excel spreadsheet for ease of use.",
-    "My contribution: Developed scraping logic, implemented Excel sheet generation",
+  "A simple CLI tool to archive the contents of your booth wishlist. It scrapes the data and compiles it into an Excel spreadsheet for ease of use.",
+  "My contribution: Developed scraping logic, implemented Excel sheet generation",
 ]
 preview = "https://r2.sakurakat.systems/preview--booth-archiver.png"
 society = "Personal Project"
@@ -159,19 +159,19 @@ location = { github = "pawarherschel/booth_archiver" }
 [[projects]]
 date = "December 2024"
 description = [
-    "This repository contains a Cloudflare Workers project that demonstrates the use of Durable Objects to synchronize WebSocket connections.",
-    "It allows clients to send messages to increment, decrement, or get the current value of the counter, and broadcasts the updated counter value to all connected clients.",
-    "My contribution: Built the WebSocket logic, integrated Durable Objects, and ensured real-time synchronization among multiple clients.",
+  "This repository contains a Cloudflare Workers project that demonstrates the use of Durable Objects to synchronize WebSocket connections.",
+  "It allows clients to send messages to increment, decrement, or get the current value of the counter, and broadcasts the updated counter value to all connected clients.",
+  "My contribution: Built the WebSocket logic, integrated Durable Objects, and ensured real-time synchronization among multiple clients.",
 ]
 preview = "https://r2.sakurakat.systems/preview--workers-websocket-durable-objects.png"
 society = "Personal Project"
 tags = [
-    "Cloudflare Workers",
-    "Durable Objects",
-    "WebSocket",
-    "TypeScript",
-    "Real-time Communication",
-    "Serverless",
+  "Cloudflare Workers",
+  "Durable Objects",
+  "WebSocket",
+  "TypeScript",
+  "Real-time Communication",
+  "Serverless",
 ]
 title = "Real-Time WebSocket Synchronization with Durable Objects"
 visible = false
@@ -180,7 +180,7 @@ location = { github = "pawarherschel/workers-durable-object-websocket-synced" }
 [[projects]]
 date = "November 2024"
 description = [
-    "Following a blogpost https://rodrigodd.github.io/2022/11/26/bf_compiler-part3.html",
+  "Following a blogpost https://rodrigodd.github.io/2022/11/26/bf_compiler-part3.html",
 ]
 preview = "https://r2.sakurakat.systems/preview--bf-compiler.png"
 society = "Personal Project"
@@ -192,19 +192,19 @@ location = { github = "pawarherschel/BFCranelift" }
 [[projects]]
 date = "September 2024"
 description = [
-    "A tool to create Krita and GIMP compatible palettes from images by applying color quantization algorithms.",
-    "It generates a `.gpl` palette file and creates a preview image for visual reference. Supports adjustable depth levels for quantization and optional color tolerance settings. View an example here: https://r2.sakurakat.systems/preview--krita-palette-creator.png",
-    "My contribution: Contributed to rosettacode https://rosettacode.org/wiki/Color_quantization#Rust, and implemented color deduplication by using similarity score.",
+  "A tool to create Krita and GIMP compatible palettes from images by applying color quantization algorithms.",
+  "It generates a `.gpl` palette file and creates a preview image for visual reference. Supports adjustable depth levels for quantization and optional color tolerance settings. View an example here: https://r2.sakurakat.systems/preview--krita-palette-creator.png",
+  "My contribution: Contributed to rosettacode https://rosettacode.org/wiki/Color_quantization#Rust, and implemented color deduplication by using similarity score.",
 ]
 preview = "https://r2.sakurakat.systems/preview--krita-palette-creator.png"
 society = "Personal Project"
 tags = [
-    "Rust",
-    "Image Processing",
-    "Color Quantization",
-    "Krita",
-    "GIMP",
-    "CLI Tool",
+  "Rust",
+  "Image Processing",
+  "Color Quantization",
+  "Krita",
+  "GIMP",
+  "CLI Tool",
 ]
 title = "Krita Palette Creator"
 visible = false
@@ -213,10 +213,10 @@ location = { github = "pawarherschel/krita-palette-creator" }
 [[projects]]
 date = "November 2023"
 description = [
-    "Made by following raytracing in a weekend",
-    "Parallelly processes with Rayon and provides progress indication using the Indicatif crate.",
-    "The implementation includes image output in both PPM and PNG formats.",
-    "My contribution: Implemented parallel processing with Rayon and explored cpu-based raytracing",
+  "Made by following raytracing in a weekend",
+  "Parallelly processes with Rayon and provides progress indication using the Indicatif crate.",
+  "The implementation includes image output in both PPM and PNG formats.",
+  "My contribution: Implemented parallel processing with Rayon and explored cpu-based raytracing",
 ]
 preview = "https://r2.sakurakat.systems/preview--raytracer.png"
 society = "Personal Project"
@@ -228,10 +228,10 @@ location = { github = "pawarherschel/raytracinginrust" }
 [[projects]]
 date = "May 2025"
 description = [
-    "Participated in GameDev.tv Game Jam 2025, the theme was 'tiny worlds'",
-    "Collaborated with people, I was the artist for the game",
-    "Available to play on itch.io (https://pixelcreations.itch.io/your-own-size)",
-    "My contribution: Made a dynamic background blur shader so people can appreciate the background art, and contributed some artwork. Placed 78th out of 1010",
+  "Participated in GameDev.tv Game Jam 2025, the theme was 'tiny worlds'",
+  "Collaborated with people, I was the artist for the game",
+  "Available to play on itch.io (https://pixelcreations.itch.io/your-own-size)",
+  "My contribution: Made a dynamic background blur shader so people can appreciate the background art, and contributed some artwork. Placed 78th out of 1010",
 ]
 preview = "https://r2.sakurakat.systems/your-own-size--nerd_room_background.png"
 society = "GameDev.tv Game Jam 2025"
@@ -243,10 +243,10 @@ location = { github = "Let-s-Make-Games/gdtv-jam-2025" }
 [[projects]]
 date = "June 2025"
 description = [
-    "Participated in 'Bevy Jam #6', the theme was 'Chain Reaction'",
-    "Learnt how to use the bevy game engine, and thus, used ECS for the game, created a leaderboard system.",
-    "Available to play on itch.io (https://pawarherschel.itch.io/parrylord)",
-    "My contribution: Solo Developer. Placed 61st out of 98",
+  "Participated in 'Bevy Jam #6', the theme was 'Chain Reaction'",
+  "Learnt how to use the bevy game engine, and thus, used ECS for the game, created a leaderboard system.",
+  "Available to play on itch.io (https://pawarherschel.itch.io/parrylord)",
+  "My contribution: Solo Developer. Placed 61st out of 98",
 ]
 preview = "https://r2.sakurakat.systems/parrylord--cover.png"
 society = "Bevy Jam #6"
@@ -259,8 +259,8 @@ location = { github = "pawarherschel/parrylord" }
 [[others]]
 date = "May 2025"
 description = [
-    "Assets for the game 'Your Own Size'",
-    "My contribution: Wood Tileset, Collectibles, itch.io page background, enemies, background art. Placed 78th out of 1010",
+  "Assets for the game 'Your Own Size'",
+  "My contribution: Wood Tileset, Collectibles, itch.io page background, enemies, background art. Placed 78th out of 1010",
 ]
 location = "https://github.com/pawarherschel/your-own-size-assets"
 preview = "https://r2.sakurakat.systems/your-own-size--nerd_room.png"
@@ -272,10 +272,10 @@ visible = true
 [[others]]
 date = "2021"
 description = [
-    "Created an original character (OC) using VRoid Studio.",
-    "Utilized self-taught Photoshop skills to create textures and assets for the OC.",
-    "VRM file: https://r2.sakurakat.systems/kait.vrm",
-    "My contribution: Modeled the character, customized textures, and refined assets using Photoshop.",
+  "Created an original character (OC) using VRoid Studio.",
+  "Utilized self-taught Photoshop skills to create textures and assets for the OC.",
+  "VRM file: https://r2.sakurakat.systems/kait.vrm",
+  "My contribution: Modeled the character, customized textures, and refined assets using Photoshop.",
 ]
 location = "https://sketchfab.com/3d-models/kait-57e49bfc4c3e4955bdb99b39cf254559"
 preview = "https://r2.sakurakat.systems/preview--kait.png"
@@ -287,8 +287,8 @@ visible = false
 [[others]]
 date = "March 2024"
 description = [
-    "Designed fan art for 'Rust for Lunch', an online meetup attended.",
-    "My contribution: Created the artwork using pixel art tools",
+  "Designed fan art for 'Rust for Lunch', an online meetup attended.",
+  "My contribution: Created the artwork using pixel art tools",
 ]
 location = "https://r2.sakurakat.systems/preview--rfl.png"
 preview = "https://r2.sakurakat.systems/preview--rfl.png"
@@ -300,8 +300,8 @@ visible = false
 [[others]]
 date = "2024"
 description = [
-    "Designed logo for 'Fractured Elements' game within 45 minutes.",
-    "My contribution: Conceptualized and designed the logo using Pixelorama to represent the game's theme.",
+  "Designed logo for 'Fractured Elements' game within 45 minutes.",
+  "My contribution: Conceptualized and designed the logo using Pixelorama to represent the game's theme.",
 ]
 location = "https://r2.sakurakat.systems/preview--fractured-elements-logo.pxo"
 preview = "https://r2.sakurakat.systems/preview--fractured-elements-logo.png"
@@ -313,8 +313,8 @@ visible = true
 [[others]]
 date = "2023"
 description = [
-    "Designed a logo inspired by the creator's online username by combining and editing two emojis.",
-    "My contribution: Blended emojis and refined the design using Adobe Illustrator to create a cohesive logo.",
+  "Designed a logo inspired by the creator's online username by combining and editing two emojis.",
+  "My contribution: Blended emojis and refined the design using Adobe Illustrator to create a cohesive logo.",
 ]
 location = "https://r2.sakurakat.systems/favicon.svg"
 preview = "https://r2.sakurakat.systems/preview--kibty.png"
@@ -345,32 +345,32 @@ visible = true
 
 [[skills]]
 info = [
-    "Rust (Intermediate)",
-    "GDScript (Beginner)",
-    "TypeScript (Beginner)",
-    "Nix (Beginner)",
+  "Rust (Intermediate)",
+  "GDScript (Beginner)",
+  "TypeScript (Beginner)",
+  "Nix (Beginner)",
 ]
 type = "Programming Languages"
 visible = true
 
 [[skills]]
 info = [
-    "Nix (Beginner)",
-    "Typst (Beginner)",
-    "Git (Beginner)",
-    "jj-vcs (Beginner)",
-    "Profiling (Beginner)",
+  "Nix (Beginner)",
+  "Typst (Beginner)",
+  "Git (Beginner)",
+  "jj-vcs (Beginner)",
+  "Profiling (Beginner)",
 ]
 type = "Systems & Tooling"
 visible = true
 
 [[skills]]
 info = [
-    "Docker (Containerization)",
-    "Cloudflare (Hosting)",
-    "NixOS (Linux)",
-    "Web Scraping",
-    "Astro (Web)",
+  "Docker (Containerization)",
+  "Cloudflare (Hosting)",
+  "NixOS (Linux)",
+  "Web Scraping",
+  "Astro (Web)",
 ]
 type = "Familiar Areas"
 visible = true

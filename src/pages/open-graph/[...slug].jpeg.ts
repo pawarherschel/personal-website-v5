@@ -1,17 +1,14 @@
 import { getCollection } from "astro:content";
 import assert from "node:assert";
-import {
-	type CompileDocArgs,
-	type NodeAddFontPaths,
-	NodeCompiler,
-	type NodeTypstDocument,
+import type {
+	CompileDocArgs,
+	NodeTypstDocument,
 } from "@myriaddreamin/typst-ts-node-compiler";
-import type { CompileArgs } from "@myriaddreamin/typst-ts-node-compiler/index-napi";
-import { failable } from "@utils/result-type.ts";
 import { getUpdatedAndPublishedForFilePath } from "@utils/updated-and-published-utils.ts";
 import getReadingTime from "reading-time";
 import sharp, { type SharpOptions } from "sharp";
 import { LinkPreset } from "@/types/config.ts";
+import { typstCompiler } from "@/typstCompiler.ts";
 import _404TemplateStr from "../../../public/404Template.typ?raw";
 import otherTemplateStr from "../../../public/catchAllTemplate.typ?raw";
 import postTemplateStr from "../../../public/template.typ?raw";
@@ -50,7 +47,7 @@ export async function GET({ params }: { params: { slug: string } }) {
 				const words = readingTime.words;
 
 				const { published, updated } = await getUpdatedAndPublishedForFilePath(
-					// @ts-ignore
+					// @ts-expect-error
 					post.filePath,
 					post.data.updated,
 					post.data.published,
@@ -87,13 +84,6 @@ export async function GET({ params }: { params: { slug: string } }) {
 		}
 	})();
 
-	const compilerArg = {
-		workspace: ".",
-		fontArgs: [{ fontPaths: ["./public/fonts"] } satisfies NodeAddFontPaths],
-	} satisfies CompileArgs;
-
-	const typstCompiler = NodeCompiler.create(compilerArg);
-
 	const o = {
 		mainFileContent: template.data,
 		inputs: {
@@ -101,17 +91,19 @@ export async function GET({ params }: { params: { slug: string } }) {
 		},
 	} satisfies NodeTypstDocument | CompileDocArgs;
 
-	const svgContentResult = failable(() => typstCompiler.plainSvg(o));
-
-	if (svgContentResult.tag === "err") {
-		throw new Error(
-			`Error generating SVG image: Error: ${JSON.stringify(svgContentResult)}\n${JSON.stringify(inputs, null, 3)}`,
-		);
+	const maybeSvg = typstCompiler.compile(o);
+	if (maybeSvg.hasError()) {
+		maybeSvg.printDiagnostics();
+		maybeSvg.printErrors();
+		throw maybeSvg;
+	}
+	if (maybeSvg.result == null) {
+		throw maybeSvg;
 	}
 
-	const svgContent = svgContentResult.data;
+	const svg = typstCompiler.plainSvg(maybeSvg.result);
 
-	if (!svgContent) {
+	if (!svg || svg.length === 0) {
 		throw new Error("Error generating SVG image: Content is undefined");
 	}
 
@@ -126,7 +118,7 @@ export async function GET({ params }: { params: { slug: string } }) {
 	// 	);
 	// }
 
-	const sharpInput: sharp.SharpInput = Buffer.from(svgContent, "utf-8");
+	const sharpInput: sharp.SharpInput = Buffer.from(svg, "utf-8");
 	const sharpOpts = {} satisfies SharpOptions;
 	const jpegOpts = {
 		mozjpeg: true,
@@ -147,8 +139,28 @@ export async function GET({ params }: { params: { slug: string } }) {
 	// const pngBuffer = pngData.asPng();
 
 	// console.log(jpegBuffer)
+	// @ts-ignore
 	return new Response(jpegBuffer, {
-		headers: { "Content-Type": "image/jpeg" },
+		headers: {
+			"Content-Type": "image/jpeg",
+			"X-Content-Type-Options": "nosniff",
+			Date: new Date().toUTCString(),
+			"Content-Length": jpegBuffer.byteLength.toString(),
+			ETag: Array.from(
+				new Uint8Array(
+					await crypto.subtle.digest(
+						"SHA-256",
+						// @ts-expect-error
+						jpegBuffer.buffer.slice(
+							jpegBuffer.byteOffset,
+							jpegBuffer.byteOffset + jpegBuffer.length,
+						),
+					),
+				),
+			)
+				.map((b) => b.toString(16).padStart(2, "0"))
+				.join(""),
+		},
 	});
 }
 

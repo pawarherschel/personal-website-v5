@@ -55,7 +55,7 @@ export async function getUpdatedAndPublishedForFilePath(
 
 		// console.log(`(cached) mapKey: ${mapKey}, { updated: ${updated}, published: ${published} }`)
 
-		// @ts-ignore
+		// @ts-expect-error
 		return cache.get(mapKey);
 	}
 
@@ -65,25 +65,25 @@ export async function getUpdatedAndPublishedForFilePath(
 
 	let path = file;
 	if (path.startsWith("/")) {
-		if(debug){
+		if (debug) {
 			console.debug(`removing "/" from start of "${path}"`);
 		}
 		path = path.slice(1);
 	}
 	if (path.endsWith("/")) {
-		if(debug){
+		if (debug) {
 			console.debug(`removing "/" from end of ${path}`);
 		}
 		path = path.slice(0, path.length - 1);
 	}
 	if (!path.includes("posts/")) {
-		if(debug){
+		if (debug) {
 			console.debug(`adding "posts/" to start of ${path}`);
 		}
 		path = `posts/${path}`;
 	}
 	if (!path.includes("src/content/")) {
-		if(debug){
+		if (debug) {
 			console.debug(`adding "src/content/" to start of ${path}`);
 		}
 		path = `./src/content/${path}`;
@@ -171,4 +171,56 @@ export async function getUpdatedAndPublishedForFilePath(
 	// console.log(`mapKey: ${mapKey}, { updated: ${myUpdated}, published: ${myPublished} }`)
 
 	return { updated: myUpdated, published: myPublished };
+}
+
+export async function getLastUpdated(pathFromRoot: string): Promise<Date> {
+	const mapKey = pathFromRoot;
+	if (cache.has(mapKey)) {
+		// const { updated, published } = cache.get(mapKey)
+
+		// console.log(`(cached) mapKey: ${mapKey}, { updated: ${updated}, published: ${published} }`)
+
+		// @ts-expect-error
+		return cache.get(mapKey).updated;
+	}
+	if (!expanded) {
+		{
+			const command = "git fetch --unshallow";
+			console.debug(`${command}`);
+			try {
+				const { stdout: output, stderr: err } = await exec(`${command}`);
+				if (err.trim() !== "") {
+					console.error(`${command} failed with error:\n${err}`);
+					console.error(`${command} failed and produced:\n${output}`);
+				}
+			} catch {
+				console.error("\n'lol, lmao' ~ 🦂");
+			}
+		}
+
+		expanded = true;
+	}
+
+	let myDate;
+	{
+		const command = `git log -1 --pretty="format:%aI"`;
+		// console.debug(`${command} ${path}`);
+		const { stdout: output, stderr: err } = await exec(
+			`${command} ${pathFromRoot}`,
+		);
+		if (err.trim() !== "") {
+			// console.error(`${command} ${path} failed with error:\n${err}`);
+		} else {
+			// console.log(`${output.split(/\s/)[0]}`);
+			myDate = new Date(output);
+			// console.log(`myDate: ${myDate.toDateString()}`);
+		}
+	}
+	myDate = !myDate || Number.isNaN(myDate.getDate()) ? new Date() : myDate;
+
+	cache.set(mapKey, { updated: myDate, published: myDate });
+
+	// console.log(`mapKey: ${mapKey}, { updated: ${myUpdated}, published: ${myPublished} }`)
+
+	return myDate;
 }

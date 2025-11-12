@@ -54,7 +54,10 @@ export default defineConfig({
     },
     integrations: [
         typst({
-            options: {},
+            options: {
+
+            },
+            body: true,
             target: "html",
         }),
     tailwind({

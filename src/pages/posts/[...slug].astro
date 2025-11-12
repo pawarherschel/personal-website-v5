@@ -6,15 +6,15 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@utils/content-utils";
+import { formatDateToYYYYMMDD } from "@utils/date-utils.ts";
 import { getDir, getPostUrlBySlug } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 import { licenseConfig } from "src/config";
+import { profileConfig, siteConfig } from "@/config.ts";
 import BlueskyLikes from "../../components/bluesky/BlueskyLikes.astro";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import SocialShare from "../../components/widget/SocialShare.astro";
-import { profileConfig, siteConfig } from "@/config.ts";
-import { formatDateToYYYYMMDD } from "@utils/date-utils.ts";
 import TILSLUT from "../../components/widget/TILSLUT.astro";
 
 export async function getStaticPaths() {

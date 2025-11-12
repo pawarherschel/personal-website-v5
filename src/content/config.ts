@@ -1,6 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { authorFeedLoader } from "@ascorbic/bluesky-loader";
-import { file, glob } from "astro/loaders";
+import {file, glob} from "astro/loaders";
 import toml from "toml";
 import { blueskyConfig } from "../config.ts";
 
@@ -11,15 +11,21 @@ export const Tilslut = z.array(
 		type: z.string(),
 		url: z.string().url(),
 		comment: z.string(),
-		links: z.array(z.object({
-			link: z.string().url(),
-			text: z.string(),
-		})).default([]),
+		links: z
+			.array(
+				z.object({
+					link: z.string().url(),
+					text: z.string(),
+				}),
+			)
+			.default([]),
 		imageLink: z.string().url().nullable(),
 		imageAlt: z.string().nullable(),
-	}));
+	}),
+);
 
 const blogCollection = defineCollection({
+	loader: glob({pattern: "src/content/posts/*"}),
 	schema: z.object({
 		title: z.string(),
 		published: z.date().optional(),
@@ -57,19 +63,14 @@ const bskyCollection = defineCollection({
 });
 
 const specCollection = defineCollection({
+	loader: glob({pattern: "src/content/spec/*"}),
 	schema: z.object({}),
 });
 
 const friendsCollection = defineCollection({
 	loader: file("src/content/friends/friends.toml", {
 		parser: (it) => {
-			try {
-				toml.parse(it.toString());
-			} catch (e) {
-				console.error(
-					`Parsing error on line ${e.line}, column ${e.column}: ${e.message}`,
-				);
-			}
+			console.log(`${JSON.stringify(toml.parse(it.toString()), null, 2)}`)
 			return toml.parse(it.toString());
 		},
 	}),
@@ -83,9 +84,79 @@ const friendsCollection = defineCollection({
 	}),
 });
 
+const InfoSchema = z.object({
+	email: z.string().email(),
+	github: z.string(),
+	homepage: z.string(),
+	linkedin: z.string(),
+	orcid: z.string(),
+	phone: z.string(),
+});
+
+const CertificateSchema = z.object({
+	date: z.string(),
+	issuer: z.string(),
+	location: z.string(),
+	title: z.string(),
+	url: z.string().url(),
+});
+
+const CVEntry = z.object({
+	date: z.string(),
+	description: z.array(z.string()),
+	location: z.union([
+		z.string(),
+		z.object({
+			github: z.string(),
+		}),
+	]),
+	preview: z.string().url().optional(),
+	society: z.string(),
+	tags: z.array(z.string()).default([]),
+	title: z.string(),
+	visible: z.boolean().default(true),
+	logo: z.string().optional(),
+});
+
+const PublicationSchema = z.object({
+	bibPath: z.string(),
+	keyList: z.array(z.string()),
+	refStyle: z.string(),
+});
+
+const SkillSchema = z.object({
+	info: z.array(z.string()),
+	type: z.string(),
+	visible: z.boolean(),
+});
+
+export const ResumeSchema = z.object({
+	bio: z.string(),
+	location: z.string(),
+	location_line: z.string(),
+	name: z.string(),
+	photo_path: z.string(),
+	show_photo: z.boolean(),
+	info: InfoSchema,
+	certificates: z.array(CertificateSchema),
+	education: z.array(CVEntry),
+	projects: z.array(CVEntry),
+	others: z.array(CVEntry),
+	publications: PublicationSchema,
+	skills: z.array(SkillSchema),
+});
+
+const sotCollection = defineCollection({
+	loader: file("src/content/sot/SOT.toml", {
+		parser: (it) => [{ id: "resume", ...toml.parse(it.toString()) }],
+	}),
+	schema: ResumeSchema,
+});
+
 export const collections = {
 	posts: blogCollection,
 	bsky: bskyCollection,
 	spec: specCollection,
 	friends: friendsCollection,
+	sot: sotCollection,
 };

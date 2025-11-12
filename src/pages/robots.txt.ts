@@ -1,5 +1,5 @@
+import aiblocks from "@constants/aiblocks.txt?raw";
 import type { APIRoute } from "astro";
-import aiblocks from "@constants/aiblocks.txt?raw"
 
 const robotsTxt = `
 User-agent: *
@@ -14,7 +14,10 @@ export const GET: APIRoute = () => {
 	return new Response(robotsTxt, {
 		headers: {
 			"Content-Type": "text/plain; charset=utf-8",
+			"X-Content-Type-Options": "nosniff",
+			Date: new Date().toUTCString(),
+			"Cache-Control": `public, max-age=${24 * 60 * 60}`,
+			"Content-Length": robotsTxt.length.toString(),
 		},
 	});
 };
-

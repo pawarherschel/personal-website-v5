@@ -1,7 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { authorFeedLoader } from "@ascorbic/bluesky-loader";
 import {file, glob} from "astro/loaders";
-import toml from "toml";
 import { blueskyConfig } from "../config.ts";
 
 export const Tilslut = z.array(
@@ -68,12 +67,7 @@ const specCollection = defineCollection({
 });
 
 const friendsCollection = defineCollection({
-	loader: file("src/content/friends/friends.toml", {
-		parser: (it) => {
-			console.log(`${JSON.stringify(toml.parse(it.toString()), null, 2)}`)
-			return toml.parse(it.toString());
-		},
-	}),
+	loader: file("./src/content/friends/friends.toml"),
 	schema: z.object({
 		title: z.string(),
 		desc: z.string(),
@@ -147,9 +141,7 @@ export const ResumeSchema = z.object({
 });
 
 const sotCollection = defineCollection({
-	loader: file("src/content/sot/SOT.toml", {
-		parser: (it) => [{ id: "resume", ...toml.parse(it.toString()) }],
-	}),
+	loader: glob({ pattern: '*.toml', base: './src/content/sot' }),
 	schema: ResumeSchema,
 });
 

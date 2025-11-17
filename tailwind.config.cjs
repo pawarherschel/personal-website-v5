@@ -15,6 +15,15 @@ module.exports = {
 					...defaultTheme.fontFamily.sans,
 				],
 			},
+			keyframes: {
+				'backdrop-blur': {
+					'0%, 100%': { 'backdrop-filter': 'blur(12px)' },
+					'50%': { 'backdrop-filter': 'blur(8px)' },
+				}
+			},
+			animation: {
+				'backdrop-blur': 'backdrop-blur 5s linear infinite'
+			}
 		},
 	},
 	plugins: [require("@tailwindcss/typography")],

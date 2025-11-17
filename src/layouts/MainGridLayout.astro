@@ -15,6 +15,7 @@ import {
 	MAIN_PANEL_OVERLAPS_BANNER_HEIGHT,
 } from "../constants/constants";
 import Layout from "./Layout.astro";
+import {pathsEqual, url} from "@utils/url-utils.ts";
 
 interface Props {
 	title?: string;
@@ -58,6 +59,9 @@ const mainPanelTop = siteConfig.banner.enable
                   src={siteConfig.banner.src} position={siteConfig.banner.position}
     >
     </ImageWrapper>
+    <div
+            class="absolute inset-0 bg-black/20 motion-safe:animate-backdrop-blur motion-reduce:backdrop-blur"
+    ></div>
 </div>}
 
 <!-- Main content -->

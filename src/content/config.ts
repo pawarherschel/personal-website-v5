@@ -139,7 +139,7 @@ export const ResumeSchema = z.object({
 });
 
 const sotCollection = defineCollection({
-	loader: glob({ pattern: '*.json', base: './src/content/sot' }),
+	loader: glob({ pattern: '*.toml', base: './src/content/sot' }),
 	schema: ResumeSchema,
 });
 

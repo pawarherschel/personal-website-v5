@@ -1,4 +1,4 @@
-#let SOT = json("SOT.json")
+#let SOT = toml("SOT.toml")
 
 #let SOT-keys = SOT.keys().map(it => (it, it)).to-dict()
 

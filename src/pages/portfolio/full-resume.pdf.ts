@@ -8,7 +8,7 @@ import type { APIRoute } from "astro";
 import { typstCompiler } from "@/typstCompiler.ts";
 
 export const GET: APIRoute = async ({ request }) => {
-	const lastUpdatedDate = await getLastUpdated("src/content/sot/SOT.json");
+	const lastUpdatedDate = await getLastUpdated("src/content/sot/SOT.toml");
 	const viewMode = new URL(request.url).searchParams.get("view") === "true";
 
 	const inputs = {

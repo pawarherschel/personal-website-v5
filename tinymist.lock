@@ -3,15 +3,15 @@
 version = "0.1.0-beta0"
 
 [[document]]
-font-paths = ["file:../Assets/Fonts", "file:C:/Users/Kat Sakura/FontBase/Providers/Google"]
-id = "file:src/content/posts/trying-typst.typ"
+font-paths = ["file:."]
+id = "file:public/template.typ"
 inputs = []
-main = "file:src/content/posts/trying-typst.typ"
-root = "file:."
+main = "file:public/template.typ"
+root = "file:.."
 system-fonts = true
 
 [[task]]
-document = "file:src/content/posts/trying-typst.typ"
-id = "file:src/content/posts/trying-typst.typ"
-output = "" 
+document = "file:public/template.typ"
+id = "file:public/template.typ"
+type = "export-pdf"
 when = "never"

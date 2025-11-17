@@ -1,9 +1,6 @@
 #import "@preview/fontawesome:0.5.0": *
 #import "@preview/cetz:0.4.0"
-#import "./public/utils.typ": (
-  data, highlight-color, material, parse-date, row-with-equal-spaces, sep,
-  thatched,
-)
+#import "./public/utils.typ": data, highlight-color, material, parse-date, row-with-equal-spaces, sep, thatched
 
 #let (
   data: (
@@ -167,9 +164,7 @@
         })
 
       if tags.len() <= 4 {
-        block(width: 100%, for tag in tags
-          .map(it => box(rect(it)))
-          .intersperse(h(2em)) {
+        block(width: 100%, for tag in tags.map(it => box(rect(it))).intersperse(h(2em)) {
           tag
         })
       } else {

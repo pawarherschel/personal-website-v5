@@ -24,7 +24,6 @@ export const Tilslut = z.array(
 );
 
 const blogCollection = defineCollection({
-	loader: glob({pattern: "src/content/posts/*"}),
 	schema: z.object({
 		title: z.string(),
 		published: z.date().optional(),
@@ -62,7 +61,6 @@ const bskyCollection = defineCollection({
 });
 
 const specCollection = defineCollection({
-	loader: glob({pattern: "src/content/spec/*"}),
 	schema: z.object({}),
 });
 
@@ -141,7 +139,7 @@ export const ResumeSchema = z.object({
 });
 
 const sotCollection = defineCollection({
-	loader: glob({ pattern: '*.toml', base: './src/content/sot' }),
+	loader: glob({ pattern: '*.json', base: './src/content/sot' }),
 	schema: ResumeSchema,
 });
 

@@ -6,10 +6,9 @@ import type {
 import { getLastUpdated } from "@utils/updated-and-published-utils.ts";
 import type { APIRoute } from "astro";
 import { typstCompiler } from "@/typstCompiler.ts";
-import template from "../../content/sot/resume.typ?raw";
 
 export const GET: APIRoute = async ({ request }) => {
-	const lastUpdatedDate = await getLastUpdated("src/content/sot/SOT.toml");
+	const lastUpdatedDate = await getLastUpdated("src/content/sot/SOT.json");
 	const viewMode = new URL(request.url).searchParams.get("view") === "true";
 
 	const inputs = {
@@ -17,7 +16,7 @@ export const GET: APIRoute = async ({ request }) => {
 	};
 
 	const o = {
-		mainFileContent: template,
+		mainFilePath:"src/content/sot/resume.typ",
 		inputs: {
 			data: JSON.stringify(inputs),
 		},

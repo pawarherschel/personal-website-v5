@@ -40,7 +40,10 @@ export default defineConfig({
     site: "https://sakurakat.systems/",
     base: "/",
     trailingSlash: "ignore",
-    experimental: {},
+    experimental: {
+        // csp: true, // needs configuration
+        // failOnPrerenderConflict: true,
+    },
     image: {
         domains: ["r2.sakurakat.systems"],
         responsiveStyles: true,

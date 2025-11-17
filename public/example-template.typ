@@ -115,11 +115,15 @@
       })
 
       // Tags[
-      #stack(dir: ltr, spacing: 1fr, ..(
-        h(1fr),
-        tags.map(it => rect(text(it, size: 0.7em), width: auto)),
-        h(1fr),
-      ).flatten())
+      #stack(
+        dir: ltr,
+        spacing: 1fr,
+        ..(
+          h(1fr),
+          tags.map(it => rect(text(it, size: 0.7em), width: auto)),
+          h(1fr),
+        ).flatten(),
+      )
     ]
   ]
 ]

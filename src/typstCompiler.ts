@@ -6,7 +6,17 @@ import type { CompileArgs } from "@myriaddreamin/typst-ts-node-compiler/index-na
 
 const compilerArg = {
 	workspace: ".",
-	fontArgs: [{ fontPaths: ["./public/fonts"] } satisfies NodeAddFontPaths],
+	fontArgs: [{ fontPaths: ["."] } satisfies NodeAddFontPaths],
 } satisfies CompileArgs;
+
+export const typstCompilerWith = (compileArgs: CompileArgs)=> {
+	const args ={
+		compilerArg,
+		...compileArgs
+	}
+	return NodeCompiler.create(
+		args
+	)
+}
 
 export const typstCompiler = NodeCompiler.create(compilerArg);

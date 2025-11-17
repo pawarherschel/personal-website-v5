@@ -298,9 +298,9 @@
   set text(font: "JetBrains Mono NL", size: 9pt, hyphenate: true)
   set par(
     justify: true,
-    justification-limits: (
-      tracking: (min: -0.02em, max: 0.02em),
-    ),
+    // justification-limits: (
+    //   tracking: (min: -0.02em, max: 0.02em),
+    // ),
     linebreaks: "optimized",
   )
   set highlight(fill: highlight-color)

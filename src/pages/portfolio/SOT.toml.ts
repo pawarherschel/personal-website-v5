@@ -1,6 +1,6 @@
 import { getLastUpdated } from "@utils/updated-and-published-utils.ts";
 import type { APIRoute } from "astro";
-import sot from "../../content/sot/SOT.toml?raw";
+import sot from "../../content/sot/SOT.json?raw";
 
 export const GET: APIRoute = async () => {
 	return new Response(sot, {
@@ -9,7 +9,7 @@ export const GET: APIRoute = async () => {
 			"X-Content-Type-Options": "nosniff",
 			Date: new Date().toUTCString(),
 			"Last-Modified": (
-				await getLastUpdated("src/content/sot/SOT.toml")
+				await getLastUpdated("src/content/sot/SOT.json")
 			).toUTCString(),
 			"Cache-Control": "no-cache, must-revalidate, max-age=0",
 			"Content-Length": sot.length.toString(),

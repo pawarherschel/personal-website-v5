@@ -45,7 +45,7 @@ export default defineConfig({
         // failOnPrerenderConflict: true,
     },
     image: {
-        domains: ["r2.sakurakat.systems"],
+        domains: ["r2.sakurakat.systems", "cdn.bsky.app"],
         responsiveStyles: true,
         layout: "constrained",
         service: {

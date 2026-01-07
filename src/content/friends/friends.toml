@@ -87,3 +87,9 @@ url = "https://isabelroses.com/"
 bsky = "did:plc:qxichs7jsycphrsmbujwqbfb"
 button = "https://isabelroses.com/badges/me.gif"
 desc = "black magic-practitioning nix witch"
+
+[luna-d-dragon]
+title = "Null's Blog"
+url = "https://nullrequest.com/"
+desc = "I'm Luna, on the internet I'm a weird fox that codes. I prefer rust as a language to write programs."
+icon = "https://nullrequest.com/static/images/icon.png"

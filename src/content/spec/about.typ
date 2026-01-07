@@ -11,7 +11,8 @@
 #import "../../../public/utils.typ": (
   argon, atkinson, atkinson-mono, blog-post, bluesky-embed, checkbox,
   faculty-glyphic, fraunces, github-card, img, jetbrains-mono, kalnia, krypton,
-  nanum-myeongjo, neon, note, radon, slugify, to-string, xenon,
+  nanum-myeongjo, neon, note, proofreaders-list, radon, slugify, to-string,
+  xenon,
 )
 
 #show: blog-post.with(
@@ -21,7 +22,10 @@
     [People who want to more about me],
     [People who want to see what I'm upto],
   ),
-  proofreaders: none,
+  proofreaders: (
+    proofreaders-list.divyesh,
+    proofreaders-list.aoshi,
+  ),
 )
 
 = Vainglory (or "Who am I?")
@@ -266,33 +270,35 @@ So went full throttle on it.
 
 And then I hit jackpot.
 
-=== Aalto University
+#let _ = [
+  === Aalto University
 
-For the game development course at Aalto University,
-the primary criteria was projects,
-and not marks.
+  For the game development course at Aalto University,
+  the primary criteria was projects,
+  and not marks.
 
-It screamed to me that they care about passion.
-I thought, "I'm passionate about games".
-Even if it's not game engine development,
-I can still meet and ask help from other professors there.
-If it was anywhere like my experience at Coventry University,
-I would have a great time there.
+  It screamed to me that they care about passion.
+  I thought, "I'm passionate about games".
+  Even if it's not game engine development,
+  I can still meet and ask help from other professors there.
+  If it was anywhere like my experience at Coventry University,
+  I would have a great time there.
 
-I applied,
-had fun in the preliminary tasks,
-and then *horribly fumbled my interview*.
-During the whole admission process I realized how bad I am at everything.
-I knew I was most probably going to get rejected.
+  I applied,
+  had fun in the preliminary tasks,
+  and then *horribly fumbled my interview*.
+  During the whole admission process I realized how bad I am at everything.
+  I knew I was most probably going to get rejected.
 
 
-=== Now (2025-05-07)
+  === Now (2025-05-07)
 
-The reason
-they gave for rejecting me in the email was lack of teamwork
-and not enough game projects or at least 3D game projects.
+  The reason
+  they gave for rejecting me in the email was lack of teamwork
+  and not enough game projects or at least 3D game projects.
 
-So just trying my best to improve everything!
+  So just trying my best to improve everything!
+]
 
 = Insatiability (or "What do I want to achieve?")
 
@@ -325,6 +331,7 @@ Get better than communication
 + #checkbox(false) September
 + #checkbox(false) October
 + #checkbox(true) November #link("/posts/build-rust-app-in-nix/")[Nix Flakifying a Native Rust App]
++ #checkbox(false) December
 
 == GitHub contributions (2024)
 
@@ -353,6 +360,8 @@ and now I want to pass the inspiration to others.
 
 I've barely scratched the surface of what's possible with NixOS,
 and Nix in general, and I can still see the benefits of it's way.
+
+Update #datetime(year: 2024, month: 01, day: 14).display(): I've been daily driving NixOS on my laptop since December and shooting myself in the foot :P
 
 == Learn more about parallel processing (2024)
 
@@ -616,29 +625,44 @@ Everyone deserves to have a safe environment to experiment and learn new things.
 Think of this section as media I like to recommend.\
 Sorted in reverse chronological order.
 
-// tilslut-entry(
-//   url: "https://www.youtube.com/watch?v=a8mRGkGlLJA",
-//   title: "7 Techniques to INSTANTLY Upgrade Your Vegetables",
-//   by: "Brian Lagerstrom",
-//   type: tilslut-type.youtube,
-//   comment: "
-//     I love how he's teaching how to make individual veggies taste good. I don't want to rely on meat to make food taste good. I like veggies. If you follow me on Bluesky, you've probably seen me post the soups I make and then how I use the soup for pasta or noodles or whatever later on. I'm also a fan of how Ethan Chlebowski talks about food [1]. Brian's video shows how to make the individual components taste good so you don't need to rely on recipes.
+== #datetime(year: 2025, month: 12, day: 3).display(): (Bluesky) been thinking a lot about the "we're a mosaic of everyone we've ever loved"... by Solly
 
-//     I feel recipes are too restrictive. They're great when you're starting out and getting a feel for cooking so you build good instincts, but I don't think they're great for the long term. I've seen people complain about buying a whole cabbage for a specific recipe and then having to throw out 3/4th of it because no other recipe uses it. There are apps that help you plan a whole week's worth of meals upfront, and I think they're great, but I don't want to rely on a service that might go down anytime.
+#bluesky-embed(
+  "did:plc:3nei4lvpwagyfqizd4mqyyko",
+  "3m72nfsg42s2r",
+  "bafyreigq4b3i3bphlmtkby6eo3vzyund5hoajmu34hlpgqfpmykojg2v7q",
+  "Solly",
+  "@directxman12.dev",
+  "December 3, 2025 at 10:12 AM",
+  [
+    been thinking a lot about the "we're a mosaic of everyone we've ever loved"
 
-//     I want to be able to go to the veggie market, see what vibes with me that day, buy the veggies, and use them. My mom often complains that I don't have recipes for what I want; I think it's better this way. It would be better if I planned the meal upfront and didn't make stuff up based on what I want at that moment, but it's fine. I feel like this style of cooking is just how my brain works. Maybe this is why I like programming. Recipes feel like strict top-to-bottom checklists and procedures, like a preflight checklist for airplanes. I want to use what I have on hand. I'm not working in the food industry; I'm cooking for myself.
+    at some pt it got embedded in my head as "we're a patchwork quilt of everyone we've ever loved and all the scars they've left us"
 
-//     I know there's something like \"complementary protein\", or \"complete food\", with pairings that make it hard to end up with nutritional imbalances-similar to [2]. I should have something like that for myself for a week's worth of meals, but I'm too lazy to set it up.
-//   ",
-//   links: (
-//     link(
-//       "https://www.youtube.com/watch?v=srMEoe_5y6g",
-//     )[Why Recipes are holding you back from learning how to cook by Ethan Chlebowski on YouTube],
-//     link(
-//       "https://www.health.harvard.edu/nutrition/nutritional-power-couples",
-//     )[Nutritional power couples - Harvard Health],
-//   ),
-// )
+    it's been a long few years
+  ],
+)
+
+Full quote:
+
+#quote(
+  attribution: link(
+    "https://bsky.app/profile/did:plc:3nei4lvpwagyfqizd4mqyyko",
+  )[Solly (\@directxman12.dev)],
+  block: true,
+)[
+  been thinking a lot about the "we're a mosaic of everyone we've ever loved"
+
+  at some pt it got embedded in my head as "we're a patchwork quilt of everyone we've ever loved and all the scars they've left us"
+
+  it's been a long few years
+
+  every year for the past few years i've said "next year will be good, and smooth, and nothing will go dramatically wrong", through illness and death and lower-case-r relationship strain. and it hasn't happened really.
+
+  but i'll keep saying it until it's true, i guess, because i miss when it was true. and maybe if I say it enough it will happen, kaneynhore, and i'll just hold on in the meantime.
+
+  ive certainly had plenty of bright spots over the past few years at least.  just... a lotta sadness and grief mixed in.
+]
 
 == 2025-07-20: (Live Action) (Series) Moon Knight
 
@@ -702,6 +726,21 @@ For what it's worth; the only line from #link("https://letterboxd.com/film/super
 And I hope it is.
 
 I want people to become kinder to everyone, including themselves.
+
+=== Comment (#datetime(year: 2025, month: 11, day: 27).display()): #proofreaders-list.aoshi.name
+
+#quote(
+  attribution: context if target() == "html" {
+    link("#aoshi")[#proofreaders-list.aoshi.name]
+  } else {
+    link(<aoshi>)[#proofreaders-list.aoshi.name]
+  },
+  block: true,
+)[
+  I finally learned how to cook in my 30s. I keep trying to pick up new stuff like crochet and music and stuff. It's never too late to start with something, our brains are so plastic and flexible that the day I stop learning stuff is the day I start dying
+
+  Well outside some stuff obviously. No way I could start skating at my age for example
+]
 
 == 2025-06-24: (Quote) The Who Cares Era by Dan Sinker
 
@@ -940,6 +979,19 @@ and as a result she acts the way she is.
 She warms up to her new-found family and slowly turns more "human".
 
 She's the character who's closest to me.
+
+=== Comment (#datetime(year: 2025, month: 11, day: 27).display()): #proofreaders-list.aoshi.name
+
+#quote(
+  attribution: context if target() == "html" {
+    link("#aoshi")[#proofreaders-list.aoshi.name]
+  } else {
+    link(<aoshi>)[#proofreaders-list.aoshi.name]
+  },
+  block: true,
+)[
+  You're so right. Laios struggles with social mores and subtleties of interaction (Everyone is my friend! What do you mean they've always hated me!?) is my kinda representation
+]
 
 = Covetousness (or "Credits")
 

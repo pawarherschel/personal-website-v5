@@ -1,4 +1,5 @@
 #import "@preview/cetz:0.4.0"
+#import "@preview/zebraw:0.6.1": *
 
 #let thatched(bg, fg, thickness: 0.3pt) = tiling(
   size: (20pt, 20pt),
@@ -520,6 +521,12 @@
       link("https://bsky.app/profile/trustmeim.gay")[BlueSky],
     ),
   ),
+  aoshi: (
+    name: "Aoshi",
+    shills: (
+      link("https://bsky.app/profile/aoshivt.bsky.social")[BlueSky],
+    ),
+  ),
 )
 
 #let friends-toml = toml("../src/content/friends/friends.toml")
@@ -753,6 +760,15 @@
         it
       }
 
+      show: zebraw-init.with(background-color: (
+        luma(0%),
+        luma(10%),
+      ))
+      show raw: it => if it.block {
+        show: zebraw
+        it
+      } else { it }
+
       [
         #content
 
@@ -770,7 +786,7 @@
               #let comments = entry.at("comments", default: ())
               #let friends-id = entry.at("id", default: none)
 
-              == #name
+              == #name #label(entry.keys().first())
               #if friends-id != none [
                 #link(
                   friends-toml.at(friends-id).at("url"),
@@ -826,6 +842,8 @@
       show heading.where(depth: 3): set text(size: 1.6 * pdf-rem)
       show heading.where(depth: 4): set text(size: 1.82 * pdf-rem)
 
+      show: zebraw
+
       if description != "" or description != [] {
         [
           Description:
@@ -844,7 +862,6 @@
         ]
       }
 
-
       content
 
       divider
@@ -862,7 +879,7 @@
           #let comments = entry.at("comments", default: ())
           #let friends-id = entry.at("id", default: none)
 
-          == #name
+          == #name #label(entry.keys().first())
           #if friends-id != none [
             #let data = friends-toml.at(friends-id)
             #data

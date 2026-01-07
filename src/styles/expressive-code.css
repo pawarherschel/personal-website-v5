@@ -6,4 +6,8 @@
     .title {
         font-family: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
+
+    pre code{
+        font-size: 0.875rem !important;
+    }
 }

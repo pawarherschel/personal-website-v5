@@ -1,23 +1,17 @@
 diff --git a/dist/index.js b/dist/index.js
-index 4e910415353643ed34b0d577fd620c27af6b6c8a..7c7cefa316c69aee79779eb920fbfb092a83cb10 100644
+index 4e910415353643ed34b0d577fd620c27af6b6c8a..3af8fe3dbeafb3cdc090a5d031c5074f3f47487e 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -328,6 +328,18 @@ var authorFeedLoader = ({
+@@ -328,6 +328,12 @@ var authorFeedLoader = ({
              if (!first) {
                first = post.cid;
              }
-+			if (post.record && post.record.createdAt) {
-+				let dateStr = post.record.createdAt;
-+
-+				dateStr = dateStr.replace('+00:00', 'Z');
-+
-+				if (dateStr.length > 24) {
-+					dateStr = dateStr.slice(0, 23) + 'Z';
-+				}
-+
-+				post.record.createdAt = dateStr;
-+			}
-+
++            if (post.record && post.record.createdAt) {
++              post.record.createdAt = (new Date(post.record.createdAt)).toISOString();
++            }
++            if (post.embed && post.embed.record && post.embed.record.value && post.embed.record.value.createdAt) {
++                post.embed.record.value.createdAt = (new Date(post.embed.record.value.createdAt)).toISOString();
++            }
              store.set({
                id: post.uri,
                data: await parseData({

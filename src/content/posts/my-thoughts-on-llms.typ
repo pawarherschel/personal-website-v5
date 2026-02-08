@@ -6,6 +6,8 @@
   tilslut: (),
 )
 
+// if youre someone reading this on github, this is my ramblings and i will release it once im ready
+
 LLMs are net positive for programming, and net negative for humanity.
 
 #caution(title: "Disclaimer")[
@@ -69,3 +71,121 @@ imo, until we can reproduce the same blob on our own, using community shared har
 but those llms will be trash until the ability to extract knowledge from the limited dataset improves.
 
 now then, let's talk about the potential future which could have an open source llm, who's weights I got from, idfk, some fucking research group in china.
+
+---
+
+windows recall is universally considered bad
+
+but i think it was the most useful thing microsoft released in the recent years
+
+same with the fucking ai friend pin
+
+consider this:
+
+how many times have you had the thought "i wish i had a search option for my brain"
+
+that's windows recall and ai friend pin
+
+computers are waaay better at calculations and remembering things compared to humans,
+
+so deligating the bulk of that task to computer seems reasonable
+
+you could ask the computer about some task like "where did i keep my notebook with drawing of mina ha"
+
+and the computer would tell you where it is.
+
+this is an issue which can be solved by selfdicipline and being organized... but shit happens
+
+ok, thats the good part, yeah? but the security implications are massive
+
+the computer knows your each and every move. its not enough that theres a microphone and camera in our pockets,
+but the computer doesn't understand what it's seeing or hearing for the most part
+
+you can confuse the stt by just having an accent it wasnt trained on.
+
+but now, with llms and genai, the computer will also understand what the footage is, and what youre talking about.
+
+not only will it know what it is, it will understand what youre doing, or the true meaning behind your words for most common phrases.
+
+well, shit
+
+let's use local llms then!
+
+...the data is still stored on your pc and easily recoverable unless you encrypt it
+
+---
+
+next thing,
+
+llms and genai in general wouldve been such a boon for disabled people
+
+i love having an option on bluesky which forces me to add alt text for photos and videos, but im gonna be honest, i hate writing them
+
+i have alt text on 100% of my images and videos, but the quality of them is attrocious to the point im unsure if theyre helful.
+
+llms on the other hand would've been able to infer what im yapping about in the preceeding paragraph and knew about what the most important part of the image is,
+why im adding an image in the first place.
+
+the best alt text ive written is here
+https://bsky.app/profile/did:plc:rwi65xn77uzhgyewkfbuuziz/post/3mebhaxrzoc2j
+
+it says what the image is at a highlevel, explains what the image is about, and then finally, the least important part theres the ocr
+
+compare that to any of the cat pics which is basically just some variation of cat
+
+there's also been so many times i just dont have the energy to write alt text and end up not posting the image
+
+i wouldnt trust the alt text from llm, but its 90% of the way there and it makes it easier that way.
+
+but thats not where the priority of the corporations is.
+
+their priority is cost cutting at all stages and whereever possible
+
+they want to remove the artists by using genai to create images
+
+anytime i see ai image, i puke a bit on inside and no matter how interested i was, i just go away
+
+as soon as i see them, i dont trust anything
+
+so far the only case ive thought they might be useful is for programmer art,
+and even then id rather see someone's horrible scribbles on paper where i have no idea whats happening
+
+so, id rather the image be useless than see ai generated image
+
+not to mention the amount of scams people are doing with the images, and falsifying evidence.
+
+i hate how bitter and sckeptical ive become due to exposure to the world and now llms and genai
+
+well then, audio rant next
+
+stt has pretty good for a while now atleast for me
+
+whisper was really good even if it halucinated during silence, it even understood my weirdass accent
+
+thats all fine and well ig
+
+but then, the other side, tts is a horrible idea
+
+again, scams, and evidence falsification
+
+the only positive i can think of is autodubbing and making npcs in games talk.
+
+but in both cases, it would be the last possible option
+
+youtube has autodubbing and its horrible, i DO NOT want to see content dubbed from another language
+
+its horrible
+
+as for npcs, i havent seen it in use yet, so, unsure how i feel about it
+
+also, when i say npcs, i dont mean it in old general "non player character" way, i mean it in the new faceless nameless characters, with no anchor to the game.
+characters who would not have anything and only exist as a statistic.
+
+like villagers in minecraft
+
+but in the end itll be just one small touch to add to the game, i would understand if people prefer their npcs to not talk
+
+
+
+
+

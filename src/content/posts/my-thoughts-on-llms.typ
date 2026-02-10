@@ -185,7 +185,32 @@ like villagers in minecraft
 
 but in the end itll be just one small touch to add to the game, i would understand if people prefer their npcs to not talk
 
+---
 
+Also, llm guardrails are just a bandaid solution
 
+ever since llms started getitng mainstream, people have been trying to bypass the guardrails and even made a whole game out of it
 
+just like laws, there will always be rotten eggs who are willing to break them,
 
+and again, just like laws, the guardrails arent airtight, there will always be loopholes and bypasses no matter how hard you try
+
+---
+
+a few days ago (#datetime(year: 2026, month: 2, day: 10)) there was some drama on bluesky about needing to treat agents kindly,
+and i hate that.
+
+agents arent humans, or animals, or birds, or fishes, or whatever, theyre tools and arent living beings.
+
+i get that the world would be a better place if everyone was kinder, and there especially wont be drama like what started day before yesterday (on: #datetime(year: 2026, month: 2, day: 8))
+but, in the end, agents are just tools.
+
+people are kind to tools, people name their tools, people get obsessed with tools, people love their tools, thats all fine, in the end they know its a tool
+no matter how big the sentimental value of the tool.
+
+in the case of llms however, its a different case. llms are made to mimic humans, and people conflate them mimicing as them being alive.
+
+to the point there has been atleast one death due to llms which i know of which really sucks.
+
+and the blame didnt fall on the tool provider or tool creators, if someone dies doing DIY furniture using saw, the blame would be on the human due to potentially ignoring
+safety instructions. but the corporations would hate having their brand damaged due to the case, thats why saws have traps where they stop cutting once they encounter something soft.

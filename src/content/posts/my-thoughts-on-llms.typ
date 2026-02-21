@@ -6,6 +6,8 @@
   tilslut: (),
 )
 
+#todo[list of assumptions and print the list after each heading in a summary + details tag]
+
 // if youre someone reading this on github, this is my ramblings and i will release it once im ready
 
 LLMs are net positive for programming, and net negative for humanity.
@@ -214,3 +216,90 @@ to the point there has been atleast one death due to llms which i know of which 
 
 and the blame didnt fall on the tool provider or tool creators, if someone dies doing DIY furniture using saw, the blame would be on the human due to potentially ignoring
 safety instructions. but the corporations would hate having their brand damaged due to the case, thats why saws have traps where they stop cutting once they encounter something soft.
+
+---
+
+i keep seeing that people dont like llms and genai because their quality is trash and their power consumption is so high, but those arent the things people should complain about
+
+their quality will get better, their power consumption will get more efficient, their output will become faster, see: https://www.reddit.com/r/LocalLLaMA/comments/1r9e27i/free_asic_llama_31_8b_inference_at_16000_toks_no/
+
+hell, maybe one day itll be possible to have llms and genai which cant hallucinate.
+
+theyre the wrong things to focus and complain, the points about scams are inherent things which cant be solved by technological advances
+
+its ingrained in human nature, and the training set IS distilling human nature
+
+...I recently had a conversation with someone I called a friend who turns out listened to ai generated music
+
+he liked them, he didn't care about ethics behind it. he doesn't care that the place is being occupied by a bot who has no soul, no intentions, no character, just pure code and stolen data. the only thing he cared about was liking the songs.
+
+he thinks that genai is just raising the floor... keeping aside just how shitty the situation is, do we really need to raise the bar for people posting their art? I grew up on the Internet which was filled with objectively shitty art but it had so much soul in it that people still enjoyed it. I often come across YouTube channels which have subscriptions in thousands but if they would've been present just one decade ago, they would've been fighting with YouTube giants, but now? they're practically nameless
+
+so much production value, so much effort, so much energy, so much dedication to the craft, and there's hundreds of thousands of them
+
+every new art piece must be bigger, bolder, and exponentially better than the previous and just so you have the chance to come across people who might like your art. so many steps and requirements which isn't their art.
+
+I'm happy for the people who manage to do it, but they deserve better and I hope we as a whole can go back to just appreciating art which people put their soul into instead of requiring people to have an entire pipeline which isn't them creating their artwork
+do we really want to go inside this tarpit?
+
+...
+
+...
+
+humans dont deserve this beautiful planet
+
+---
+
+I recently had a conversation with someone I called a friend who turns out listened to ai generated music
+
+he liked them, he didn't care about ethics behind it. he doesn't care that the place is being occupied by a bot who has no soul, no intentions, no character, just pure code and stolen data. the only thing he cared about was liking the songs.
+
+he thinks that genai is just raising the floor... keeping aside just how shitty the situation is, do we really need to raise the bar for people posting their art? I grew up on the Internet which was filled with objectively shitty art but it had so much soul in it that people still enjoyed it. I often come across YouTube channels which have subscriptions in thousands but if they would've been present just one decade ago, they would've been fighting with YouTube giants, but now? they're practically nameless
+
+so much production value, so much effort, so much energy, so much dedication to the craft, and there's hundreds of thousands of them
+
+every new art piece must be bigger, bolder, and exponentially better than the previous and just so you have the chance to come across people who might like your art. so many steps and requirements which isn't their art.
+
+I'm happy for the people who manage to do it, but they deserve better and I hope we as a whole can go back to just appreciating art which people put their soul into instead of requiring people to have an entire pipeline which isn't them creating their artwork
+
+...
+
+do we really want to go inside this tarpit?
+
+---
+
+not to mention that llms are destroying the foundation it was built on
+
+recently I've been seeing how maintainers of OSS are increasingly getting paranoid about contributions and how it's costing so much mental effort which could've gone to implementing features instead of fighting
+
+https://ruudvanasseldonk.com/2026/ai-paranoia
+
+https://aftermath.site/ram-prices-hdd-prices-ai-bubble-computer-expensive/
+
+https://www.pcgamer.com/games/board-games/blood-bowl-creator-jervis-johnson-agrees-with-games-workshops-ai-ban-says-it-allows-you-to-be-a-bit-lazy-and-not-put-in-the-effort/
+
+---
+
+the internet i grew up on can no longer thrive, it can only exist as small bubbles
+
+I'm not saying that the Internet I grew on was good\
+far from it
+
+it was a different kind of terrible
+but I had the tools to shield myself from it
+
+the tools weren't great, it was just self moderation and knowing where not to be, in that aspect the big tech platforms are doing a better job at moderation because unpleasant content is bad for ads
+
+
+---
+
+conflating ai with llms and genai is a strategic move by the companies so normal people can't differentiate between helpful technology (ai and ml) and the technology which is ruining everything
+
+there are root issues to this technology which you cannot just solve by iterating on it, and all the descendant technologies will suffer the same fate. it's not a fault in the technology, it's a fault in humans themselves, and any technology meant to emulate humans will end up getting the same bad traits humans as a whole have
+it's hard to separate the good usecases from the bad usecases because they're both different sides of the same coin, one cannot exist without the other
+
+---
+
+https://www.404media.co/grok-doxing-real-names-birthdates-siri-dahl/
+
+---

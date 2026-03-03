@@ -13,11 +13,11 @@
 
 = Why this blogpost exists.
 
-I was recently (#datetime(year: 2026, month: 02, day: 07)) talking to a friend about homelab stuff when they said that they're going to do a DIY NAS eventually. They mentioned that they don't want to do a homelab setup, but from what they said, the setup they wanted is literally one step away from being a homelab.
+I was recently (#datetime(year: 2026, month: 02, day: 07).display()) talking to a friend about homelab stuff when they said that they're going to do a DIY NAS eventually. They mentioned that they don't want to do a homelab setup, but from what they said, the setup they wanted is literally one step away from being a homelab.
 
-In their head, due to reddit, their image of a homelab is a rack server. They were surprised when I said told them about how they could just install #todo[docker] and their NAS would become a homelab.
+In their head, due to reddit, their image of a homelab is a rack server. They were surprised when I said told them about how they could just install #link("https://www.docker.com/")[docker] and their NAS would become a homelab.
 
-I then proceeded to tell them about how I used to do homelab with just a #todo[Raspberry Pi 4 (RPI)] exposed to internet via #todo[Cloudflare Tunnel], and my weird setup where I use cloud gaming software to access my pc via laptop.
+I then proceeded to tell them about how I used to do homelab with just a #link("https://www.raspberrypi.com/products/raspberry-pi-4-model-b/")[Raspberry Pi 4 (RPI)] exposed to internet via #link("https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/")[Cloudflare Tunnel], and my weird setup where I use cloud gaming software to access my pc via laptop.
 
 After explaining to them, I decided that I should just document setup formally on my blog, and thus, this blogpost.
 
@@ -25,20 +25,20 @@ But first, lemme talk about the originals setup I had to do.
 
 = How did it start?
 
-For college, I got a second hand #todo[T480], partially for memes #footnote[#todo[t480 meme]] , partially cuz its cheap and good enough. I used windows on it for a while and then took the plunge and installed #todo[NixOS] with Hyprland #footnote[I'm not linking to hyprland due to Vaxry and drama #todo[link to drama]].
+For college, I got a second hand #link("https://www.thinkwiki.org/wiki/Category:T480")[T480], partially for memes, partially cuz its cheap and good enough. I used windows on it for a while and then took the plunge and installed #link("https://nixos.org/")[NixOS] with Hyprland #footnote[I'm not linking to hyprland due to Vaxry and drama #link("https://drewdevault.com/2024/04/09/2024-04-09-FDO-conduct-enforcement.html")[link to drama]].
 It worked pretty great even with 256gb ssd #footnote[I still have 256gb ssd 😭, someone please send replacement ssd 🥲].
 
-There were some problems during practicals, for eg, I couldn't figure out how to use #todo[QEMU], and just used #todo[GNOME Boxes].
-As for office suite, I installed #todo[Nextcloud] on my RPI and used that, I would turn on my PC before leaving for college if I felt like I'd need to use it,
-and then access over #todo[SSH] or #todo[VNC].
+There were some problems during practicals, for eg, I couldn't figure out how to use #link("https://en.wikipedia.org/wiki/QEMU")[QEMU], and just used #link("https://help.gnome.org/gnome-boxes/")[GNOME Boxes].
+As for office suite, I installed #link("https://nextcloud.com/")[Nextcloud] on my RPI and used that, I would turn on my PC before leaving for college if I felt like I'd need to use it,
+and then access over #link("https://en.wikipedia.org/wiki/Secure_Shell")[SSH] or #link("https://en.wikipedia.org/wiki/VNC")[VNC].
 
 = UK Setup
 
-But then, in #datetime(year: 2024, month: 07) I went to UK #footnote(link("/posts/covuni-experience/", [Link to blogpost about my experience there])).
+But then, in #datetime(year: 2024, month: 07, day: 1).display("[year] [month repr:long]") I went to UK #footnote(link("/posts/covuni-experience/", [Link to blogpost about my experience there])).
 
-My laptop was terribly underpowered for #todo[Unity], not to mention NixOS being a snowflake distro meant I couldn't trust it to be painless.
+My laptop was terribly underpowered for #link("https://unity.com/")[Unity], not to mention NixOS being a snowflake distro meant I couldn't trust it to be painless.
 
-That's fine, I thought. I could just use #todo[Parsec] to access my pc back at home.
+That's fine, I thought. I could just use #link("https://parsec.app/")[Parsec] to access my pc back at home.
 
 But the problem was that I couldn't leave my pc on 24/7 for roughly a month.
 I also can't trust the electricity to be flawless, if electricity goes out for long enough, my pc will shut down and then I'd need to bother my mom to turn it on.
@@ -60,7 +60,7 @@ The first two things which came to my mind were
 
 ==== Sending electrical signal
 
-I asked around and my friend #link("https://sakurakat.systems/friends/#:~:text=to%20write%20programs.-,mlembug,-A%20trans%20woman")[mlembug] had already tried it AND documented it in her blogpost titled #link("https://mahoushoujobu.com/mlemblog/posts/relay-operated-power-button/")[Relay operated power button (#datetime(year: 2023, month: 10, day: 2))].
+I asked around and my friend #link("https://sakurakat.systems/friends/#:~:text=to%20write%20programs.-,mlembug,-A%20trans%20woman")[mlembug] had already tried it AND documented it in her blogpost titled #link("https://mahoushoujobu.com/mlemblog/posts/relay-operated-power-button/")[Relay operated power button (#datetime(year: 2023, month: 10, day: 2).display())].
 I got the components, but ultimately decided to not do it.
 I was too afraid to fuck it up.
 
@@ -111,15 +111,126 @@ And since I wanted to do game dev, I needed parsec.
 
 == Final Setup
 
-#todo[
-  diagram of how things were connected
-  Show Wall Socket -> UPS.
-  UPS output splitting into -> Router, RPi, and Hotspot Dongle.
-  Show the PC connecting to the Router.
-]
+
+#html.frame({
+  import "@preview/fletcher:0.5.8": diagram, edge, node, shapes
+  set text(fill: white)
+
+  block(
+    fill: oklch(33%, 0.035, 330deg),
+    inset: 1em,
+    diagram(
+      node-shape: shapes.rect,
+      node-stroke: white,
+      edge-stroke: white,
+      mark-scale: 150%,
+
+      {
+        let wall = (0, 0)
+        let internet = (1, 1)
+
+        let ups = (0, 1)
+
+        let router = (1, 0)
+        let hotspot = (1, 2)
+        let hub = (2 - 1 / 10, 1 / 2)
+
+        let rpi = (3, 1)
+        let pc = (3, 0)
+
+        let laptop = (4, 2)
+        let phone = (5, 1)
+        let me = (5, 2)
+
+        let tailscale = (4, 1)
+
+        node(wall, [Wall Socket], name: <wall>)
+        node(internet, [Internet], name: <internet>)
+        node(me, [Me], name: <me>)
+
+        node(ups, [UPS], name: <ups>)
+        node(router, [Router], name: <router>)
+        node(hub, [Hub], name: <hub>)
+        node(rpi, [RPi], name: <rpi>)
+        node(hotspot, [Hotspot Dongle], name: <hotspot>)
+        node(pc, [PC], name: <pc>)
+        node(laptop, [Laptop], name: <laptop>)
+        node(phone, [Phone], name: <phone>)
+
+        node(tailscale, [Tailscale VPN], name: <tailscale>)
+
+        edge(
+          <wall>,
+          <ups>,
+          marks: "-|>",
+          stroke: red,
+          label: [Unreliable Power],
+        )
+        edge(
+          <internet>,
+          <router>,
+          marks: "<|-|>",
+          label: [Primary Internet],
+          label-sep: 1em,
+          label-side: left,
+        )
+        edge(
+          <internet>,
+          <hotspot>,
+          marks: "<|--|>",
+          label: [Backup Internet],
+          label-side: right,
+        )
+
+        // Internet Connectivity
+        edge(<router>, <hub>, marks: "<|-|>")
+        edge(<hub>, <rpi>, marks: "<|-|>")
+        edge(<hub>, <pc>, marks: "<|-|>")
+        edge(<hotspot>, <rpi>, marks: "<|--|>")
+        edge(
+          <laptop>,
+          <internet>,
+          marks: "<|--|>",
+          label: [WiFi],
+          label-pos: 20%,
+        )
+
+        // Power
+        edge(
+          <wall>,
+          <router>,
+          marks: "-|>",
+          stroke: red,
+          label: [Unreliable Power],
+          label-sep: 1em,
+        )
+        let ups-rerouting = ((0, 2.5), (2.5, 2.5), (2.5, 0.5))
+        edge(<ups>, ..ups-rerouting, <rpi>, marks: "-|>", stroke: red)
+        edge(<ups>, ..ups-rerouting, <pc>, marks: "-|>", stroke: red)
+        edge(<ups>, ..ups-rerouting, <hub>, marks: "-|>", stroke: red)
+        let ups-rerouting-2 = ((0, 2),)
+        edge(<ups>, ..ups-rerouting-2, <hotspot>, marks: "-|>", stroke: red) // TODO: Add reliable power label
+
+        // Tailscale
+        edge(<tailscale>, <laptop>, stroke: fuchsia, marks: "<|--|>")
+        edge(<tailscale>, <pc>, stroke: fuchsia, marks: "<|--|>")
+        edge(<tailscale>, <rpi>, stroke: fuchsia, marks: "<|--|>")
+        edge(<tailscale>, <phone>, stroke: fuchsia, marks: "<|--|>")
+        let tailscale-reroute = ((4, -0.5), (1.5, -0.5), (1.5, 1))
+        edge(<tailscale>, ..tailscale-reroute, <internet>, marks: "<|--|>")
+
+        // Me
+        edge(<me>, <laptop>, marks: "-|>")
+        edge(<me>, <phone>, marks: "-|>")
+      },
+    ),
+  )
+})
+
+#todo[add legend for the diagram]
 
 Turning my pc on:
-+ Connect to #todo[tailscale]
++ Connect to #link("https://tailscale.com/")[tailscale]
 + SSH into the RPI
 + Send WOL using a small script
 + Wait for pc to turn on
@@ -131,11 +242,11 @@ Once I got to uni and tried to use my pc, I couldn't access it.
 
 I guessed that their firewall was blocking me.
 
-I talked to my friend again, and he just told me to use his #todo[Mulvad VPN] account, and it worked lol.
+I talked to my friend again, and he just told me to use his #link("https://mullvad.net/en")[Mulvad VPN] account, and it worked lol.
 
 = Local headless setup
 
-Fast forward to #datetime(year: 2025, month: 12).
+Fast forward to #datetime(year: 2025, month: 12, day: 1).display("[year] [month repr:long]")
 We're renting a home since our home is undergoing renovations.
 
 I've been using my laptop as my main machine, but now I want to use my PC to do more heavy tasks.
@@ -163,7 +274,7 @@ A DHCP server is responsible for giving out IP addresses to devices. So my lapto
 
 Great, now the PC has access to internet.
 
-== Starting up #todo[Guacamole]
+== Starting up #link("https://guacamole.apache.org/")[Guacamole]
 
 Next, I wanted to spin up Guacamole in docker so I can access my PC via VNC.
 
@@ -171,15 +282,17 @@ This proved impossible from what I gathered.
 
 To turn on docker, I had to start docker desktop via GUI, but I wanted to turn on docker so I could have GUI 😭.
 
-== #todo[RDP]
+== #link("https://en.wikipedia.org/wiki/Remote_Desktop_Protocol")[RDP]
 
-Then I thought, maybe RDP on linux isn't as bad as people make it out to be.
+RDP is a proprietary protocol made by Microsoft. So the experience probably won't be as good compared to windows. However, there have been mulitple times where a thing developed by Microsoft has a FOSS implementation which is easier and better on linux.
 
-I used #todo[GNOME Connections] to access my pc via RDP and it worked!
+So there's a chance that RDP on linux isn't as bad as people make it out to be.
+
+I used #link("https://apps.gnome.org/Connections/")[GNOME Connections] to access my pc via RDP and it worked!
 
 I achieved GUI access :3
 
-== #strike[Parsec?] #todo[Sunshine] + #todo[Moonlight]
+== #strike[Parsec?] #link("https://app.lizardbyte.dev/Sunshine/")[Sunshine] + #link("https://github.com/moonlight-stream/moonlight-qt")[Moonlight]
 
 I thought about using Parsec, but that's not a FOSS app.
 
@@ -206,8 +319,8 @@ I passed over tailscale in the previous sections, but arguably, its the most imp
 
 I could replace a lot of things in my setup, but, so far, I haven't found anything better than tailscale for connecting my devices safely over the internet.
 
-Ages ago I used #todo[LogMeIn Hamachi] to connect to my friend's pc to play minecraft, and terraria.
-Then we moved on to using #todo[ngrok], and it was better than hitachi, but it was still annoying.
+Ages ago I used #link("https://vpn.net/")[LogMeIn Hamachi] to connect to my friend's pc to play minecraft, and terraria.
+Then we moved on to using #link("https://ngrok.com/")[ngrok], and it was better than hitachi, but it was still annoying.
 
 Tailscale is extremely good, its easy, safe, and FOSS.
 
